@@ -18,6 +18,7 @@ include(Common)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 set(MONKEYBRUSHPLUSPLUS_LIBRARIES )
 
+common_find_package(GLEW REQUIRED SYSTEM)
 common_find_package(glfw)
 
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build the GLFW example programs")
@@ -26,7 +27,7 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build the GLFW documentation")
 
 common_find_package_post()
 
-set (MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES glfw)
+set (MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES GLEW glfw)
 
 add_subdirectory(src)
 

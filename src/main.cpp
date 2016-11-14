@@ -1,28 +1,25 @@
-#include <GLFW/glfw3.h>
 #include <iostream>
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include "core/GLContext.hpp"
+#include "scene/Engine.hpp"
+//#include "textures/Texture.hpp"
+
+void renderFunc(float dt)
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    std::cout << "Pinto con tiempo " << dt << std::endl;
+}
 
 int main(void)
 {
-    GLFWwindow* window;
+    MB::GLContext context(3, 3, "Hello MB");
 
-    if (!glfwInit())
-        return -1;
-    window = glfwCreateWindow(640, 480, "Hello Brush", nullptr, nullptr);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    glfwMakeContextCurrent(window);
-
-    while (!glfwWindowShouldClose(window))
-    {
-        glfwSwapBuffers(window);
-
-        glfwPollEvents();
-    }
-
+    MB::Engine e(&context);
+    e.run(renderFunc);
+    
     glfwTerminate();
     return 0;
 }

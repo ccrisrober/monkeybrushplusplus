@@ -5,27 +5,17 @@ set( NAMESPACE MONKEYBRUSHPLUSPLUS )
 set( INCLUDE_NAME MonkeyBrushPlusPlus )
 
 set( MONKEYBRUSHPLUSPLUS_SOURCES
-    core/GLContext.cpp
-    scene/Engine.cpp
-    main.cpp
+	GLContext.cpp
 )
 
 set( MONKEYBRUSHPLUSPLUS_HEADERS
-    core/GLContext.hpp
-    scene/Engine.hpp
+	GLContext.hpp
 )
 
-include_directories( 
-    ${CMAKE_CURRENT_BINARY_DIR}
-)
-
-#add_subdirectory(core)
-#add_subdirectory(scene)
-#add_subdirectory(textures)
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set( MONKEYBRUSHPLUSPLUS_LINK_LIBRARIES
-    ${GLEW_LIBRARIES}
-    glfw
+	glfw
 )
 
 common_application( MonkeyBrushPlusPlus )
