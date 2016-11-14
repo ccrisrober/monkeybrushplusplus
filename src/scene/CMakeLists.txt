@@ -5,16 +5,15 @@ set( NAMESPACE MONKEYBRUSHPLUSPLUS )
 set( INCLUDE_NAME MonkeyBrushPlusPlus )
 
 set( MONKEYBRUSHPLUSPLUS_SOURCES
-    Engine.cpp
 )
 
 set( MONKEYBRUSHPLUSPLUS_HEADERS
-    Engine.hpp
 )
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set( MONKEYBRUSHPLUSPLUS_LINK_LIBRARIES
+    ${GLEW_LIBRARIES}
 	glfw
 )
 

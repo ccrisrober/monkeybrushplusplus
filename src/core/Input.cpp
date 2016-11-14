@@ -20,13 +20,8 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#include "Input.hpp"
 
 namespace MB {
-	class Scene {
-	public:
-	}
+	bool Input::_initializated = false;
 }
-
-#endif /* __MB_SCENE__ */

@@ -20,13 +20,13 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_VECT4__
+#define __MB_VECT4__
 
 namespace MB {
-	class Scene {
+	class Vect4 {
 	public:
-	}
+	};
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_VECT4__ */

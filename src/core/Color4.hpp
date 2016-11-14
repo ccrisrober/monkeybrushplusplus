@@ -20,13 +20,22 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_COLOR4__
+#define __MB_COLOR4__
+
+#include "../maths/Vect4.hpp"
 
 namespace MB {
-	class Scene {
+	class Color4 {
 	public:
+		Color4(float r, float g, float b, float a)
+		{
+
+		}
+
+	protected:
+		Vect4 _color;
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_COLOR4__ */

@@ -20,13 +20,54 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_QUAT__
+#define __MB_QUAT__
+
+#include <vector>
 
 namespace MB {
-	class Scene {
+	class Quat {
 	public:
-	}
+		Quat(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f)
+		{
+			this->_values.resize(4);
+			this->_values[0] = x;
+			this->_values[1] = y;
+			this->_values[2] = z;
+			this->_values[3] = w;
+		}
+		void setCallback(std::function<void()> f)
+		{
+			this->_onChange = f;
+		}
+		float x() const {
+			return this->_values[0];
+		}
+		float y() const {
+			return this->_values[1];
+		}
+		float z() const {
+			return this->_values[2];
+		}
+		float w() const {
+			return this->_values[3];
+		}
+		void x(float v) {
+			this->_values[0] = v;
+		}
+		void y(float v) {
+			this->_values[1] = v;
+		}
+		void z(float v) {
+			this->_values[2] = v;
+		}
+		void w(float v) {
+			this->_values[3] = v;
+		}
+	protected:
+		std::vector<float> _values;
+		std::function<void()> _onChange;
+	};
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_QUAT__ */

@@ -20,13 +20,28 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_VERTEXBUFFER__
+#define __MB_VERTEXBUFFER__
 
 namespace MB {
-	class Scene {
+	class VertexBuffer {
 	public:
+		VertexBuffer(unsigned int type)
+		{
+			// TODO: TYPE Default array_mode
+		}
+		void bind()
+		{
+
+		}
+		void unbind()
+		{
+
+		}
+	protected:
+		unsigned int _handler;
+		unsigned int _type;
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_VERTEXBUFFER__ */

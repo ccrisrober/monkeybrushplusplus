@@ -20,13 +20,23 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_MATERIAL__
+#define __MB_MATERIAL__
+
+#include <unordered_map>
 
 namespace MB {
-	class Scene {
+	class Material {
 	public:
-	}
+		Material()
+		{
+		}
+		void use()
+		{
+		}
+	protected:
+		std::unordered_map<std::string, unsigned int> _uniforms;
+	};
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_MATERIAL__ */

@@ -21,6 +21,16 @@
  */
 
 #include "GLContext.hpp"
+//OpenGL
+#ifndef SKIP_GLEW_INCLUDE
+#include <GL/glew.h>
+#endif
+#ifdef Darwin
+#include <OpenGL/gl.h>
+#else
+#include <GL/gl.h>
+#endif
+#include <GLFW/glfw3.h>
 
 namespace MB {
 	GLContext::GLContext(unsigned int minVersion, unsigned int maxVersion, const char* title)
@@ -49,7 +59,6 @@ namespace MB {
 	    }
 
 		glfwMakeContextCurrent(this->_window);
-
 
         // Initialize GLEW to setup the OpenGL Function pointers
         glewExperimental = (GLboolean) true;

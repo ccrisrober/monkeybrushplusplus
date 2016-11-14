@@ -20,13 +20,22 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_DRAWABLE__
+#define __MB_DRAWABLE__
 
 namespace MB {
-	class Scene {
+	class Drawable {
 	public:
+		Drawable() 
+		{
+		}
+		void render()
+		{
+		}
+	protected:
+		unsigned int _indicesLen;
+
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_DRAWABLE__ */

@@ -20,13 +20,15 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_AMBIENT_LIGHT__
+#define __MB_AMBIENT_LIGHT__
+
+#include "Light.hpp"
 
 namespace MB {
-	class Scene {
+	class AmbientLight: public Light {
 	public:
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_AMBIENT_LIGHT__ */

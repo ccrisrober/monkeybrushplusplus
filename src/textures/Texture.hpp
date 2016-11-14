@@ -23,7 +23,15 @@
 #ifndef __MB_TEXTURE__
 #define __MB_TEXTURE__
 
-#include <GLFW/glfw3.h>
+ //OpenGL
+#ifndef SKIP_GLEW_INCLUDE
+#include <GL/glew.h>
+#endif
+#ifdef Darwin
+#include <OpenGL/gl.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #include <iostream>
 #include <functional>

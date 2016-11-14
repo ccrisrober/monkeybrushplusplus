@@ -20,13 +20,48 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+// Code based on https://hbfs.wordpress.com/2010/12/21/c-logging/
+
+#ifndef __MB_LOG__
+#define __MB_LOG__
 
 namespace MB {
-	class Scene {
+	typedef enum
+	{
+		LOG_LEVEL_QUIET,    // no output
+		LOG_LEVEL_ERROR,    // only errors are output
+		LOG_LEVEL_WARNING,  // errors and warnings are output
+		LOG_LEVEL_INFO,     // errors, warnings, and informative messages
+		LOG_LEVEL_ALL,      // all messages are output
+		LOG_LEVEL_NONE,     // end of enum marker
+	} TLogLevel;
+	class Log {
 	public:
-	}
+		static void setLogLevel(const TLogLevel level)
+		{
+
+		}
+		static TLogLevel logLevel()
+		{
+
+		}
+		static void log(const std::string& message, const TLogLevel level = LOG_LEVEL_DEFAULT)
+		{
+
+		}
+    	static void setStream(std::ostream& ost)
+    	{
+    		_ost = ost;
+    	}
+    	static std::ostream& stream() const
+    	{
+    		return _ost;
+    	}
+
+	protected:
+		static TLogLevel _logLevel;
+		static std::ostream& _ost;
+	};
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_LOG__ */

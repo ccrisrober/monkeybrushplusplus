@@ -20,13 +20,27 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_VERTEXARRAY__
+#define __MB_VERTEXARRAY__
 
 namespace MB {
-	class Scene {
+	class VertexArray {
 	public:
+		VertexArray()
+		{
+
+		}
+		void bind()
+		{
+
+		}
+		void unbind()
+		{
+			
+		}
+	protected:
+		unsigned int _handler;
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_VERTEXARRAY__ */

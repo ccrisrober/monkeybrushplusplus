@@ -20,13 +20,13 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_MAT2__
+#define __MB_MAT2__
 
 namespace MB {
-	class Scene {
+	class Mat2 {
 	public:
-	}
+	};
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_MAT2__ */

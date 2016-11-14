@@ -20,13 +20,15 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_HEMISPHERIC_LIGHT__
+#define __MB_HEMISPHERIC_LIGHT__
+
+#include "Light.hpp"
 
 namespace MB {
-	class Scene {
+	class HemisphericLight: public Light {
 	public:
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_HEMISPHERIC_LIGHT__ */

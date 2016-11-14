@@ -20,13 +20,20 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_MAT4__
+#define __MB_MAT4__
+
+#include "Vect3.hpp"
+#include "Quat.hpp"
 
 namespace MB {
-	class Scene {
+	class Mat4 {
 	public:
-	}
+		void compose(Vect3& position, Quat& quaternion, Vect3& scale)
+		{
+
+		}
+	};
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_MAT4__ */

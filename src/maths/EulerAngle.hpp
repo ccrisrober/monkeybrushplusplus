@@ -20,13 +20,17 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_EULER_ANGLE__
+#define __MB_EULER_ANGLE__
 
 namespace MB {
-	class Scene {
+	class EulerAngle {
 	public:
-	}
+		void setCallback(std::function<void()> f)
+		{
+
+		}
+	};
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_EULER_ANGLE__ */

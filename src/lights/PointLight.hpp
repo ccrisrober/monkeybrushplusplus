@@ -20,13 +20,15 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_POINT_LIGHT__
+#define __MB_POINT_LIGHT__
+
+#include "Light.hpp"
 
 namespace MB {
-	class Scene {
+	class PointLight: public Light {
 	public:
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_POINT_LIGHT__ */

@@ -25,7 +25,15 @@
 
 #include <iostream>
 
+//OpenGL
+#ifndef SKIP_GLEW_INCLUDE
 #include <GL/glew.h>
+#endif
+#ifdef Darwin
+#include <OpenGL/gl.h>
+#else
+#include <GL/gl.h>
+#endif
 #include <GLFW/glfw3.h>
 
 namespace MB {

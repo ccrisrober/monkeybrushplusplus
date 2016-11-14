@@ -30,12 +30,12 @@ namespace MB {
 	class Engine {
 	public:
 		Engine(GLContext* context)
-			: _context(context)
-			, deltaTime(0.0f)
-			, lastFrame(0.0f)
-			{
-				// TODO: INIT Input
-			}
+		: _context(context)
+		, deltaTime(0.0f)
+		, lastFrame(0.0f)
+		{
+			// TODO: INIT Input
+		}
 		void run(std::function<void(float)> loop)
 		{
 			float currentFrame;

@@ -20,13 +20,22 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_COLOR3__
+#define __MB_COLOR3__
+
+#include "../maths/Vect3.hpp"
 
 namespace MB {
-	class Scene {
+	class Color3 {
 	public:
+		Color3(float r, float g, float b)
+		{
+
+		}
+
+	protected:
+		Vect3 _color;
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_COLOR3__ */

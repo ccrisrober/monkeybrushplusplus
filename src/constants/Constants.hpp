@@ -20,13 +20,18 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_CONSTANTS__
+#define __MB_CONSTANTS__
 
 namespace MB {
-	class Scene {
-	public:
+	namespace ctes {
+		typedef enum
+		{
+            DepthBuffer   = 0x00000100,
+            StencilBuffer = 0x00000400,
+            ColorBuffer   = 0x00004000
+		} ClearBuffer;
 	}
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_CONSTANTS__ */

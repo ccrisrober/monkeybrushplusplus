@@ -20,13 +20,13 @@
  *
  */
 
-#ifndef __MB_SCENE__
-#define __MB_SCENE__
+#ifndef __MB_GLOBAL_STATE__
+#define __MB_GLOBAL_STATE__
 
 namespace MB {
-	class Scene {
+	class GlobalState {
 	public:
-	}
+	};
 }
 
-#endif /* __MB_SCENE__ */
+#endif /* __MB_GLOBAL_STATE__ */
