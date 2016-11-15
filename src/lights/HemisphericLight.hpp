@@ -28,7 +28,22 @@
 namespace MB {
 	class HemisphericLight: public Light {
 	public:
-	}
+        HemisphericLight(Vect3 dir = Vect3::createFromScalar(0.0f))
+            :Light()
+            , _direction(dir)
+        {
+
+        }
+        Vec3& direction() const { return this->_direction; }
+        void direction(Vect3& pos) { this->_direction = pos; }
+        Color3& groundColor() const { return this->_groundColor; }
+        void groundColor(const Color3& c) {
+            this->_groundColor = c;
+        }
+    protected:
+        Vect3 _direction;
+        Color3 _groundColor;
+    };
 }
 
 #endif /* __MB_HEMISPHERIC_LIGHT__ */

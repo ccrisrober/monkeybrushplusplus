@@ -71,7 +71,7 @@ namespace MB {
         	this->_value[2] = vz;
             this->_onChange();
         }
-		static EulerAngle& createFromVec3(const Vect3& v, RotSeq order = RotSeq::xyz)
+        static EulerAngle createFromVec3(const Vect3& v, RotSeq order = RotSeq::xyz)
 		{
 			return EulerAngle(v.x(), v.y(), v.z(), order);
 		}

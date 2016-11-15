@@ -28,7 +28,7 @@
 namespace MB {
 	class SpotLight: public Light {
 	public:
-	}
+    };
 }
 
 #endif /* __MB_SPOT_LIGHT__ */

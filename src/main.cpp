@@ -19,6 +19,7 @@
 #include "constants/Constants.hpp"
 #include "core/Input.hpp"
 #include "scene/MeshRenderer.hpp"
+#include "core/Color3.hpp"
 
 void renderFunc(float dt);
 
@@ -27,6 +28,10 @@ int main(void)
 	//MB::Input::isButtonClicked(5);
 	MB::Vect3 v(1.0f, 1.0f, 1.0f);
 	MB::Vect3 v2(1.0f, 1.0f, 1.0f);
+
+    MB::Color3 c(1.0f, 0.0f, 0.0f);
+
+    auto blueColor = MB::Color3::createFromHex(0x0000FF);
 
 	auto vf = v.add(v2);
 
@@ -133,5 +138,4 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
-
-/**/
+*/

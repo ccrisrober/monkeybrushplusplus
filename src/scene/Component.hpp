@@ -28,7 +28,7 @@ namespace MB {
 
 	class Component {
 	public:
-		void update(float dt)
+        void update(float /*dt*/)
 		{
 
 		}

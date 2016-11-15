@@ -24,8 +24,6 @@
 #include <fstream>
 #include <iostream>
 
-
-//OpenGL
 #ifndef SKIP_GLEW_INCLUDE
 #include <GL/glew.h>
 #endif
@@ -36,7 +34,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #endif
-
 
 #include <limits>       // std::numeric_limits
 

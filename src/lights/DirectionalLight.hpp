@@ -27,8 +27,18 @@
 
 namespace MB {
 	class DirectionalLight: public Light {
-	public:
-	}
+    public:
+        DirectionalLight(Vect3 dir = Vect3::createFromScalar(0.0f))
+            :Light()
+            , _direction(dir)
+        {
+
+        }
+        Vec3& direction() const { return this->_direction; }
+        void direction(Vect3& pos) { this->_direction = pos; }
+    protected:
+        Vect3 _direction;
+    };
 }
 
 #endif /* __MB_DIRECTIONAL_LIGHT__ */

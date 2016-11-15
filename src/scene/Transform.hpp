@@ -85,24 +85,24 @@ namespace MB {
 			this->_matrix.compose(this->_position, this->_quaternion, this->_scale);
 			this->_matrixWorldNeedUpdate = true;
 		};
-		Vect3 localWorld(Vect3 v)
+        Vect3 localWorld(Vect3 /*v*/)
 		{
 			return Vect3();
 			//return v.applyMat4(this._matrixWorld);
 		};
-		Vect3 worldToLocal(Vect3 v)
+        Vect3 worldToLocal(Vect3 /*v*/)
 		{
 			return Vect3();
 			//Mat4 mat;
 			//return v.applyMat4(mat.inverse(this._matrixWorld));
 		};
 	protected:
-		void _translateOnAxis(const Vect3& axis, float dist) {
+        void _translateOnAxis(const Vect3& /*axis*/, float dist) {
 			Vect3 v;
 			//v.copy(axis).applyQuat(this->_quaternion);
 			this->_position = this->_position.add(v.multByScalar(dist));
 		};
-		void _rotateOnAxis(Vect3 axis, float angle) {
+        void _rotateOnAxis(Vect3 /*axis*/, float /*angle*/) {
 			Quat q1;
 			//q1.setFromAxisAngle(axis, angle);
 			//this->_quaternion = this->_quaternion.mult(q1);

@@ -29,7 +29,7 @@
 namespace MB {
 	class Mat4 {
 	public:
-		void compose(Vect3& position, Quat& quaternion, Vect3& scale)
+        void compose(Vect3& /*position*/, Quat& /*quaternion*/, Vect3& /*scale*/)
 		{
 
 		}

@@ -38,6 +38,7 @@ namespace MB {
 		, _id(_generateUUID())
 		, _parent(nullptr)
 		, _tag(tag)
+        , _isEnabled(true)
 		{
 
 		}
@@ -67,7 +68,7 @@ namespace MB {
 			n->setParent(this);
 			this->_children.push_back(n);
 		}
-		void removeChild(Node* n) {
+        void removeChild(Node* /*n*/) {
 			// TODO
 		}
 		void addComponent(Component* c)
@@ -103,29 +104,38 @@ namespace MB {
 	private:
 		std::string _generateUUID() const
 		{
-			time_t d = time(0);
-			std::string uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
-			std::regex vowel_re("/[xy]/g");
+            char GUID[40];
+            int t = 0;
+            std::string szTemp = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
+            std::string szHex = "0123456789ABCDEF-";
+            int nLen = szTemp.size();
 
-			std::string ret = "";
-			//std::regex_replace(ret, uuid.begin(), uuid.end(), vowel_re, std::function<void(char) {
-			//});
-			/* let uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-                let r = (d + Math.random() * 16) % 16 | 0;
-                d = Math.floor(d / 16);
-                return (c === "x" ? r : (r & 0x3 | 0x8)).toString(16);
-            });*/
+            for (t=0; t<nLen+1; t++)
+            {
+                int r = rand () % 16;
+                char c = ' ';
 
-			return ret;
+                switch (szTemp[t])
+                {
+                    case 'x' : { c = szHex [r]; } break;
+                    case 'y' : { c = szHex [(r & 0x03) | 0x08]; } break;
+                    case '-' : { c = '-'; } break;
+                    case '4' : { c = '4'; } break;
+                }
+
+                GUID[t] = ( t < nLen ) ? c : 0x00;
+            }
+
+            return std::string(GUID);
 		}
 	protected:
 		std::vector<Node*> _children;
-		std::vector<Component*> _components;
-		Node* _parent;
+        std::vector<Component*> _components;
+        std::string _name;
 		std::string _id;
-		bool _isEnabled;
-		std::string _tag;
-		std::string _name;
+        Node* _parent;
+        std::string _tag;
+        bool _isEnabled;
 		Transform _transform;
 	};
 }

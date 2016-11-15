@@ -7,7 +7,7 @@ set( INCLUDE_NAME MonkeyBrushPlusPlus )
 set( MONKEYBRUSHPLUSPLUS_SOURCES
     core/GLContext.cpp
     core/Input.cpp
-    core/Program.cpp
+    #core/Program.cpp
 
     scene/Component.cpp
     scene/MeshRenderer.cpp
@@ -32,7 +32,7 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     core/Color3.hpp
     core/Color4.hpp
     core/GLContext.hpp
-    core/Program.hpp
+    #core/Program.hpp
     core/VertexArray.hpp
     core/VertexBuffer.hpp
     core/GlobalState.hpp

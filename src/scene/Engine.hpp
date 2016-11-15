@@ -25,6 +25,7 @@
 
 #include <iostream>
 #include <functional>
+#include "../core/GLContext.hpp"
 
 namespace MB {
 	class Engine {
@@ -59,11 +60,7 @@ namespace MB {
             this->_context->close();
         }
 
-	private:
-		float deltaTime;
-		float lastFrame;
-
-		double currentTime;
+    private:
 		double calcFPS(double theTimeInterval = 1.0)
 		{
 			// Static values which only get initialised the first time the function runs
@@ -105,7 +102,11 @@ namespace MB {
 		}
 
 	protected:
-		GLContext* _context;
+        GLContext* _context;
+        float deltaTime;
+        float lastFrame;
+
+        double currentTime;
 	};
 }
 

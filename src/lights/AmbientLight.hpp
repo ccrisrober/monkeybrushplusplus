@@ -28,7 +28,11 @@
 namespace MB {
 	class AmbientLight: public Light {
 	public:
-	}
+        AmbientLight()
+            : Light()
+        {
+        }
+    };
 }
 
 #endif /* __MB_AMBIENT_LIGHT__ */

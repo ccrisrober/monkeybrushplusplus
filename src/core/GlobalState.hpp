@@ -23,9 +23,59 @@
 #ifndef __MB_GLOBAL_STATE__
 #define __MB_GLOBAL_STATE__
 
+#include "../core/Color4.hpp"
+
 namespace MB {
+    class CullingState {
+
+    };
+    class DepthState {
+
+    };
+    class ColorState {
+        public:
+
+        void setClear(float r, float g, float b, float a)
+        {
+            this->setClear(Color4(r, g, b, a));
+        }
+        void setClear(const Color4& bgColor)
+        {
+            glClearColor(bgColor.r(), bgColor.g(), bgColor.b(), bgColor.a());
+        }
+    };
+    class ScissorsState {
+
+    };
+    class StencilState {
+
+    };
+    class BlendingState {
+
+    };
 	class GlobalState {
-	public:
+    public:
+        GlobalState()
+        {
+            this->color.setClear(0.0f, 0.0f, 0.0f, 1.0f);
+            this->depth.setClear(1.0f);
+            this->stencil.setClear(0.0f);
+
+            this->depth.setStatus(true);
+            //this->depth.setFunc(MB.ctes.ComparisonFunc.LessEqual);
+
+            this->culling.setFlipSided(MB.ctes.FaceDir.InvClockwise);
+            //this->culling.setMode(MB.ctes.FaceSide.Back);
+            this->culling.setStatus(true);
+
+            //this.blending.set(MB.ctes.BlendingMode2.Normal);
+        }
+
+        DepthState depth;
+        CullingState culling;
+        ColorState color;
+        StencilState stencil;
+        BlendingState blending;
 	};
 }
 
