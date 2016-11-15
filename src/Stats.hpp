@@ -20,22 +20,21 @@
  *
  */
 
-#ifndef __MB_DRAWABLE__
-#define __MB_DRAWABLE__
+#ifndef __MB_STATS__
+#define __MB_STATS__
 
 namespace MB {
-	class Drawable {
+	class Stats {
 	public:
-		Drawable() 
+		Stats()
 		{
-		}
-		void render()
-		{
-		}
-	protected:
-		unsigned int _indicesLen;
 
+		}
+		void update(float dt)
+		{
+			
+		}
 	};
 }
 
-#endif /* __MB_DRAWABLE__ */
+#endif /* __MB_STATS__ */

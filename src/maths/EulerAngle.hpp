@@ -23,13 +23,74 @@
 #ifndef __MB_EULER_ANGLE__
 #define __MB_EULER_ANGLE__
 
+#include "Vect3.hpp"
+#include "Mat4.hpp"
+
 namespace MB {
+	typedef enum
+	{
+    	zyx, zyz, zxy, zxz, yxz, yxy, yzx, yzy, xyz, xyx, xzy, xzx
+	} RotSeq;
 	class EulerAngle {
 	public:
+		EulerAngle(float x = 0.0f, float y = 0.0f, float z = 0.0f, RotSeq order = RotSeq::xyz)
+		: _order(order)
+		{
+			_value.reserve(3);
+			set(x, y, z);
+		}
 		void setCallback(std::function<void()> f)
+		{
+			this->_onChange = f;
+		}
+        float x() const {
+        	return this->_value[0];
+        }
+        float y() const {
+        	return this->_value[1];
+        }
+        float z() const {
+        	return this->_value[2];
+        }
+        void x(float v) {
+            this->_value[0] = v;
+            this->_onChange();
+        }
+        void y(float v) {
+            this->_value[1] = v;
+            this->_onChange();
+        }
+        void z(float v) {
+            this->_value[2] = v;
+            this->_onChange();
+        }
+        void set(float vx, float vy, float vz)
+        {
+        	this->_value[0] = vx;
+        	this->_value[1] = vy;
+        	this->_value[2] = vz;
+            this->_onChange();
+        }
+		static EulerAngle& createFromVec3(const Vect3& v, RotSeq order = RotSeq::xyz)
+		{
+			return EulerAngle(v.x(), v.y(), v.z(), order);
+		}
+		/*EulerAngle setFromRotationMatrix(const Mat4& mat, RotSeq order, bool update = false)
 		{
 
 		}
+		EulerAngle setFromQuaternion(const Quat& q, RotSeq order, bool update = false)
+		{
+			Mat4 matrix;
+			if (!order)
+			{
+				order = this->_order;
+			}
+		}*/
+	protected:
+        std::vector<float> _value;
+        RotSeq _order;
+		std::function<void()> _onChange;
 	};
 }
 

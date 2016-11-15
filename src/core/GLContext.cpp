@@ -32,6 +32,8 @@
 #endif
 #include <GLFW/glfw3.h>
 
+#include "Input.hpp"
+
 namespace MB {
 	GLContext::GLContext(unsigned int minVersion, unsigned int maxVersion, const char* title)
 		: _minVersion(minVersion)
@@ -46,7 +48,6 @@ namespace MB {
         glfwWindowHint(GLFW_SAMPLES, 4);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
 
 		std::cout << "OpenGL context version: (" << minVersion << ", " << maxVersion << ")" << std::endl;
 
@@ -67,6 +68,8 @@ namespace MB {
             glfwTerminate();
             throw "Failed to initialise GLEW";
         }
+
+		Input::init();
 	}
 	GLFWwindow* GLContext::getWindow() const {
 		return this->_window;

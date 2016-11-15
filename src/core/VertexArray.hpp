@@ -23,24 +23,31 @@
 #ifndef __MB_VERTEXARRAY__
 #define __MB_VERTEXARRAY__
 
+#include <GL/glew.h>
+
 namespace MB {
 	class VertexArray {
 	public:
 		VertexArray()
 		{
-
+			glCreateVertexArrays(1, &this->_handler);
+		}
+		virtual ~VertexArray()
+		{
+			glDeleteVertexArrays(1, &this->_handler);
+			this->_handler = 0;
 		}
 		void bind()
 		{
-
+			glBindVertexArray(this->_handler);
 		}
 		void unbind()
 		{
-			
+			glBindVertexArray(0);
 		}
 	protected:
 		unsigned int _handler;
-	}
+	};
 }
 
 #endif /* __MB_VERTEXARRAY__ */

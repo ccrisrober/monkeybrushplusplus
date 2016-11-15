@@ -26,16 +26,26 @@
 #include <unordered_map>
 
 namespace MB {
+	typedef std::unordered_map<std::string, unsigned int> TUniforms;
 	class Material {
 	public:
 		Material()
 		{
 		}
+		TUniforms& uniforms() {
+			return this->_uniforms;
+		}
 		void use()
 		{
+
 		}
+		std::string id;
+		bool backFaceCull = true;
+		unsigned int sizeOrientation; // InvClockWise
+		bool depthTest = true;
+		bool visible = true;
 	protected:
-		std::unordered_map<std::string, unsigned int> _uniforms;
+		TUniforms _uniforms;
 	};
 }
 

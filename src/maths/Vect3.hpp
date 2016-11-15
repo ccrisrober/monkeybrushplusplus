@@ -28,6 +28,10 @@
 namespace MB {
 	class Vect3 {
 	public:
+		static Vect3 xAxis;
+		static Vect3 yAxis;
+		static Vect3 zAxis;
+		static Vect3 up;
 		Vect3(float x = 0.0f, float y = 0.0f, float z = 0.0f)
 		{
 			this->_value.resize(3);
@@ -119,6 +123,11 @@ namespace MB {
 	protected:
 		std::vector<float> _value;
 	};
+
+	Vect3 Vect3::xAxis(1.0f, 0.0f, 0.0f);
+	Vect3 Vect3::yAxis(0.0f, 1.0f, 0.0f);
+	Vect3 Vect3::zAxis(0.0f, 0.0f, 1.0f);
+	Vect3 Vect3::up(0.0f, 1.0f, 1.0f);
 }
 
 #endif /* __MB_VECT3__ */

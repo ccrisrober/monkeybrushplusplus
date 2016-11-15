@@ -32,6 +32,9 @@ namespace MB {
 		{
 
 		}
+		Node* getNode() const {
+			return this->_node;
+		}
 		void setNode(Node* n)
 		{
 			this->_node = n;

@@ -96,6 +96,10 @@ namespace MB {
 		Transform& transform() {
 			return this->_transform;
 		}
+		void _updateMatrixWorld()
+		{
+
+		}
 	private:
 		std::string _generateUUID() const
 		{

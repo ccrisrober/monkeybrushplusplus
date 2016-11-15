@@ -28,6 +28,7 @@
 #include "Component.hpp"
 
 namespace MB {
+	class Node;
 	class MeshRenderer: public Component {
 	public:
 		MeshRenderer(Drawable* mesh, Material* material)
@@ -50,7 +51,8 @@ namespace MB {
 		}
 		void render()
 		{
-			// this->_node->_updateMatrixWorld();
+			this->_node->_updateMatrixWorld();
+			this->_material->uniforms()["model"] = 1;
 			// this._material._uniforms["model"].value = this.node.transform._matrixWorld;
 			this->_material->use();
 			this->_mesh->render();

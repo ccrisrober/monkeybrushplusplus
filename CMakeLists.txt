@@ -8,34 +8,39 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake
 
 include(GitExternal)
 
-set(COMMON_PROJECT_DOMAIN maldicion069)
-set(MONKEYBRUSHPLUSPLUS_DESCRIPTION "MonkeyBrushPlusPlus")
 set(PROJECT_VERSION_ABI ${${PROJECT_NAME}_VERSION_ABI})
+
+# Allow warnings
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 
 include(Common)
 
-# Allow warnings
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
-set(MONKEYBRUSHPLUSPLUS_LIBRARIES )
+set(COMMON_PROJECT_DOMAIN maldicion069)
+set(MONKEYBRUSHPLUSPLUS_DESCRIPTION "MonkeyBrush++")
 
-if(WIN32)
-	set(GLEW_INCLUDE_DIR "C:/Users/maldicion069/Documents/glew-2.0.0/include")
-	set(GLEW_LIBRARY "C:/Users/maldicion069/Documents/glew-2.0.0/lib/Release/x64")
-endif()
-
-common_find_package(GLEW REQUIRED SYSTEM)
+#if(WIN32)
+#	set(GLEW_INCLUDE_DIR "c:/libs/glew-2.0.0/include")
+#	set(GLEW_LIBRARY "c:/libs/glew-2.0.0/lib/Release/Win32/glew32.lib")
+#endif()
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
-common_find_package(glfw)
+common_find_package( GLEW REQUIRED SYSTEM )
+
+list (APPEND MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES GLEW glfw)
 
 common_find_package_post()
 
-set (MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES glew glfw)
+set( PROJECT_INCLUDE_NAME MonkeyBrushPlusPlus )
 
 add_subdirectory(src)
 
+install( FILES ${PROJECT_BINARY_DIR}/include/MonkeyBrusPlusPlus/defines.h
+  DESTINATION include/MonkeyBrusPlusPlus )
+install( FILES ${PROJECT_BINARY_DIR}/include/MonkeyBrusPlusPlus/defines${SYSTEM}.h
+  DESTINATION include/MonkeyBrusPlusPlus )
+
 include(CPackConfig)
-#include(DoxygenRule)
+include(DoxygenRule)

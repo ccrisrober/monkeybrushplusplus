@@ -7,6 +7,7 @@ set( INCLUDE_NAME MonkeyBrushPlusPlus )
 set( MONKEYBRUSHPLUSPLUS_SOURCES
     core/GLContext.cpp
     core/Input.cpp
+    core/Program.cpp
 
     scene/Component.cpp
     scene/MeshRenderer.cpp
