@@ -46,7 +46,7 @@ namespace MB
 		{
 			return this->_value[0];
 		}
-		void x(float v)
+		void x(const float& v)
 		{
 			this->_value[0] = v;
 		}
@@ -54,7 +54,7 @@ namespace MB
 		{
 			return this->_value[1];
 		}
-		void y(float v)
+		void y(const float& v)
 		{
 			this->_value[1] = v;
 		}
@@ -62,7 +62,7 @@ namespace MB
 		{
 			return this->_value[2];
 		}
-		void z(float v)
+		void z(const float& v)
 		{
 			this->_value[2] = v;
 		}
@@ -77,7 +77,7 @@ namespace MB
 			y(y_);
 			z(z_);
 		}
-		Vect3 add(Vect3 v)
+		Vect3 add(const Vect3& v)
 		{
 			Vect3 vv(
 				this->_value[0] + v._value[0],
@@ -87,7 +87,7 @@ namespace MB
 
 			return vv;
 		}
-		Vect3 sub(Vect3 v)
+		Vect3 sub(const Vect3& v)
 		{
 			Vect3 vv(
 				this->_value[0] - v._value[0],
@@ -97,7 +97,17 @@ namespace MB
 
 			return vv;
 		}
-		Vect3 mult(Vect3 v)
+		static Vect3 sub(const Vect3& v1, const Vect3& v2)
+		{
+			Vect3 vv(
+				v1._value[0] - v2._value[0],
+				v1._value[1] - v2._value[1],
+				v1._value[2] - v2._value[2]
+			);
+
+			return vv;
+		}
+		Vect3 mult(const Vect3& v)
 		{
 			Vect3 vv(
 				this->_value[0] * v._value[0],
@@ -117,7 +127,7 @@ namespace MB
 
 			return vv;
 		}
-		Vect3 div(Vect3 v)
+		Vect3 div(const Vect3& v)
 		{
 			Vect3 vv(
 				this->_value[0] / v._value[0],
@@ -127,13 +137,13 @@ namespace MB
 
 			return vv;
 		}
-		static float distance(Vect3& v, Vect3& v2)
+		static float distance(const Vect3& v, const Vect3& v2)
 		{
             return std::sqrt(squaredDistance(v, v2));
 		}
-		static float squaredDistance(Vect3& v, Vect3& v2)
+		static float squaredDistance(const Vect3& v, const Vect3& v2)
 		{
-			Vect3 vsub = v2.sub(v);
+			Vect3 vsub = Vect3::sub(v2, v);;
 			return (vsub._value[0] * vsub._value[0] + vsub._value[1] * vsub._value[1] + vsub._value[2] * vsub._value[2]);
 		}
 	protected:

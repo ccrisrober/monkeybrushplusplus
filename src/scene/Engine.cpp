@@ -22,6 +22,7 @@
 
 #include "Engine.hpp"
 #include "../core/Input.hpp"
+#include <string>
 
 namespace MB
 {
@@ -43,8 +44,6 @@ namespace MB
 			glfwPollEvents();
 
 			MB::Input::update();
-			//float dt = glfwGetTime();
-			//dt = calcFPS( );
 			currentFrame = glfwGetTime();
 			deltaTime = currentFrame - lastFrame;
 			lastFrame = currentFrame;  

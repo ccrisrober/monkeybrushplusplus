@@ -15,6 +15,9 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
     core/VertexBuffer.cpp
 
     maths/Vect3.cpp
+    maths/Quat.cpp
+    maths/EulerAngle.cpp
+    maths/Mat4.cpp
 
     lights/Light.cpp
     lights/AmbientLight.cpp

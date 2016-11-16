@@ -40,7 +40,7 @@ namespace MB
 		{
 			return this->_value[0];
 		}
-		void x(float v)
+		void x(const float& v)
 		{
 			this->_value[0] = v;
 		}
@@ -48,7 +48,7 @@ namespace MB
 		{
 			return this->_value[1];
 		}
-		void y(float v)
+		void y(const float& v)
 		{
 			this->_value[1] = v;
 		}

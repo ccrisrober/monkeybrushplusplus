@@ -26,6 +26,7 @@
 #include "Vect2.hpp"
 #include "Vect3.hpp"
 #include <cmath>
+#include <algorithm>
 
 namespace MB
 {
