@@ -38,6 +38,8 @@ namespace MB
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		while (!glfwWindowShouldClose(this->_context->getWindow( )))
         {
+			glfwPollEvents();
+
 			MB::Input::update();
 			//float dt = glfwGetTime();
 			//dt = calcFPS( );
@@ -46,8 +48,6 @@ namespace MB
 			lastFrame = currentFrame;  
 			loop(deltaTime);
 	        glfwSwapBuffers(this->_context->getWindow( ));
-
-	        glfwPollEvents();
 	    }
 	}
 

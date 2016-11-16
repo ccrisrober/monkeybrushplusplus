@@ -26,6 +26,7 @@
 #include "scene/Scene.hpp"
 #include "scene/MeshRenderer.hpp"
 #include "core/Color3.hpp"
+#include "models/Drawable.hpp"
 
 class MoveComponent : public MB::Component
 {
@@ -89,10 +90,16 @@ public:
 
 MB::Engine* engine;
 MB::Scene* scene;
+MB::Drawable* cube;
 void renderFunc(float dt);
 
 int main(void)
 {
+	MB::GLContext context(3, 3, "Hello MB");
+	
+	cube = new MB::Drawable();
+	cube->render();
+
 	//MB::Input::isButtonClicked(5);
 	MB::Vect3 v(1.0f, 1.0f, 1.0f);
 	MB::Vect3 v2(1.0f, 1.0f, 1.0f);
@@ -102,8 +109,6 @@ int main(void)
     auto blueColor = MB::Color3::createFromHex(0x0000FF);
 
 	auto vf = v.add(v2);
-
-    MB::GLContext context(3, 3, "Hello MB");
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
 	//n->addComponent(new MB::MeshRenderer(nullptr, nullptr));
@@ -164,13 +169,18 @@ int main(void)
 	delete(scene);
 	delete(engine);
 
-    glfwTerminate();
     return 0;
 }
 
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	if (MB::Input::isKeyPressed(GLFW_KEY_ESCAPE))
+	{
+		engine->close();
+		return;
+	}
 	//std::cout << "PRESSED B: " << MB::Input::isKeyPressed(GLFW_KEY_B) << std::endl;
 	//std::cout << "CLICKED B: " << MB::Input::isKeyClicked(GLFW_KEY_B) << std::endl;
 	scene->render(dt);
