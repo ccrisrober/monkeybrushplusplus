@@ -31,11 +31,33 @@ namespace MB
 	class GLContext
 	{
 	public:
-		GLContext(unsigned int minVersion = 3, unsigned int maxVersion = 3, const char* title = "Hello MB");
+        GLContext(unsigned int minVersion = 3, unsigned int maxVersion = 3,
+                  unsigned int width = 500, unsigned int height = 500,
+                  const char* title = "Hello MB");
 		GLFWwindow* getWindow() const;
         void close( ) {
             glfwTerminate();
         }
+        void setTitle(const char* title, bool fullName = true)
+        {
+            if (fullName)
+            {
+                glfwSetWindowTitle(_window, (std::string(_title) + std::string(" - ") + std::string(title)).c_str());
+            }
+            else
+            {
+                glfwSetWindowTitle(_window, title);
+            }
+        }
+        unsigned int getWidth() const
+        {
+            return this->_width;
+        }
+        unsigned int getHeight() const
+        {
+            return this->_height;
+        }
+
 	private:
 		static void mouse_button_callback(GLFWwindow*, int /*button*/, int /*action*/, int)
 		{
@@ -54,9 +76,12 @@ namespace MB
 			
 		}
 	protected:
-		unsigned int _minVersion;
-		unsigned int _maxVersion;
+        unsigned int _minVersion;
+        unsigned int _maxVersion;
+        unsigned int _width;
+        unsigned int _height;
 		GLFWwindow* _window;
+        std::string _title;
 	};
 }
 

@@ -24,6 +24,7 @@
 #define __MB_COLOR3__
 
 #include "../maths/Vect3.hpp"
+#include <cmath>
 
 namespace MB
 {
@@ -31,12 +32,77 @@ namespace MB
     {
 	public:
 		Color3(float r = 1.0f, float g = 1.0f, float b = 1.0f);
+
+        Color3(const Color3& c)
+        {
+            this->_color = c._color;
+        }
+        Color3& operator=(const Color3& c)
+        {
+            return copy(c);
+        }
+        Color3& copy( const Color3& c ) {
+            r(c.r());
+            g(c.g());
+            b(c.b());
+            return *this;
+        }
+
         float r() const;
         float g() const;
         float b() const;
         void r(const float v);
         void g(const float v);
         void b(const float v);
+
+        static Color3 createFromHSV(float h, float s, float v)
+        {
+            float r, g, b;
+            if ( v == 0.0f ) {
+                r = g = b = 0.0;
+            } else {
+                int i = (int) std::floor (h * 6.0f);
+                float f = (h * 6.0f) - i;
+                float p = v * (1.0f - s);
+                float q = v * (1.0f - (s * f));
+                float t = v * (1.0f - (s * (1.0f - f)));
+
+                switch ( i ) {
+                    case 0:
+                        r = v;
+                        g = t;
+                        b = p;
+                        break;
+                    case 1:
+                        r = q;
+                        g = v;
+                        b = p;
+                        break;
+                    case 2:
+                        r = p;
+                        g = v;
+                        b = t;
+                        break;
+                    case 3:
+                        r = p;
+                        g = q;
+                        b = v;
+                        break;
+                    case 4:
+                        r = t;
+                        g = p;
+                        b = v;
+                        break;
+                    case 5:
+                    default:
+                        r = v;
+                        g = p;
+                        b = q;
+                        break;
+                    }
+            }
+            return Color3(r, g, b);
+        }
 
         static Color3 createFromHex(int hex);
 

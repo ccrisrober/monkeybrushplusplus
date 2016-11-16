@@ -37,9 +37,14 @@
 
 namespace MB
 {
-	GLContext::GLContext(unsigned int minVersion, unsigned int maxVersion, const char* title)
+    GLContext::GLContext(unsigned int minVersion, unsigned int maxVersion,
+                         unsigned int width, unsigned int height,
+                         const char* title)
 		: _minVersion(minVersion)
 		, _maxVersion(maxVersion)
+        , _width(width)
+        , _height(height)
+        , _title(title)
     {
         if (!glfwInit())
         {
@@ -51,9 +56,11 @@ namespace MB
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
+        glfwSetInputMode(_window, GLFW_STICKY_KEYS, GL_TRUE);
+
 		std::cout << "OpenGL context version: (" << minVersion << ", " << maxVersion << ")" << std::endl;
 
-		this->_window = glfwCreateWindow(640, 480, title, nullptr, nullptr);
+        this->_window = glfwCreateWindow(_width, _height, title, nullptr, nullptr);
 
         if (_window == nullptr)
 	    {

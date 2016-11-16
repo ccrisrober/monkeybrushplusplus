@@ -26,7 +26,7 @@
 #include <iostream>
 #include <functional>
 #include "../core/GLContext.hpp"
-#include "../maths/Mat4.hpp"
+#include "../maths/Vect4.hpp"
 
 namespace MB
 {
@@ -36,7 +36,7 @@ namespace MB
 		Engine(GLContext* context);
 		void run(std::function<void(float)> loop);
 		void close();
-		void setViewport(const Mat4& /*vp*/)
+        void setViewport(const Vect4& /*vp*/)
 		{
 			// this._context.state.setViewport(vp);
 		}

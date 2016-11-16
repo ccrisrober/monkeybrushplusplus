@@ -24,6 +24,7 @@
 #define __MB_VECT3__
 
 #include <vector>
+#include <cmath>
 
 namespace MB
 {
@@ -128,7 +129,7 @@ namespace MB
 		}
 		static float distance(Vect3& v, Vect3& v2)
 		{
-			return sqrt(squaredDistance(v, v2));
+            return std::sqrt(squaredDistance(v, v2));
 		}
 		static float squaredDistance(Vect3& v, Vect3& v2)
 		{

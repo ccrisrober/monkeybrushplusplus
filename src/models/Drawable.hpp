@@ -161,6 +161,7 @@ namespace MB
 		{
 			VertexBuffer vb(GL_ARRAY_BUFFER);
 			vb.data(data, type);
+            vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
 			this->_handle.push_back(vb);
 		}
 		void addElementArray(const std::vector<unsigned int>& data, 

@@ -94,6 +94,10 @@ namespace MB
 				order = this->_order;
 			}
 		}*/
+        RotSeq order() const
+        {
+            return this->_order;
+        }
 	protected:
         std::vector<float> _value;
         RotSeq _order;

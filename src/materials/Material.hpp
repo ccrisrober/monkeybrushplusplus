@@ -24,23 +24,12 @@
 #define __MB_MATERIAL__
 
 #include <unordered_map>
+#include "Uniform.hpp"
+#include "../core/Program.hpp"
 
 namespace MB
 {
-	typedef enum
-	{
-		Float, Integer, Unsigned, Boolean, Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4
-	} UniformType;
-	struct UniformMaterial {
-		UniformMaterial(UniformType _type, void* _value)
-		{
-			this->type = _type;
-			this->value = _value;
-		}
-		UniformType type;
-		void* value;
-	};
-	typedef std::unordered_map<std::string, UniformMaterial> TUniforms;
+    typedef std::unordered_map<std::string, Uniform*> TUniforms;
 	class Material
 	{
 	public:
@@ -61,6 +50,7 @@ namespace MB
 		bool visible = true;
 	protected:
 		TUniforms _uniforms;
+        Program _program;
 	};
 }
 

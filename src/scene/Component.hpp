@@ -24,6 +24,8 @@
 #define __MB_COMPONENT__
 
 #include <iostream>
+#include <typeinfo>
+#include <memory>
 
 namespace MB
 {
@@ -31,6 +33,9 @@ namespace MB
 	class Component
 	{
 	public:
+        virtual ~Component()
+        {
+        }
 		virtual void update(float /*dt*/);
 		Node* getNode() const;
 		void setNode(Node* n);
@@ -42,6 +47,7 @@ namespace MB
 		Component();
 		Node* _node;
 	};
+    typedef std::shared_ptr<Component> ComponentPtr;
 }
 
 #endif /* __MB_COMPONENT__ */

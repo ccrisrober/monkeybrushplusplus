@@ -24,10 +24,10 @@
 #define __MB_MAT4__
 
 #include "Vect3.hpp"
-#include "Quat.hpp"
 
 namespace MB
 {
+    class Quat;
 	class Mat4
 	{
 	public:
@@ -89,8 +89,8 @@ namespace MB
 			this->_values[1] = e21; this->_values[5] = e22; this->_values[9] = e23; this->_values[13] = e24;
 			this->_values[2] = e31; this->_values[6] = e32; this->_values[10] = e33; this->_values[14] = e34;
 			this->_values[3] = e41; this->_values[7] = e42; this->_values[11] = e43; this->_values[15] = e44;
-		};
-	protected:
+        }
+    public:
 		std::vector<float> _values;
 	};
 }

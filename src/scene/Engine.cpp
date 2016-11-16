@@ -38,6 +38,8 @@ namespace MB
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		while (!glfwWindowShouldClose(this->_context->getWindow( )))
         {
+            this->_context->setTitle(std::to_string(calcFPS()).c_str(), false);
+
 			glfwPollEvents();
 
 			MB::Input::update();

@@ -15,6 +15,7 @@
 #include "scene/Engine.hpp"
 #include "scene/Node.hpp"
 #include "maths/Vect3.hpp"
+#include "maths/Mathf.hpp"
 #include "textures/Texture.hpp"
 #include "textures/Texture2D.hpp"
 #include "textures/Texture2DArray.hpp"
@@ -27,6 +28,9 @@
 #include "scene/MeshRenderer.hpp"
 #include "core/Color3.hpp"
 #include "models/Drawable.hpp"
+#include "materials/SimpleShadingMaterial.hpp"
+#include "utils/any.hpp"
+#include "extras/Easing.hpp"
 
 class MoveComponent : public MB::Component
 {
@@ -95,10 +99,20 @@ void renderFunc(float dt);
 
 int main(void)
 {
-	MB::GLContext context(3, 3, "Hello MB");
+    MB::GLContext context(3, 3, 500, 500, "Hello MB");
+
+    MB::SimpleShadingMaterial ssm;
+    auto uniforms = ssm.uniforms();
+    MB::Uniform* color = uniforms["color"];
+    color->value(5.1f);
+    auto cv = color->value().cast<float>();
+    std::cout << cv << std::endl;
+    color->value(-25);
+    auto cv2 = color->value().cast<int>();
+    std::cout << cv2 << std::endl;
 	
 	cube = new MB::Drawable();
-	cube->render();
+    //cube->render();
 
 	//MB::Input::isButtonClicked(5);
 	MB::Vect3 v(1.0f, 1.0f, 1.0f);

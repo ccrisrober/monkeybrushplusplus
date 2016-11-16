@@ -55,9 +55,9 @@ namespace MB
     Color3 Color3::createFromHex(int hex)
     {
         return Color3(
-            (hex >> 16 & 255) / 255,
-            (hex >> 8 & 255) / 255,
-            (hex & 255) / 255
+            (float)(hex >> 16 & 255) / 255.0f,
+            (float)(hex >> 8 & 255) / 255.0f,
+            (float)(hex & 255) / 255.0f
         );
     }
 

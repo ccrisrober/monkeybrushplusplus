@@ -30,12 +30,12 @@ namespace MB
 	class Texture2D : public Texture
 	{
 	public:
-		Texture2D::Texture2D(const TexOptions& options, 
+        Texture2D(const TexOptions& options,
 			unsigned int width, unsigned int height)
-			: Texture2D(options, nullptr, width, height)
+            : Texture2D(options, nullptr, width, height)
 		{
 		}
-		Texture2D::Texture2D(const TexOptions& options, void* data, 
+        Texture2D(const TexOptions& options, void* /*data*/,
 			unsigned int width, unsigned int height)
 			: Texture(options, GL_TEXTURE_2D)
 			, _width(width)
@@ -47,7 +47,7 @@ namespace MB
 			, _src(src)
 		{
 		}
-		Texture2D::~Texture2D(void)
+        ~Texture2D(void)
 		{
 		}
 	protected:

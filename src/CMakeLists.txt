@@ -51,9 +51,13 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     core/VertexArray.hpp
     core/VertexBuffer.hpp
     core/GlobalState.hpp
+    extras/EventDispatcher.hpp
+    extras/Easing.hpp
 
+    materials/Uniform.hpp
     materials/Material.hpp
     materials/ShaderMaterial.hpp
+    materials/SimpleShadingMaterial.hpp
     models/Drawable.hpp
 
     maths/Vect2.hpp
@@ -66,6 +70,7 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     maths/Mat2.hpp
     maths/Mat3.hpp
     maths/Mat4.hpp
+    maths/Mathf.hpp
 
     lights/Light.hpp
     lights/AmbientLight.hpp
@@ -88,6 +93,8 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     textures/Texture2D.hpp
     textures/Texture2DArray.hpp
     textures/Texture3D.hpp
+
+    utils/any.hpp
 )
 
 include_directories( 

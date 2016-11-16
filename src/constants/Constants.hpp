@@ -37,7 +37,7 @@ namespace MB
 {
 	namespace ctes
 	{
-		enum ClearBuffer
+        /*enum ClearBuffer
 		{
             DepthBuffer   = GL_DEPTH_BUFFER_BIT,
             StencilBuffer = GL_STENCIL_BUFFER_BIT,
@@ -110,7 +110,7 @@ namespace MB
 		{
 			Interleaved = GL_INTERLEAVED_ATTRIBS,
 			Separate = GL_SEPARATE_ATTRIBS
-		};
+        };*/
 		/*enum TFPrimitive
 		{
 			Points = GL_POINTS,
@@ -123,12 +123,12 @@ namespace MB
 		};*/
 
 
-		enum MouseButton
+        /*enum MouseButton
 		{
 			Left = 0,
 			Middle = 1,
 			Right = 2
-		};
+        };*/
 	}
 }
 

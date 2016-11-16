@@ -62,7 +62,7 @@ namespace MB
     void Node::removeChild(Node* /*n*/) {
 		// TODO
 	}
-	void Node::addComponent(Component* c)
+    void Node::addComponent(Component* c)
 	{
 		c->setNode(this);
 		this->_components.push_back(c);

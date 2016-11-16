@@ -25,8 +25,8 @@
 namespace MB
 {
 	VertexBuffer::VertexBuffer(unsigned int type)
-	{
-		// TODO: TYPE Default array_mode
+        : _type(type)
+    {
 	}
 	VertexBuffer::~VertexBuffer()
 	{
@@ -43,20 +43,15 @@ namespace MB
 	{
 		this->bind();
 		glBufferSubData(this->_type, offset, _data.size(), _data.data());
-	}
-	void VertexBuffer::data(std::vector<float> _data, unsigned int usage)
-	{
-		this->bind();
-		glBufferData(this->_type, _data.size(), _data.data(), usage);
-	}
+    }
 	std::vector<float> VertexBuffer::getSubData(int size, int offset)
 	{
 		this->bind();
-		std::vector<float> arrBuffer(size);
-		glGetBufferSubData(this->_type, 0, size * sizeof(float), &arrBuffer[0]);
+        std::vector<float> arrBuffer(size);
+        glGetBufferSubData(this->_type, 0, offset, &arrBuffer[0]);
 		return arrBuffer;
 	}
-	void VertexBuffer::attribDivisor(int position, int length, int divisor, int stride)
+    void VertexBuffer::attribDivisor(int position, int length, int divisor, int /*stride*/)
 	{
 		this->bind();
 		glEnableVertexAttribArray(position);

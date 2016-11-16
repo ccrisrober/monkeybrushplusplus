@@ -39,16 +39,17 @@ namespace MB
 	class Log
 	{
 	public:
-		static void setLogLevel(const TLogLevel level)
+        static void setLogLevel(const TLogLevel)
 		{
 		}
 		static TLogLevel logLevel()
 		{
+            return _logLevel;
 		}
-		static void log(const std::string& message, const TLogLevel level = LOG_LEVEL_INFO)
+        static void log(const std::string&, const TLogLevel /*level = LOG_LEVEL_INFO*/)
 		{
 		}
-    	static void setStream(std::ostream& ost)
+        static void setStream(std::ostream&)
     	{
     	//	_ost = ost;
     	}
