@@ -25,7 +25,8 @@
 #ifndef __MB_LOG__
 #define __MB_LOG__
 
-namespace MB {
+namespace MB
+{
 	typedef enum
 	{
 		LOG_LEVEL_QUIET,    // no output
@@ -35,29 +36,26 @@ namespace MB {
 		LOG_LEVEL_ALL,      // all messages are output
 		LOG_LEVEL_NONE,     // end of enum marker
 	} TLogLevel;
-	class Log {
+	class Log
+	{
 	public:
 		static void setLogLevel(const TLogLevel level)
 		{
-
 		}
 		static TLogLevel logLevel()
 		{
-
 		}
-		static void log(const std::string& message, const TLogLevel level = LOG_LEVEL_DEFAULT)
+		static void log(const std::string& message, const TLogLevel level = LOG_LEVEL_INFO)
 		{
-
 		}
     	static void setStream(std::ostream& ost)
     	{
-    		_ost = ost;
+    	//	_ost = ost;
     	}
-    	static std::ostream& stream() const
+    	static std::ostream& stream()
     	{
     		return _ost;
     	}
-
 	protected:
 		static TLogLevel _logLevel;
 		static std::ostream& _ost;

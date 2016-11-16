@@ -25,21 +25,16 @@
 
 #include "Light.hpp"
 
-namespace MB {
-	class HemisphericLight: public Light {
+namespace MB
+{
+	class HemisphericLight: public Light
+    {
 	public:
-        HemisphericLight(Vect3 dir = Vect3::createFromScalar(0.0f))
-            :Light()
-            , _direction(dir)
-        {
-
-        }
-        Vec3& direction() const { return this->_direction; }
-        void direction(Vect3& pos) { this->_direction = pos; }
-        Color3& groundColor() const { return this->_groundColor; }
-        void groundColor(const Color3& c) {
-            this->_groundColor = c;
-        }
+        HemisphericLight(const Vect3 dir = Vect3::createFromScalar(0.0f));
+		Vect3 direction() const;
+        void direction (const Vect3& pos);
+        Color3 groundColor() const;
+        void groundColor(const Color3& c);
     protected:
         Vect3 _direction;
         Color3 _groundColor;

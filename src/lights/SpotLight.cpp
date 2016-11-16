@@ -20,16 +20,41 @@
  *
  */
 
-#include "Input.hpp"
+#include "SpotLight.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
+	SpotLight::SpotLight(const Vect3 pos, const Vect3 dir, float coff)
+		: Light()
+		, _position(pos)
+		, _direction(dir)
+		, _cutOff(coff)
+	{
 
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+	}
+	Vect3 SpotLight::position() const
+	{
+		return this->_position;
+	}
+	Vect3 SpotLight::direction() const
+	{
+		return this->_direction;
+	}
+	float SpotLight::cutOff() const
+	{
+		return this->_cutOff;
+	}
+	void SpotLight::position(const Vect3 pos)
+	{
+		this->_position = pos;
+	}
+	void SpotLight::direction(const Vect3 dir)
+	{
+		this->_direction = dir;
+	}
+	void SpotLight::cutOff(const float coff)
+	{
+		this->_cutOff = coff;
+	}
 }
+

@@ -20,16 +20,21 @@
  *
  */
 
-#include "Input.hpp"
+#include "PointLight.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
-
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+    PointLight::PointLight(const Vect3 pos)
+    :Light()
+    , _position(pos)
+    {
+    }
+	Vect3 PointLight::position() const
+    {
+        return this->_position;
+    }
+    void PointLight::position(const Vect3& pos)
+    {
+        this->_position = pos;
+    }
 }

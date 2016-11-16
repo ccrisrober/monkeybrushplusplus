@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal
+* Authors: Cristian RodrÃ­guez Bernal
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -20,41 +20,25 @@
 *
 */
 
-#ifndef __MB_TEXTURE2D__
-#define __MB_TEXTURE2D__
-
-#include "Texture.hpp"
+#include "VertexArray.hpp"
 
 namespace MB
 {
-	class Texture2D : public Texture
+	VertexArray::VertexArray()
 	{
-	public:
-		Texture2D::Texture2D(const TexOptions& options, 
-			unsigned int width, unsigned int height)
-			: Texture2D(options, nullptr, width, height)
-		{
-		}
-		Texture2D::Texture2D(const TexOptions& options, void* data, 
-			unsigned int width, unsigned int height)
-			: Texture(options, GL_TEXTURE_2D)
-			, _width(width)
-			, _height(height)
-		{
-		}
-		Texture2D(const TexOptions& options, const std::string src)
-			: Texture(options, GL_TEXTURE_2D)
-			, _src(src)
-		{
-		}
-		Texture2D::~Texture2D(void)
-		{
-		}
-	protected:
-		std::string _src;
-		unsigned int _width;
-		unsigned int _height;
-	};
+		glCreateVertexArrays(1, &this->_handler);
+	}
+	VertexArray::~VertexArray()
+	{
+		glDeleteVertexArrays(1, &this->_handler);
+		this->_handler = 0;
+	}
+	void VertexArray::bind()
+	{
+		glBindVertexArray(this->_handler);
+	}
+	void VertexArray::unbind()
+	{
+		glBindVertexArray(0);
+	}
 }
-
-#endif /* __MB_TEXTURE2D__ */

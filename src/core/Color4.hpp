@@ -25,21 +25,20 @@
 
 #include "../maths/Vect4.hpp"
 
-namespace MB {
-	class Color4 {
+namespace MB
+{
+	class Color4
+    {
 	public:
-		Color4(float r, float g, float b, float a)
-		{
-            this->_color = Vect4(r, g, b, a);
-        }
-        float r() const { return this->_color.x(); }
-        float g() const { return this->_color.y(); }
-        float b() const { return this->_color.z(); }
-        float a() const { return this->_color.w(); }
-        void r(const float v) { this->_color.x(v); }
-        void g(const float v) { this->_color.y(v); }
-        void b(const float v) { this->_color.z(v); }
-        void a(const float v) { this->_color.w(v); }
+		Color4(float r = 1.0f, float g = 1.0f, float b = 1.0f, float a = 1.0f);
+        float r() const;
+        float g() const;
+        float b() const;
+        float a() const;
+        void r(const float v);
+        void g(const float v);
+        void b(const float v);
+        void a(const float v);
 
 	protected:
 		Vect4 _color;

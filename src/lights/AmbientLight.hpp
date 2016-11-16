@@ -25,13 +25,12 @@
 
 #include "Light.hpp"
 
-namespace MB {
-	class AmbientLight: public Light {
+namespace MB
+{
+	class AmbientLight: public Light
+	{
 	public:
-        AmbientLight()
-            : Light()
-        {
-        }
+        AmbientLight();
     };
 }
 

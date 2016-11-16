@@ -25,9 +25,23 @@
 
 #include "Light.hpp"
 
-namespace MB {
-	class SpotLight: public Light {
+namespace MB
+{
+	class SpotLight: public Light
+	{
 	public:
+		SpotLight(const Vect3 pos = Vect3::createFromScalar(0.0f),
+			const Vect3 dir = Vect3::createFromScalar(0.0f), float coff = 1.0f);
+		Vect3 position() const;
+		Vect3 direction() const;
+		float cutOff() const;
+		void position(const Vect3 pos);
+		void direction(const Vect3 dir);
+		void cutOff(const float coff);
+	protected:
+		Vect3 _position;
+		Vect3 _direction;
+		float _cutOff;
     };
 }
 

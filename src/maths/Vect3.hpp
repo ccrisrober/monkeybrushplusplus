@@ -25,8 +25,10 @@
 
 #include <vector>
 
-namespace MB {
-	class Vect3 {
+namespace MB
+{
+	class Vect3
+	{
 	public:
 		static Vect3 xAxis;
 		static Vect3 yAxis;
@@ -39,27 +41,40 @@ namespace MB {
 			this->_value[1] = y;
 			this->_value[2] = z;
 		}
-		float x() const {
+		float x() const
+		{
 			return this->_value[0];
 		}
-		void x(float v) {
+		void x(float v)
+		{
 			this->_value[0] = v;
 		}
-		float y() const {
+		float y() const
+		{
 			return this->_value[1];
 		}
-		void y(float v) {
+		void y(float v)
+		{
 			this->_value[1] = v;
 		}
-		float z() const {
+		float z() const
+		{
 			return this->_value[2];
 		}
-		void z(float v) {
+		void z(float v)
+		{
 			this->_value[2] = v;
 		}
 		static Vect3 createFromScalar(float value = 0.0f)
 		{
 			return Vect3(value, value, value);
+		}
+		// TODO: CONST&??
+		void set(float x_, float y_, float z_)
+		{
+			x(x_);
+			y(y_);
+			z(z_);
 		}
 		Vect3 add(Vect3 v)
 		{
@@ -123,11 +138,6 @@ namespace MB {
 	protected:
 		std::vector<float> _value;
 	};
-
-	Vect3 Vect3::xAxis(1.0f, 0.0f, 0.0f);
-	Vect3 Vect3::yAxis(0.0f, 1.0f, 0.0f);
-	Vect3 Vect3::zAxis(0.0f, 0.0f, 1.0f);
-	Vect3 Vect3::up(0.0f, 1.0f, 1.0f);
 }
 
 #endif /* __MB_VECT3__ */

@@ -20,16 +20,21 @@
  *
  */
 
-#include "Input.hpp"
+#include "DirectionalLight.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
-
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+    DirectionalLight::DirectionalLight(const Vect3 dir)
+        :Light()
+        , _direction(dir)
+    {
+    }
+	Vect3 DirectionalLight::direction() const
+    {
+        return this->_direction;
+    }
+    void DirectionalLight::direction(const Vect3& pos)
+    {
+        this->_direction = pos;
+    }
 }

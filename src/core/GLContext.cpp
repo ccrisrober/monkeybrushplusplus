@@ -33,8 +33,10 @@
 #include <GLFW/glfw3.h>
 
 #include "Input.hpp"
+#include <functional>
 
-namespace MB {
+namespace MB
+{
 	GLContext::GLContext(unsigned int minVersion, unsigned int maxVersion, const char* title)
 		: _minVersion(minVersion)
 		, _maxVersion(maxVersion)
@@ -70,8 +72,18 @@ namespace MB {
         }
 
 		Input::init();
+
+		/*std::function<void(GLFWwindow*, int, int, int)> mouseCallback([=](GLFWwindow*, int button, int action, int) {
+		});
+		std::function<void(GLFWwindow*, double, double)> scrollCallback([=](GLFWwindow*, double xoff, double yoff) {
+		});
+		std::function<void(GLFWwindow*, int, int, int, int)> keyCallback([=](GLFWwindow*, int key, int, int action, int) {
+		});*/
+		glfwSetKeyCallback(getWindow(), &key_callback);
+		glfwSetMouseButtonCallback(getWindow(), &mouse_button_callback);
 	}
-	GLFWwindow* GLContext::getWindow() const {
+	GLFWwindow* GLContext::getWindow() const
+	{
 		return this->_window;
 	}
 }

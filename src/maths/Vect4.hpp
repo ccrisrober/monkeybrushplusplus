@@ -23,8 +23,12 @@
 #ifndef __MB_VECT4__
 #define __MB_VECT4__
 
-namespace MB {
-	class Vect4 {
+#include <vector>
+
+namespace MB
+{
+	class Vect4
+    {
 	public:
         Vect4(float x = 0.0f, float y = 0.0f, float z = 0.0f, float a = 1.0f)
         {
@@ -34,30 +38,40 @@ namespace MB {
             this->_value[2] = z;
             this->_value[4] = a;
         }
-        float x() const {
+        float x() const
+        {
             return this->_value[0];
         }
-        void x(float v) {
+        void x(float v)
+        {
             this->_value[0] = v;
         }
-        float y() const {
+        float y() const
+        {
             return this->_value[1];
         }
-        void y(float v) {
+        void y(float v)
+        {
             this->_value[1] = v;
         }
-        float z() const {
+        float z() const
+        {
             return this->_value[2];
         }
-        void z(float v) {
+        void z(float v)
+        {
             this->_value[2] = v;
         }
-        float a() const {
+        float w() const
+        {
             return this->_value[3];
         }
-        void a(float v) {
+        void w(float v)
+        {
             this->_value[3] = v;
         }
+	protected:
+		std::vector<float> _value;
 	};
 }
 

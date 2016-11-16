@@ -23,23 +23,23 @@
 #ifndef __MB_COMPONENT__
 #define __MB_COMPONENT__
 
-namespace MB {
+#include <iostream>
+
+namespace MB
+{
 	class Node;
-
-	class Component {
+	class Component
+	{
 	public:
-        void update(float /*dt*/)
-		{
-
-		}
-		Node* getNode() const {
-			return this->_node;
-		}
-		void setNode(Node* n)
-		{
-			this->_node = n;
+		virtual void update(float /*dt*/);
+		Node* getNode() const;
+		void setNode(Node* n);
+		friend std::ostream& operator<<(std::ostream & str, const Component& n) {
+			str << typeid(n).name();
+			return str;
 		}
 	protected:
+		Component();
 		Node* _node;
 	};
 }

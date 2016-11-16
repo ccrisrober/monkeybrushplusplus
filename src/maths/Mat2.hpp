@@ -23,8 +23,10 @@
 #ifndef __MB_MAT2__
 #define __MB_MAT2__
 
-namespace MB {
-	class Mat2 {
+namespace MB
+{
+	class Mat2
+	{
 	public:
 	};
 }

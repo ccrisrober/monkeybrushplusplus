@@ -36,8 +36,10 @@
 #include <iostream>
 #include <functional>
 
-namespace MB {
-    struct TexOptions {
+namespace MB
+{
+    struct TexOptions
+    {
         unsigned int internalFormat = GL_RGBA;
         unsigned int format = GL_RGBA;
         unsigned int border = 0;

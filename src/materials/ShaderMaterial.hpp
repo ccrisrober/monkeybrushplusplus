@@ -20,16 +20,21 @@
  *
  */
 
-#include "Input.hpp"
+#ifndef __MB_SHADER_MATERIAL__
+#define __MB_SHADER_MATERIAL__
+
+#include "Material.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
-
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+	class ShaderMaterial: public Material
+	{
+	public:
+		ShaderMaterial()
+		: Material()
+		{
+		}
+	};
 }
+
+#endif /* __MB_SHADER_MATERIAL__ */

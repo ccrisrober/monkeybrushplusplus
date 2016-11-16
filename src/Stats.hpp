@@ -23,8 +23,10 @@
 #ifndef __MB_STATS__
 #define __MB_STATS__
 
-namespace MB {
-	class Stats {
+namespace MB
+{
+	class Stats
+	{
 	public:
 		Stats()
 		{

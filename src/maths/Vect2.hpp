@@ -23,9 +23,37 @@
 #ifndef __MB_VECT2__
 #define __MB_VECT2__
 
-namespace MB {
-	class Vect2 {
+#include <vector>
+
+namespace MB
+{
+	class Vect2
+	{
 	public:
+		Vect2(float x = 0.0f, float y = 0.0f)
+		{
+			this->_value.resize(2);
+			this->_value[0] = x;
+			this->_value[1] = y;
+		}
+		float x() const
+		{
+			return this->_value[0];
+		}
+		void x(float v)
+		{
+			this->_value[0] = v;
+		}
+		float y() const
+		{
+			return this->_value[1];
+		}
+		void y(float v)
+		{
+			this->_value[1] = v;
+		}
+	protected:
+		std::vector<float> _value;
 	};
 }
 

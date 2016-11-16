@@ -25,9 +25,24 @@
 
 #include <unordered_map>
 
-namespace MB {
-	typedef std::unordered_map<std::string, unsigned int> TUniforms;
-	class Material {
+namespace MB
+{
+	typedef enum
+	{
+		Float, Integer, Unsigned, Boolean, Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4
+	} UniformType;
+	struct UniformMaterial {
+		UniformMaterial(UniformType _type, void* _value)
+		{
+			this->type = _type;
+			this->value = _value;
+		}
+		UniformType type;
+		void* value;
+	};
+	typedef std::unordered_map<std::string, UniformMaterial> TUniforms;
+	class Material
+	{
 	public:
 		Material()
 		{

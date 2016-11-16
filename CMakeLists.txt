@@ -27,9 +27,10 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
+common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
 
-list (APPEND MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES GLEW glfw)
+list (APPEND MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES OpenGL GLEW glfw)
 
 common_find_package_post()
 
@@ -43,4 +44,4 @@ install( FILES ${PROJECT_BINARY_DIR}/include/MonkeyBrusPlusPlus/defines${SYSTEM}
   DESTINATION include/MonkeyBrusPlusPlus )
 
 include(CPackConfig)
-include(DoxygenRule)
+#include(DoxygenRule)

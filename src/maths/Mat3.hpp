@@ -23,8 +23,10 @@
 #ifndef __MB_MAT3__
 #define __MB_MAT3__
 
-namespace MB {
-	class Mat3 {
+namespace MB
+{
+	class Mat3
+	{
 	public:
 	};
 }

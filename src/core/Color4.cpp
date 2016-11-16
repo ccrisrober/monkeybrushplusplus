@@ -20,16 +20,44 @@
  *
  */
 
-#include "Input.hpp"
+#include "Color4.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
-
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+	Color4::Color4(float r, float g, float b, float a)
+	{
+        this->_color = Vect4(r, g, b, a);
+    }
+    float Color4::r() const
+    {
+        return this->_color.x();
+    }
+    float Color4::g() const
+    {
+        return this->_color.y();
+    }
+    float Color4::b() const
+    {
+        return this->_color.z();
+    }
+    float Color4::a() const
+    {
+        return this->_color.w();
+    }
+    void Color4::r(const float v)
+    {
+        this->_color.x(v);
+    }
+    void Color4::g(const float v)
+    {
+        this->_color.y(v);
+    }
+    void Color4::b(const float v)
+    {
+        this->_color.z(v);
+    }
+    void Color4::a(const float v)
+    {
+        this->_color.w(v);
+    }
 }

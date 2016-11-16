@@ -26,8 +26,10 @@
 #include <vector>
 #include <GLFW/glfw3.h>
 
-namespace MB {
-	class Input {
+namespace MB
+{
+	class Input
+	{
 	public:
 		static bool isKeyPressed(int keycode) {
             return _isKeyPressed[keycode];
@@ -66,9 +68,18 @@ namespace MB {
 				_isButtonClicked.resize(3, false);
 
 				_keyPreviusState.resize(GLFW_KEY_LAST, false);
-				_keyPreviusState.resize(GLFW_KEY_LAST, false);
+				_isKeyPressed.resize(GLFW_KEY_LAST, false);
 				_isKeyClicked.resize(GLFW_KEY_LAST, false);
 			}
+		}
+
+		static void _onKeyUp(unsigned int keycode)
+		{
+			_isKeyPressed[keycode] = false;
+		}
+		static void _onKeyDown(unsigned int keycode)
+		{
+			_isKeyPressed[keycode] = true;
 		}
 
 	protected:

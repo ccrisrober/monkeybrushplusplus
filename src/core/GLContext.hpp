@@ -23,28 +23,36 @@
 #ifndef __MB_GLCONTEXT__
 #define __MB_GLCONTEXT__
 
-#include <iostream>
+#include "../Includes.hpp"
+#include "Input.hpp"
 
-//OpenGL
-#ifndef SKIP_GLEW_INCLUDE
-#include <GL/glew.h>
-#endif
-#ifdef Darwin
-#include <OpenGL/gl.h>
-#else
-#include <GL/gl.h>
-#endif
-#include <GLFW/glfw3.h>
-
-namespace MB {
-	class GLContext {
+namespace MB
+{
+	class GLContext
+	{
 	public:
 		GLContext(unsigned int minVersion = 3, unsigned int maxVersion = 3, const char* title = "Hello MB");
 		GLFWwindow* getWindow() const;
         void close( ) {
             glfwTerminate();
         }
-
+	private:
+		static void mouse_button_callback(GLFWwindow*, int /*button*/, int /*action*/, int)
+		{
+			//if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+		}
+		static void key_callback(GLFWwindow*, int key, int, int action, int)
+		{
+			if (action == GLFW_PRESS || action == GLFW_REPEAT)
+			{
+				Input::_onKeyDown(key);
+			}
+			else if (action == GLFW_RELEASE)
+			{
+				Input::_onKeyUp(key);
+			}
+			
+		}
 	protected:
 		unsigned int _minVersion;
 		unsigned int _maxVersion;

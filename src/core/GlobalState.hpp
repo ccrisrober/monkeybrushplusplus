@@ -24,17 +24,89 @@
 #define __MB_GLOBAL_STATE__
 
 #include "../core/Color4.hpp"
+#include "../maths/Vect4.hpp"
 
-namespace MB {
-    class CullingState {
+//OpenGL
+#ifndef SKIP_GLEW_INCLUDE
+#include <GL/glew.h>
+#endif
+#ifdef Darwin
+#include <OpenGL/gl.h>
+#else
+#include <GL/gl.h>
+#endif
 
+namespace MB
+{
+    class CullingState
+    {
+	public:
+		void setStatus(const bool enabled)
+		{
+			if (enabled)
+			{
+				glEnable(GL_CULL_FACE);
+			}
+			else
+			{
+				glDisable(GL_CULL_FACE);
+			}
+		}
+		void setFlipSided(unsigned int flipSide)
+		{
+			glFrontFace(flipSide);
+		}
+	protected:
+		unsigned int _currentFrontFace;
+		bool _cullingEnabled = false;
+		unsigned int _cullingFaceMode;
     };
-    class DepthState {
-
+    class DepthState
+    {
+	public:
+		void setFunc(unsigned int depthFunc)
+		{
+			glDepthFunc(depthFunc);
+		}
+		void setStatus(const bool enabled)
+		{
+			if (enabled)
+			{
+				glEnable(GL_DEPTH_TEST);
+			}
+			else
+			{
+				glDisable(GL_DEPTH_TEST);
+			}
+		}
+		void setMask(const bool mask)
+		{
+			glDepthMask(mask);
+		}
+		void setClear(float depth)
+		{
+			glClearDepth(depth);
+		}
+		void clearBuffer()
+		{
+			glClear(GL_DEPTH_BUFFER_BIT);
+		}
+		void depthRange(float znear = 0.0f, float zfar = 1.0f)
+		{
+			glDepthRange(znear, zfar);
+		}
     };
-    class ColorState {
-        public:
-
+    class ColorState
+    {
+	public:
+		void setMask(float r, float g, float b, float a)
+		{
+			this->setMask(Color4(r, g, b, a));
+		}
+		void setMask(const Color4& bgColor)
+		{
+			glColorMask(bgColor.r(), bgColor.g(), bgColor.b(), bgColor.a());
+		}
         void setClear(float r, float g, float b, float a)
         {
             this->setClear(Color4(r, g, b, a));
@@ -43,17 +115,90 @@ namespace MB {
         {
             glClearColor(bgColor.r(), bgColor.g(), bgColor.b(), bgColor.a());
         }
+		void clearBuffer()
+		{
+			glClear(GL_COLOR_BUFFER_BIT);
+		}
     };
-    class ScissorsState {
-
+    class ScissorsState
+    {
+	public:
+		void setStatus(const bool enabled)
+		{
+			if (enabled)
+			{
+				glEnable(GL_SCISSOR_TEST);
+			}
+			else
+			{
+				glDisable(GL_SCISSOR_TEST);
+			}
+		}
+		void setRectangle(float x, float y, float w, float h)
+		{
+			glScissor(x, y, w, h);
+		}
     };
-    class StencilState {
-
+    class StencilState
+    {
+	public:
+		void setStatus(const bool enabled)
+		{
+			if (enabled)
+			{
+				glEnable(GL_STENCIL_TEST);
+			}
+			else
+			{
+				glDisable(GL_STENCIL_TEST);
+			}
+		}
+		void setMaskValue(unsigned int mask)
+		{
+			glStencilMask(mask);
+		}
+		void setFunc(unsigned int compFun, unsigned int ref, unsigned int mask)
+		{
+			glStencilFunc(compFun, ref, mask);
+		}
+		void setOp(unsigned int fail, unsigned int zfail, unsigned int zpass)
+		{
+			glStencilOp(fail, zfail, zpass);
+		}
+		void setClear(int s)
+		{
+			glClearStencil(s);
+		}
     };
-    class BlendingState {
-
+    class BlendingState
+    {
+	public:
+		void setStatus(const bool enabled)
+		{
+			if (enabled)
+			{
+				glEnable(GL_BLEND);
+			}
+			else
+			{
+				glDisable(GL_BLEND);
+			}
+		}
+		void setEquation(unsigned int mode)
+		{
+			glBlendEquation(mode);
+		}
+		void setEquationSeparate(unsigned int modeRGB, unsigned int modeAlpha)
+		{
+			glBlendEquationSeparate(modeRGB, modeAlpha);
+		}
+		void setColor(float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 0.0f)
+		{
+			glBlendColor(r, g, b, a);
+		}
     };
-	class GlobalState {
+	class GlobalState
+    {
     public:
         GlobalState()
         {
@@ -62,14 +207,24 @@ namespace MB {
             this->stencil.setClear(0.0f);
 
             this->depth.setStatus(true);
-            //this->depth.setFunc(MB.ctes.ComparisonFunc.LessEqual);
+			this->depth.setFunc(GL_LEQUAL);
 
-            this->culling.setFlipSided(MB.ctes.FaceDir.InvClockwise);
+            this->culling.setFlipSided(GL_CCW);
             //this->culling.setMode(MB.ctes.FaceSide.Back);
             this->culling.setStatus(true);
 
             //this.blending.set(MB.ctes.BlendingMode2.Normal);
         }
+
+		void setViewport(const Vect4& vp)
+		{
+			glViewport(vp.x(), vp.y(), vp.z(), vp.w());
+		}
+
+		void setLineWidth(float width)
+		{
+			glLineWidth(width);
+		}
 
         DepthState depth;
         CullingState culling;

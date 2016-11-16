@@ -20,16 +20,31 @@
  *
  */
 
-#include "Input.hpp"
+#ifndef __MB_RENDERBUFFER_TEXTURE__
+#define __MB_RENDERBUFFER_TEXTURE__
+
+#include "RenderBuffer.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
-
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+	class RenderBufferTexture: public RenderBuffer
+	{
+	public:
+		RenderBufferTexture(const Vect2& size, unsigned int format, unsigned int attachment)
+		: RenderBuffer(size, format, attachment)
+		{
+			this->bind();
+			glRenderbufferStorage(GL_RENDERBUFFER, _format, (unsigned int)_size.x(), (unsigned int)size.y());
+			glFramebufferRenderbuffer(GL_FRAMEBUFFER, _attachment, GL_RENDERBUFFER, _handler);
+			this->unbind();
+		}
+		virtual void resize(const Vect2& size)
+		{
+			this->bind();
+			glRenderbufferStorage(GL_RENDERBUFFER, _format, (unsigned int)_size.x(), (unsigned int)size.y());
+			this->unbind();
+		}
+	};
 }
+
+#endif /* __MB_RENDERBUFFER_TEXTURE__ */

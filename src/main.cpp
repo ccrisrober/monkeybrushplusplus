@@ -15,12 +15,80 @@
 #include "scene/Engine.hpp"
 #include "scene/Node.hpp"
 #include "maths/Vect3.hpp"
-// #include "textures/Texture.hpp"
+#include "textures/Texture.hpp"
+#include "textures/Texture2D.hpp"
+#include "textures/Texture2DArray.hpp"
+#include "textures/Texture3D.hpp"
 #include "constants/Constants.hpp"
 #include "core/Input.hpp"
+#include "core/VertexArray.hpp"
+#include "core/VertexBuffer.hpp"
+#include "scene/Scene.hpp"
 #include "scene/MeshRenderer.hpp"
 #include "core/Color3.hpp"
 
+class MoveComponent : public MB::Component
+{
+public:
+	MoveComponent()
+		: MB::Component()
+		, _delta(0.01f)
+		, _sign(1)
+	{
+		std::cout << "Creando MoveComponent component" << std::endl;
+	}
+	virtual void update(float /*dt*/)
+	{
+		if (this->_delta > 2.5f || this->_delta < -2.5f) {
+			this->_sign *= -1;
+		}
+		this->_delta += 0.025 * this->_sign;
+		this->_node->transform().position().x(this->_delta);
+	}
+protected:
+	float _delta;
+	int _sign;
+};
+
+class ScaleComponent : public MB::Component
+{
+public:
+	ScaleComponent()
+	: MB::Component()
+		, _inc(0.0f)
+	{
+		std::cout << "Creando ScaleComponent component" << std::endl;
+	}
+	virtual void update(float /*dt*/)
+	{
+		this->_node->transform().scale().set(
+			this->_inc * 0.01,
+			this->_inc * 0.01,
+			this->_inc * 0.01
+		);
+		this->_inc += 1.0f;
+	}
+protected:
+	float _inc;
+};
+
+class PrintPosition : public MB::Component
+{
+public:
+	PrintPosition()
+	: MB::Component()
+	{
+		std::cout << "Creando PrintPosition component" << std::endl;
+	}
+	virtual void update(float /*dt*/)
+	{
+		//MB::Vect3 pos = this->_node->transform().position();
+		//std::cout << "POSITION: " << pos.x() << ", " << pos.y() << ", " << pos.z() << std::endl;
+	}
+};
+
+MB::Engine* engine;
+MB::Scene* scene;
 void renderFunc(float dt);
 
 int main(void)
@@ -37,105 +105,73 @@ int main(void)
 
     MB::GLContext context(3, 3, "Hello MB");
 
-	MB::Node* n = new MB::Node("HelloNode", "HelloTag");
-	n->addComponent(new MB::MeshRenderer(nullptr, nullptr));
-	MB::Node* n2 = new MB::Node("HelloNode2", "HelloTag2");
-	n->addChild(n2);
+	MB::Node* mbCube = new MB::Node(std::string("cube"));
+	//n->addComponent(new MB::MeshRenderer(nullptr, nullptr));
+	mbCube->addComponent(new MoveComponent());
+	mbCube->addComponent(new ScaleComponent());
+	mbCube->addComponent(new PrintPosition());
 
-	n->transform().position().x(5.0f);
+	MB::Node* mbSphere = new MB::Node(std::string("sphere"));
+	mbCube->addChild(mbSphere);
 
-    MB::Engine e(&context);
-    e.run(renderFunc);
+	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
+	mbSphere->addChild(mbCapsule);
+
+	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
+	mbCube->addChild(mbCylinder);
+
+	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
+	mbCylinder->addChild(mbCapsule2);
+
+	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
+	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
+
+    engine = new MB::Engine(&context);
+	scene = new MB::Scene();
+	scene->root()->addChild(mbCube);
+
+	// std::cout << (scene->root() == n->parent()) << std::endl;
+	auto node = scene->findByName(std::string("capsule"));
+
+	std::cout << (*node) << std::endl;
+
+	/*for (auto c : mbCube->components())
+	{
+		std::cout << (*c) << std::endl;
+	}*/
+
+	/*std::function<void()> f0([=]() {
+		std::cout << "BEFORE NO REUSABLE" << std::endl;
+	});
+	std::function<void()> f1([=]() {
+		std::cout << "BEFORE REUSABLE" << std::endl;
+	});
+
+	std::function<void()> f2([=]() {
+		std::cout << "AFTER NO REUSABLE" << std::endl;
+	});
+	std::function<void()> f3([=]() {
+		std::cout << "AFTER REUSABLE" << std::endl;
+	});
+
+	scene->registerBeforeRender(f0);
+	scene->registerBeforeRender(f1, true);
+	scene->registerAfterRender(f2);
+	scene->registerAfterRender(f3, true);*/
+
+	engine->run(renderFunc);
     
+	delete(scene);
+	delete(engine);
+
     glfwTerminate();
     return 0;
 }
 
 void renderFunc(float dt)
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	std::cout << "Pinto con tiempo " << dt << std::endl;
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//std::cout << "PRESSED B: " << MB::Input::isKeyPressed(GLFW_KEY_B) << std::endl;
+	//std::cout << "CLICKED B: " << MB::Input::isKeyClicked(GLFW_KEY_B) << std::endl;
+	scene->render(dt);
 }
-
-/**
-#include <iostream>
-
-// GLEW
-#include <GL/glew.h>
-
-// GLFW
-#include <GLFW/glfw3.h>
-
-
-// Function prototypes
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-
-// Window dimensions
-const GLuint WIDTH = 800, HEIGHT = 600;
-
-// The MAIN function, from here we start the application and run the game loop
-int main()
-{
-	std::cout << "Starting GLFW context, OpenGL 3.3" << std::endl;
-	// Init GLFW
-	glfwInit();
-	// Set all the required options for GLFW
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
-	if (window == nullptr)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
-	// Set the required callback functions
-	glfwSetKeyCallback(window, key_callback);
-
-	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
-	glewExperimental = GL_TRUE;
-	// Initialize GLEW to setup the OpenGL Function pointers
-	if (glewInit() != GLEW_OK)
-	{
-		std::cout << "Failed to initialize GLEW" << std::endl;
-		return -1;
-	}
-
-	// Define the viewport dimensions
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
-	glViewport(0, 0, width, height);
-
-	// Game loop
-	while (!glfwWindowShouldClose(window))
-	{
-		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-		glfwPollEvents();
-
-		// Render
-		// Clear the colorbuffer
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		// Swap the screen buffers
-		glfwSwapBuffers(window);
-	}
-
-	// Terminate GLFW, clearing any resources allocated by GLFW.
-	glfwTerminate();
-	return 0;
-}
-
-// Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
-	std::cout << key << std::endl;
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-*/

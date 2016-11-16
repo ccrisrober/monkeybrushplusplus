@@ -20,16 +20,41 @@
  *
  */
 
-#include "Input.hpp"
+#ifndef __MB_RENDERBUFFER__
+#define __MB_RENDERBUFFER__
+
+#include "../Includes.hpp"
+#include "../maths/Vect2.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
-
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+	class RenderBuffer
+	{
+	public:
+		virtual void resize(const Vect2& size) = 0;
+		void bind()
+		{
+			glBindRenderbuffer(GL_RENDERBUFFER, _handler);
+		}
+		void unbind()
+		{
+			glBindRenderbuffer(GL_RENDERBUFFER, 0);
+		}
+	protected:
+		RenderBuffer(const Vect2& size, unsigned int format, unsigned int attachment, unsigned int samples = 4)
+		: _size(size)
+		, _format(format)
+		, _attachment(attachment)
+		, _samples(samples)
+		{
+			glCreateRenderbuffers(1, &_handler);
+		}
+		unsigned int _handler;
+		unsigned int _samples;
+		unsigned int _format;
+		unsigned int _attachment;
+		Vect2 _size;
+	};
 }
+
+#endif /* __MB_RENDERBUFFER__ */

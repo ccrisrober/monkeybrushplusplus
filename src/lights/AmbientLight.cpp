@@ -20,16 +20,12 @@
  *
  */
 
-#include "Input.hpp"
+#include "AmbientLight.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
-
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+    AmbientLight::AmbientLight()
+    : Light()
+    {
+    }
 }

@@ -24,9 +24,12 @@
 #define __MB_QUAT__
 
 #include <vector>
+#include <functional>
 
-namespace MB {
-	class Quat {
+namespace MB
+{
+	class Quat
+	{
 	public:
 		Quat(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f)
 		{
@@ -40,29 +43,65 @@ namespace MB {
 		{
 			this->_onChange = f;
 		}
-		float x() const {
+		float x() const
+		{
 			return this->_values[0];
 		}
-		float y() const {
+		float y() const
+		{
 			return this->_values[1];
 		}
-		float z() const {
+		float z() const
+		{
 			return this->_values[2];
 		}
-		float w() const {
+		float w() const
+		{
 			return this->_values[3];
 		}
-		void x(float v) {
+		void x(float v)
+		{
 			this->_values[0] = v;
 		}
-		void y(float v) {
+		void y(float v)
+		{
 			this->_values[1] = v;
 		}
-		void z(float v) {
+		void z(float v)
+		{
 			this->_values[2] = v;
 		}
-		void w(float v) {
+		void w(float v)
+		{
 			this->_values[3] = v;
+		}
+		float pitch()
+		{
+			float
+				x = this->x(),
+				y = this->y(),
+				z = this->z(),
+				w = this->w();
+
+			return std::atan2(2.0f * (y * z + w * x), w * w - x * x - y * y + z * z);
+		}
+		float yaw()
+		{
+			return std::asin(2.0f * (this->x() * this->z() - this->w() * this->y()));
+		}
+		float roll()
+		{
+			float
+				x = this->x(),
+				y = this->y(),
+				z = this->z(),
+				w = this->w();
+
+			return std::atan2(2.0f * (x * y + w * z), w * w + x * x - y * y - z * z);
+		}
+		static float dot(const Quat& q1, const Quat& q2)
+		{
+			return q1.x() * q2.x() + q1.y() * q2.y() + q1.z() * q2.z() + q1.w() * q2.w();
 		}
 	protected:
 		std::vector<float> _values;

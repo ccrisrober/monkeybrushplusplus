@@ -23,8 +23,10 @@
 #ifndef __MB_DRAWABLE__
 #define __MB_DRAWABLE__
 
-namespace MB {
-	class Drawable {
+namespace MB
+{
+	class Drawable
+	{
 	public:
 		Drawable() 
 		{

@@ -20,16 +20,21 @@
  *
  */
 
-#include "Input.hpp"
+#ifndef __MB_INCLUDES__
+#define __MB_INCLUDES__
 
-namespace MB
-{
-	bool Input::_initializated = false;
+#include <iostream>
+#include "core/Log.hpp"
 
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
-}
+#ifndef SKIP_GLEW_INCLUDE
+	#include <GL/glew.h>
+#endif
+#ifdef Darwin
+	#include <OpenGL/gl.h>
+#else
+	#include <GL/gl.h>
+#endif
+
+#include <GLFW/glfw3.h>
+
+#endif /* __MB_INCLUDES__ */

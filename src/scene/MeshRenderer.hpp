@@ -26,37 +26,19 @@
 #include "../models/Drawable.hpp"
 #include "../materials/Material.hpp"
 #include "Component.hpp"
+#include "Node.hpp"
 
-namespace MB {
-	class Node;
-	class MeshRenderer: public Component {
+namespace MB
+{
+	class MeshRenderer: public Component
+	{
 	public:
-		MeshRenderer(Drawable* mesh, Material* material)
-		: Component()
-		, _mesh(mesh)
-		, _material(material)
-		{
-		}
-		Material* getMaterial() const {
-			return this->_material;
-		}
-		Drawable* getMesh() const {
-			return this->_mesh;
-		}
-		void setMaterial(Material* m) {
-			this->_material = m;
-		}
-		void setMesh(Drawable* m) {
-			this->_mesh = m;
-		}
-		void render()
-		{
-			this->_node->_updateMatrixWorld();
-			this->_material->uniforms()["model"] = 1;
-			// this._material._uniforms["model"].value = this.node.transform._matrixWorld;
-			this->_material->use();
-			this->_mesh->render();
-		}
+		MeshRenderer(Drawable* mesh, Material* material);
+		Material* getMaterial() const;
+		Drawable* getMesh() const;
+		void setMaterial(Material* m);
+		void setMesh(Drawable* m);
+		void render();
 	protected:
 		Drawable* _mesh;
 		Material* _material;

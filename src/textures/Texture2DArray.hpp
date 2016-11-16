@@ -26,8 +26,10 @@
 #include "Texture.hpp"
 #include <vector>
 
-namespace MB {
-	class Texture2DArray : public Texture {
+namespace MB
+{
+	class Texture2DArray : public Texture
+	{
 	public:
 		Texture2DArray(const TexOptions& options, std::vector< void* > data,
 			unsigned int width, unsigned int height)

@@ -1,6 +1,7 @@
 #include "Texture.hpp"
 
-namespace MB {
+namespace MB
+{
     Texture::Texture( const TexOptions& options, unsigned int type )
     : _handler( -1 )
     {
@@ -20,7 +21,7 @@ namespace MB {
     }
     Texture::~Texture( )
     {
-        //glDeleteTextures( 1, &this->_handler );
+        glDeleteTextures( 1, &this->_handler );
         this->_handler = -1;
     }
     void Texture::bind( int slot )
@@ -28,12 +29,12 @@ namespace MB {
         this->load( );
         if ( slot >= 0 )
         {
-            //glActiveTexture( GL_TEXTURE0 + slot );
+            glActiveTexture( GL_TEXTURE0 + slot );
         }
-        //glBindTexture( this->_target, this->_handler );
+        glBindTexture( this->_target, this->_handler );
     }
     void Texture::unbind( )
     {
-        //glBindTexture( this->_target, -1 );
+        glBindTexture( this->_target, -1 );
     }
 }

@@ -35,8 +35,10 @@
 #define MB_SUBPROGRAMS
 #define MB_OCC_QUERY
 
-namespace MB {
-	class Program {
+namespace MB
+{
+	class Program
+	{
 	public:
 		Program(void);
 		~Program(void);

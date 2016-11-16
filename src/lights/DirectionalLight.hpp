@@ -25,17 +25,14 @@
 
 #include "Light.hpp"
 
-namespace MB {
-	class DirectionalLight: public Light {
+namespace MB
+{
+	class DirectionalLight: public Light
+	{
     public:
-        DirectionalLight(Vect3 dir = Vect3::createFromScalar(0.0f))
-            :Light()
-            , _direction(dir)
-        {
-
-        }
-        Vec3& direction() const { return this->_direction; }
-        void direction(Vect3& pos) { this->_direction = pos; }
+        DirectionalLight(const Vect3 dir = Vect3::createFromScalar(0.0f));
+        Vect3 direction() const;
+        void direction(const Vect3& pos);
     protected:
         Vect3 _direction;
     };

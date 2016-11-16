@@ -25,26 +25,15 @@
 
 #include <GL/glew.h>
 
-namespace MB {
-	class VertexArray {
+namespace MB
+{
+	class VertexArray
+	{
 	public:
-		VertexArray()
-		{
-			glCreateVertexArrays(1, &this->_handler);
-		}
-		virtual ~VertexArray()
-		{
-			glDeleteVertexArrays(1, &this->_handler);
-			this->_handler = 0;
-		}
-		void bind()
-		{
-			glBindVertexArray(this->_handler);
-		}
-		void unbind()
-		{
-			glBindVertexArray(0);
-		}
+		VertexArray();
+		virtual ~VertexArray();
+		void bind();
+		void unbind();
 	protected:
 		unsigned int _handler;
 	};

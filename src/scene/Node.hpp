@@ -30,108 +30,48 @@
 
 #include "Component.hpp"
 
-namespace MB {
-	class Node {
+namespace MB
+{
+	class Node
+	{
 	public:
-		Node(const std::string& name = "dummy", const std::string& tag = "SimpleTag")
-		: _name(name)
-		, _id(_generateUUID())
-		, _parent(nullptr)
-		, _tag(tag)
-        , _isEnabled(true)
-		{
+		Node(const std::string& name = "dummy", const std::string& tag = "SimpleTag");
+		bool isEnabled() const;
+		bool hasParent() const;
+		Node* parent() const;
+		void setParent(Node* p);
+		void addChild(Node* n);
+        void removeChild(Node* /*n*/);
+		void addComponent(Component* c);
+		void setEnabled(const bool v);
+		void removeAll();
+		std::vector<Node*> children() const;
+		std::vector<Component*> components() const;
+		Transform& transform();
+		void _updateMatrixWorld(bool force = false);
 
-		}
-		inline bool isEnabled() const
+		std::string name() const
 		{
-			return this->_isEnabled;
+			return this->_name;
 		}
-		inline bool hasParent() const
+		std::string tag() const
 		{
-			return this->_parent != nullptr;
+			return this->_tag;
 		}
-		inline Node* parent() const
+		void tag(const std::string& t)
 		{
-			return this->_parent;
+			this->_tag = t;
 		}
-		void setParent(Node* p)
-		{
-            // TODO: Check parent in p node (addChild or removeChild in p.parent)
-			this->_parent = p;
-		}
-		void addChild(Node* n)
-		{
-			if (n == this)
-			{
-				throw "TODO: ERROR";
-			}
-			n->setParent(this);
-			this->_children.push_back(n);
-		}
-        void removeChild(Node* /*n*/) {
-			// TODO
-		}
-		void addComponent(Component* c)
-		{
-			c->setNode(this);
-			this->_components.push_back(c);
-		}
-		void setEnabled(const bool v)
-		{
-			this->_isEnabled = v;
-			for(auto& c: this->_children)
-			{
-				c->setEnabled(v);
-			}
-		}
-		void removeAll() {
-            // TODO: Clear Nodes ...
-			this->_children.clear( );
-		}
-		std::vector<Node*> children() const {
-			return this->_children;
-		}
-		std::vector<Component*> components() const {
-			return this->_components;
-		}
-		Transform& transform() {
-			return this->_transform;
-		}
-		void _updateMatrixWorld()
-		{
-
+		friend std::ostream& operator<<(std::ostream & str, const Node& n) {
+			str << n._name << " => " << n._id;
+			return str;
 		}
 	private:
-		std::string _generateUUID() const
-		{
-            char GUID[40];
-            int t = 0;
-            std::string szTemp = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
-            std::string szHex = "0123456789ABCDEF-";
-            int nLen = szTemp.size();
-
-            for (t=0; t<nLen+1; t++)
-            {
-                int r = rand () % 16;
-                char c = ' ';
-
-                switch (szTemp[t])
-                {
-                    case 'x' : { c = szHex [r]; } break;
-                    case 'y' : { c = szHex [(r & 0x03) | 0x08]; } break;
-                    case '-' : { c = '-'; } break;
-                    case '4' : { c = '4'; } break;
-                }
-
-                GUID[t] = ( t < nLen ) ? c : 0x00;
-            }
-
-            return std::string(GUID);
-		}
+		std::string _generateUUID() const;
 	protected:
 		std::vector<Node*> _children;
         std::vector<Component*> _components;
-        std::string _name;
+		std::string _name;
 		std::string _id;
         Node* _parent;
         std::string _tag;

@@ -20,16 +20,29 @@
  *
  */
 
-#include "Input.hpp"
+#include "HemisphericLight.hpp"
 
 namespace MB
 {
-	bool Input::_initializated = false;
-
-	std::vector<bool> Input::_buttonPreviousState;
-	std::vector<bool> Input::_isButtonPressed;
-	std::vector<bool> Input::_isButtonClicked;
-	std::vector<bool> Input::_keyPreviusState;
-	std::vector<bool> Input::_isKeyPressed;
-	std::vector<bool> Input::_isKeyClicked;
+    HemisphericLight::HemisphericLight(const Vect3 dir)
+    :Light()
+    , _direction(dir)
+    {
+    }
+    Vect3 HemisphericLight::direction() const
+    {
+        return this->_direction;
+    }
+    void HemisphericLight::direction(const Vect3& pos)
+    {
+        this->_direction = pos;
+    }
+    Color3 HemisphericLight::groundColor() const
+    {
+        return this->_groundColor;
+    }
+    void HemisphericLight::groundColor(const Color3& c)
+    {
+        this->_groundColor = c;
+    }
 }

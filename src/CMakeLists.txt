@@ -5,9 +5,23 @@ set( NAMESPACE MONKEYBRUSHPLUSPLUS )
 set( INCLUDE_NAME MonkeyBrushPlusPlus )
 
 set( MONKEYBRUSHPLUSPLUS_SOURCES
+    core/Color3.cpp
+    core/Color4.cpp
+    
     core/GLContext.cpp
     core/Input.cpp
-    #core/Program.cpp
+    core/Program.cpp
+    core/VertexArray.cpp
+    core/VertexBuffer.cpp
+
+    maths/Vect3.cpp
+
+    lights/Light.cpp
+    lights/AmbientLight.cpp
+    lights/DirectionalLight.cpp
+    lights/HemisphericLight.cpp
+    lights/PointLight.cpp
+    lights/SpotLight.cpp
 
     scene/Component.cpp
     scene/MeshRenderer.cpp
@@ -25,6 +39,7 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
 )
 
 set( MONKEYBRUSHPLUSPLUS_HEADERS
+    Includes.hpp
     constants/Constants.hpp
 
     core/Input.hpp
@@ -32,18 +47,19 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     core/Color3.hpp
     core/Color4.hpp
     core/GLContext.hpp
-    #core/Program.hpp
+    core/Program.hpp
     core/VertexArray.hpp
     core/VertexBuffer.hpp
     core/GlobalState.hpp
 
     materials/Material.hpp
+    materials/ShaderMaterial.hpp
     models/Drawable.hpp
 
     maths/Vect2.hpp
     maths/Vect3.hpp
     maths/Vect4.hpp
-
+    maths/Interpolation.hpp
     maths/Quat.hpp
     maths/EulerAngle.hpp
 
@@ -65,6 +81,9 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     scene/Engine.hpp
     scene/Scene.hpp
 
+    textures/RenderBuffer.hpp
+    textures/RenderBufferTexture.hpp
+    textures/RenderBufferMultisampleTexture.hpp
     textures/Texture.hpp
     textures/Texture2D.hpp
     textures/Texture2DArray.hpp
@@ -80,6 +99,7 @@ include_directories(
 #add_subdirectory(textures)
 
 set( MONKEYBRUSHPLUSPLUS_LINK_LIBRARIES
+    ${OPENGL_LIBRARIES}
     ${GLEW_LIBRARIES}
     glfw
 )

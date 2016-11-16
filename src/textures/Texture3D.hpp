@@ -25,8 +25,10 @@
 
 #include "Texture.hpp"
 
-namespace MB {
-	class Texture3D : public Texture {
+namespace MB
+{
+	class Texture3D : public Texture
+	{
 	public:
 		Texture3D(const TexOptions& options, void* data, unsigned int width,
 			unsigned int height, unsigned int depth) :

@@ -25,17 +25,14 @@
 
 #include "Light.hpp"
 
-namespace MB {
-	class PointLight: public Light {
+namespace MB
+{
+	class PointLight: public Light
+    {
 	public:
-        PointLight(Vect3 pos = Vect3::createFromScalar(0.0f))
-            :Light()
-            , _position(pos)
-        {
-
-        }
-        Vec3& position() const { return this->_position; }
-        void position(Vect3& pos) { this->_position = pos; }
+        PointLight(const Vect3 pos = Vect3::createFromScalar(0.0f));
+		Vect3 position() const;
+        void position(const Vect3& pos);
     protected:
         Vect3 _position;
     };
