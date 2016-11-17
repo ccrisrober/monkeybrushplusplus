@@ -23,6 +23,7 @@
 #ifndef __MB_VECT3__
 #define __MB_VECT3__
 
+#include <iostream>
 #include <vector>
 #include <cmath>
 
@@ -42,6 +43,9 @@ namespace MB
 			this->_values[1] = y;
 			this->_values[2] = z;
 		}
+        virtual ~Vect3(void)
+        {
+        }
 		float x() const
 		{
 			return this->_values[0];
@@ -144,7 +148,8 @@ namespace MB
 		static float squaredDistance(const Vect3& v, const Vect3& v2)
 		{
 			Vect3 vsub = Vect3::sub(v2, v);;
-			return (vsub._values[0] * vsub._values[0] + vsub._values[1] * vsub._values[1] + vsub._values[2] * vsub._values[2]);
+            return (vsub._values[0] * vsub._values[0] + vsub._values[1] * vsub._values[1] +
+                    vsub._values[2] * vsub._values[2]);
 		}
 		static Vect3 cross(const Vect3& v, const Vect3& v2)
 		{
@@ -238,7 +243,13 @@ namespace MB
 				}
 			}
 			return true;
-		}
+        }
+        friend std::ostream& operator<<(std::ostream& str, const Vect3& v) {
+            str << std::string("Vect3(");
+            str << v._values[0] << std::string(", ") << v._values[1] << std::string(", ") << v._values[2];
+            str << std::string(")");
+            return str;
+        }
 	public:
 		std::vector<float> _values;
 	};

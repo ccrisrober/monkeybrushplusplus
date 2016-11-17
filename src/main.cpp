@@ -22,6 +22,7 @@
 #include "materials/SimpleShadingMaterial.hpp"
 #include "utils/any.hpp"
 #include "extras/Easing.hpp"
+#include "extras/EventDispatcher.hpp"
 
 class MoveComponent : public MB::Component
 {
@@ -102,7 +103,7 @@ int main(void)
     auto cv2 = color->value().cast<int>();
     std::cout << cv2 << std::endl;
 	
-	cube = new MB::Drawable();
+    cube = new MB::Drawable(1.0f);
 
 	MB::Vect3 v(1.0f, 1.0f, 1.0f);
 	MB::Vect3 v2(1.0f, 1.0f, 1.0f);
@@ -120,15 +121,19 @@ int main(void)
 	mbCube->addComponent(new PrintPosition());
 
 	MB::Node* mbSphere = new MB::Node(std::string("sphere"));
+    mbSphere->addComponent(new MB::MeshRenderer(cube, &ssm));
 	mbCube->addChild(mbSphere);
 
 	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
+    mbCapsule->addComponent(new MB::MeshRenderer(cube, &ssm));
 	mbSphere->addChild(mbCapsule);
 
 	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
+    mbCylinder->addComponent(new MB::MeshRenderer(cube, &ssm));
 	mbCube->addChild(mbCylinder);
 
 	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
+    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &ssm));
 	mbCylinder->addChild(mbCapsule2);
 
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);

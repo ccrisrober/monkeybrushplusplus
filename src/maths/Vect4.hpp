@@ -23,6 +23,7 @@
 #ifndef __MB_VECT4__
 #define __MB_VECT4__
 
+#include <iostream>
 #include <vector>
 
 namespace MB
@@ -30,48 +31,24 @@ namespace MB
 	class Vect4
     {
 	public:
-        Vect4(float x = 0.0f, float y = 0.0f, float z = 0.0f, float a = 1.0f)
-        {
-            this->_value.resize(4);
-            this->_value[0] = x;
-            this->_value[1] = y;
-            this->_value[2] = z;
-            this->_value[4] = a;
+        Vect4(float x = 0.0f, float y = 0.0f, float z = 0.0f, float a = 1.0f);
+        float x() const;
+        void x(const float& v);
+        float y() const;
+        void y(const float& v);
+        float z() const;
+        void z(const float& v);
+        float w() const;
+        void w(const float& v);
+        friend std::ostream& operator<<(std::ostream& str, const Vect4& v) {
+            str << std::string("Vect4(");
+            str << v._values[0] << std::string(", ") << v._values[1] << std::string(", ")
+                                << v._values[2] << std::string(", ") << v._values[3];
+            str << std::string(")");
+            return str;
         }
-        float x() const
-        {
-            return this->_value[0];
-        }
-        void x(const float& v)
-        {
-            this->_value[0] = v;
-        }
-        float y() const
-        {
-            return this->_value[1];
-        }
-        void y(const float& v)
-        {
-            this->_value[1] = v;
-        }
-        float z() const
-        {
-            return this->_value[2];
-        }
-        void z(const float& v)
-        {
-            this->_value[2] = v;
-        }
-        float w() const
-        {
-            return this->_value[3];
-        }
-        void w(const float& v)
-        {
-            this->_value[3] = v;
-        }
-	protected:
-		std::vector<float> _value;
+    public:
+        std::vector<float> _values;
 	};
 }
 

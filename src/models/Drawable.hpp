@@ -32,7 +32,7 @@ namespace MB
 	class Drawable
 	{
 	public:
-		Drawable(float side = 1.0f)
+        Drawable(float /*side = 1.0f*/)
 		{
 			/*_vao = new VertexArray();
 			_vao->bind();

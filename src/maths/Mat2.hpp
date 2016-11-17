@@ -23,11 +23,21 @@
 #ifndef __MB_MAT2__
 #define __MB_MAT2__
 
+#include <vector>
+
 namespace MB
 {
 	class Mat2
 	{
 	public:
+        friend std::ostream& operator<<(std::ostream& str, const Mat2& m) {
+            str << std::string("Mat3(\n");
+            str << std::string("\t") << m._values[0] << std::string(", ") << m._values[1] << std::string(", \n");
+            str << std::string("\t") << m._values[2] << std::string(", ") << m._values[3] << std::string("\n");
+            str << std::string(")");
+            return str;
+        }
+        std::vector<float> _values;
 	};
 }
 

@@ -57,7 +57,17 @@ namespace MB
 		glEnableVertexAttribArray(position);
 		glVertexAttribPointer(position, length, GL_FLOAT, false, length * sizeof(float), 0);
 		glVertexAttribDivisor(position, divisor);
-	}
+    }
+    void VertexBuffer::data(std::vector<float> _data, unsigned int usage)
+    {
+        this->bind();
+        glBufferData(this->_type, _data.size(), _data.data(), usage);
+    }
+    void VertexBuffer::data(std::vector<unsigned int> _data, unsigned int usage)
+    {
+        this->bind();
+        glBufferData(this->_type, _data.size(), _data.data(), usage);
+    }
 	void VertexBuffer::vertexAttribPointer(int attribLocation, int numElems,
 		unsigned int type, bool normalized/*,
 												  unsigned int offset = 0*/)

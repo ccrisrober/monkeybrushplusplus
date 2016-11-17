@@ -55,24 +55,24 @@ namespace MB
             return this->position;
         }
 
-        SimpleCamera(const Vect3& position = Vect3::createFromScalar(0.0f),
-            const Vect3& up = Vect3(0.0f, 1.0f, 0.0f), 
-            float yaw = -90.0f, float pitch = 0.0f)
+        SimpleCamera(const Vect3& position_ = Vect3::createFromScalar(0.0f),
+            const Vect3& up_ = Vect3(0.0f, 1.0f, 0.0f),
+            float yaw_ = -90.0f, float pitch_ = 0.0f)
         {
             this->front = Vect3(0.0f, 0.0f, -1.0f);
-            this->position = position;
-            this->worldUp = up;
-            this->yaw = yaw;
-            this->pitch = pitch;
+            this->position = position_;
+            this->worldUp = up_;
+            this->yaw = yaw_;
+            this->pitch = pitch_;
 
             //this->right = new MB.Vect3();
             //this->up = new MB.Vect3();
 
             this->updateCameraVectors();
         }
-        void update(float timeElapsed/*, callback: Function*/)
+        void update(float timeElapsed_)
 		{
-            this->timeElapsed = timeElapsed;
+            this->timeElapsed = timeElapsed_;
 
             float speed = 1.0f;
 

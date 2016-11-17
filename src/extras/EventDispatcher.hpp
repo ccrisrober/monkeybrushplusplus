@@ -24,6 +24,7 @@
 #define __MB_EVENT_DISPATCHER__
 
 #include <unordered_map>
+#include <vector>
 #include "../utils/any.hpp"
 
 namespace MB
@@ -38,28 +39,30 @@ namespace MB
     class EventDispatcher
     {
     public:
-        void addEventListener(std::string)
+        void addEventListener(const std::string& type, EventDispatcher* ev)
         {
-
+            if(std::find(_callbacks[type].begin(), _callbacks[type].end(), ev) == _callbacks[type].end())
+                _callbacks[type].push_back(ev);
         }
-        void removeEventListener(std::string)
+        void removeEventListener(const std::string& type, EventDispatcher* ev)
         {
-
+            if(hasEvent(type, ev))
+                remove(_callbacks[type].begin(), _callbacks[type].end(), ev);
         }
         void dispatchEvent(const Event& ev)
         {
             if(_callbacks.count(ev.type) == 0)
-            {
                 return;
-            }
-            /*for(const auto& l: _callbacks[ev.type])
-            {
-                //l->eventHandler(*this, ev);
-            }*/
+
+            for(auto cb: _callbacks[ev.type])
+                cb->handler(*this, ev);
         }
-        bool hasEvent(std::string)
+        bool hasEvent(const std::string& type, EventDispatcher* ev)
         {
-            return false;
+            if(_callbacks.count(type) == 0)
+                return false;
+
+            return std::find(_callbacks[type].begin(), _callbacks[type].end(), ev) != _callbacks[type].end();
         }
 
         /*void addEventListener(std::string eventType, cb: MBX.EventListener) {
@@ -103,7 +106,8 @@ namespace MB
             return false;
         }*/
     protected:
-        std::unordered_map<std::string, std::string> _callbacks;
+        std::function<void(EventDispatcher&, const Event&)> handler = [](EventDispatcher&, const Event&){};
+        std::unordered_map<std::string, std::vector<EventDispatcher*> > _callbacks;
     };
 }
 

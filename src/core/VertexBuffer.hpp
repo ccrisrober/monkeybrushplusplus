@@ -38,18 +38,8 @@ namespace MB
 		void bufferSubData(int offset, std::vector<float> _data);
 
 
-        void data(std::vector<float> _data, unsigned int usage = GL_STATIC_DRAW)
-        {
-            this->bind();
-            glBufferData(this->_type, _data.size(), _data.data(), usage);
-        }
-        void data(std::vector<unsigned int> _data, unsigned int usage = GL_STATIC_DRAW)
-        {
-            this->bind();
-            glBufferData(this->_type, _data.size(), _data.data(), usage);
-        }
-
-
+        void data(std::vector<float> _data, unsigned int usage = GL_STATIC_DRAW);
+        void data(std::vector<unsigned int> _data, unsigned int usage = GL_STATIC_DRAW);
 		std::vector<float> getSubData(int size, int offset = 0);
 		void attribDivisor(int position, int length, int divisor, int stride = 0);
 		void vertexAttribPointer(int attribLocation, int numElems,

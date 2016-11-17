@@ -20,31 +20,48 @@
  *
  */
 
-#ifndef __MB_VECT2__
-#define __MB_VECT2__
-
-#include <iostream>
-#include <vector>
+#include "Vect4.hpp"
 
 namespace MB
 {
-	class Vect2
-	{
-	public:
-		Vect2(float x = 0.0f, float y = 0.0f);
-		float x() const;
-		void x(const float& v);
-		float y() const;
-		void y(const float& v);
-        friend std::ostream& operator<<(std::ostream& str, const Vect2& v) {
-            str << std::string("Vect2(");
-            str << v._values[0] << std::string(", ") << v._values[1];
-            str << std::string(")");
-            return str;
-        }
-    public:
-        std::vector<float> _values;
-	};
+    Vect4::Vect4(float x, float y, float z, float a)
+    {
+        this->_values.resize(4);
+        this->_values[0] = x;
+        this->_values[1] = y;
+        this->_values[2] = z;
+        this->_values[4] = a;
+    }
+    float Vect4::x() const
+    {
+        return this->_values[0];
+    }
+    void Vect4::x(const float& v)
+    {
+        this->_values[0] = v;
+    }
+    float Vect4::y() const
+    {
+        return this->_values[1];
+    }
+    void Vect4::y(const float& v)
+    {
+        this->_values[1] = v;
+    }
+    float Vect4::z() const
+    {
+        return this->_values[2];
+    }
+    void Vect4::z(const float& v)
+    {
+        this->_values[2] = v;
+    }
+    float Vect4::w() const
+    {
+        return this->_values[3];
+    }
+    void Vect4::w(const float& v)
+    {
+        this->_values[3] = v;
+    }
 }
-
-#endif /* __MB_VECT2__ */

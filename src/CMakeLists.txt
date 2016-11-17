@@ -16,7 +16,9 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
 
     extras/Easing.cpp
 
+    maths/Vect2.cpp
     maths/Vect3.cpp
+    maths/Vect4.cpp
     maths/Interpolation.cpp
     maths/Quat.cpp
     maths/EulerAngle.cpp

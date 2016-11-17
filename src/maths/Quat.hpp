@@ -36,6 +36,9 @@ namespace MB
 	public:
 		Quat(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f);
         Quat(const Quat& q);
+        virtual ~Quat(void)
+        {
+        }
         Quat& operator=(const Quat& q);
         Quat& copy(const Quat& q);
 		void setCallback(std::function<void()> f);

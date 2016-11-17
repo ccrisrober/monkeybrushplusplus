@@ -202,8 +202,8 @@ namespace MB
 
 		return *this;
 	}
-	EulerAngle& EulerAngle::setFromQuaternion(const Quat& q, RotSeq order, 
-		bool update)
+    EulerAngle& EulerAngle::setFromQuaternion(const Quat& /*q*/, RotSeq /*order*/,
+        bool /*update*/)
 	{
 		/*Mat4 matrix;
 		if (!order)

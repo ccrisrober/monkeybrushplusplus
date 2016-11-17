@@ -23,6 +23,7 @@
 #ifndef __MB_EULER_ANGLE__
 #define __MB_EULER_ANGLE__
 
+#include <iostream>
 #include <functional>
 
 #include "Vect3.hpp"
@@ -33,7 +34,7 @@ namespace MB
 {
 	typedef enum
 	{
-    	zyx, zyz, zxy, zxz, yxz, yxy, yzx, yzy, xyz, xyx, xzy, xzx
+         xyx, zyx, zyz, zxy, zxz, yxz, yxy, yzx, yzy, xyz, xzy, xzx
 	} RotSeq;
 	class EulerAngle {
 	public:
@@ -53,7 +54,35 @@ namespace MB
 		EulerAngle& setFromRotationMatrix(const Mat4& mat, RotSeq order, bool update = false);
 		EulerAngle& setFromQuaternion(const Quat& q, RotSeq order, bool update = false);
         RotSeq order() const;
+        friend std::ostream& operator<<(std::ostream& str, const EulerAngle& v) {
+            str << std::string("EulerAngle(");
+            str << v._values[0] << std::string(", ") << v._values[1] << std::string(", ")
+                                << v._values[2] << std::string(", ") << std::string(v.orderToString());
+            str << std::string(")");
+            return str;
+        }
 	protected:
+        inline const char* orderToString() const
+        {
+            switch (_order)
+            {
+            case xyx:   return "xyx";
+            case zyx:   return "zyx";
+            case zyz:   return "zyz";
+            case zxy:   return "xyx";
+            case zxz:   return "zxz";
+
+            case yxz:   return "yxz";
+            case yxy:   return "yxy";
+            case yzx:   return "yzx";
+
+            case yzy:   return "yzy";
+            case xyz:   return "xyz";
+            case xzy:   return "xzy";
+            case xzx:   return "xzx";
+            }
+            throw;
+        }
         std::vector<float> _values;
         RotSeq _order;
 		std::function<void()> _onChange;

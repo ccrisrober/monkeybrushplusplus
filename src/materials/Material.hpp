@@ -26,7 +26,11 @@
 #include <unordered_map>
 #include "Uniform.hpp"
 #include "../core/Program.hpp"
+#include "../maths/Vect2.hpp"
 #include "../maths/Vect3.hpp"
+#include "../maths/Vect4.hpp"
+#include "../maths/Mat2.hpp"
+#include "../maths/Mat3.hpp"
 #include "../maths/Mat4.hpp"
 
 namespace MB
@@ -38,6 +42,7 @@ namespace MB
 		Material()
 		{
 		}
+        virtual ~Material() {}
 		TUniforms& uniforms() {
 			return this->_uniforms;
 		}
@@ -48,21 +53,37 @@ namespace MB
 			{
 				if (!uniform.second->isDirty())
 					continue;
-				switch (uniform.second->type())
-				{
-					case Vector3:
-					{
-						auto value = uniform.second->value();
-						this->_program.sendUniform3v(uniform.first, &uniform.second->value().cast<Vect3>()._values[0]);
-						break;
-					}
-					case Matrix4:
-					{
-						auto value = uniform.second->value();
-						this->_program.sendUniform4m(uniform.first, &uniform.second->value().cast<Mat4>()._values[0]);
-						break;
-					}
-				}
+                auto type = uniform.second->type();
+                if (type == Vector2)
+                {
+                    auto value = uniform.second->value();
+                    this->_program.sendUniform2v(uniform.first, &uniform.second->value().cast<Vect2>()._values[0]);
+                }
+                else if (type == Vector3)
+                {
+                    auto value = uniform.second->value();
+                    this->_program.sendUniform3v(uniform.first, &uniform.second->value().cast<Vect3>()._values[0]);
+                }
+                else if (type == Vector4)
+                {
+                    auto value = uniform.second->value();
+                    this->_program.sendUniform4v(uniform.first, &uniform.second->value().cast<Vect4>()._values[0]);
+                }
+                else if (type == Matrix2)
+                {
+                    //auto value = uniform.second->value();
+                    //this->_program.sendUniform2m(uniform.first, &uniform.second->value().cast<Mat2>()._values[0]);
+                }
+                else if (type == Matrix3)
+                {
+                    auto value = uniform.second->value();
+                    this->_program.sendUniform3m(uniform.first, &uniform.second->value().cast<Mat3>()._values[0]);
+                }
+                else if (type == Matrix4)
+                {
+                    auto value = uniform.second->value();
+                    this->_program.sendUniform4m(uniform.first, &uniform.second->value().cast<Mat4>()._values[0]);
+                }
 				uniform.second->setDirty(false);
 			}
 			//this->_program.unuse();

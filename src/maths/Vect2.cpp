@@ -19,32 +19,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
-
-#ifndef __MB_VECT2__
-#define __MB_VECT2__
-
-#include <iostream>
-#include <vector>
+#include "Vect2.hpp"
 
 namespace MB
 {
-	class Vect2
+	Vect2::Vect2(float x, float y)
 	{
-	public:
-		Vect2(float x = 0.0f, float y = 0.0f);
-		float x() const;
-		void x(const float& v);
-		float y() const;
-		void y(const float& v);
-        friend std::ostream& operator<<(std::ostream& str, const Vect2& v) {
-            str << std::string("Vect2(");
-            str << v._values[0] << std::string(", ") << v._values[1];
-            str << std::string(")");
-            return str;
-        }
-    public:
-        std::vector<float> _values;
-	};
+        this->_values.resize(2);
+        this->_values[0] = x;
+        this->_values[1] = y;
+	}
+	float Vect2::x() const
+	{
+        return this->_values[0];
+	}
+	void Vect2::x(const float& v)
+	{
+        this->_values[0] = v;
+	}
+	float Vect2::y() const
+	{
+        return this->_values[1];
+	}
+	void Vect2::y(const float& v)
+	{
+        this->_values[1] = v;
+	}
 }
-
-#endif /* __MB_VECT2__ */

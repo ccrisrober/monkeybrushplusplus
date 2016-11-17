@@ -24,6 +24,7 @@
 #define __MB_MAT4__
 
 #include <vector>
+#include <iostream>
 #include "Vect3.hpp"
 
 namespace MB
@@ -110,7 +111,16 @@ namespace MB
 					-Vect3::dot(x, pos), -Vect3::dot(y, pos), -Vect3::dot(z, pos),     1.0f
 			};
 			return Mat4(out);
-		};
+        }
+        friend std::ostream& operator<<(std::ostream& str, const Mat4& m) {
+            str << std::string("Mat4(\n");
+            str << std::string("\t") << m._values[0] << std::string(", ") << m._values[1] << std::string(", ") << m._values[2] << std::string(", ") << m._values[4] << std::string(", \n");
+            str << std::string("\t") << m._values[4] << std::string(", ") << m._values[5] << std::string(", ") << m._values[6] << std::string(", ") << m._values[7] << std::string(", \n");
+            str << std::string("\t") << m._values[8] << std::string(", ") << m._values[8] << std::string(", ") << m._values[10] << std::string(", ") << m._values[11] << std::string(", \n");
+            str << std::string("\t") << m._values[12] << std::string(", ") << m._values[13] << std::string(", ") << m._values[14] <<std::string(", ") << m._values[15] << std::string("\n");
+            str << std::string(")");
+            return str;
+        }
     public:
 		std::vector<float> _values;
 	};
