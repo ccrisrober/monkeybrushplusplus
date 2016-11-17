@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -21,16 +21,8 @@
  */
 
 #include "GLContext.hpp"
-//OpenGL
-#ifndef SKIP_GLEW_INCLUDE
-#include <GL/glew.h>
-#endif
-#ifdef Darwin
-#include <OpenGL/gl.h>
-#else
-#include <GL/gl.h>
-#endif
-#include <GLFW/glfw3.h>
+
+#include "../Includes.hpp"
 
 #include "Input.hpp"
 #include <functional>
@@ -56,8 +48,6 @@ namespace MB
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-        glfwSetInputMode(_window, GLFW_STICKY_KEYS, GL_TRUE);
-
 		std::cout << "OpenGL context version: (" << minVersion << ", " << maxVersion << ")" << std::endl;
 
         this->_window = glfwCreateWindow(_width, _height, title, nullptr, nullptr);
@@ -68,7 +58,9 @@ namespace MB
             throw "Failed to create window with GLFW.";
 	    }
 
-		glfwMakeContextCurrent(this->_window);
+
+		//glfwSetInputMode(_window, GLFW_STICKY_KEYS, GL_TRUE);
+		glfwMakeContextCurrent(_window);
 
         // Initialize GLEW to setup the OpenGL Function pointers
         glewExperimental = (GLboolean) true;

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -55,9 +55,15 @@ namespace MB
 		Quat _quaternion;
 		Vect3 _scale;
 
+	public:
 		Mat4 _matrix;
 		Mat4 _matrixWorld;
-	public:
+		Mat4 matrix() const {
+			return this->_matrix;
+		}
+		Mat4 matrixWorld() const {
+			return this->_matrixWorld;
+		}
 		bool _autoUpdate;
 		bool _matrixWorldNeedUpdate;
 	};

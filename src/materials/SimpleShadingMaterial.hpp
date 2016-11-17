@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -37,11 +37,10 @@ namespace MB
             _uniforms["projection"] = new Uniform(Matrix4);
             _uniforms["view"] = new Uniform(Matrix4);
             _uniforms["model"] = new Uniform(Matrix4);
-            _uniforms["color"] = new Uniform(Vector3);
+            _uniforms["color"] = new Uniform(Vector3, Vect3(1.0f, 1.0f, 1.0f));
 
             const char* vsShader = "#version 330\n"
                                    "layout(location = 0) in vec3 position;\n"
-                                   "layout(location = 1) in vec2 normal;\n"
                                    "\n"
                                    "uniform mat4 projection;\n"
                                    "uniform mat4 view;\n"

@@ -25,6 +25,7 @@
 namespace MB
 {
 	VertexArray::VertexArray()
+	: _handler(0)
 	{
 		glCreateVertexArrays(1, &this->_handler);
 	}

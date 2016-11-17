@@ -14,10 +14,14 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
     core/VertexArray.cpp
     core/VertexBuffer.cpp
 
+    extras/Easing.cpp
+
     maths/Vect3.cpp
+    maths/Interpolation.cpp
     maths/Quat.cpp
     maths/EulerAngle.cpp
     maths/Mat4.cpp
+    maths/Mathf.cpp
 
     lights/Light.cpp
     lights/AmbientLight.cpp
@@ -43,6 +47,7 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
 
 set( MONKEYBRUSHPLUSPLUS_HEADERS
     Includes.hpp
+    SimpleCamera.hpp
     constants/Constants.hpp
 
     core/Input.hpp

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -80,7 +80,8 @@ namespace MB
 		this->_values[1] = 0.0f;
 		this->_values[2] = 0.0f;
 
-		if (_onChange)	_onChange();
+		if (_onChange)
+			_onChange();
 	}
     EulerAngle EulerAngle::createFromVec3(const Vect3& v, RotSeq order)
 	{

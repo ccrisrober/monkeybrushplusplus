@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -26,6 +26,8 @@
 #include <unordered_map>
 #include "Uniform.hpp"
 #include "../core/Program.hpp"
+#include "../maths/Vect3.hpp"
+#include "../maths/Mat4.hpp"
 
 namespace MB
 {
@@ -39,9 +41,31 @@ namespace MB
 		TUniforms& uniforms() {
 			return this->_uniforms;
 		}
-		void use()
+		virtual void use()
 		{
-
+			this->_program.use();
+			for (const auto& uniform : _uniforms)
+			{
+				if (!uniform.second->isDirty())
+					continue;
+				switch (uniform.second->type())
+				{
+					case Vector3:
+					{
+						auto value = uniform.second->value();
+						this->_program.sendUniform3v(uniform.first, &uniform.second->value().cast<Vect3>()._values[0]);
+						break;
+					}
+					case Matrix4:
+					{
+						auto value = uniform.second->value();
+						this->_program.sendUniform4m(uniform.first, &uniform.second->value().cast<Mat4>()._values[0]);
+						break;
+					}
+				}
+				uniform.second->setDirty(false);
+			}
+			//this->_program.unuse();
 		}
 		std::string id;
 		bool backFaceCull = true;

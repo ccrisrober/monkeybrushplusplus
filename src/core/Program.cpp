@@ -24,16 +24,7 @@
 #include <fstream>
 #include <iostream>
 
-#ifndef SKIP_GLEW_INCLUDE
-#include <GL/glew.h>
-#endif
-#ifdef Darwin
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#else
-#include <GL/gl.h>
-#include <GL/glu.h>
-#endif
+#include "../Includes.hpp"
 
 #include <limits>       // std::numeric_limits
 

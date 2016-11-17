@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -40,22 +40,31 @@ namespace MB
         }
         Uniform(UniformType type_, any value_ = nullptr)
             : _type(type_)
-            , _value(std::move(value_))
+            , _value(value_)
             , _isDirty(true)
         {
         }
         Uniform(const Uniform& other)
-            : _type( other._type ), _value( other._value)
+            : _type(other._type), _value(other._value)
         {
         }
-        any value() const {
-            return this->_value;
-        }
-        void value(const any v)
-        {
-            _value = std::move(v);
-        }
-
+		any value() const {
+			return this->_value;
+		}
+		UniformType type() const {
+			return this->_type;
+		}
+		void value(const any v)
+		{
+			_value = std::move(v);
+		}
+		bool isDirty() const {
+			return this->_isDirty;
+		}
+		void setDirty(const bool d)
+		{
+			_isDirty = d;
+		}
     protected:
         UniformType _type;
         any _value;

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -23,6 +23,7 @@
 #ifndef __MB_DRAWABLE__
 #define __MB_DRAWABLE__
 
+#include "../Includes.hpp"
 #include "../core/VertexArray.hpp"
 #include "../core/VertexBuffer.hpp"
 
@@ -33,6 +34,8 @@ namespace MB
 	public:
 		Drawable(float side = 1.0f)
 		{
+			/*_vao = new VertexArray();
+			_vao->bind();
 			float side2 = side / 2.0f;
 			// Vertices
 			std::vector<float> vertices = {
@@ -148,12 +151,106 @@ namespace MB
 			addBufferArray(0, vertices, 3);
 			addBufferArray(1, normals, 3);
 			addBufferArray(2, texCoords, 2);
+
+			_vao->unbind();*/
+
+			/*GLfloat vertices[] = {
+				0.5f,  0.5f, 0.0f,  // Top Right
+				0.5f, -0.5f, 0.0f,  // Bottom Right
+				-0.5f, -0.5f, 0.0f,  // Bottom Left
+				-0.5f,  0.5f, 0.0f   // Top Left 
+			};
+			GLuint indices[] = {  // Note that we start from 0!
+				0, 1, 3,  // First Triangle
+				1, 2, 3   // Second Triangle
+			};
+			GLuint VBO, EBO;
+			glGenVertexArrays(1, &VAO);
+			glGenBuffers(1, &VBO);
+			glGenBuffers(1, &EBO);
+
+			glBindVertexArray(VAO);
+
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+			glEnableVertexAttribArray(0);
+
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			glBindVertexArray(0);*/
+			GLfloat vertices[] = {
+				-0.5f, -0.5f, -0.5f,
+				0.5f, -0.5f, -0.5f,
+				0.5f,  0.5f, -0.5f,
+				0.5f,  0.5f, -0.5f,
+				-0.5f,  0.5f, -0.5f,
+				-0.5f, -0.5f, -0.5f,
+
+				-0.5f, -0.5f,  0.5f,
+				0.5f, -0.5f,  0.5f,
+				0.5f,  0.5f,  0.5f,
+				0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f,  0.5f,
+				-0.5f, -0.5f,  0.5f,
+
+				-0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f, -0.5f,
+				-0.5f, -0.5f, -0.5f,
+				-0.5f, -0.5f, -0.5f,
+				-0.5f, -0.5f,  0.5f,
+				-0.5f,  0.5f,  0.5f,
+
+				0.5f,  0.5f,  0.5f,
+				0.5f,  0.5f, -0.5f,
+				0.5f, -0.5f, -0.5f,
+				0.5f, -0.5f, -0.5f,
+				0.5f, -0.5f,  0.5f,
+				0.5f,  0.5f,  0.5f,
+
+				-0.5f, -0.5f, -0.5f,
+				0.5f, -0.5f, -0.5f,
+				0.5f, -0.5f,  0.5f,
+				0.5f, -0.5f,  0.5f,
+				-0.5f, -0.5f,  0.5f,
+				-0.5f, -0.5f, -0.5f,
+
+				-0.5f,  0.5f, -0.5f,
+				0.5f,  0.5f, -0.5f,
+				0.5f,  0.5f,  0.5f,
+				0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f, -0.5f
+			};
+			// First, set the container's VAO (and VBO)
+			GLuint VBO;
+			glGenVertexArrays(1, &VAO);
+			glGenBuffers(1, &VBO);
+
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+			glBindVertexArray(VAO);
+			// Position attribute
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+			glEnableVertexAttribArray(0);
+			glBindVertexArray(0);
 		}
+		GLuint VAO;
 		void render()
 		{
-			this->_vao.bind();
-			glDrawElements(GL_TRIANGLES, _indicesLen, GL_UNSIGNED_SHORT, 0);
-			this->_vao.unbind();
+
+			glBindVertexArray(VAO);
+			//this->_vao->bind();
+			//glDrawElements(GL_TRIANGLES, _indicesLen, GL_UNSIGNED_INT, 0);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
+			//this->_vao->unbind();
 		}
 	protected:
 		void addBufferArray(unsigned int attribLocation, const std::vector<float>& data, 
@@ -174,7 +271,7 @@ namespace MB
 		}
 		unsigned int _indicesLen;
 		std::vector<VertexBuffer> _handle;
-		VertexArray _vao;
+		VertexArray* _vao;
 	};
 }
 

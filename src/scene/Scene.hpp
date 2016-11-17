@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -23,6 +23,7 @@
 #ifndef __MB_SCENE__
 #define __MB_SCENE__
 
+#include "../SimpleCamera.hpp"
 #include "Node.hpp"
 
 namespace MB
@@ -45,10 +46,11 @@ namespace MB
 		}
 		void registerBeforeRender(const std::function<void()>& cb, bool recyclable = false) {
 			this->_beforeRender.push_back(std::make_pair(cb, recyclable));
-		};
+		}
 		void registerAfterRender(const std::function<void()>& cb, bool recyclable = false) {
 			this->_afterRender.push_back(std::make_pair(cb, recyclable));
-		};
+		}
+		SimpleCamera* camera = new SimpleCamera(Vect3(0.0f, 0.18f, 8.44f));
 	private:
 		Node* _searchName(const std::string& name, Node* elem)
 		{
@@ -87,6 +89,7 @@ namespace MB
 		std::vector<std::pair<std::function<void()>, bool>> _afterRender;
 		void _subrender(Node* n, float dt);
 		Node* _sceneGraph;
+
 
 		unsigned int _totalMeshes;
 		//unsigned int _totalVertices;

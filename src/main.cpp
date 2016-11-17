@@ -1,15 +1,6 @@
 #include <iostream>
 
-//OpenGL
-#ifndef SKIP_GLEW_INCLUDE
-#include <GL/glew.h>
-#endif
-#ifdef Darwin
-#include <OpenGL/gl.h>
-#else
-#include <GL/gl.h>
-#endif
-#include <GLFW/glfw3.h>
+#include "Includes.hpp"
 
 #include "core/GLContext.hpp"
 #include "scene/Engine.hpp"
@@ -101,7 +92,7 @@ int main(void)
 {
     MB::GLContext context(3, 3, 500, 500, "Hello MB");
 
-    MB::SimpleShadingMaterial ssm;
+	MB::SimpleShadingMaterial ssm;
     auto uniforms = ssm.uniforms();
     MB::Uniform* color = uniforms["color"];
     color->value(5.1f);
@@ -112,9 +103,7 @@ int main(void)
     std::cout << cv2 << std::endl;
 	
 	cube = new MB::Drawable();
-    //cube->render();
 
-	//MB::Input::isButtonClicked(5);
 	MB::Vect3 v(1.0f, 1.0f, 1.0f);
 	MB::Vect3 v2(1.0f, 1.0f, 1.0f);
 
@@ -125,7 +114,7 @@ int main(void)
 	auto vf = v.add(v2);
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
-	//n->addComponent(new MB::MeshRenderer(nullptr, nullptr));
+	mbCube->addComponent(new MB::MeshRenderer(cube, &ssm));
 	mbCube->addComponent(new MoveComponent());
 	mbCube->addComponent(new ScaleComponent());
 	mbCube->addComponent(new PrintPosition());
@@ -189,13 +178,11 @@ int main(void)
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	scene->camera->update(dt);
 	if (MB::Input::isKeyPressed(GLFW_KEY_ESCAPE))
 	{
 		engine->close();
 		return;
 	}
-	//std::cout << "PRESSED B: " << MB::Input::isKeyPressed(GLFW_KEY_B) << std::endl;
-	//std::cout << "CLICKED B: " << MB::Input::isKeyClicked(GLFW_KEY_B) << std::endl;
 	scene->render(dt);
 }

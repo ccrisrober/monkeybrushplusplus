@@ -21,6 +21,7 @@
 */
 
 #include "MeshRenderer.hpp"
+#include "../materials/Uniform.hpp"
 
 namespace MB
 {
@@ -49,7 +50,9 @@ namespace MB
 	void MeshRenderer::render()
 	{
 		this->_node->_updateMatrixWorld();
-		// this._material._uniforms["model"].value = this.node.transform._matrixWorld; // TODO
+		auto model = this->getNode()->transform().matrixWorld();
+		this->_material->uniforms()["model"]->value(model);
+		this->_material->uniforms()["color"]->value(Vect3(1.0f, 1.0f, 1.0f));
 		this->_material->use();
 		this->_mesh->render();
 	}

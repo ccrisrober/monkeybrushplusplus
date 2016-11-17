@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -36,7 +36,8 @@ namespace MB
                   const char* title = "Hello MB");
 		GLFWwindow* getWindow() const;
         void close( ) {
-            glfwTerminate();
+			glfwSetWindowShouldClose(_window, GLFW_TRUE);
+            //glfwTerminate();
         }
         void setTitle(const char* title, bool fullName = true)
         {

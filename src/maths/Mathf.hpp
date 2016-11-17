@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -353,13 +353,11 @@ namespace MB
 
             return Vect3(x, y, z);
         }
-        static const float PI;
+		static const float PI_2;
+		static const float PI;
         static const float Deg2Rad;
         static const float Rad2Deg;
 	};
-   	const float PI = 3.1415f;
-   	const float Deg2Rad = PI / 180.0f;
-   	const float Rad2Deg = 180.0f / PI;
 }
 
 #endif /* __MB_MATHF__ */

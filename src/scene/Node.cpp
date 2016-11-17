@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -102,11 +102,12 @@ namespace MB
 		{
 			if (!hasParent())
 			{
-				//this.transform._matrixWorld.copy(this.transform._matrix);
+				this->transform()._matrixWorld.copy(this->transform().matrix());
 			}
 			else
 			{
-				//this.parent.transform._matrixWorld.mult(this.transform._matrix, this.transform._matrixWorld);
+				this->transform()._matrixWorld = Mat4::mult2(this->_parent->transform().matrixWorld(), this->transform().matrix());
+				//this->_parent->transform()._matrixWorld.mult(this.transform._matrix, this.transform._matrixWorld);
 			}
 
 			this->_transform._matrixWorldNeedUpdate = false;

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -20,23 +20,12 @@
  *
  */
 
-#ifndef __MB_STATS__
-#define __MB_STATS__
+#include "Mathf.hpp"
 
 namespace MB
 {
-	class Stats
-	{
-	public:
-		Stats()
-		{
-
-		}
-		void update(float dt)
-		{
-			
-		}
-	};
+   	const float Mathf::PI = 3.1415f;
+    const float Mathf::PI_2 = PI / 2.0f;
+   	const float Mathf::Deg2Rad = PI / 180.0f;
+   	const float Mathf::Rad2Deg = 180.0f / PI;
 }
-
-#endif /* __MB_STATS__ */

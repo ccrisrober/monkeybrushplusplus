@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 maldicion069
  *
- * Authors: Cristian Rodríguez Bernal
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
  *
@@ -86,6 +86,8 @@ namespace MB
 			if (dynamic_cast<MeshRenderer*>(comp))
 			{
 				auto mr = (MeshRenderer*)comp;
+				mr->getMaterial()->uniforms()["projection"]->value(this->camera->projectionMatrix(500, 500));
+				mr->getMaterial()->uniforms()["view"]->value(this->camera->viewMatrix());
 				mr->render();
 				++this->_totalMeshes;
 			}
