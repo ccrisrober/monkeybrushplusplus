@@ -27,6 +27,7 @@ namespace MB
 	VertexBuffer::VertexBuffer(unsigned int type)
         : _type(type)
     {
+        glCreateBuffers(1, &_handler);
 	}
 	VertexBuffer::~VertexBuffer()
 	{
@@ -51,26 +52,25 @@ namespace MB
         glGetBufferSubData(this->_type, 0, offset, &arrBuffer[0]);
 		return arrBuffer;
 	}
-    void VertexBuffer::attribDivisor(int position, int length, int divisor, int /*stride*/)
+    void VertexBuffer::attribDivisor(int position, int length, int divisor, const void* stride)
 	{
 		this->bind();
 		glEnableVertexAttribArray(position);
-		glVertexAttribPointer(position, length, GL_FLOAT, false, length * sizeof(float), 0);
+        glVertexAttribPointer(position, length, GL_FLOAT, false, length * sizeof(float), (const void*)stride);
 		glVertexAttribDivisor(position, divisor);
     }
     void VertexBuffer::data(std::vector<float> _data, unsigned int usage)
     {
         this->bind();
-        glBufferData(this->_type, _data.size(), _data.data(), usage);
+        glBufferData(this->_type, _data.size() * sizeof(float), _data.data(), usage);
     }
     void VertexBuffer::data(std::vector<unsigned int> _data, unsigned int usage)
     {
         this->bind();
-        glBufferData(this->_type, _data.size(), _data.data(), usage);
+        glBufferData(this->_type, _data.size() * sizeof(unsigned int), _data.data(), usage);
     }
 	void VertexBuffer::vertexAttribPointer(int attribLocation, int numElems,
-		unsigned int type, bool normalized/*,
-												  unsigned int offset = 0*/)
+        unsigned int type, bool normalized, const void* stride)
 	{
 		this->bind();
 		glEnableVertexAttribArray(attribLocation);
@@ -79,8 +79,8 @@ namespace MB
 			numElems, // Number of elements per attribute
 			type, // Type of elements
 			normalized,
-			numElems * sizeof(float), // Size of an individual vertex
-			0 // Offset from the beginning of a single vertex to this attribute
+            numElems * sizeof(type), // Size of an individual vertex
+            (const void*)stride // Offset from the beginning of a single vertex to this attribute
 		);
 	}
 	void VertexBuffer::render(unsigned int mode, unsigned int size)

@@ -41,10 +41,10 @@ namespace MB
         void data(std::vector<float> _data, unsigned int usage = GL_STATIC_DRAW);
         void data(std::vector<unsigned int> _data, unsigned int usage = GL_STATIC_DRAW);
 		std::vector<float> getSubData(int size, int offset = 0);
-		void attribDivisor(int position, int length, int divisor, int stride = 0);
+        void attribDivisor(int position, int length, int divisor, const void* stride = 0);
 		void vertexAttribPointer(int attribLocation, int numElems,
-			unsigned int type, bool normalized = false/*,
-			unsigned int offset = 0*/);
+            unsigned int type, bool normalized = false,
+            const void* stride = 0);
 		void render(unsigned int mode, unsigned int size);
 		unsigned int getBufferType() const;
 		unsigned int getBuffer() const;

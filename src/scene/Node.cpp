@@ -102,7 +102,7 @@ namespace MB
 		{
 			if (!hasParent())
 			{
-				this->transform()._matrixWorld.copy(this->transform().matrix());
+                this->transform()._matrixWorld = this->transform().matrix();
 			}
 			else
 			{

@@ -89,8 +89,8 @@ namespace MB
 				mr->getMaterial()->uniforms()["projection"]->value(this->camera->projectionMatrix(500, 500));
 				mr->getMaterial()->uniforms()["view"]->value(this->camera->viewMatrix());
 				mr->render();
-                Uniform* Uview = mr->getMaterial()->uniforms()["view"];
-                std::cout << Uview->value().cast<Mat4>() << std::endl;
+                //Uniform* Uview = mr->getMaterial()->uniforms()["view"];
+                //std::cout << Uview->value().cast<Mat4>() << std::endl;
 				++this->_totalMeshes;
 			}
 		}

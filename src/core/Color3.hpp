@@ -106,6 +106,44 @@ namespace MB
 
         static Color3 createFromHex(int hex);
 
+        static Color3 lerp(const Color3& minColor, const Color3& maxColor, float alpha)
+        {
+
+            float r = minColor.r() + (maxColor.r() - minColor.r()) * alpha;
+            float g = minColor.g() + (maxColor.g() - minColor.g()) * alpha;
+            float b = minColor.b() + (maxColor.b() - minColor.b()) * alpha;
+
+            return Color3(r, g, b);
+        }
+        /**
+         * Convert current color from gamma to linear range.
+         * @param  {number = 2.2} gammaFactor Gamma factor value
+         * @return {Color3}          New color generated.
+         */
+        Color3& gammaToLinear(const float& gammaFactor = 2.2f)
+        {
+            this.r(std::pow(this.r(), gammaFactor));
+            this.g(std::pow(this.g(), gammaFactor));
+            this.b(std::pow(this.b(), gammaFactor));
+
+            return *this;
+        }
+        /**
+         * Convert current color from linear to gamma range.
+         * @param  {number = 2.2}         gammaFactor Gamma factor value
+         * @return {Color3}          New color generated.
+         */
+        Color3& linearToGamma(const float& gammaFactor = 2.2f)
+        {
+            float invGamma = (gammaFactor > 0.0f) ? (1.0f / gammaFactor) : 1.0f;
+
+            this.r(std::pow(this.r(), invGamma));
+            this.g(std::pow(this.g(), invGamma));
+            this.b(std::pow(this.b(), invGamma));
+
+            return *this;
+        }
+
         static Color3 Aqua;
         static Color3 Beige;
         static Color3 Black;

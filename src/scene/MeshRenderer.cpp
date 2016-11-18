@@ -49,11 +49,14 @@ namespace MB
 	}
 	void MeshRenderer::render()
 	{
-		this->_node->_updateMatrixWorld();
+        this->_node->_updateMatrixWorld();
 		auto model = this->getNode()->transform().matrixWorld();
-		this->_material->uniforms()["model"]->value(model);
-		this->_material->uniforms()["color"]->value(Vect3(1.0f, 1.0f, 1.0f));
+        this->_material->uniform("model")->value(model);
+        //std::cout << this->_node->name() << std::endl;
+        //Uniform* Uview = _material->uniforms()["model"];
+        //std::cout << Uview->value().cast<Mat4>() << std::endl;
+        this->_material->uniform("color")->value(Vect3(1.0f, 0.0f, 1.0f));
 		this->_material->use();
-		this->_mesh->render();
+        this->_mesh->render();
 	}
 }

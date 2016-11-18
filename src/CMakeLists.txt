@@ -53,6 +53,7 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     constants/Constants.hpp
 
     core/Input.hpp
+    core/Query.hpp
     core/Log.hpp
     core/Color3.hpp
     core/Color4.hpp
@@ -63,6 +64,7 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     core/GlobalState.hpp
     extras/EventDispatcher.hpp
     extras/Easing.hpp
+    extras/Ray.hpp
 
     materials/Uniform.hpp
     materials/Material.hpp

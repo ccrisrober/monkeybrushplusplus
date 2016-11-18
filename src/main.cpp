@@ -3,6 +3,7 @@
 #include "Includes.hpp"
 
 #include "core/GLContext.hpp"
+#include "core/Query.hpp"
 #include "scene/Engine.hpp"
 #include "scene/Node.hpp"
 #include "maths/Vect3.hpp"
