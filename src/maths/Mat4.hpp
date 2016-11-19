@@ -113,12 +113,12 @@ namespace MB
 			return Mat4(out);
         }
         friend std::ostream& operator<<(std::ostream& str, const Mat4& m) {
-            str << std::string("Mat4(\n");
-            str << std::string("\t") << m._values[0] << std::string(", ") << m._values[1] << std::string(", ") << m._values[2] << std::string(", ") << m._values[4] << std::string(", \n");
-            str << std::string("\t") << m._values[4] << std::string(", ") << m._values[5] << std::string(", ") << m._values[6] << std::string(", ") << m._values[7] << std::string(", \n");
-            str << std::string("\t") << m._values[8] << std::string(", ") << m._values[8] << std::string(", ") << m._values[10] << std::string(", ") << m._values[11] << std::string(", \n");
-            str << std::string("\t") << m._values[12] << std::string(", ") << m._values[13] << std::string(", ") << m._values[14] <<std::string(", ") << m._values[15] << std::string("\n");
-            str << std::string(")");
+            str << "Mat4(\n";
+            str << "\t" << m._values[0] << ", " << m._values[1] << ", " << m._values[2] << ", " << m._values[4] << ", \n";
+            str << "\t" << m._values[4] << ", " << m._values[5] << ", " << m._values[6] << ", " << m._values[7] << ", \n";
+            str << "\t" << m._values[8] << ", " << m._values[8] << ", " << m._values[10] << ", " << m._values[11] << ", \n";
+            str << "\t" << m._values[12] << ", " << m._values[13] << ", " << m._values[14] <<", " << m._values[15] << "\n";
+            str << ")";
             return str;
         }
     public:

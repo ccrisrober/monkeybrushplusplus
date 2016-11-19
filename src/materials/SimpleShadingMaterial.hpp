@@ -59,14 +59,15 @@ namespace MB
                                    ""
                                    "void main()\n"
                                    "{\n"
-                                   "    fragColor = vec4(color, 1.0f);\n"
+                                   "    fragColor = vec4(color, 1.0);\n"
                                    "}\n";
             _program.loadFromText(vsShader, fsShader);
             _program.compileAndLink();
-            _program.addUniform("projection");
+            /*_program.addUniform("projection");
             _program.addUniform("view");
             _program.addUniform("model");
-            _program.addUniform("color");
+            _program.addUniform("color");*/
+			_program.autocatching();
         }
     };
 }

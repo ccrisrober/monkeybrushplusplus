@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __MB_VERTEXBUFFER__
-#define __MB_VERTEXBUFFER__
+#ifndef __MB_VERTEX_BUFFER__
+#define __MB_VERTEX_BUFFER__
 
 #include "../Includes.hpp"
 
@@ -55,4 +55,4 @@ namespace MB
 	};
 }
 
-#endif /* __MB_VERTEXBUFFER__ */
+#endif /* __MB_VERTEX_BUFFER__ */

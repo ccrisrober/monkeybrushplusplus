@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian RodrÃ­guez Bernal
+* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -20,27 +20,41 @@
 *
 */
 
+#ifndef __MB_POST_PROCESS__
+#define __MB_POST_PROCESS__
+
 #include "VertexArray.hpp"
+#include "VertexBuffer.hpp"
 
 namespace MB
 {
-	VertexArray::VertexArray()
-	: _handler(0)
+	class PostProcess
 	{
-		glCreateVertexArrays(1, &this->_handler);
-		this->bind();
-	}
-	VertexArray::~VertexArray()
-	{
-		glDeleteVertexArrays(1, &this->_handler);
-		this->_handler = 0;
-	}
-	void VertexArray::bind()
-	{
-		glBindVertexArray(this->_handler);
-	}
-	void VertexArray::unbind()
-	{
-		glBindVertexArray(0);
-	}
+	public:
+		PostProcess()
+		{
+			std::vector<float> positions = {
+				-1.0f, -1.0f,
+				+1.0f, -1.0f,
+				-1.0f, +1.0f,
+				+1.0f, +1.0f
+			};
+			_vao = new VertexArray();
+			_vbo = new VertexBuffer(GL_ARRAY_BUFFER);
+			_vbo->data(positions, GL_STATIC_DRAW);
+			_vbo->vertexAttribPointer(0, 2, GL_FLOAT);
+			_vao->unbind();
+		}
+		void bind()
+		{
+			_vao->bind();
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+			_vao->unbind();
+		}
+	protected:
+		VertexArray* _vao;
+		VertexBuffer* _vbo;
+	};
 }
+
+#endif /* __MB_POST_PROCESS__ */

@@ -245,11 +245,19 @@ namespace MB
 			return true;
         }
         friend std::ostream& operator<<(std::ostream& str, const Vect3& v) {
-            str << std::string("Vect3(");
-            str << v._values[0] << std::string(", ") << v._values[1] << std::string(", ") << v._values[2];
-            str << std::string(")");
+            str << "Vect3(";
+            str << v._values[0] << ", " << v._values[1] << ", " << v._values[2];
+			str << ")";
             return str;
         }
+		bool operator!=(const Vect3& v)
+		{
+			return !(*this == v);
+		}
+		bool operator==(const Vect3& v)
+		{
+			return x() == v.x() && y() == v.y() && z() == v.z();
+		}
 	public:
 		std::vector<float> _values;
 	};

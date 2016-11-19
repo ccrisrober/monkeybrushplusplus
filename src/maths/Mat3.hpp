@@ -31,11 +31,11 @@ namespace MB
 	{
 	public:
         friend std::ostream& operator<<(std::ostream& str, const Mat3& m) {
-            str << std::string("Mat3(\n");
-            str << std::string("\t") << m._values[0] << std::string(", ") << m._values[1] << std::string(", ") << m._values[2] << std::string(", \n");
-            str << std::string("\t") << m._values[3] << std::string(", ") << m._values[4] << std::string(", ") << m._values[5] << std::string(", \n");
-            str << std::string("\t") << m._values[6] << std::string(", ") << m._values[7] << std::string(", ") << m._values[8] << std::string("\n");
-            str << std::string(")");
+            str << "Mat3(\n";
+            str << "\t" << m._values[0] << ", " << m._values[1] << ", " << m._values[2] << ", \n";
+            str << "\t" << m._values[3] << ", " << m._values[4] << ", " << m._values[5] << ", \n";
+            str << "\t" << m._values[6] << ", " << m._values[7] << ", " << m._values[8] << "\n";
+            str << ")";
             return str;
         }
         std::vector<float> _values;

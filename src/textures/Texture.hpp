@@ -25,6 +25,8 @@
 
 #include "../Includes.hpp"
 
+#include "../maths/Vect2.hpp"
+
 #include <iostream>
 #include <functional>
 
@@ -64,6 +66,9 @@ namespace MB
         {
             return this->_loaded;
         }
+		virtual void resize(const Vect2& /*size*/) {
+
+		}
     protected:
         Texture( const TexOptions& options, unsigned int type );
 

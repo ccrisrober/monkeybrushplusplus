@@ -122,9 +122,9 @@ namespace MB
          */
         Color3& gammaToLinear(const float& gammaFactor = 2.2f)
         {
-            this.r(std::pow(this.r(), gammaFactor));
-            this.g(std::pow(this.g(), gammaFactor));
-            this.b(std::pow(this.b(), gammaFactor));
+            this->r(std::pow(this->r(), gammaFactor));
+            this->g(std::pow(this->g(), gammaFactor));
+            this->b(std::pow(this->b(), gammaFactor));
 
             return *this;
         }
@@ -137,9 +137,9 @@ namespace MB
         {
             float invGamma = (gammaFactor > 0.0f) ? (1.0f / gammaFactor) : 1.0f;
 
-            this.r(std::pow(this.r(), invGamma));
-            this.g(std::pow(this.g(), invGamma));
-            this.b(std::pow(this.b(), invGamma));
+            this->r(std::pow(this->r(), invGamma));
+            this->g(std::pow(this->g(), invGamma));
+            this->b(std::pow(this->b(), invGamma));
 
             return *this;
         }

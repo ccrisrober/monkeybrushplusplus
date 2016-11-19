@@ -55,10 +55,9 @@ namespace MB
 		EulerAngle& setFromQuaternion(const Quat& q, RotSeq order, bool update = false);
         RotSeq order() const;
         friend std::ostream& operator<<(std::ostream& str, const EulerAngle& v) {
-            str << std::string("EulerAngle(");
-            str << v._values[0] << std::string(", ") << v._values[1] << std::string(", ")
-                                << v._values[2] << std::string(", ") << std::string(v.orderToString());
-            str << std::string(")");
+            str << "EulerAngle(";
+            str << v._values[0] << ", " << v._values[1] << ", " << v._values[2] << ", " << v.orderToString();
+            str << ")";
             return str;
         }
 	protected:

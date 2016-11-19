@@ -41,10 +41,10 @@ namespace MB
         float w() const;
         void w(const float& v);
         friend std::ostream& operator<<(std::ostream& str, const Vect4& v) {
-            str << std::string("Vect4(");
-            str << v._values[0] << std::string(", ") << v._values[1] << std::string(", ")
-                                << v._values[2] << std::string(", ") << v._values[3];
-            str << std::string(")");
+            str << "Vect4(";
+            str << v._values[0] << ", " << v._values[1] << ", "
+                                << v._values[2] << ", " << v._values[3];
+            str << ")";
             return str;
         }
     public:

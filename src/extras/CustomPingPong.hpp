@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian RodrÃ­guez Bernal
+* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -20,27 +20,42 @@
 *
 */
 
-#include "VertexArray.hpp"
+#ifndef __MB_CUSTOM_PING_PONG__
+#define __MB_CUSTOM_PING_PONG__
+
+#include <functional>
 
 namespace MB
 {
-	VertexArray::VertexArray()
-	: _handler(0)
+	template <typename T>
+	class CustomPingPong
 	{
-		glCreateVertexArrays(1, &this->_handler);
-		this->bind();
-	}
-	VertexArray::~VertexArray()
-	{
-		glDeleteVertexArrays(1, &this->_handler);
-		this->_handler = 0;
-	}
-	void VertexArray::bind()
-	{
-		glBindVertexArray(this->_handler);
-	}
-	void VertexArray::unbind()
-	{
-		glBindVertexArray(0);
-	}
+	public:
+		CustomPingPong(const T& elem1, const T& elem2)
+			: _elem1(std::move(elem1))
+			, _elem2(std::move(elem2))
+		{
+		}
+		void swap(std::function<void()> cb = nullptr)
+		{
+			std::swap(_elem1, _elem2);
+			if (cb)
+			{
+				cb();
+			}
+		}
+		T first() const
+		{
+			return _elem1;
+		}
+		T last() const
+		{
+			return _elem2;
+		}
+	protected:
+		T _elem1;
+		T _elem2;
+	};
 }
+
+#endif /* __MB_CUSTOM_PING_PONG__ */

@@ -52,16 +52,23 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     SimpleCamera.hpp
     constants/Constants.hpp
 
+    core/BufferAttribute.hpp
     core/Input.hpp
     core/Query.hpp
     core/Log.hpp
     core/Color3.hpp
     core/Color4.hpp
     core/GLContext.hpp
+    core/Framebuffer.hpp
     core/Program.hpp
     core/VertexArray.hpp
     core/VertexBuffer.hpp
     core/GlobalState.hpp
+    core/PostProcess.hpp
+	core/GeometryFunctions.hpp
+	core/VertexUBO.hpp
+
+    extras/CustomPingPong.hpp
     extras/EventDispatcher.hpp
     extras/Easing.hpp
     extras/Ray.hpp
@@ -70,6 +77,8 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     materials/Material.hpp
     materials/ShaderMaterial.hpp
     materials/SimpleShadingMaterial.hpp
+    materials/PostProcessMaterial.hpp
+
     models/Drawable.hpp
 
     maths/Vect2.hpp

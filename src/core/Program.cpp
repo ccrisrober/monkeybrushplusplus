@@ -33,6 +33,51 @@
 
 namespace MB
 {
+	void Program::autocatching(bool attributes, bool uniforms)
+	{
+		int count;
+
+		int size; // Variable size
+		GLenum type; // Variable type (float, vecX, matX, ...)
+
+		const GLsizei bufSize = 32;
+		char name[bufSize]; // GLSL variable name
+		int length; // Name length
+
+		if (attributes)
+		{
+			glGetProgramiv(this->_program, GL_ACTIVE_ATTRIBUTES, &count);
+			//printf("Active Attributes: %d\n", count);
+
+			for (auto i = 0; i < count; ++i)
+			{
+				glGetActiveAttrib(this->_program, (GLuint)i, bufSize, &length,
+					&size, &type, name);
+
+				this->addAttribute(name);
+
+				//printf("Attribute #%d Type: %u Name: %s\n", i, type, name);
+			}
+		}
+
+		if (uniforms)
+		{
+			glGetProgramiv(this->_program, GL_ACTIVE_UNIFORMS, &count);
+			//printf("Active Uniforms: %d\n", count);
+
+			for (auto i = 0; i < count; ++i)
+			{
+				glGetActiveUniform(this->_program, (GLuint)i, bufSize, &length,
+					&size, &type, name);
+
+				this->addUniform(name);
+
+				//printf("Uniform #%d Type: %u Name: %s\n", i, type, name);
+			}
+
+		}
+	}
+
 	Program::Program(void)
 	{
 		_program = -1;
@@ -299,7 +344,7 @@ namespace MB
 		return link();
 	}
 
-	unsigned int Program::program(void)
+	unsigned int Program::program(void) const
 	{
 		return _program;
 	}

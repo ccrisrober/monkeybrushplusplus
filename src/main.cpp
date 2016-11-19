@@ -2,7 +2,10 @@
 
 #include "Includes.hpp"
 
+#include "core/GeometryFunctions.hpp"
 #include "core/GLContext.hpp"
+#include "extras/CustomPingPong.hpp"
+#include "materials/PostProcessMaterial.hpp"
 #include "core/Query.hpp"
 #include "scene/Engine.hpp"
 #include "scene/Node.hpp"
@@ -90,9 +93,30 @@ MB::Scene* scene;
 MB::Drawable* cube;
 void renderFunc(float dt);
 
+
+MB::PostProcessMaterial* ppm;
+
 int main(void)
 {
     MB::GLContext context(3, 3, 500, 500, "Hello MB");
+
+	MB::CustomPingPong<float> cpp(1.0f, 2.0f);
+	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
+	cpp.swap();
+	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
+	cpp.swap();
+	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
+
+	ppm = new MB::PostProcessMaterial(
+		"#version 330\n"
+		"uniform vec3 color;\n"
+		"out vec4 fragColor;\n"
+		"in vec2 uv;\n"
+		""
+		"void main()\n"
+		"{\n"
+		"    fragColor = vec4(uv, 0.5, 1.0);\n"
+		"}\n");
 
 	MB::SimpleShadingMaterial ssm;
     auto uniforms = ssm.uniforms();
@@ -174,6 +198,7 @@ int main(void)
 	scene->registerAfterRender(f3, true);*/
 
 	engine->run(renderFunc);
+	//ppm.renderPP();
     
 	delete(scene);
 	delete(engine);
@@ -191,4 +216,5 @@ void renderFunc(float dt)
 		return;
 	}
 	scene->render(dt);
+	//ppm->renderPP();
 }

@@ -40,6 +40,8 @@ namespace MB
 	class Program
 	{
 	public:
+		void autocatching(bool attributes = true, bool uniforms = true);
+
 		Program(void);
 		~Program(void);
 		/**
@@ -149,7 +151,7 @@ namespace MB
 		* Method to get Program id
 		* @return program identifier.
 		*/
-		unsigned int program(void);
+		unsigned int program(void) const;
 		/**
 		* Method to enable a program
 		*/

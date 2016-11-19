@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __MB_VERTEXARRAY__
-#define __MB_VERTEXARRAY__
+#ifndef __MB_VERTEX_ARRAY__
+#define __MB_VERTEX_ARRAY__
 
 #include "../Includes.hpp"
 
@@ -39,4 +39,4 @@ namespace MB
 	};
 }
 
-#endif /* __MB_VERTEXARRAY__ */
+#endif /* __MB_VERTEX_ARRAY__ */
