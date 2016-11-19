@@ -34,41 +34,13 @@ namespace MB
 	{
 		_totalMeshes = 0;
 		// Before render functions
-		{
-			auto i = std::begin(_beforeRender);
-			while (i != std::end(_beforeRender))
-			{
-				i->first();
-				if (i->second == false)
-				{
-					i = _beforeRender.erase(i);
-				}
-				else
-				{
-					++i;
-				}
-			}
-		}
+		applyQueue(_beforeRender);
 		for (const auto& child : this->_sceneGraph->children())
 		{
 			this->_subrender(child, dt);
 		}
 		// After render functions
-		{
-			auto i = std::begin(_afterRender);
-			while (i != std::end(_afterRender))
-			{
-				i->first();
-				if (i->second == false)
-				{
-					i = _afterRender.erase(i);
-				}
-				else
-				{
-					++i;
-				}
-			}
-		}
+		applyQueue(_afterRender);
 	}
 	Node* Scene::root() const
 	{
@@ -88,9 +60,8 @@ namespace MB
 				auto mr = (MeshRenderer*)comp;
 				mr->getMaterial()->uniforms()["projection"]->value(this->camera->projectionMatrix(500, 500));
 				mr->getMaterial()->uniforms()["view"]->value(this->camera->viewMatrix());
+				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
 				mr->render();
-                //Uniform* Uview = mr->getMaterial()->uniforms()["view"];
-                //std::cout << Uview->value().cast<Mat4>() << std::endl;
 				++this->_totalMeshes;
 			}
 		}

@@ -50,8 +50,24 @@ namespace MB
 		void registerAfterRender(const std::function<void()>& cb, bool recyclable = false) {
 			this->_afterRender.push_back(std::make_pair(cb, recyclable));
 		}
-		SimpleCamera* camera = new SimpleCamera(Vect3(0.0f, 0.18f, 8.44f));
+		SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
 	private:
+		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue)
+		{
+			auto i = std::begin(queue);
+			while (i != std::end(queue))
+			{
+				i->first();
+				if (i->second == false)
+				{
+					i = queue.erase(i);
+				}
+				else
+				{
+					++i;
+				}
+			}
+		}
 		Node* _searchName(const std::string& name, Node* elem)
 		{
 			if (elem->hasParent() && elem->name() == name) {

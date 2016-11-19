@@ -37,36 +37,42 @@ namespace MB
             _uniforms["projection"] = new Uniform(Matrix4);
             _uniforms["view"] = new Uniform(Matrix4);
             _uniforms["model"] = new Uniform(Matrix4);
-            _uniforms["color"] = new Uniform(Vector3, Vect3(1.0f, 1.0f, 1.0f));
+			_uniforms["color"] = new Uniform(Vector3, Vect3(1.0f, 1.0f, 1.0f));
+			_uniforms["viewPos"] = new Uniform(Vector3);
 
-            const char* vsShader = "#version 330\n"
-                                   "layout(location = 0) in vec3 position;\n"
-                                   "layout(location = 1) in vec3 normal;\n"
-                                   "\n"
-                                   "uniform mat4 projection;\n"
-                                   "uniform mat4 view;\n"
-                                   "uniform mat4 model;\n"
-                                   "\n"
-                                   "out vec3 nn;\n"
-                                   "void main()\n"
-                                   "{\n"
-                                   "    gl_Position = projection * view * model * vec4(position, 1.0);\n"
-                                   "}\n";
-            const char* fsShader = "#version 330\n"
-                                   "uniform vec3 color;\n"
-                                   "out vec4 fragColor;\n"
-                                   "in vec3 nn;\n"
-                                   ""
-                                   "void main()\n"
-                                   "{\n"
-                                   "    fragColor = vec4(color, 1.0);\n"
-                                   "}\n";
+			const char* vsShader = "#version 330\n"
+				"layout(location = 0) in vec3 position;"
+				"layout(location = 1) in vec3 normal;"
+				"out vec3 outPosition;"
+				"out vec3 outNormal;"
+				"uniform mat4 projection;"
+				"uniform mat4 view;"
+				"uniform mat4 model;"
+				"void main() {"
+				"	outPosition = vec3(model * vec4(position, 1.0));"
+				"	gl_Position = projection * view * vec4(outPosition, 1.0);"
+				"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
+				"	outNormal = normalize(normalMatrix * normal);"
+				"}";
+			const char* fsShader = "#version 330\n"
+				"in vec3 outPosition;"
+				"in vec3 outNormal;"
+				"out vec4 fragColor;"
+				"uniform vec3 viewPos;"
+				"uniform vec3 color;"
+				"void main() {"
+				"	vec3 N = normalize(outNormal);"
+				"	vec3 L = normalize(viewPos - outPosition);"
+				"	float dif = dot(N, L);"
+				"	dif = clamp(dif, 0.0, 1.0);"
+				"	fragColor = vec4(color * dif, 1.0) + vec4(color * 0.3, 1.0);"
+				"}";
             _program.loadFromText(vsShader, fsShader);
             _program.compileAndLink();
-            /*_program.addUniform("projection");
-            _program.addUniform("view");
-            _program.addUniform("model");
-            _program.addUniform("color");*/
+
+			_program.autocatching();
+
+			_program.compileAndLink();
 			_program.autocatching();
         }
     };

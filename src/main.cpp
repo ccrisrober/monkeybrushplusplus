@@ -98,7 +98,7 @@ MB::PostProcessMaterial* ppm;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 500, 500, "Hello MB");
+    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
 	MB::CustomPingPong<float> cpp(1.0f, 2.0f);
 	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
@@ -118,15 +118,22 @@ int main(void)
 		"    fragColor = vec4(uv, 0.5, 1.0);\n"
 		"}\n");
 
-	MB::SimpleShadingMaterial ssm;
-    auto uniforms = ssm.uniforms();
-    MB::Uniform* color = uniforms["color"];
+	MB::SimpleShadingMaterial material;
+	material.uniform("color")->value(MB::Vect3(1.0f, 0.0f, 0.0f));
+	MB::SimpleShadingMaterial material2;
+	material2.uniform("color")->value(MB::Vect3(1.0f, 1.0f, 1.0f));
+	MB::SimpleShadingMaterial material3;
+	material3.uniform("color")->value(MB::Vect3(0.0f, 0.0f, 1.0f));
+	MB::SimpleShadingMaterial material4;
+	material4.uniform("color")->value(MB::Vect3(0.0f, 1.0f, 0.0f));
+
+    /*MB::Uniform* color = uniforms["color"];
     color->value(5.1f);
     auto cv = color->value().cast<float>();
     std::cout << cv << std::endl;
     color->value(-25);
     auto cv2 = color->value().cast<int>();
-    std::cout << cv2 << std::endl;
+    std::cout << cv2 << std::endl;*/
 	
     cube = new MB::Drawable(1.0f);
 
@@ -140,38 +147,53 @@ int main(void)
 	auto vf = v.add(v2);
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
-	mbCube->addComponent(new MB::MeshRenderer(cube, &ssm));
+	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
 	mbCube->addComponent(new MoveComponent());
-	mbCube->addComponent(new ScaleComponent());
-	mbCube->addComponent(new PrintPosition());
-
-	MB::Node* mbSphere = new MB::Node(std::string("sphere"));
-    mbSphere->addComponent(new MB::MeshRenderer(cube, &ssm));
-	mbCube->addChild(mbSphere);
-
-	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
-    mbCapsule->addComponent(new MB::MeshRenderer(cube, &ssm));
-	mbSphere->addChild(mbCapsule);
-
-	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
-    mbCylinder->addComponent(new MB::MeshRenderer(cube, &ssm));
-	mbCube->addChild(mbCylinder);
-
-	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
-    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &ssm));
-	mbCylinder->addChild(mbCapsule2);
+	//mbCube->addComponent(new ScaleComponent());
+	//mbCube->addComponent(new PrintPosition());
 
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
 	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
+
+	MB::Node* mbSphere = new MB::Node(std::string("sphere"));
+    mbSphere->addComponent(new MB::MeshRenderer(cube, &material2));
+
+	mbSphere->transform().position().set(-0.44f, -2.0f, 2.35f);
+	mbSphere->transform().scale().set(0.5f, 0.5f, 1.0f);
+
+	mbCube->addChild(mbSphere);
+
+	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
+    mbCapsule->addComponent(new MB::MeshRenderer(cube, &material3));
+
+	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
+
+	mbSphere->addChild(mbCapsule);
+
+	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
+    mbCylinder->addComponent(new MB::MeshRenderer(cube, &material4));
+
+	mbCylinder->transform().position().set(1.1f, -1.91f, -1.08f);
+	mbCylinder->transform().scale().set(1.0f, 0.5f, 1.0f);
+
+	mbCube->addChild(mbCylinder);
+
+	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
+    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &material3));
+
+	mbCapsule2->transform().position().set(1.44f, -2.5f, 0.8f);
+	mbCapsule2->transform().scale().set(0.5f, 1.0f, 2.0f);
+
+	mbCylinder->addChild(mbCapsule2);
 
     engine = new MB::Engine(&context);
 	scene = new MB::Scene();
 	scene->root()->addChild(mbCube);
 
 	// std::cout << (scene->root() == n->parent()) << std::endl;
-	auto node = scene->findByName(std::string("capsule"));
+	//auto node = scene->findByName(std::string("capsule"));
 
-	std::cout << (*node) << std::endl;
+	//std::cout << (*node) << std::endl;
 
 	/*for (auto c : mbCube->components())
 	{
@@ -197,8 +219,19 @@ int main(void)
 	scene->registerAfterRender(f2);
 	scene->registerAfterRender(f3, true);*/
 
+
+	//float currentFrame;
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+	// Define the viewport dimensions
+	glViewport(0, 0, context.getWidth(), context.getHeight());
+
+	// OpenGL options
+	glEnable(GL_DEPTH_TEST);
+
+	glDisable(GL_CULL_FACE);
+
 	engine->run(renderFunc);
-	//ppm.renderPP();
     
 	delete(scene);
 	delete(engine);
