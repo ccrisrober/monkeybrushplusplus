@@ -394,7 +394,8 @@ namespace MB
 	void Program::addUbo(const std::string& uboName)
 	{
 		unsigned int index = glGetUniformBlockIndex(_program, uboName.c_str());
-		if (index != std::numeric_limits< unsigned int >::max()) {
+		if (index != std::numeric_limits< unsigned int >::max())
+		{
 			_uboList[uboName] = index;
 		}
 		else
@@ -538,7 +539,6 @@ namespace MB
 		int loc = uniform(uniformName);
 		glUniformMatrix4fv(loc, 1, inverse, data.data());
 	}
-
 	void Program::sendUniform4m(const std::string& uniformName,
 		const float* data, bool inverse)
 	{

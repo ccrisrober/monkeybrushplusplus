@@ -83,9 +83,8 @@ namespace MB
 
             if (Input::isKeyPressed(GLFW_KEY_W))
 			{
-				std::cout << "CAMERA POSITION: " << this->GetPos().x() << ", " << this->GetPos().y() << ", " << this->GetPos().z() << std::endl;
+				//std::cout << "CAMERA POSITION: " << this->GetPos().x() << ", " << this->GetPos().y() << ", " << this->GetPos().z() << std::endl;
                 this->processKeyboard(4, speed);
-				std::cout << "CAMERA POSITION: " << this->GetPos().x() << ", " << this->GetPos().y() << ", " << this->GetPos().z() << std::endl;
             }
             if (Input::isKeyPressed(GLFW_KEY_S))
 			{
@@ -107,19 +106,19 @@ namespace MB
 			{
                 this->processKeyboard(1, speed);
             }
-            if (Input::isKeyPressed(38))
+            if (Input::isKeyPressed(GLFW_KEY_Y))
 			{
                 this->processMouseMovement(0.0, 1.0 * speed);
             }
-            if (Input::isKeyPressed(40))
+            if (Input::isKeyPressed(GLFW_KEY_H))
 			{
                 this->processMouseMovement(0.0, -1.0 * speed);
             }
-            if (Input::isKeyPressed(37))
+            if (Input::isKeyPressed(GLFW_KEY_G))
 			{
                 this->processMouseMovement(-1.0 * speed, 0.0);
             }
-            if (Input::isKeyPressed(39))
+            if (Input::isKeyPressed(GLFW_KEY_J))
 			{
                 this->processMouseMovement(1.0 * speed, 0.0);
             }

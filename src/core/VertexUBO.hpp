@@ -32,34 +32,11 @@ namespace MB
 	{
 	public:
 		VertexUBO(const Program& prog, const char* name, 
-			unsigned int blockBindIdx)
-			: _index(blockBindIdx)
-			, _name(name)
-		{
-			glCreateBuffers(1, &_handler);
-			unsigned int p = prog.program();
-			auto index = glGetUniformBlockIndex(p, name);
-			glUniformBlockBinding(p, index, blockBindIdx);
-		}
-		virtual ~VertexUBO()
-		{
-			glDeleteBuffers(1, &_handler);
-		}
-		void bind()
-		{
-			glBindBuffer(GL_UNIFORM_BUFFER, this->_handler);
-		}
-		void update(const std::vector<float>& data)
-		{
-			this->bind();
-			glBufferData(GL_UNIFORM_BUFFER, data.size() * sizeof(GL_FLOAT), &data[0], GL_STATIC_DRAW);
-			this->unbind();
-			glBindBufferBase(GL_UNIFORM_BUFFER, _index, _handler);
-		}
-		void unbind()
-		{
-			glBindBuffer(GL_UNIFORM_BUFFER, 0);
-		}
+			unsigned int blockBindIdx);
+		virtual ~VertexUBO();
+		void bind();
+		void update(const std::vector<float>& data);
+		void unbind();
 	protected:
 		unsigned int _handler;
 		unsigned int _index;

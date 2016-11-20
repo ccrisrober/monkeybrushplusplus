@@ -26,18 +26,21 @@
 
 #define check_gl_error() _check_gl_error(__FILE__,__LINE__)
 
-void _check_gl_error(const char *file, int line) {
+void _check_gl_error(const char *file, int line)
+{
 	GLenum err(glGetError());
 
-	if (err != GL_NO_ERROR) {
+	if (err != GL_NO_ERROR)
+	{
 		std::string error;
 
-		switch (err) {
-		case GL_INVALID_OPERATION:      error = "INVALID_OPERATION";      break;
-		case GL_INVALID_ENUM:           error = "INVALID_ENUM";           break;
-		case GL_INVALID_VALUE:          error = "INVALID_VALUE";          break;
-		case GL_OUT_OF_MEMORY:          error = "OUT_OF_MEMORY";          break;
-		case GL_INVALID_FRAMEBUFFER_OPERATION:  error = "INVALID_FRAMEBUFFER_OPERATION";  break;
+		switch (err)
+		{
+			case GL_INVALID_OPERATION:      error = "INVALID_OPERATION";      break;
+			case GL_INVALID_ENUM:           error = "INVALID_ENUM";           break;
+			case GL_INVALID_VALUE:          error = "INVALID_VALUE";          break;
+			case GL_OUT_OF_MEMORY:          error = "OUT_OF_MEMORY";          break;
+			case GL_INVALID_FRAMEBUFFER_OPERATION:  error = "INVALID_FRAMEBUFFER_OPERATION";  break;
 		}
 
 		std::cerr << "GL_" << error.c_str() << " - " << file << ":" << line << std::endl;
@@ -58,6 +61,12 @@ namespace MB
 	{
 		float currentFrame;
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		
+		glViewport(0, 0, this->_context->getWidth(), this->_context->getHeight());
+		
+		glEnable(GL_DEPTH_TEST);
+
+		glDisable(GL_CULL_FACE);
 		while (!glfwWindowShouldClose(this->_context->getWindow( )))
         {
             this->_context->setTitle(std::to_string(calcFPS()).c_str(), false);

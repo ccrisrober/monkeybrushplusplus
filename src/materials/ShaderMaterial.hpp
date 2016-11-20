@@ -27,12 +27,45 @@
 
 namespace MB
 {
+	typedef enum
+	{
+		VertexShader, FragmentShader, GeometryShader, TesselationEvaluationShader, TesselationControlShader
+	} ShaderType;
 	class ShaderMaterial: public Material
 	{
 	public:
-		ShaderMaterial()
+		ShaderMaterial(
+			const std::vector<std::pair<ShaderType, const char*> >& shaders,
+			const std::vector<std::pair<const char*, Uniform*> >& uniforms)
 		: Material()
 		{
+			for (const auto& pair : uniforms)
+			{
+				_uniforms[pair.first] = pair.second;
+			}
+			for (const auto& pair : shaders)
+			{
+				switch (pair.first)
+				{
+				case VertexShader:
+					_program.loadVertexShaderFromText(pair.second);
+					break;
+				case FragmentShader:
+					_program.loadFragmentShaderFromText(pair.second);
+					break;
+				case GeometryShader:
+					_program.loadGeometryShaderFromText(pair.second);
+					break;
+				case TesselationEvaluationShader:
+					_program.loadTesselationEvaluationShaderFromText(pair.second);
+					break;
+				case TesselationControlShader:
+					_program.loadTesselationControlShaderFromText(pair.second);
+					break;
+				}
+			}
+			_program.compileAndLink();
+			_program.autocatching();
 		}
 	};
 }

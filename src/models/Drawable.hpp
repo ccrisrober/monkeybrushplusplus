@@ -32,11 +32,11 @@ namespace MB
     class Drawable
     {
     public:
-        Drawable(float /*side = 1.0f*/)
+        Drawable(float side = 1.0f)
         {
-            /*float side2 = side / 2.0f;
+            float side2 = side / 2.0f;
             // Vertices
-            std::vector<float> vertices = {
+			std::vector<float> vertices = {
                 // Front
                 -side2, -side2, side2,
                 side2, -side2, side2,
@@ -143,7 +143,7 @@ namespace MB
                 16, 17, 18, 16, 18, 19,
                 20, 21, 22, 20, 22, 23
             };
-            _handle.resize(4);
+			/*_handle.resize(4);
             addElementArray(indices);
 
             addBufferArray(0, vertices, 3);
@@ -182,120 +182,40 @@ namespace MB
 
             glBindVertexArray(0);*/
 
-            std::vector<float> cubeVertexPos = {
-                //Cara z = 1
-                0.0f,	0.0f,	1.0f, //0
-                1.0f,	0.0f,	1.0f, //1
-                0.0f,	1.0f,	1.0f, //2
-                1.0f,	1.0f,	1.0f, //3
 
-                //Cara z = 0
-                0.0f,	0.0f,	0.0f, //4
-                1.0f,	0.0f,	0.0f, //5
-                0.0f,	1.0f,	0.0f, //6
-                1.0f,	1.0f,	0.0f, //7
-
-                //Cara x = 1
-                1.0f,	0.0f,	0.0f, //8
-                1.0f,	0.0f,	1.0f, //9
-                1.0f,	1.0f,	0.0f, //10
-                1.0f,	1.0f,	1.0f, //11
-
-                //Cara x = 0
-                0.0f,	0.0f,	0.0f, //12
-                0.0f,	0.0f,	1.0f, //13
-                0.0f,	1.0f,	0.0f, //14
-                0.0f,	1.0f,	1.0f, //15
-
-                //Cara y = 1
-                0.0f,	1.0f,	0.0f, //16
-                0.0f,	1.0f,	1.0f, //17
-                1.0f,	1.0f,	0.0f, //18
-                1.0f,	1.0f,	1.0f, //19
-
-                //Cara y = 0
-                0.0f,	0.0f,	0.0f, //20
-                0.0f,	0.0f,	1.0f, //21
-                1.0f,	0.0f,	0.0f, //22
-                1.0f,	0.0f,	1.0f  //23
-            };
-            std::vector<float> cubeVertexNormal = {
-                //Cara z = 1
-                0.0f,	0.0f,	 1.0f,
-                0.0f,	0.0f,	 1.0f,
-                0.0f,	0.0f,	 1.0f,
-                0.0f,	0.0f,	 1.0f,
-
-                //Cara z = 0
-                0.0f,	0.0f,	-1.0f,
-                0.0f,	0.0f,	-1.0f,
-                0.0f,	0.0f,	-1.0f,
-                0.0f,	0.0f,	-1.0f,
-
-                //Cara x = 1
-                1.0f,	0.0f,	 0.0f,
-                1.0f,	0.0f,	 0.0f,
-                1.0f,	0.0f,	 0.0f,
-                1.0f,	0.0f,	 0.0f,
-
-                //Cara x = 0
-                -1.0f,	0.0f,	 0.0f,
-                -1.0f,	0.0f,	 0.0f,
-                -1.0f,	0.0f,	 0.0f,
-                -1.0f,	0.0f,	 0.0f,
-
-                //Cara y = 1
-                0.0f,	1.0f,	0.0f,
-                0.0f,	1.0f,	0.0f,
-                0.0f,	1.0f,	0.0f,
-                0.0f,	1.0f,	0.0f,
-
-                //Cara y = 0
-                0.0f,	-1.0f,	0.0f,
-                0.0f,	-1.0f,	0.0f,
-                0.0f,	-1.0f,	0.0f,
-                0.0f,	-1.0f,	0.0f
-            };
-            std::vector<unsigned int> cubeTriangleIndex = {
-                //Cara z = 1
-                0,1,2,			1,3,2,
-                //Cara z = -1
-                4,6,5,			5,6,7,
-                //Cara x = 1
-                8,10,9,			9,10,11,
-                //Cara x = -1
-                12,13,14,		13,15,14,
-                //Cara y = 1
-                16,17,18,		17,19,18,
-                //Cara y = -1
-                20,22,21,		21,22,23,
-            };
+			_indicesLen = indices.size();
 
             _vao = new VertexArray();
-            vbo = new VertexBuffer(GL_ARRAY_BUFFER);
-            vboN = new VertexBuffer(GL_ARRAY_BUFFER);
+			vbo = new VertexBuffer(GL_ARRAY_BUFFER);
+			vboN = new VertexBuffer(GL_ARRAY_BUFFER);
+			vboUV = new VertexBuffer(GL_ARRAY_BUFFER);
             // Not neccesary vbo->bind();
-            vbo->data(cubeVertexPos, GL_STATIC_DRAW);
-            vboN->data(cubeVertexNormal, GL_STATIC_DRAW);
+			vbo->data(vertices, GL_STATIC_DRAW);
+			vboN->data(normals, GL_STATIC_DRAW);
+			vboUV->data(texCoords, GL_STATIC_DRAW);
 
             _vao->bind();
             // Position attribute
-            vbo->vertexAttribPointer(0, 3, GL_FLOAT, false);
-            vboN->vertexAttribPointer(1, 3, GL_FLOAT, false);
+			vbo->vertexAttribPointer(0, 3, GL_FLOAT, false);
+			vboN->vertexAttribPointer(1, 3, GL_FLOAT, false);
+			vboUV->vertexAttribPointer(2, 2, GL_FLOAT, false);
 
 
             VertexBuffer vb2(GL_ELEMENT_ARRAY_BUFFER);
-            vb2.data(cubeTriangleIndex, GL_STATIC_DRAW);
+            vb2.data(indices, GL_STATIC_DRAW);
 
             _vao->unbind();
         }
-        VertexBuffer *vbo, *vboN;
+        VertexBuffer *vbo, *vboN, *vboUV;
         void render()
         {
             this->_vao->bind();
-            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, _indicesLen, GL_UNSIGNED_INT, 0);
             this->_vao->unbind();
         }
+		unsigned int _indicesLen;
+		std::vector<VertexBuffer> _handle;
+		VertexArray* _vao;
     protected:
         void addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
             unsigned int numElems, unsigned int type = GL_STATIC_DRAW)
@@ -313,9 +233,6 @@ namespace MB
             vb.data(data, type);
             this->_handle.push_back(vb);
         }
-        unsigned int _indicesLen;
-        std::vector<VertexBuffer> _handle;
-        VertexArray* _vao;
     };
 }
 

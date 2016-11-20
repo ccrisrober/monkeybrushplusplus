@@ -1,4 +1,5 @@
 /*
+/*
 * Copyright (c) 2016 maldicion069
 *
 * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
@@ -20,40 +21,28 @@
 *
 */
 
-#ifndef __MB_FRAMEBUFFER__
-#define __MB_FRAMEBUFFER__
-
-#include <vector>
-#include "../textures/Texture.hpp"
-#include "../textures/RenderBuffer.hpp"
-#include "../textures/RenderBufferTexture.hpp"
-#include "../maths/Vect2.hpp"
+#include "PostProcess.hpp"
 
 namespace MB
 {
-	class Framebuffer
+	PostProcess::PostProcess()
 	{
-	public:
-		Framebuffer(const std::vector<Texture*>& textures, 
-			const Vect2& size, bool depth = true);
-		virtual ~Framebuffer();
-		void bind();
-		void unbind();
-		void replaceTexture(Texture* tex, unsigned attach);
-		void rebuild(Vect2& size);
-		void onlyBindTextures();
-		static void RestoreDefaultFBO();
-		bool isValid();
-	protected:
-		Vect2 _size;
-		unsigned int _handler;
-		std::vector<Texture*> _attachments;
-		RenderBuffer* _renderBuffer;
-		bool _valid;
-
-	private:
-		void checkStatus(unsigned int status);
-	};
+		std::vector<float> positions = {
+			-1.0f, -1.0f,
+			+1.0f, -1.0f,
+			-1.0f, +1.0f,
+			+1.0f, +1.0f
+		};
+		_vao = new VertexArray();
+		_vbo = new VertexBuffer(GL_ARRAY_BUFFER);
+		_vbo->data(positions, GL_STATIC_DRAW);
+		_vbo->vertexAttribPointer(0, 2, GL_FLOAT);
+		_vao->unbind();
+	}
+	void PostProcess::bind()
+	{
+		_vao->bind();
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		_vao->unbind();
+	}
 }
-
-#endif /* __MB_FRAMEBUFFER__ */

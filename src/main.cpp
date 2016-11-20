@@ -24,6 +24,7 @@
 #include "core/Color3.hpp"
 #include "models/Drawable.hpp"
 #include "materials/SimpleShadingMaterial.hpp"
+#include "materials/ShaderMaterial.hpp"
 #include "utils/any.hpp"
 #include "extras/Easing.hpp"
 #include "extras/EventDispatcher.hpp"
@@ -98,14 +99,14 @@ MB::PostProcessMaterial* ppm;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 500, 500, "Hello MB");
+    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
-	MB::CustomPingPong<float> cpp(1.0f, 2.0f);
+	/*MB::CustomPingPong<float> cpp(1.0f, 2.0f);
 	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
 	cpp.swap();
 	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
 	cpp.swap();
-	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
+	std::cout << cpp.first() << " - " << cpp.last() << std::endl;*/
 
 	ppm = new MB::PostProcessMaterial(
 		"#version 330\n"
@@ -118,15 +119,68 @@ int main(void)
 		"    fragColor = vec4(uv, 0.5, 1.0);\n"
 		"}\n");
 
-	MB::SimpleShadingMaterial ssm;
-    auto uniforms = ssm.uniforms();
-    MB::Uniform* color = uniforms["color"];
+	MB::SimpleShadingMaterial material;
+	material.uniform("color")->value(MB::Vect3(MB::Color3::Red));
+	MB::SimpleShadingMaterial material2;
+	material2.uniform("color")->value(MB::Vect3(MB::Color3::Gold));
+	MB::SimpleShadingMaterial material3;
+	material3.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
+	MB::SimpleShadingMaterial material4;
+	material4.uniform("color")->value(MB::Vect3(MB::Color3::Green));
+
+
+	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
+	const char* vertexShader = 
+		"#version 330\n"
+		"layout(location = 0) in vec3 position;"
+		"layout(location = 1) in vec3 normal;"
+		"out vec3 outPosition;"
+		"out vec3 outNormal;"
+		"uniform mat4 projection;"
+		"uniform mat4 view;"
+		"uniform mat4 model;"
+		"void main() {"
+		"	outPosition = vec3(model * vec4(position, 1.0));"
+		"	gl_Position = projection * view * vec4(outPosition, 1.0);"
+		"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
+		"	outNormal = normalize(normalMatrix * normal);"
+		"}";
+	const char* fragmentShader =
+		"#version 330\n"
+		"in vec3 outPosition;"
+		"in vec3 outNormal;"
+		"out vec4 fragColor;"
+		"uniform vec3 viewPos;"
+		"uniform vec3 color;"
+		"void main() {"
+		"	vec3 N = normalize(outNormal);"
+		"	vec3 L = normalize(viewPos - outPosition);"
+		"	float dif = dot(N, L);"
+		"	dif = clamp(dif, 0.0, 1.0);"
+		"	fragColor = vec4(color * dif, 1.0) + vec4(color * 0.1, 1.0);"
+		"}";
+
+	shaders.push_back(std::make_pair(MB::VertexShader, vertexShader));
+	shaders.push_back(std::make_pair(MB::FragmentShader, fragmentShader));
+
+
+	std::vector<std::pair<const char*, MB::Uniform*> > uniforms;
+	uniforms.push_back(std::make_pair("projection", new MB::Uniform(MB::Matrix4)));
+	uniforms.push_back(std::make_pair("view", new MB::Uniform(MB::Matrix4)));
+	uniforms.push_back(std::make_pair("model", new MB::Uniform(MB::Matrix4)));
+	uniforms.push_back(std::make_pair("color", new MB::Uniform(MB::Vector3, MB::Vect3::createFromScalar(1.0f))));
+	uniforms.push_back(std::make_pair("viewPos", new MB::Uniform(MB::Vector3)));
+
+	MB::ShaderMaterial material5(shaders, uniforms);
+	//material4.uniform("color")->value(MB::Vect3(MB::Color3::White));
+
+    /*MB::Uniform* color = uniforms["color"];
     color->value(5.1f);
     auto cv = color->value().cast<float>();
     std::cout << cv << std::endl;
     color->value(-25);
     auto cv2 = color->value().cast<int>();
-    std::cout << cv2 << std::endl;
+    std::cout << cv2 << std::endl;*/
 	
     cube = new MB::Drawable(1.0f);
 
@@ -140,55 +194,74 @@ int main(void)
 	auto vf = v.add(v2);
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
-	mbCube->addComponent(new MB::MeshRenderer(cube, &ssm));
+	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
 	mbCube->addComponent(new MoveComponent());
-	mbCube->addComponent(new ScaleComponent());
-	mbCube->addComponent(new PrintPosition());
-
-	MB::Node* mbSphere = new MB::Node(std::string("sphere"));
-    mbSphere->addComponent(new MB::MeshRenderer(cube, &ssm));
-	mbCube->addChild(mbSphere);
-
-	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
-    mbCapsule->addComponent(new MB::MeshRenderer(cube, &ssm));
-	mbSphere->addChild(mbCapsule);
-
-	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
-    mbCylinder->addComponent(new MB::MeshRenderer(cube, &ssm));
-	mbCube->addChild(mbCylinder);
-
-	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
-    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &ssm));
-	mbCylinder->addChild(mbCapsule2);
+	//mbCube->addComponent(new ScaleComponent());
+	//mbCube->addComponent(new PrintPosition());
 
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
 	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
+
+	MB::Node* mbSphere = new MB::Node(std::string("sphere"));
+    mbSphere->addComponent(new MB::MeshRenderer(cube, &material2));
+
+	mbSphere->transform().position().set(-0.44f, -2.0f, 2.35f);
+	mbSphere->transform().scale().set(0.5f, 0.5f, 1.0f);
+
+	mbCube->addChild(mbSphere);
+
+	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
+    mbCapsule->addComponent(new MB::MeshRenderer(cube, &material3));
+
+	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
+
+	mbSphere->addChild(mbCapsule);
+
+	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
+    mbCylinder->addComponent(new MB::MeshRenderer(cube, &material4));
+
+	mbCylinder->transform().position().set(1.1f, -1.91f, -1.08f);
+	mbCylinder->transform().scale().set(1.0f, 0.5f, 1.0f);
+
+	mbCube->addChild(mbCylinder);
+
+	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
+    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &material5));
+
+	mbCapsule2->transform().position().set(1.44f, -2.5f, 0.8f);
+	mbCapsule2->transform().scale().set(0.5f, 1.0f, 2.0f);
+
+	mbCylinder->addChild(mbCapsule2);
 
     engine = new MB::Engine(&context);
 	scene = new MB::Scene();
 	scene->root()->addChild(mbCube);
 
 	// std::cout << (scene->root() == n->parent()) << std::endl;
-	auto node = scene->findByName(std::string("capsule"));
+	//auto node = scene->findByName(std::string("capsule"));
 
-	std::cout << (*node) << std::endl;
+	//std::cout << (*node) << std::endl;
 
 	/*for (auto c : mbCube->components())
 	{
 		std::cout << (*c) << std::endl;
 	}*/
 
-	/*std::function<void()> f0([=]() {
+	/*std::function<void()> f0([=]()
+	{
 		std::cout << "BEFORE NO REUSABLE" << std::endl;
 	});
-	std::function<void()> f1([=]() {
+	std::function<void()> f1([=]()
+	{
 		std::cout << "BEFORE REUSABLE" << std::endl;
 	});
 
-	std::function<void()> f2([=]() {
+	std::function<void()> f2([=]()
+	{
 		std::cout << "AFTER NO REUSABLE" << std::endl;
 	});
-	std::function<void()> f3([=]() {
+	std::function<void()> f3([=]()
+	{
 		std::cout << "AFTER REUSABLE" << std::endl;
 	});
 
@@ -198,7 +271,6 @@ int main(void)
 	scene->registerAfterRender(f3, true);*/
 
 	engine->run(renderFunc);
-	//ppm.renderPP();
     
 	delete(scene);
 	delete(engine);

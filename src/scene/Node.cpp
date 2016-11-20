@@ -145,4 +145,16 @@ namespace MB
 
         return std::string(GUID);
 	}
+	std::string Node::name() const
+	{
+		return this->_name;
+	}
+	std::string Node::tag() const
+	{
+		return this->_tag;
+	}
+	void Node::tag(const std::string& t)
+	{
+		this->_tag = t;
+	}
 }

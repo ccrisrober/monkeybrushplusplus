@@ -56,6 +56,7 @@ namespace MB
 		}
 		void value(const any v)
 		{
+			_isDirty = true;
 			_value = std::move(v);
 		}
 		bool isDirty() const {

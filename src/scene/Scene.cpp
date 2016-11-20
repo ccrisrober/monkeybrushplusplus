@@ -34,41 +34,13 @@ namespace MB
 	{
 		_totalMeshes = 0;
 		// Before render functions
-		{
-			auto i = std::begin(_beforeRender);
-			while (i != std::end(_beforeRender))
-			{
-				i->first();
-				if (i->second == false)
-				{
-					i = _beforeRender.erase(i);
-				}
-				else
-				{
-					++i;
-				}
-			}
-		}
+		applyQueue(_beforeRender);
 		for (const auto& child : this->_sceneGraph->children())
 		{
 			this->_subrender(child, dt);
 		}
 		// After render functions
-		{
-			auto i = std::begin(_afterRender);
-			while (i != std::end(_afterRender))
-			{
-				i->first();
-				if (i->second == false)
-				{
-					i = _afterRender.erase(i);
-				}
-				else
-				{
-					++i;
-				}
-			}
-		}
+		applyQueue(_afterRender);
 	}
 	Node* Scene::root() const
 	{
@@ -88,11 +60,76 @@ namespace MB
 				auto mr = (MeshRenderer*)comp;
 				mr->getMaterial()->uniforms()["projection"]->value(this->camera->projectionMatrix(500, 500));
 				mr->getMaterial()->uniforms()["view"]->value(this->camera->viewMatrix());
+				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
 				mr->render();
-                //Uniform* Uview = mr->getMaterial()->uniforms()["view"];
-                //std::cout << Uview->value().cast<Mat4>() << std::endl;
 				++this->_totalMeshes;
 			}
 		}
+	}
+	Node* Scene::findByName(const std::string& name)
+	{
+		Node* toRet = this->_searchName(name, root());
+		return toRet;
+	}
+	Node* Scene::findByTag(const std::string& tag)
+	{
+		Node* toRet = this->_searchTag(tag, root());
+		return toRet;
+	}
+	void Scene::registerBeforeRender(const std::function<void()>& cb, bool recyclable)
+	{
+		this->_beforeRender.push_back(std::make_pair(cb, recyclable));
+	}
+	void Scene::registerAfterRender(const std::function<void()>& cb, bool recyclable)
+	{
+		this->_afterRender.push_back(std::make_pair(cb, recyclable));
+	}
+	void Scene::applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue)
+	{
+		auto i = std::begin(queue);
+		while (i != std::end(queue))
+		{
+			i->first();
+			if (i->second == false)
+			{
+				i = queue.erase(i);
+			}
+			else
+			{
+				++i;
+			}
+		}
+	}
+	Node* Scene::_searchName(const std::string& name, Node* elem)
+	{
+		if (elem->hasParent() && elem->name() == name) {
+			return elem;
+		}
+		// Search in childrens
+		for (auto& c : elem->children())
+		{
+			auto child = this->_searchName(name, c);
+			if (child)
+			{
+				return child;
+			}
+		}
+		return nullptr;
+	}
+	Node* Scene::_searchTag(const std::string& tag, Node* elem)
+	{
+		if (elem->hasParent() && elem->tag() == tag) {
+			return elem;
+		}
+		// Search in childrens
+		for (auto& c : elem->children())
+		{
+			auto child = this->_searchTag(tag, c);
+			if (child)
+			{
+				return child;
+			}
+		}
+		return nullptr;
 	}
 }
