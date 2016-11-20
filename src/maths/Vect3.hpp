@@ -66,6 +66,14 @@ namespace MB
 		static Vect3 scaleAndAdd(const Vect3& a, const Vect3& b, const float& scale);
 		static Vect3 add(const Vect3& v, const Vect3& v2);
 		static float dot(const Vect3& v, const Vect3& v2);
+		Vect3& scale(float value)
+		{
+			this->x(x() * value);
+			this->y(y() * value);
+			this->z(z() * value);
+
+			return *this;
+		}
 		virtual bool operator==(const Vect3& other) const;
 		bool operator!=(const Vect3& v);
 		bool operator==(const Vect3& v);

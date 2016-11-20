@@ -213,6 +213,7 @@ namespace MB
         static Vect3 Hermite3D(Vect3 p0, Vect3 t0, Vect3 p1, Vect3 t1, float t);
 		static const float PI_2;
 		static const float PI;
+		static const float TWO_PI;
         static const float Deg2Rad;
         static const float Rad2Deg;
 	};

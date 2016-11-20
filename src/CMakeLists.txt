@@ -56,7 +56,13 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
 set( MONKEYBRUSHPLUSPLUS_HEADERS
     Includes.hpp
     SimpleCamera.hpp
+    others/Exception.hpp
+    cameras/Camera.hpp
+    cameras/PerspectiveCamera.hpp
+    cameras/OrthographicCamera.hpp
     constants/Constants.hpp
+
+    resources/ResourceShader.hpp
 
     core/BufferAttribute.hpp
     core/Input.hpp
@@ -86,6 +92,11 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     materials/PostProcessMaterial.hpp
 
     models/Drawable.hpp
+    models/Cube.hpp
+    models/Capsule.hpp
+    models/Cone.hpp
+    models/Cylinder.hpp
+    models/Disc.hpp
 
     maths/Vect2.hpp
     maths/Vect3.hpp
@@ -98,6 +109,13 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     maths/Mat3.hpp
     maths/Mat4.hpp
     maths/Mathf.hpp
+
+    maths/Sphere2D.hpp
+    maths/Sphere3D.hpp
+    maths/Box2D.hpp
+    maths/Box3D.hpp
+	maths/Curves.hpp
+	maths/Spline.hpp
 
     lights/Light.hpp
     lights/AmbientLight.hpp

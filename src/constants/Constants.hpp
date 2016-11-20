@@ -29,14 +29,14 @@ namespace MB
 {
 	namespace ctes
 	{
-        /*enum ClearBuffer
+        enum class ClearBuffer
 		{
             DepthBuffer   = GL_DEPTH_BUFFER_BIT,
             StencilBuffer = GL_STENCIL_BUFFER_BIT,
             ColorBuffer   = GL_COLOR_BUFFER_BIT
-		} ;
+		};
 
-		enum
+		enum class RenderMode
 		{
 			Points = GL_POINTS,
 			Lines = GL_LINES,
@@ -45,16 +45,16 @@ namespace MB
 			Triangles = GL_TRIANGLES,
 			TriangleStrip = GL_TRIANGLE_STRIP,
 			TriangleFan = GL_TRIANGLE_FAN
-		} RenderMode;
+		};
 
-		enum BlendingMode
+		enum class BlendingMode
 		{
 			Zero = GL_ZERO,
 			One = GL_ONE,
 			SrcColor = GL_SRC_COLOR
 		};
 
-		enum BlendingEq
+		enum class BlendingEq
 		{
 			Add = GL_ADD,
 			Substract = GL_SUBTRACT,
@@ -63,7 +63,7 @@ namespace MB
 			Max = GL_MAX
 		};
 
-		enum BufferType
+		enum class BufferType
 		{
 			Array = GL_ARRAY_BUFFER,
 			ElementArray = GL_ELEMENT_ARRAY_BUFFER,
@@ -75,7 +75,7 @@ namespace MB
 			CopyWrite = GL_COPY_WRITE_BUFFER
 		};
 
-		enum FaceSide
+		enum class FaceSide
 		{
 			Front = GL_FRONT,
 			Back = GL_BACK,
@@ -84,7 +84,7 @@ namespace MB
 
 
 
-		enum FaceDir
+		enum class FaceDir
 		{
 			Clockwise = GL_CW,
 			InvClockwise = GL_CCW
@@ -98,29 +98,29 @@ namespace MB
 
 
 
-		enum TFMode
+		enum class TFMode
 		{
 			Interleaved = GL_INTERLEAVED_ATTRIBS,
 			Separate = GL_SEPARATE_ATTRIBS
-        };*/
-		/*enum TFPrimitive
+        };
+		enum class TFPrimitive
 		{
 			Points = GL_POINTS,
 			Lines = GL_LINES,
 			Triangles = GL_TRIANGLES
-		};*/
-		/*enum TFTarget
+		};
+		enum class TFTarget
 		{
 			TransformFeedback = GL_TRANSFORM_FEEDBACK
-		};*/
+		};
 
 
-        /*enum MouseButton
+        enum class MouseButton
 		{
 			Left = 0,
 			Middle = 1,
 			Right = 2
-        };*/
+        };
 	}
 }
 

@@ -72,7 +72,7 @@ namespace MB
     protected:
         Texture( const TexOptions& options, unsigned int type );
 
-        virtual void load( ) = 0;
+		virtual void load() { _loaded = true; }//= 0;
 
         bool _loaded = false;
         unsigned int _target;

@@ -196,7 +196,8 @@ namespace MB
         return Vect3(x, y, z);
     }
    	const float Mathf::PI = 3.1415f;
-    const float Mathf::PI_2 = PI / 2.0f;
+	const float Mathf::PI_2 = PI / 2.0f;
+	const float Mathf::TWO_PI = 2.0f * PI;
    	const float Mathf::Deg2Rad = PI / 180.0f;
    	const float Mathf::Rad2Deg = 180.0f / PI;
 }

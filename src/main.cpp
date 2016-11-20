@@ -2,6 +2,23 @@
 
 #include "Includes.hpp"
 
+#include "cameras/Camera.hpp"
+#include "cameras/PerspectiveCamera.hpp"
+#include "cameras/OrthographicCamera.hpp"
+
+
+#include "others/Exception.hpp"
+#include "resources/ResourceShader.hpp"
+
+
+#include "maths/Sphere2D.hpp"
+#include "maths/Sphere3D.hpp"
+#include "maths/Box2D.hpp"
+#include "maths/Box3D.hpp"
+#include "maths/Curves.hpp"
+#include "maths/Spline.hpp"
+
+
 #include "core/GeometryFunctions.hpp"
 #include "core/GLContext.hpp"
 #include "extras/CustomPingPong.hpp"
@@ -22,7 +39,10 @@
 #include "scene/Scene.hpp"
 #include "scene/MeshRenderer.hpp"
 #include "core/Color3.hpp"
-#include "models/Drawable.hpp"
+#include "models/Cube.hpp"
+#include "models/Disc.hpp"
+#include "models/Capsule.hpp"
+#include "models/Cylinder.hpp"
 #include "materials/SimpleShadingMaterial.hpp"
 #include "materials/ShaderMaterial.hpp"
 #include "utils/any.hpp"
@@ -92,8 +112,9 @@ public:
 MB::Engine* engine;
 MB::Scene* scene;
 MB::Drawable* cube;
+MB::Capsule* capsule;
+MB::Cylinder* cylinder;
 void renderFunc(float dt);
-
 
 MB::PostProcessMaterial* ppm;
 
@@ -128,6 +149,29 @@ int main(void)
 	MB::SimpleShadingMaterial material4;
 	material4.uniform("color")->value(MB::Vect3(MB::Color3::Green));
 
+	unsigned int texSize = 1024;
+	unsigned int *data = new unsigned int[texSize * texSize * 3];
+	unsigned int n = 0;
+	// Generate some checker board pattern
+	for (unsigned int yy = 0; yy < texSize; ++yy) {
+		for (unsigned int xx = 0; xx < texSize; ++xx) {
+			if ((xx + yy) / 4 % 4 == 1) {
+				data[n++] = 128;
+				data[n++] = 128;
+				data[n++] = 128;
+			}
+			else {
+				data[n++] = 255;
+				data[n++] = 255;
+				data[n++] = 255;
+			}
+		}
+	}
+	MB::TexOptions options;
+	options.internalFormat = GL_RGB8;
+	options.format = GL_RGB;
+	options.type = GL_UNSIGNED_BYTE;
+	MB::Texture* tex = new MB::Texture2D(options, data, texSize, texSize);
 
 	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
 	const char* vertexShader = 
@@ -182,7 +226,9 @@ int main(void)
     auto cv2 = color->value().cast<int>();
     std::cout << cv2 << std::endl;*/
 	
-    cube = new MB::Drawable(1.0f);
+	cube = new MB::Cube(1.0f);
+	capsule = new MB::Capsule(1.0f);
+	cylinder = new MB::Cylinder(1.0f, 3.5f, 25, 15);
 
 	MB::Vect3 v(1.0f, 1.0f, 1.0f);
 	MB::Vect3 v2(1.0f, 1.0f, 1.0f);
@@ -211,7 +257,7 @@ int main(void)
 	mbCube->addChild(mbSphere);
 
 	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
-    mbCapsule->addComponent(new MB::MeshRenderer(cube, &material3));
+    mbCapsule->addComponent(new MB::MeshRenderer(capsule, &material3));
 
 	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
 
@@ -226,7 +272,7 @@ int main(void)
 	mbCube->addChild(mbCylinder);
 
 	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
-    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &material5));
+    mbCapsule2->addComponent(new MB::MeshRenderer(cylinder, &material5));
 
 	mbCapsule2->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCapsule2->transform().scale().set(0.5f, 1.0f, 2.0f);
