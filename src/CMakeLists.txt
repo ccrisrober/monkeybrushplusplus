@@ -13,8 +13,14 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
     core/Program.cpp
     core/VertexArray.cpp
     core/VertexBuffer.cpp
+    core/VertexUBO.cpp
+    core/Framebuffer.cpp
+    core/PostProcess.cpp
 
+
+    extras/CustomPingPong.cpp
     extras/Easing.cpp
+    extras/Ray.cpp
 
     maths/Vect2.cpp
     maths/Vect3.cpp

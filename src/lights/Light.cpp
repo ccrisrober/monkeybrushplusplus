@@ -68,10 +68,12 @@ namespace MB
 	{
 		this->_enable = e;
     }
-    void Light::color(const Color3& c) {
+    void Light::color(const Color3& c)
+    {
         this->_color = c;
     }
-    void Light::specColor(const Color3& sc) {
+    void Light::specColor(const Color3& sc)
+    {
         this->_specColor = sc;
     }
 }

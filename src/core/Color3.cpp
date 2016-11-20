@@ -28,6 +28,100 @@ namespace MB
 	{
         this->_color = Vect3(r, g, b);
     }
+	Color3::Color3(const Color3& c)
+	{
+		this->_color = c._color;
+	}
+	Color3& Color3::operator=(const Color3& c)
+	{
+		return copy(c);
+	}
+	Color3& Color3::copy(const Color3& c)
+	{
+		r(c.r());
+		g(c.g());
+		b(c.b());
+		return *this;
+	}
+	Color3 Color3::createFromHSV(float h, float s, float v)
+	{
+		float r, g, b;
+		if (v == 0.0f)
+		{
+			r = g = b = 0.0f;
+		}
+		else
+		{
+			int i = (int)std::floor(h * 6.0f);
+			float f = (h * 6.0f) - i;
+			float p = v * (1.0f - s);
+			float q = v * (1.0f - (s * f));
+			float t = v * (1.0f - (s * (1.0f - f)));
+
+			switch (i)
+			{
+				case 0:
+					r = v;
+					g = t;
+					b = p;
+					break;
+				case 1:
+					r = q;
+					g = v;
+					b = p;
+					break;
+				case 2:
+					r = p;
+					g = v;
+					b = t;
+					break;
+				case 3:
+					r = p;
+					g = q;
+					b = v;
+					break;
+				case 4:
+					r = t;
+					g = p;
+					b = v;
+					break;
+				case 5:
+				default:
+					r = v;
+					g = p;
+					b = q;
+					break;
+			}
+		}
+		return Color3(r, g, b);
+	}
+	Color3 Color3::lerp(const Color3& minColor, const Color3& maxColor, float alpha)
+	{
+
+		float r = minColor.r() + (maxColor.r() - minColor.r()) * alpha;
+		float g = minColor.g() + (maxColor.g() - minColor.g()) * alpha;
+		float b = minColor.b() + (maxColor.b() - minColor.b()) * alpha;
+
+		return Color3(r, g, b);
+	}
+	Color3& Color3::gammaToLinear(const float& gammaFactor)
+	{
+		this->r(std::pow(this->r(), gammaFactor));
+		this->g(std::pow(this->g(), gammaFactor));
+		this->b(std::pow(this->b(), gammaFactor));
+
+		return *this;
+	}
+	Color3& Color3::linearToGamma(const float& gammaFactor)
+	{
+		float invGamma = (gammaFactor > 0.0f) ? (1.0f / gammaFactor) : 1.0f;
+
+		this->r(std::pow(this->r(), invGamma));
+		this->g(std::pow(this->g(), invGamma));
+		this->b(std::pow(this->b(), invGamma));
+
+		return *this;
+	}
     float Color3::r() const
     {
         return this->_color.x();

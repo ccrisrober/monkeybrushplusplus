@@ -24,6 +24,7 @@
 #include "core/Color3.hpp"
 #include "models/Drawable.hpp"
 #include "materials/SimpleShadingMaterial.hpp"
+#include "materials/ShaderMaterial.hpp"
 #include "utils/any.hpp"
 #include "extras/Easing.hpp"
 #include "extras/EventDispatcher.hpp"
@@ -100,12 +101,12 @@ int main(void)
 {
     MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
-	MB::CustomPingPong<float> cpp(1.0f, 2.0f);
+	/*MB::CustomPingPong<float> cpp(1.0f, 2.0f);
 	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
 	cpp.swap();
 	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
 	cpp.swap();
-	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
+	std::cout << cpp.first() << " - " << cpp.last() << std::endl;*/
 
 	ppm = new MB::PostProcessMaterial(
 		"#version 330\n"
@@ -119,13 +120,59 @@ int main(void)
 		"}\n");
 
 	MB::SimpleShadingMaterial material;
-	material.uniform("color")->value(MB::Vect3(1.0f, 0.0f, 0.0f));
+	material.uniform("color")->value(MB::Vect3(MB::Color3::Red));
 	MB::SimpleShadingMaterial material2;
-	material2.uniform("color")->value(MB::Vect3(1.0f, 1.0f, 1.0f));
+	material2.uniform("color")->value(MB::Vect3(MB::Color3::Gold));
 	MB::SimpleShadingMaterial material3;
-	material3.uniform("color")->value(MB::Vect3(0.0f, 0.0f, 1.0f));
+	material3.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
 	MB::SimpleShadingMaterial material4;
-	material4.uniform("color")->value(MB::Vect3(0.0f, 1.0f, 0.0f));
+	material4.uniform("color")->value(MB::Vect3(MB::Color3::Green));
+
+
+	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
+	const char* vertexShader = 
+		"#version 330\n"
+		"layout(location = 0) in vec3 position;"
+		"layout(location = 1) in vec3 normal;"
+		"out vec3 outPosition;"
+		"out vec3 outNormal;"
+		"uniform mat4 projection;"
+		"uniform mat4 view;"
+		"uniform mat4 model;"
+		"void main() {"
+		"	outPosition = vec3(model * vec4(position, 1.0));"
+		"	gl_Position = projection * view * vec4(outPosition, 1.0);"
+		"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
+		"	outNormal = normalize(normalMatrix * normal);"
+		"}";
+	const char* fragmentShader =
+		"#version 330\n"
+		"in vec3 outPosition;"
+		"in vec3 outNormal;"
+		"out vec4 fragColor;"
+		"uniform vec3 viewPos;"
+		"uniform vec3 color;"
+		"void main() {"
+		"	vec3 N = normalize(outNormal);"
+		"	vec3 L = normalize(viewPos - outPosition);"
+		"	float dif = dot(N, L);"
+		"	dif = clamp(dif, 0.0, 1.0);"
+		"	fragColor = vec4(color * dif, 1.0) + vec4(color * 0.1, 1.0);"
+		"}";
+
+	shaders.push_back(std::make_pair(MB::VertexShader, vertexShader));
+	shaders.push_back(std::make_pair(MB::FragmentShader, fragmentShader));
+
+
+	std::vector<std::pair<const char*, MB::Uniform*> > uniforms;
+	uniforms.push_back(std::make_pair("projection", new MB::Uniform(MB::Matrix4)));
+	uniforms.push_back(std::make_pair("view", new MB::Uniform(MB::Matrix4)));
+	uniforms.push_back(std::make_pair("model", new MB::Uniform(MB::Matrix4)));
+	uniforms.push_back(std::make_pair("color", new MB::Uniform(MB::Vector3, MB::Vect3::createFromScalar(1.0f))));
+	uniforms.push_back(std::make_pair("viewPos", new MB::Uniform(MB::Vector3)));
+
+	MB::ShaderMaterial material5(shaders, uniforms);
+	//material4.uniform("color")->value(MB::Vect3(MB::Color3::White));
 
     /*MB::Uniform* color = uniforms["color"];
     color->value(5.1f);
@@ -179,7 +226,7 @@ int main(void)
 	mbCube->addChild(mbCylinder);
 
 	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
-    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &material3));
+    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &material5));
 
 	mbCapsule2->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCapsule2->transform().scale().set(0.5f, 1.0f, 2.0f);
@@ -200,17 +247,21 @@ int main(void)
 		std::cout << (*c) << std::endl;
 	}*/
 
-	/*std::function<void()> f0([=]() {
+	/*std::function<void()> f0([=]()
+	{
 		std::cout << "BEFORE NO REUSABLE" << std::endl;
 	});
-	std::function<void()> f1([=]() {
+	std::function<void()> f1([=]()
+	{
 		std::cout << "BEFORE REUSABLE" << std::endl;
 	});
 
-	std::function<void()> f2([=]() {
+	std::function<void()> f2([=]()
+	{
 		std::cout << "AFTER NO REUSABLE" << std::endl;
 	});
-	std::function<void()> f3([=]() {
+	std::function<void()> f3([=]()
+	{
 		std::cout << "AFTER REUSABLE" << std::endl;
 	});
 
@@ -218,18 +269,6 @@ int main(void)
 	scene->registerBeforeRender(f1, true);
 	scene->registerAfterRender(f2);
 	scene->registerAfterRender(f3, true);*/
-
-
-	//float currentFrame;
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
-	// Define the viewport dimensions
-	glViewport(0, 0, context.getWidth(), context.getHeight());
-
-	// OpenGL options
-	glEnable(GL_DEPTH_TEST);
-
-	glDisable(GL_CULL_FACE);
 
 	engine->run(renderFunc);
     

@@ -394,7 +394,8 @@ namespace MB
 	void Program::addUbo(const std::string& uboName)
 	{
 		unsigned int index = glGetUniformBlockIndex(_program, uboName.c_str());
-		if (index != std::numeric_limits< unsigned int >::max()) {
+		if (index != std::numeric_limits< unsigned int >::max())
+		{
 			_uboList[uboName] = index;
 		}
 		else

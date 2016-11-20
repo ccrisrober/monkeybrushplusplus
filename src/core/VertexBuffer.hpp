@@ -36,8 +36,6 @@ namespace MB
 		virtual ~VertexBuffer();
 		void bind();
 		void bufferSubData(int offset, std::vector<float> _data);
-
-
         void data(std::vector<float> _data, unsigned int usage = GL_STATIC_DRAW);
         void data(std::vector<unsigned int> _data, unsigned int usage = GL_STATIC_DRAW);
 		std::vector<float> getSubData(int size, int offset = 0);

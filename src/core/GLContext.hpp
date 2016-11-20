@@ -35,7 +35,8 @@ namespace MB
                   unsigned int width = 500, unsigned int height = 500,
                   const char* title = "Hello MB");
 		GLFWwindow* getWindow() const;
-        void close( ) {
+        void close()
+        {
 			glfwSetWindowShouldClose(_window, GLFW_TRUE);
             //glfwTerminate();
         }

@@ -66,4 +66,70 @@ namespace MB
 			}
 		}
 	}
+	Node* Scene::findByName(const std::string& name)
+	{
+		Node* toRet = this->_searchName(name, root());
+		return toRet;
+	}
+	Node* Scene::findByTag(const std::string& tag)
+	{
+		Node* toRet = this->_searchTag(tag, root());
+		return toRet;
+	}
+	void Scene::registerBeforeRender(const std::function<void()>& cb, bool recyclable)
+	{
+		this->_beforeRender.push_back(std::make_pair(cb, recyclable));
+	}
+	void Scene::registerAfterRender(const std::function<void()>& cb, bool recyclable)
+	{
+		this->_afterRender.push_back(std::make_pair(cb, recyclable));
+	}
+	void Scene::applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue)
+	{
+		auto i = std::begin(queue);
+		while (i != std::end(queue))
+		{
+			i->first();
+			if (i->second == false)
+			{
+				i = queue.erase(i);
+			}
+			else
+			{
+				++i;
+			}
+		}
+	}
+	Node* Scene::_searchName(const std::string& name, Node* elem)
+	{
+		if (elem->hasParent() && elem->name() == name) {
+			return elem;
+		}
+		// Search in childrens
+		for (auto& c : elem->children())
+		{
+			auto child = this->_searchName(name, c);
+			if (child)
+			{
+				return child;
+			}
+		}
+		return nullptr;
+	}
+	Node* Scene::_searchTag(const std::string& tag, Node* elem)
+	{
+		if (elem->hasParent() && elem->tag() == tag) {
+			return elem;
+		}
+		// Search in childrens
+		for (auto& c : elem->children())
+		{
+			auto child = this->_searchTag(tag, c);
+			if (child)
+			{
+				return child;
+			}
+		}
+		return nullptr;
+	}
 }

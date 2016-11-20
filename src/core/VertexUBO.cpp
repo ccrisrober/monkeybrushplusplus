@@ -20,40 +20,37 @@
 *
 */
 
-#ifndef __MB_FRAMEBUFFER__
-#define __MB_FRAMEBUFFER__
-
-#include <vector>
-#include "../textures/Texture.hpp"
-#include "../textures/RenderBuffer.hpp"
-#include "../textures/RenderBufferTexture.hpp"
-#include "../maths/Vect2.hpp"
+#include "VertexUBO.hpp"
 
 namespace MB
 {
-	class Framebuffer
+	VertexUBO::VertexUBO(const Program& prog, const char* name, 
+		unsigned int blockBindIdx)
+		: _index(blockBindIdx)
+		, _name(name)
 	{
-	public:
-		Framebuffer(const std::vector<Texture*>& textures, 
-			const Vect2& size, bool depth = true);
-		virtual ~Framebuffer();
-		void bind();
-		void unbind();
-		void replaceTexture(Texture* tex, unsigned attach);
-		void rebuild(Vect2& size);
-		void onlyBindTextures();
-		static void RestoreDefaultFBO();
-		bool isValid();
-	protected:
-		Vect2 _size;
-		unsigned int _handler;
-		std::vector<Texture*> _attachments;
-		RenderBuffer* _renderBuffer;
-		bool _valid;
-
-	private:
-		void checkStatus(unsigned int status);
-	};
+		glCreateBuffers(1, &_handler);
+		unsigned int p = prog.program();
+		auto index = glGetUniformBlockIndex(p, name);
+		glUniformBlockBinding(p, index, blockBindIdx);
+	}
+	VertexUBO::~VertexUBO()
+	{
+		glDeleteBuffers(1, &_handler);
+	}
+	void VertexUBO::bind()
+	{
+		glBindBuffer(GL_UNIFORM_BUFFER, this->_handler);
+	}
+	void VertexUBO::update(const std::vector<float>& data)
+	{
+		this->bind();
+		glBufferData(GL_UNIFORM_BUFFER, data.size() * sizeof(GL_FLOAT), &data[0], GL_STATIC_DRAW);
+		this->unbind();
+		glBindBufferBase(GL_UNIFORM_BUFFER, _index, _handler);
+	}
+	void VertexUBO::unbind()
+	{
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	}
 }
-
-#endif /* __MB_FRAMEBUFFER__ */

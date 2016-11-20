@@ -31,26 +31,8 @@ namespace MB
 	class PostProcess
 	{
 	public:
-		PostProcess()
-		{
-			std::vector<float> positions = {
-				-1.0f, -1.0f,
-				+1.0f, -1.0f,
-				-1.0f, +1.0f,
-				+1.0f, +1.0f
-			};
-			_vao = new VertexArray();
-			_vbo = new VertexBuffer(GL_ARRAY_BUFFER);
-			_vbo->data(positions, GL_STATIC_DRAW);
-			_vbo->vertexAttribPointer(0, 2, GL_FLOAT);
-			_vao->unbind();
-		}
-		void bind()
-		{
-			_vao->bind();
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-			_vao->unbind();
-		}
+		PostProcess();
+		void bind();
 	protected:
 		VertexArray* _vao;
 		VertexBuffer* _vbo;

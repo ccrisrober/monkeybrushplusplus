@@ -45,4 +45,12 @@ namespace MB
 	{
         this->_values[1] = v;
 	}
+	bool Vect2::operator!=(const Vect2& v)
+	{
+		return !(*this == v);
+	}
+	bool Vect2::operator==(const Vect2& v)
+	{
+		return x() == v.x() && y() == v.y();
+	}
 }

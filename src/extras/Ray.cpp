@@ -19,31 +19,37 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
-
-#ifndef __MB_RAY__
-#define __MB_RAY__
-
-#include "../maths/Vect3.hpp"
+#include "Ray.hpp"
 
 namespace MB
 {
-	class Ray
-    {
-	public:
-		Ray(const Vect3& origin = Vect3::createFromScalar(0.0f),
-			const Vect3& direction = Vect3::createFromScalar(0.0f));
-		Vect3 origin() const;
-		Vect3 direction() const;
-		void origin(const Vect3& ori);
-		void direction(const Vect3& dir);
-		Vect3 at(const float t);
-        // public lookAt(v: MB.Vect3) {
-        //     this._direction = MB.Vect3.sub(v, this._origin).normalize();
-        // };
-    protected:
-    	Vect3 _origin;
-    	Vect3 _direction;
-    };
+	Ray::Ray(const Vect3& origin, const Vect3& direction)
+	: _origin(origin)
+	, _direction(direction)
+	{
+	}
+	Vect3 Ray::origin() const
+	{
+		return this->_origin;
+	}
+	Vect3 Ray::direction() const
+	{
+		return this->_direction;
+	}
+	void Ray::origin(const Vect3& ori)
+	{
+		this->_origin = ori;
+	}
+	void Ray::direction(const Vect3& dir)
+	{
+		this->_direction = dir;
+	}
+	Vect3 Ray::at(const float t)
+	{
+		return Vect3(
+			this->_origin.x() + t * this->_direction.x(),
+			this->_origin.y() + t * this->_direction.y(),
+			this->_origin.z() + t * this->_direction.z()
+		);
+	}
 }
-
-#endif /* __MB_RAY__ */

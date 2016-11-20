@@ -31,11 +31,7 @@ namespace MB
 	class Color4
     {
 	public:
-		Color4(const Color3& color)
-		: Color4(color.r(), color.g(), color.b())
-		{
-
-		}
+		Color4(const Color3& color);
 		Color4(float r = 1.0f, float g = 1.0f, float b = 1.0f, float a = 1.0f);
         float r() const;
         float g() const;
@@ -45,21 +41,8 @@ namespace MB
         void g(const float v);
         void b(const float v);
         void a(const float v);
-
-		static Color4 fromColor3(const Color3& color)
-		{
-			return Color4(color);
-		}
-		static Color4 lerp(const Color4& minColor, const Color4& maxColor, float alpha)
-		{
-
-			float r = minColor.r() + (maxColor.r() - minColor.r()) * alpha;
-			float g = minColor.g() + (maxColor.g() - minColor.g()) * alpha;
-			float b = minColor.b() + (maxColor.b() - minColor.b()) * alpha;
-			float a = minColor.a() + (maxColor.a() - minColor.a()) * alpha;
-
-			return Color4(r, g, b, a);
-		}
+		static Color4 fromColor3(const Color3& color);
+		static Color4 lerp(const Color4& minColor, const Color4& maxColor, float alpha);
 	protected:
 		Vect4 _color;
     };

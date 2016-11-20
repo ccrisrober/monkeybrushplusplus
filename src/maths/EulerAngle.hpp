@@ -54,7 +54,8 @@ namespace MB
 		EulerAngle& setFromRotationMatrix(const Mat4& mat, RotSeq order, bool update = false);
 		EulerAngle& setFromQuaternion(const Quat& q, RotSeq order, bool update = false);
         RotSeq order() const;
-        friend std::ostream& operator<<(std::ostream& str, const EulerAngle& v) {
+        friend std::ostream& operator<<(std::ostream& str, const EulerAngle& v)
+        {
             str << "EulerAngle(";
             str << v._values[0] << ", " << v._values[1] << ", " << v._values[2] << ", " << v.orderToString();
             str << ")";
@@ -65,20 +66,20 @@ namespace MB
         {
             switch (_order)
             {
-            case xyx:   return "xyx";
-            case zyx:   return "zyx";
-            case zyz:   return "zyz";
-            case zxy:   return "xyx";
-            case zxz:   return "zxz";
+                case xyx:   return "xyx";
+                case zyx:   return "zyx";
+                case zyz:   return "zyz";
+                case zxy:   return "xyx";
+                case zxz:   return "zxz";
 
-            case yxz:   return "yxz";
-            case yxy:   return "yxy";
-            case yzx:   return "yzx";
+                case yxz:   return "yxz";
+                case yxy:   return "yxy";
+                case yzx:   return "yzx";
 
-            case yzy:   return "yzy";
-            case xyz:   return "xyz";
-            case xzy:   return "xzy";
-            case xzx:   return "xzx";
+                case yzy:   return "yzy";
+                case xyz:   return "xyz";
+                case xzy:   return "xzy";
+                case xzx:   return "xzx";
             }
             throw;
         }

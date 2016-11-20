@@ -47,7 +47,7 @@ namespace MB
 		Component();
 		Node* _node;
 	};
-    typedef std::shared_ptr<Component> ComponentPtr;
+    // TODO: UNUSED typedef std::shared_ptr<Component> ComponentPtr;
 }
 
 #endif /* __MB_COMPONENT__ */

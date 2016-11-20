@@ -36,20 +36,14 @@ namespace MB
 		void x(const float& v);
 		float y() const;
 		void y(const float& v);
+		bool operator!=(const Vect2& v);
+		bool operator==(const Vect2& v);
         friend std::ostream& operator<<(std::ostream& str, const Vect2& v) {
             str << "Vect2(";
             str << v._values[0] << ", " << v._values[1];
             str << ")";
             return str;
         }
-		bool operator!=(const Vect2& v)
-		{
-			return !(*this == v);
-		}
-		bool operator==(const Vect2& v)
-		{
-			return x() == v.x() && y() == v.y();
-		}
     public:
         std::vector<float> _values;
 	};

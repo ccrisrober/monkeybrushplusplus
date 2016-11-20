@@ -68,10 +68,6 @@ namespace MB
 				"	fragColor = vec4(color * dif, 1.0) + vec4(color * 0.3, 1.0);"
 				"}";
             _program.loadFromText(vsShader, fsShader);
-            _program.compileAndLink();
-
-			_program.autocatching();
-
 			_program.compileAndLink();
 			_program.autocatching();
         }

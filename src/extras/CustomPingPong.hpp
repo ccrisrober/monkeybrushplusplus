@@ -27,31 +27,14 @@
 
 namespace MB
 {
-	template <typename T>
+	template <class T>
 	class CustomPingPong
 	{
 	public:
-		CustomPingPong(const T& elem1, const T& elem2)
-			: _elem1(std::move(elem1))
-			, _elem2(std::move(elem2))
-		{
-		}
-		void swap(std::function<void()> cb = nullptr)
-		{
-			std::swap(_elem1, _elem2);
-			if (cb)
-			{
-				cb();
-			}
-		}
-		T first() const
-		{
-			return _elem1;
-		}
-		T last() const
-		{
-			return _elem2;
-		}
+		CustomPingPong(const T& elem1, const T& elem2);
+		void swap(std::function<void()> cb = nullptr);
+		T first() const;
+		T last() const;
 	protected:
 		T _elem1;
 		T _elem2;

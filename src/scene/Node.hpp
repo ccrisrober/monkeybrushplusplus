@@ -49,19 +49,9 @@ namespace MB
 		std::vector<Component*> components() const;
 		Transform& transform();
 		void _updateMatrixWorld(bool force = false);
-
-		std::string name() const
-		{
-			return this->_name;
-		}
-		std::string tag() const
-		{
-			return this->_tag;
-		}
-		void tag(const std::string& t)
-		{
-			this->_tag = t;
-		}
+		std::string name() const;
+		std::string tag() const;
+		void tag(const std::string& t);
 		friend std::ostream& operator<<(std::ostream & str, const Node& n) {
 			str << n._name << " => " << n._id;
 			return str;

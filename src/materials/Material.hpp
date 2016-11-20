@@ -43,10 +43,12 @@ namespace MB
 		{
 		}
         virtual ~Material() {}
-        TUniforms& uniforms() {
+        TUniforms& uniforms()
+        {
             return this->_uniforms;
         }
-        Uniform*& uniform(const std::string& name) {
+        Uniform*& uniform(const std::string& name)
+        {
             return this->_uniforms[name];
         }
 		virtual void use()
