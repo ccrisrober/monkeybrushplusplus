@@ -10,6 +10,7 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
     
     core/GLContext.cpp
     core/Input.cpp
+    core/Log.cpp
     core/Program.cpp
     core/VertexArray.cpp
     core/VertexBuffer.cpp
@@ -63,6 +64,7 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     constants/Constants.hpp
 
     resources/ResourceShader.hpp
+    resources/ResourceDrawable.hpp
 
     core/BufferAttribute.hpp
     core/Input.hpp
@@ -88,6 +90,7 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     materials/Uniform.hpp
     materials/Material.hpp
     materials/ShaderMaterial.hpp
+    materials/NormalMaterial.hpp
     materials/SimpleShadingMaterial.hpp
     materials/PostProcessMaterial.hpp
 
@@ -97,6 +100,8 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     models/Cone.hpp
     models/Cylinder.hpp
     models/Disc.hpp
+    models/Torus.hpp
+    models/Prism.hpp
 
     maths/Vect2.hpp
     maths/Vect3.hpp

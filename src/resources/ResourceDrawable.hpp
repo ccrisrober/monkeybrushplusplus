@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -20,40 +20,41 @@
 *
 */
 
-#ifndef __MB_LOG__
-#define __MB_LOG__
+#ifndef __MB_RESOURCE_DRAWABLE__
+#define __MB_RESOURCE_DRAWABLE__
 
-#include <iostream>
-#include <ctime>
+#include <unordered_map>
+#include "../models/Drawable.hpp"
 
 namespace MB
 {
-	class LOG
+	class ResourceDrawable
 	{
 	public:
-		enum TLogLevel {
-			ALL,		// all messages are output
-			INFO,		// errors, warnings, and informative messages
-			WARNING,	// errors and warnings are output
-			ERROR,		// only errors are output
-			NONE		// no output
-		};
-
-		LOG();
-		LOG(TLogLevel type);
-		virtual ~LOG();
-
-		template<class T>
-		LOG& operator<<(const T &msg);
-		static TLogLevel level;
-		static bool headers;
-		static bool date;
-	private:
-		bool opened = false;
-		TLogLevel msglevel = ALL;
-		std::string getLogTime();
-		std::string getLabel(TLogLevel type);
+		static void add(const std::string& key, Drawable* value)
+		{
+			_files[key] = value;
+		}
+		static Drawable* get(const std::string& key)
+		{
+			return _files[key];
+		}
+		static bool exist(const std::string& key)
+		{
+			return _files.find(key) == _files.end();
+		}
+		static void remove(const std::string& key)
+		{
+			_files.erase(key);
+		}
+		static void clear()
+		{
+			_files.clear();
+		}
+	protected:
+		static std::unordered_map<std::string, Drawable*> _files;
 	};
+	std::unordered_map<std::string, Drawable*> ResourceDrawable::_files;
 }
 
-#endif  /* __MB_LOG__ */
+#endif /* __MB_RESOURCE_DRAWABLE__ */

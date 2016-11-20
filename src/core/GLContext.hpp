@@ -25,6 +25,7 @@
 
 #include "../Includes.hpp"
 #include "Input.hpp"
+#include "GlobalState.hpp"
 
 namespace MB
 {
@@ -59,7 +60,10 @@ namespace MB
         {
             return this->_height;
         }
-
+		GlobalState* state()
+		{
+			return this->_state;
+		}
 	private:
 		static void mouse_button_callback(GLFWwindow*, int /*button*/, int /*action*/, int)
 		{
@@ -75,7 +79,6 @@ namespace MB
 			{
 				Input::_onKeyUp(key);
 			}
-			
 		}
 	protected:
         unsigned int _minVersion;
@@ -84,6 +87,8 @@ namespace MB
         unsigned int _height;
 		GLFWwindow* _window;
         std::string _title;
+
+		GlobalState* _state;
 	};
 }
 

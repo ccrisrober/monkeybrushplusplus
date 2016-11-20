@@ -50,23 +50,23 @@ void _check_gl_error(const char *file, int line)
 
 namespace MB
 {
-	Engine::Engine(GLContext* context)
+	Engine::Engine(GLContext* context, bool debugLayer)
 	: _context(context)
 	, deltaTime(0.0f)
 	, lastFrame(0.0f)
+	, _debugLayer(debugLayer)
 	{
 		// TODO: INIT Input
 	}
 	void Engine::run(std::function<void(float)> loop)
 	{
 		float currentFrame;
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		this->state()->color.setClear(MB::Color4(0.0f, 0.0f, 0.0f, 1.0f));
+		this->state()->setViewport(MB::Vect4(0, 0, this->_context->getWidth(), this->_context->getHeight()));
 		
-		glViewport(0, 0, this->_context->getWidth(), this->_context->getHeight());
+		this->state()->depth.setStatus(true);
+		this->state()->culling.setStatus(true);
 		
-		glEnable(GL_DEPTH_TEST);
-
-		glDisable(GL_CULL_FACE);
 		while (!glfwWindowShouldClose(this->_context->getWindow( )))
         {
             this->_context->setTitle(std::to_string(calcFPS()).c_str(), false);
@@ -79,7 +79,10 @@ namespace MB
 			lastFrame = currentFrame;  
 			loop(deltaTime);
 
-			check_gl_error();
+			if (_debugLayer == true)
+			{
+				check_gl_error();
+			}
 
 	        glfwSwapBuffers(this->_context->getWindow());
 	    }

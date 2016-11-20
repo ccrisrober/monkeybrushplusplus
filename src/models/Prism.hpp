@@ -20,40 +20,30 @@
  *
  */
 
-#ifndef __MB_ENGINE__
-#define __MB_ENGINE__
+#ifndef __MB__PRISM__
+#define __MB__PRISM__
 
-#include <iostream>
-#include <functional>
-#include "../core/GLContext.hpp"
-#include "../maths/Vect4.hpp"
+#include "Cone.hpp"
 
 namespace MB
 {
-	class Engine
-	{
-	public:
-		Engine(GLContext* context, bool debugLayer = true);
-		void run(std::function<void(float)> loop);
-		void close();
-        void setViewport(const Vect4& vp)
-		{
-			this->_context->state()->setViewport(vp);
-		}
-		GlobalState * state()
-		{
-			return this->_context->state();
-		}
-    private:
-		double calcFPS(double theTimeInterval = 1.0f);
-	protected:
-        GLContext* _context;
-        float deltaTime;
-        float lastFrame;
-		bool _debugLayer;
-
-        double currentTime;
+    class Prism: public Cone
+    {
+    public:
+        /**
+         * Prism constructor.
+         * @param {number} radius: Prism radius
+         * @param {number} height: Prism height
+         * @param {number = 1} sides: Number of sides of the prism
+         * @param {number = 1} heightSubDiv Height subdivisions
+         * @param {boolean = true} createTopBase: Create top base
+         * @param {boolean = true} createBottomBase: Create bottom base
+         */
+        Prism(float radius, float height, unsigned int sides,
+            unsigned int heightSubDiv = 1, bool topCap = true, bool bottomCap = true)
+        : Cone(radius, radius, height, sides, heightSubDiv, topCap, bottomCap)
+        { }
 	};
 }
 
-#endif /* __MB_ENGINE__ */
+#endif /* __MB__PRISM__ */

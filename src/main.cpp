@@ -9,6 +9,7 @@
 
 #include "others/Exception.hpp"
 #include "resources/ResourceShader.hpp"
+#include "resources/ResourceDrawable.hpp"
 
 
 #include "maths/Sphere2D.hpp"
@@ -43,6 +44,9 @@
 #include "models/Disc.hpp"
 #include "models/Capsule.hpp"
 #include "models/Cylinder.hpp"
+#include "models/Torus.hpp"
+#include "models/Prism.hpp"
+#include "materials/NormalMaterial.hpp"
 #include "materials/SimpleShadingMaterial.hpp"
 #include "materials/ShaderMaterial.hpp"
 #include "utils/any.hpp"
@@ -56,20 +60,31 @@ public:
 		: MB::Component()
 		, _delta(0.01f)
 		, _sign(1)
+		, _velocity(1.0f)
 	{
 		std::cout << "Creando MoveComponent component" << std::endl;
 	}
-	virtual void update(float /*dt*/)
+	virtual void update(float dt)
 	{
+		if (MB::Input::isKeyPressed(GLFW_KEY_V))
+		{
+			this->_velocity -= 0.1f;
+			if (this->_velocity < 0.1f) this->_velocity = 0.1f;
+		} else if (MB::Input::isKeyPressed(GLFW_KEY_B))
+		{
+			this->_velocity += 0.1f;
+			if (this->_velocity > 10.0f) this->_velocity = 10.0f;
+		}
 		if (this->_delta > 2.5f || this->_delta < -2.5f) {
 			this->_sign *= -1;
 		}
-		this->_delta += 0.025 * this->_sign;
+		this->_delta += this->_velocity * this->_sign * dt;
 		this->_node->transform().position().x(this->_delta);
 	}
 protected:
 	float _delta;
 	int _sign;
+	float _velocity;
 };
 
 class ScaleComponent : public MB::Component
@@ -114,9 +129,29 @@ MB::Scene* scene;
 MB::Drawable* cube;
 MB::Capsule* capsule;
 MB::Cylinder* cylinder;
+MB::Prism* prism;
 void renderFunc(float dt);
 
 MB::PostProcessMaterial* ppm;
+
+using MB::LOG;
+
+int main_(int argc)
+{
+	LOG::headers = true;
+	LOG::level = LOG::INFO;
+	LOG::date = true;
+	//---------------------------
+	//LOG(LOG::ALL) << "DEBUG: Main executed with " << (argc - 1) << " arguments";
+	//LOG(LOG::INFO) << "INFO: Main executed with " << (argc - 1) << " arguments";
+	//LOG(LOG::WARNING) << "WARN: Main executed with " << (argc - 1) << " arguments";
+	//LOG(LOG::ERROR) << "ERROR: Main executed with " << (argc - 1) << " arguments";
+	//LOG(LOG::NONE) << "NONE: Main executed with " << (argc - 1) << " arguments";
+
+	int a;
+	std::cin >> a;
+	return 0;
+}
 
 int main(void)
 {
@@ -148,6 +183,7 @@ int main(void)
 	material3.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
 	MB::SimpleShadingMaterial material4;
 	material4.uniform("color")->value(MB::Vect3(MB::Color3::Green));
+	MB::NormalMaterial material6;
 
 	unsigned int texSize = 1024;
 	unsigned int *data = new unsigned int[texSize * texSize * 3];
@@ -228,16 +264,11 @@ int main(void)
 	
 	cube = new MB::Cube(1.0f);
 	capsule = new MB::Capsule(1.0f);
-	cylinder = new MB::Cylinder(1.0f, 3.5f, 25, 15);
+	cylinder = new MB::Cylinder(1.0f, 1.5f, 25, 15);
+	MB::ResourceDrawable::add("torito", new MB::Torus(0.5f, 0.25f, 25, 40));
+	prism = new MB::Prism(1.0f, 1.5f, 5);
 
-	MB::Vect3 v(1.0f, 1.0f, 1.0f);
-	MB::Vect3 v2(1.0f, 1.0f, 1.0f);
-
-    MB::Color3 c(1.0f, 0.0f, 0.0f);
-
-    auto blueColor = MB::Color3::createFromHex(0x0000FF);
-
-	auto vf = v.add(v2);
+	// MB::Drawable* torus = MB::ResourceDrawable::get("torito");
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
 	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
@@ -249,10 +280,12 @@ int main(void)
 	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
 
 	MB::Node* mbSphere = new MB::Node(std::string("sphere"));
-    mbSphere->addComponent(new MB::MeshRenderer(cube, &material2));
+    mbSphere->addComponent(new MB::MeshRenderer(prism, &material6));
 
 	mbSphere->transform().position().set(-0.44f, -2.0f, 2.35f);
 	mbSphere->transform().scale().set(0.5f, 0.5f, 1.0f);
+
+	//mbSphere->setEnabled(false);
 
 	mbCube->addChild(mbSphere);
 
@@ -264,7 +297,7 @@ int main(void)
 	mbSphere->addChild(mbCapsule);
 
 	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
-    mbCylinder->addComponent(new MB::MeshRenderer(cube, &material4));
+    mbCylinder->addComponent(new MB::MeshRenderer(MB::ResourceDrawable::get("torito"), &material6));
 
 	mbCylinder->transform().position().set(1.1f, -1.91f, -1.08f);
 	mbCylinder->transform().scale().set(1.0f, 0.5f, 1.0f);
@@ -272,14 +305,14 @@ int main(void)
 	mbCube->addChild(mbCylinder);
 
 	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
-    mbCapsule2->addComponent(new MB::MeshRenderer(cylinder, &material5));
+    mbCapsule2->addComponent(new MB::MeshRenderer(cylinder, &material6));
 
 	mbCapsule2->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCapsule2->transform().scale().set(0.5f, 1.0f, 2.0f);
 
 	mbCylinder->addChild(mbCapsule2);
 
-    engine = new MB::Engine(&context);
+    engine = new MB::Engine(&context, false);
 	scene = new MB::Scene();
 	scene->root()->addChild(mbCube);
 
@@ -332,6 +365,32 @@ void renderFunc(float dt)
 	{
 		engine->close();
 		return;
+	}
+	if (MB::Input::isKeyClicked(GLFW_KEY_Z))
+	{
+		std::cout << "DEPTH OFF" << std::endl;
+		engine->state()->depth.setStatus(false);
+	}
+	if (MB::Input::isKeyClicked(GLFW_KEY_X))
+	{
+		std::cout << "DEPTH OK" << std::endl;
+		engine->state()->depth.setStatus(true);
+	}
+	if (MB::Input::isKeyClicked(GLFW_KEY_K))
+	{
+		engine->state()->culling.setStatus(false);
+	}
+	if (MB::Input::isKeyClicked(GLFW_KEY_L))
+	{
+		engine->state()->culling.setStatus(true);
+	}
+	if (MB::Input::isKeyClicked(GLFW_KEY_M))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	if (MB::Input::isKeyClicked(GLFW_KEY_N))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 	scene->render(dt);
 	//ppm->renderPP();

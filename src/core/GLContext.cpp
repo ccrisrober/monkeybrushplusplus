@@ -72,6 +72,8 @@ namespace MB
 
 		Input::init();
 
+		_state = new GlobalState();
+
 		/*std::function<void(GLFWwindow*, int, int, int)> mouseCallback([=](GLFWwindow*, int button, int action, int) {
 		});
 		std::function<void(GLFWwindow*, double, double)> scrollCallback([=](GLFWwindow*, double xoff, double yoff) {

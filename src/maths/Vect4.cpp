@@ -30,7 +30,7 @@ namespace MB
         this->_values[0] = x;
         this->_values[1] = y;
         this->_values[2] = z;
-        this->_values[4] = a;
+        this->_values[3] = a;
     }
     float Vect4::x() const
     {

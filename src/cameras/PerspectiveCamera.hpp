@@ -33,8 +33,8 @@ namespace MB
 	public:
 		PerspectiveCamera(float fov_ = 45.0f, float aspect_ = 1.0f, float near_ = 0.1f, float far_ = 1000.0f)
 			: Camera(near_, far_)
-			, fov(fov_)
-			, aspect(aspect_)
+			, _fov(fov_)
+			, _aspect(aspect_)
 		{
 			updateProjectionMatrix();
 		}
