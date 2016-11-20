@@ -56,6 +56,9 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
 set( MONKEYBRUSHPLUSPLUS_HEADERS
     Includes.hpp
     SimpleCamera.hpp
+    cameras/Camera.hpp
+    cameras/PerspectiveCamera.hpp
+    cameras/OrthographicCamera.hpp
     constants/Constants.hpp
 
     core/BufferAttribute.hpp
@@ -86,6 +89,10 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
     materials/PostProcessMaterial.hpp
 
     models/Drawable.hpp
+    models/Cube.hpp
+    models/Capsule.hpp
+    models/Cone.hpp
+    models/Cylinder.hpp
 
     maths/Vect2.hpp
     maths/Vect3.hpp

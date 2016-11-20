@@ -2,6 +2,11 @@
 
 #include "Includes.hpp"
 
+#include "cameras/Camera.hpp"
+#include "cameras/PerspectiveCamera.hpp"
+#include "cameras/OrthographicCamera.hpp"
+
+
 #include "core/GeometryFunctions.hpp"
 #include "core/GLContext.hpp"
 #include "extras/CustomPingPong.hpp"
@@ -22,7 +27,9 @@
 #include "scene/Scene.hpp"
 #include "scene/MeshRenderer.hpp"
 #include "core/Color3.hpp"
-#include "models/Drawable.hpp"
+#include "models/Cube.hpp"
+#include "models/Capsule.hpp"
+#include "models/Cylinder.hpp"
 #include "materials/SimpleShadingMaterial.hpp"
 #include "materials/ShaderMaterial.hpp"
 #include "utils/any.hpp"
@@ -92,6 +99,8 @@ public:
 MB::Engine* engine;
 MB::Scene* scene;
 MB::Drawable* cube;
+MB::Capsule* capsule;
+MB::Cylinder* cylinder;
 void renderFunc(float dt);
 
 
@@ -182,7 +191,9 @@ int main(void)
     auto cv2 = color->value().cast<int>();
     std::cout << cv2 << std::endl;*/
 	
-    cube = new MB::Drawable(1.0f);
+	cube = new MB::Cube(1.0f);
+	capsule = new MB::Capsule(1.0f);
+	cylinder = new MB::Cylinder(1.0f, 3.5f, 25, 15);
 
 	MB::Vect3 v(1.0f, 1.0f, 1.0f);
 	MB::Vect3 v2(1.0f, 1.0f, 1.0f);
@@ -211,7 +222,7 @@ int main(void)
 	mbCube->addChild(mbSphere);
 
 	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
-    mbCapsule->addComponent(new MB::MeshRenderer(cube, &material3));
+    mbCapsule->addComponent(new MB::MeshRenderer(capsule, &material3));
 
 	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
 
@@ -226,7 +237,7 @@ int main(void)
 	mbCube->addChild(mbCylinder);
 
 	MB::Node* mbCapsule2 = new MB::Node(std::string("capsule2"));
-    mbCapsule2->addComponent(new MB::MeshRenderer(cube, &material5));
+    mbCapsule2->addComponent(new MB::MeshRenderer(cylinder, &material5));
 
 	mbCapsule2->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCapsule2->transform().scale().set(0.5f, 1.0f, 2.0f);

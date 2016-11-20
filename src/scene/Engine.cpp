@@ -81,7 +81,7 @@ namespace MB
 
 			check_gl_error();
 
-	        glfwSwapBuffers(this->_context->getWindow( ));
+	        glfwSwapBuffers(this->_context->getWindow());
 	    }
 	}
 

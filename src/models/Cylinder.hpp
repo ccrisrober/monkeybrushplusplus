@@ -20,41 +20,22 @@
  *
  */
 
-#ifndef __MB_DRAWABLE__
-#define __MB_DRAWABLE__
+#ifndef __MB__CYLINDER__
+#define __MB__CYLINDER__
 
-#include "../Includes.hpp"
-#include "../core/VertexArray.hpp"
-#include "../core/VertexBuffer.hpp"
+#include "Cone.hpp"
 
 namespace MB
 {
-    class Drawable
+    class Cylinder: public Cone
     {
     public:
-        void render()
+        Cylinder(float radius, float height, unsigned int radialSubDiv = 15,
+            int heightSubDiv = 1, bool createTopBase = true, bool createBottomBase = true)
+        : Cone(radius, radius, height, radialSubDiv, heightSubDiv, createTopBase, createBottomBase)
         {
-            this->_vao->bind();
-            glDrawElements(GL_TRIANGLES, _indicesLen, GL_UNSIGNED_INT, 0);
-            this->_vao->unbind();
-        }
-    protected:
-        Drawable()
-        {
-            
-        }
-		unsigned int _indicesLen;
-		std::vector<VertexBuffer> _handle;
-		VertexArray* _vao;
-        void addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
-            unsigned int numElems, unsigned int type = GL_STATIC_DRAW)
-        {
-            VertexBuffer vb(GL_ARRAY_BUFFER);
-			vb.data(data, type);
-			vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
-            this->_handle.push_back(vb);
         }
     };
 }
 
-#endif /* __MB_DRAWABLE__ */
+#endif /* __MB__CYLINDER__ */
