@@ -56,7 +56,7 @@ namespace MB
 		{
 			this->_subrender(child, dt);
 		}
-		for (const auto& comp : n->components())
+		for (const auto& comp : n->getComponents())
 		{
 			comp->update(dt);
 			if (dynamic_cast<MeshRenderer*>(comp))

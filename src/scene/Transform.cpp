@@ -34,12 +34,12 @@ namespace MB
 	, _autoUpdate(true)
 	, _matrixWorldNeedUpdate(false)
 	{
-		std::function<void()> cbRotation([=]() {
-			//this->quaternion = this->quaternion.setFromEuler(this->rotation);
+		std::function<void()> cbRotation([&]() {
+			this->_quaternion = this->_quaternion.setFromEuler(this->_rotation);
 		});
 		_rotation.setCallback(cbRotation);
 		std::function<void()> cbQuaternion([=]() {
-			//this->rotation = this->rotation.setFromQuaternion(this->quaternion, this->rotation.order, false);
+			this->_rotation = this->_rotation.setFromQuaternion(this->_quaternion, this->_rotation.order(), false);
 		});
 		_quaternion.setCallback(cbQuaternion);
 	}

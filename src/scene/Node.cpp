@@ -65,7 +65,7 @@ namespace MB
     void Node::addComponent(Component* c)
 	{
 		c->setNode(this);
-		this->_components.push_back(c);
+		this->_components[&typeid(*c)] = c;
 	}
 	void Node::setEnabled(const bool v)
 	{
@@ -83,10 +83,6 @@ namespace MB
 	std::vector<Node*> Node::children() const
 	{
 		return this->_children;
-	}
-	std::vector<Component*> Node::components() const
-	{
-		return this->_components;
 	}
 	Transform& Node::transform()
 	{

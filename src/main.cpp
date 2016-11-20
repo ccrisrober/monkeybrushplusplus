@@ -53,6 +53,43 @@
 #include "extras/Easing.hpp"
 #include "extras/EventDispatcher.hpp"
 
+
+std::unordered_map<const std::type_info*, MB::Component*> components;
+template<typename T>
+T* getComponent()
+{
+	if (components.count(&typeid(T)) != 0)
+	{
+		return static_cast<T*>(components[&typeid(T)]);
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+/*
+http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
+#include <typeinfo>
+#include <typeindex>
+
+std::unordered_map<std::type_index, std::shared_ptr<MB::Component> > components2;
+
+template <typename T>
+std::shared_ptr<T> getComponent2()
+{
+	std::type_index index(typeid(T));
+	if (components2.count(std::type_index(typeid(T)) != 0))
+	{
+		return static_pointer_cast<T>(components2[index]);
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+*/
+
 class MoveComponent : public MB::Component
 {
 public:
@@ -84,6 +121,26 @@ public:
 protected:
 	float _delta;
 	int _sign;
+	float _velocity;
+};
+
+class RotateComponent : public MB::Component
+{
+public:
+	RotateComponent()
+		: MB::Component()
+		, _delta(0.01f)
+		, _velocity(1.0f)
+	{
+		std::cout << "Creando RotateComponent component" << std::endl;
+	}
+	virtual void update(float dt)
+	{
+		this->_delta += this->_velocity * dt;
+		this->_node->transform().rotation().x(this->_delta);
+	}
+protected:
+	float _delta;
 	float _velocity;
 };
 
@@ -156,6 +213,41 @@ int main_(int argc)
 int main(void)
 {
     MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+
+	//components[std::type_index(typeid(*component))] = component
+	{
+		auto component = new PrintPosition();
+		components[&typeid(*component)] = component;
+
+		//auto component2 = std::shared_ptr<PrintPosition>(new PrintPosition());
+		//components2[std::type_index(typeid(*component2))] = component2;
+	}
+	{
+		auto component = new ScaleComponent();
+		components[&typeid(*component)] = component;
+
+		//auto component2 = std::shared_ptr<ScaleComponent>(new ScaleComponent());
+		//components2[std::type_index(typeid(*component2))] = component2;
+	}
+	{
+		auto component = new MoveComponent();
+		components[&typeid(*component)] = component;
+
+		//auto component2 = std::shared_ptr<MoveComponent>(new MoveComponent());
+		//components2[std::type_index(typeid(*component2))] = component2;
+	}
+	{
+		ScaleComponent* sC = getComponent<ScaleComponent>();
+		PrintPosition* pC = getComponent<PrintPosition>();
+		MoveComponent* mC = getComponent<MoveComponent>();
+		MB::MeshRenderer* mrC = getComponent<MB::MeshRenderer>();
+	}
+	/*{
+		std::shared_ptr<ScaleComponent> sC = getComponent2<ScaleComponent>();
+		std::shared_ptr<PrintPosition> pC = getComponent2<PrintPosition>();
+		std::shared_ptr<MoveComponent> mC = getComponent2<MoveComponent>();
+		std::shared_ptr<MB::MeshRenderer> mrC = getComponent2<MB::MeshRenderer>();
+	}*/
 
 	/*MB::CustomPingPong<float> cpp(1.0f, 2.0f);
 	std::cout << cpp.first() << " - " << cpp.last() << std::endl;
@@ -273,11 +365,15 @@ int main(void)
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
 	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
 	mbCube->addComponent(new MoveComponent());
+	mbCube->addComponent(new RotateComponent());
+
+	auto cmps = mbCube->getComponents();
 	//mbCube->addComponent(new ScaleComponent());
 	//mbCube->addComponent(new PrintPosition());
 
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
 	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
+	//mbCube->transform().rotation().set(0.0f, 1.0f, 0.0f);
 
 	MB::Node* mbSphere = new MB::Node(std::string("sphere"));
     mbSphere->addComponent(new MB::MeshRenderer(prism, &material6));

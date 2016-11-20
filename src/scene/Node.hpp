@@ -1,4 +1,4 @@
-/*
+ /*
  * Copyright (c) 2016 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
@@ -24,9 +24,11 @@
 #define __MB_NODE__
 
 #include <vector>
+#include <unordered_map>
 #include <ctime>
 #include <regex>
 #include "Transform.hpp"
+#include <algorithm>
 
 #include "Component.hpp"
 
@@ -46,7 +48,6 @@ namespace MB
 		void setEnabled(const bool v);
 		void removeAll();
 		std::vector<Node*> children() const;
-		std::vector<Component*> components() const;
 		Transform& transform();
 		void _updateMatrixWorld(bool force = false);
 
@@ -61,11 +62,32 @@ namespace MB
 			str << n._name << " => " << n._id;
 			return str;
 		}
+
+		template<typename T>
+		T* getComponent()
+		{
+			if (_components.count(&typeid(T)) != 0)
+			{
+				return static_cast<T*>(_components[&typeid(T)]);
+			}
+			else
+			{
+				return nullptr;
+			}
+		}
+		std::vector<MB::Component*> getComponents()
+		{
+			std::vector<MB::Component*> values(_components.size());
+			auto value_selector = [](auto pair) {return pair.second; };
+			std::transform(_components.begin(), _components.end(), values.begin(), value_selector);
+			return values;
+		}
 	private:
 		std::string _generateUUID() const;
 	protected:
 		std::vector<Node*> _children;
-        std::vector<Component*> _components;
+		std::unordered_map<const std::type_info*, MB::Component*> _components;
+
 		std::string _name;
 		std::string _id;
         Node* _parent;
