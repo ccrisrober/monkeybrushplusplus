@@ -112,7 +112,7 @@ namespace MB
 
 				std::vector<unsigned int> data = cells;
 				unsigned int type = GL_STATIC_DRAW;
-
+				
 				VertexBuffer vbIndices(GL_ELEMENT_ARRAY_BUFFER);
 				vbIndices.data(data, type);
 				_indicesLen = data.size();

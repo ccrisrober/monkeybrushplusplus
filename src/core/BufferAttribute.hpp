@@ -30,136 +30,26 @@ namespace MB
 	class BufferAttribute
     {
 	public:
-		BufferAttribute(std::vector<float> arr, unsigned int size)
-        : _arr(arr)
-        , _size(size)
-        {
-        }
-        unsigned int size() const 
-        {
-            return this->_size;
-        }
-        std::vector<float> array() const 
-        {
-            return this->_arr;
-        }
-        unsigned int count()
-        {
-            return this->_arr.size() / this->_size;
-        }
-		unsigned int getX(unsigned int index)
-		{
-			if (this->_size < 1)
-				throw;
-			return this->_arr.at(index * this->_size);
-		}
-		unsigned int getY(unsigned int index)
-		{
-			if (this->_size < 2)
-				throw;
-			return this->_arr.at(index * this->_size + 1);
-		}
-		unsigned int getZ(unsigned int index)
-		{
-			if (this->_size < 3)
-				throw;
-			return this->_arr.at(index * this->_size + 2);
-		}
-		unsigned int getW(unsigned int index)
-		{
-			if (this->_size < 4)
-				throw;
-			return this->_arr.at(index * this->_size + 3);
-		}
-		std::vector<float> getXY(unsigned int index)
-		{
-			if (this->_size < 2)
-				throw;
-			index *= this->_size;
-
-			return{
-				this->_arr.at(index),
-				this->_arr.at(index + 1)
-			};
-		}
-		std::vector<float> getXYZ(unsigned int index)
-		{
-			if (this->_size < 3)
-				throw;
-			index *= this->_size;
-
-			return{
-				this->_arr.at(index),
-				this->_arr.at(index + 1),
-				this->_arr.at(index + 2)
-			};
-		}
-		std::vector<float> getXYZW(unsigned int index)
-		{
-			if (this->_size < 4)
-				throw;
-			index *= this->_size;
-
-			return{
-				this->_arr.at(index),
-				this->_arr.at(index + 1),
-				this->_arr.at(index + 2),
-				this->_arr.at(index + 3)
-			};
-		}
-		void setX(unsigned int index, float value)
-		{
-			if (this->_size < 1)
-				throw;
-			this->_arr[index * this->_size] = value;
-		}
-		void setY(unsigned int index, float value)
-		{
-			if (this->_size < 2)
-				throw;
-			this->_arr[index * this->_size + 1] = value;
-		}
-		void setZ(unsigned int index, float value)
-		{
-			if (this->_size < 3)
-				throw;
-			this->_arr[index * this->_size + 2] = value;
-		}
-		void setW(unsigned int index, float value)
-		{
-			if (this->_size < 4)
-				throw;
-			this->_arr[index * this->_size + 3] = value;
-		}
-		void setXY(unsigned int index, float xValue, float yValue)
-		{
-			if (this->_size < 2)
-				throw;
-			index *= this->_size;
-			this->_arr[index] = xValue;
-			this->_arr[index + 1] = yValue;
-		}
+		BufferAttribute(std::vector<float> arr, unsigned int size);
+        unsigned int size() const;
+        std::vector<float> array() const;
+        unsigned int count();
+		unsigned int getX(unsigned int index);
+		unsigned int getY(unsigned int index);
+		unsigned int getZ(unsigned int index);
+		unsigned int getW(unsigned int index);
+		std::vector<float> getXY(unsigned int index);
+		std::vector<float> getXYZ(unsigned int index);
+		std::vector<float> getXYZW(unsigned int index);
+		void setX(unsigned int index, float value);
+		void setY(unsigned int index, float value);
+		void setZ(unsigned int index, float value);
+		void setW(unsigned int index, float value);
+		void setXY(unsigned int index, float xValue, float yValue);
 		void setXYZ(unsigned int index, float xValue, float yValue,
-			float zValue)
-		{
-			if (this->_size < 3)
-				throw;
-			index *= this->_size;
-			this->_arr[index] = xValue;
-			this->_arr[index + 1] = yValue;
-			this->_arr[index + 2] = zValue;
-		}
+			float zValue);
 		void setXYZW(unsigned int index, float xValue, float yValue,
-			float zValue, float wValue)
-		{
-			if (this->_size < 4)
-				throw;
-			index *= this->_size;
-			this->_arr[index] = xValue;
-			this->_arr[index + 1] = yValue;
-			this->_arr[index + 2] = zValue;
-			this->_arr[index + 3] = wValue;
-		}
+			float zValue, float wValue);
 	protected:
         std::vector<float> _arr;
         float _size;

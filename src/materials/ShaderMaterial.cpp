@@ -20,29 +20,41 @@
  *
  */
 
-#ifndef __MB_MAT2__
-#define __MB_MAT2__
-
-#include <vector>
-#include <iostream>
+#include "ShaderMaterial.hpp"
 
 namespace MB
 {
-	class Mat2
+	ShaderMaterial::ShaderMaterial(
+		const std::vector<std::pair<ShaderType, const char*> >& shaders,
+		const std::vector<std::pair<const char*, Uniform*> >& uniforms)
+	: Material()
 	{
-	public:
-        Mat2();
-        Mat2(const std::vector<float> values);
-        friend std::ostream& operator<<(std::ostream& str, const Mat2& m)
+		for (const auto& pair : uniforms)
 		{
-            str << "Mat2(\n";
-            str << "\t" << m._values[0] << ", " << m._values[1] << ", \n";
-            str << "\t" << m._values[2] << ", " << m._values[3] << "\n";
-            str << ")";
-            return str;
-        }
-        std::vector<float> _values;
-	};
+			_uniforms[pair.first] = pair.second;
+		}
+		for (const auto& pair : shaders)
+		{
+			switch (pair.first)
+			{
+			case VertexShader:
+				_program.loadVertexShaderFromText(pair.second);
+				break;
+			case FragmentShader:
+				_program.loadFragmentShaderFromText(pair.second);
+				break;
+			case GeometryShader:
+				_program.loadGeometryShaderFromText(pair.second);
+				break;
+			case TesselationEvaluationShader:
+				_program.loadTesselationEvaluationShaderFromText(pair.second);
+				break;
+			case TesselationControlShader:
+				_program.loadTesselationControlShaderFromText(pair.second);
+				break;
+			}
+		}
+		_program.compileAndLink();
+		_program.autocatching();
+	}
 }
-
-#endif /* __MB_MAT2__ */

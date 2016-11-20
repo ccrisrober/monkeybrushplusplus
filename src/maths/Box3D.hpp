@@ -37,88 +37,41 @@ namespace MB
 		* @param {Vect3 = new Vect3(-Infinity, Infinity)} max: Box max corner
 		*/
 		Box3D(const Vect3& min = Vect3::createFromScalar(std::numeric_limits<float>::infinity()),
-			const Vect3& max = Vect3::createFromScalar(-std::numeric_limits<float>::infinity()))
-		{
-			this->_min = min;
-			this->_max = max;
-			this->_center = Vect3::add(this->_min, this->_max).scale(0.5f);
-		}
+			const Vect3& max = Vect3::createFromScalar(-std::numeric_limits<float>::infinity()));
 		/**
 		* Return min Box3D position.
 		* @return {Vect3}
 		*/
-		Vect3 min() const
-		{
-			return this->_min;
-		}
+		Vect3 min() const;
 		/**
 		* Return max Box3D position.
 		* @return {Vect3}
 		*/
-		Vect3 max() const
-		{
-			return this->_max;
-		}
+		Vect3 max() const;
 		/**
 		* Return Box3D center.
 		* @return {Vect3}
 		*/
-		Vect3 center() const
-		{
-			return this->_center;
-		}
+		Vect3 center() const;
 		/**
 		* Return box size.
 		* @return {Vect3}
 		*/
-		Vect3 size() const
-		{
-			return Vect3::sub(this->max(), this->min());
-		}
-		bool containtsPoint(const Vect3& p)
-		{
-			if (p.x() > this->_min.x() || p.x() < this->_max.x() ||
-				p.y() > this->_min.y() || p.y() < this->_max.y() ||
-				p.z() > this->_min.z() || p.z() < this->_max.z())
-			{
-				return true;
-			}
-			return false;
-		}
+		Vect3 size() const;
+		bool containtsPoint(const Vect3& p);
 		/**
 		* Check if owner box contains another box
 		* @param  {Box3D} b: Another box
 		* @return {boolean}
 		*/
-		bool containsBox(const Box3D& b)
-		{
-			if ((this->_min.x() <= b._min.x()) && (b._max.x() <= this->_max.x()) &&
-				(this->_min.y() <= b._min.y()) && (b._max.y() <= this->_max.y()) &&
-				(this->_min.z() <= b._min.z()) && (b._max.z() <= this->_max.z()))
-			{
-				return true;
-			}
-			return false;
-		}
+		bool containsBox(const Box3D& b);
 		/**
 		* Check if owner box intersect another box
 		* @param  {Box3D} b: Another box
 		* @return {boolean}
 		*/
-		bool intersectsBox(const Box3D& b)
-		{
-			if (b._max.x() < this->_min.x() || b._min.x() > this->_max.x() ||
-				b._max.y() < this->_min.y() || b._min.y() > this->_max.y() ||
-				b._max.z() < this->_min.z() || b._min.z() > this->_max.z())
-			{
-				return false;
-			}
-			return true;
-		}
-		bool isEqual(const Box3D& b)
-		{
-			return b.min() == this->_min && b.max() == this->_max;
-		}
+		bool intersectsBox(const Box3D& b);
+		bool isEqual(const Box3D& b);
 	protected:
 		/**
 		* Min corner.

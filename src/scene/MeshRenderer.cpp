@@ -22,6 +22,7 @@
 
 #include "MeshRenderer.hpp"
 #include "../materials/Uniform.hpp"
+#include "../resources/ResourceDrawable.hpp"
 
 namespace MB
 {
@@ -29,6 +30,10 @@ namespace MB
 		: Component()
 		, _mesh(mesh)
 		, _material(material)
+	{
+	}
+	MeshRenderer::MeshRenderer(const std::string& name, Material* material)
+		: MeshRenderer(MB::ResourceDrawable::get(name), material)
 	{
 	}
 	Material* MeshRenderer::getMaterial() const

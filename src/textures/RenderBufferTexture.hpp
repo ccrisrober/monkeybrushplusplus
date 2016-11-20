@@ -30,20 +30,8 @@ namespace MB
 	class RenderBufferTexture: public RenderBuffer
 	{
 	public:
-		RenderBufferTexture(const Vect2& size, unsigned int format, unsigned int attachment)
-		: RenderBuffer(size, format, attachment)
-		{
-			this->bind();
-			glRenderbufferStorage(GL_RENDERBUFFER, _format, (unsigned int)_size.x(), (unsigned int)size.y());
-			glFramebufferRenderbuffer(GL_FRAMEBUFFER, _attachment, GL_RENDERBUFFER, _handler);
-			this->unbind();
-		}
-		virtual void resize(const Vect2& size)
-		{
-			this->bind();
-			glRenderbufferStorage(GL_RENDERBUFFER, _format, (unsigned int)_size.x(), (unsigned int)size.y());
-			this->unbind();
-		}
+		RenderBufferTexture(const Vect2& size, unsigned int format, unsigned int attachment);
+		virtual void resize(const Vect2& size);
 	};
 }
 

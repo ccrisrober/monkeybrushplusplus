@@ -58,8 +58,9 @@ namespace MB
 		}
 		opened = false;
 	}
-	template<class T>
-	LOG& LOG::operator<<(const T &msg)
+	LOG& LOG::operator<<(const std::string &msg)
+	//template<class T>
+	//LOG& LOG::operator<<(const T &msg)
 	{
 		if (msglevel == TLogLevel::NONE)
 		{
@@ -67,7 +68,7 @@ namespace MB
 		}
 		else if (msglevel >= LOG::level)
 		{
-			//  todo std::cout << msg;
+			std::cout << msg.c_str();
 			opened = true;
 		}
 		return *this;

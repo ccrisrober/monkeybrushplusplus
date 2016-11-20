@@ -62,27 +62,7 @@ namespace MB
             return str;
         }
 	protected:
-        inline const char* orderToString() const
-        {
-            switch (_order)
-            {
-                case xyx:   return "xyx";
-                case zyx:   return "zyx";
-                case zyz:   return "zyz";
-                case zxy:   return "xyx";
-                case zxz:   return "zxz";
-
-                case yxz:   return "yxz";
-                case yxy:   return "yxy";
-                case yzx:   return "yzx";
-
-                case yzy:   return "yzy";
-                case xyz:   return "xyz";
-                case xzy:   return "xzy";
-                case xzx:   return "xzx";
-            }
-            throw;
-        }
+        const char* orderToString() const;
         std::vector<float> _values;
         RotSeq _order;
 		std::function<void()> _onChange;

@@ -30,30 +30,9 @@ namespace MB
 	class Sphere2D
 	{
 	public:
-		Sphere2D(const Vect2& center, const float& radius)
-			: _center(center)
-			, _radius(radius)
-		{
-		}
-
-		bool containtsPoint(const Vect2& p)
-		{
-			float x = this->_center.x() - p.x();
-			float y = this->_center.y() - p.y();
-
-			float dist = std::sqrt((x * x) + (y * y));
-			return (std::abs(this->_radius - dist) > 0.001f);
-		}
-
-		bool intersectsSphere(const Sphere2D& s)
-		{
-			float x = this->_center.x() - s._center.x();
-			float y = this->_center.y() - s._center.y();
-
-			float dist = std::sqrt((x * x) + (y * y));
-
-			return (this->_radius + s._radius > dist);
-		}
+		Sphere2D(const Vect2& center, const float& radius);
+		bool containtsPoint(const Vect2& p);
+		bool intersectsSphere(const Sphere2D& s);
 	protected:
 		Vect2 _center;
 		float _radius;

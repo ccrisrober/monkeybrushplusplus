@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -20,40 +20,32 @@
 *
 */
 
-#ifndef __MB_LOG__
-#define __MB_LOG__
-
-#include <iostream>
-#include <ctime>
+#include "Sphere3D.hpp"
 
 namespace MB
 {
-	class LOG
+	Sphere3D::Sphere3D(const Vect3& center, const float& radius)
+		: _center(center)
+		, _radius(radius)
 	{
-	public:
-		enum TLogLevel {
-			ALL,		// all messages are output
-			INFO,		// errors, warnings, and informative messages
-			WARNING,	// errors and warnings are output
-			ERROR,		// only errors are output
-			NONE		// no output
-		};
-		LOG();
-		LOG(TLogLevel type);
-		virtual ~LOG();
+	}
+	bool Sphere3D::containtsPoint(const Vect3& p)
+	{
+		float x = this->_center.x() - p.x();
+		float y = this->_center.y() - p.y();
+		float z = this->_center.z() - p.z();
 
-		LOG& operator<<(const std::string &msg);
-		//template<class T>
-		//LOG& operator<<(const T &msg);
-		static TLogLevel level;
-		static bool headers;
-		static bool date;
-	private:
-		bool opened = false;
-		TLogLevel msglevel = ALL;
-		std::string getLogTime();
-		std::string getLabel(TLogLevel type);
-	};
+		float dist = std::sqrt((x * x) + (y * y) + (z * z));
+		return (std::abs(this->_radius - dist) > 0.001f);
+	}
+	bool Sphere3D::intersectsSphere(const Sphere3D& s)
+	{
+		float x = this->_center.x() - s._center.x();
+		float y = this->_center.y() - s._center.y();
+		float z = this->_center.z() - s._center.z();
+
+		float dist = std::sqrt((x * x) + (y * y) + (z * z));
+
+		return (this->_radius + s._radius > dist);
+	}
 }
-
-#endif  /* __MB_LOG__ */

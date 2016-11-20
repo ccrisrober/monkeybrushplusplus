@@ -39,63 +39,11 @@ namespace MB
 	class Material
 	{
 	public:
-		Material()
-		{
-		}
-        virtual ~Material() {}
-        TUniforms& uniforms()
-        {
-            return this->_uniforms;
-        }
-        Uniform*& uniform(const std::string& name)
-        {
-            return this->_uniforms[name];
-        }
-		virtual void use()
-		{
-			this->_program.use();
-			for (const auto& uniform : _uniforms)
-			{
-				if (!uniform.second->isDirty())
-					continue;
-                auto type = uniform.second->type();
-				if (type == Float)
-				{
-					this->_program.sendUniformf(uniform.first, uniform.second->value().cast<float>());
-				}
-				else if (type == Integer)
-				{
-					this->_program.sendUniformi(uniform.first, uniform.second->value().cast<int>());
-				}
-				else if (type == Vector2)
-                {
-                    this->_program.sendUniform2v(uniform.first, uniform.second->value().cast<Vect2>()._values.data());
-                }
-                else if (type == Vector3)
-                {
-                    this->_program.sendUniform3v(uniform.first, uniform.second->value().cast<Vect3>()._values);
-                }
-                else if (type == Vector4)
-                {
-                    this->_program.sendUniform4v(uniform.first, uniform.second->value().cast<Vect4>()._values.data());
-                }
-                else if (type == Matrix2)
-                {
-                    //auto value = uniform.second->value();
-                    //this->_program.sendUniform2m(uniform.first, &uniform.second->value().cast<Mat2>()._values.data());
-                }
-                else if (type == Matrix3)
-                {
-                    this->_program.sendUniform3m(uniform.first, uniform.second->value().cast<Mat3>()._values.data());
-                }
-                else if (type == Matrix4)
-                {
-					this->_program.sendUniform4m(uniform.first, uniform.second->value().cast<Mat4>()._values.data());
-                }
-				uniform.second->setDirty(false);
-			}
-			//this->_program.unuse();
-		}
+		Material();
+        virtual ~Material();
+        TUniforms& uniforms();
+        Uniform*& uniform(const std::string& name);
+		virtual void use();
 		std::string id;
 		bool backFaceCull = true;
 		unsigned int sizeOrientation; // InvClockWise

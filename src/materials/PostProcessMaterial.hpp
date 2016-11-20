@@ -32,47 +32,8 @@ namespace MB
 	class PostProcessMaterial : public Material
 	{
 	public:
-		PostProcessMaterial(const char* fsShader_ = nullptr)
-			: Material()
-		{
-			const char* vsShader = 
-				"#version 330\n"
-				"layout(location = 0) in vec3 vertPosition\n;"
-				"out vec2 uv;\n"
-				"void main(void) {\n"
-				"	uv = vec2(vertPosition.xy * 0.5) + vec2(0.5);\n"
-				"	gl_Position = vec4(vertPosition, 1.0)\n;"
-				"}\n";
-			const char* fsShader;
-			if (fsShader_)
-			{
-				fsShader = fsShader_;
-			}
-			else
-			{
-				fsShader = 
-					"#version 330\n"
-					"uniform vec3 color;\n"
-					"out vec4 fragColor;\n"
-					"in vec2 uv;\n"
-					""
-					"void main()\n"
-					"{\n"
-					"    fragColor = vec4(uv, 0.0, 1.0);\n"
-					"}\n";
-			}
-			
-			_program.loadFromText(vsShader, fsShader);
-			_program.compileAndLink();
-			_program.autocatching();
-
-			_pp = new PostProcess();
-		}
-		void renderPP()
-		{
-			this->use();
-			this->_pp->bind();
-		}
+		PostProcessMaterial(const char* fsShader_ = nullptr);
+		void renderPP();
 	protected:
 		/* TODO: static ?? */ PostProcess *_pp;
 	};

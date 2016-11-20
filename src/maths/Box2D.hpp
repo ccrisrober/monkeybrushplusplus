@@ -37,85 +37,41 @@ namespace MB
 		* @param {Vect2 = new Vect2(-Infinity, Infinity)} max: Box max corner
 		*/
 		Box2D(const Vect2& min = Vect2(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity()), 
-			const Vect2& max = Vect2(-std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity()))
-		{
-			this->_min = min;
-			this->_max = max;
-			this->_center = Vect2::add(this->_min, this->_max).scale(0.5f);
-		}
+			const Vect2& max = Vect2(-std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity()));
 		/**
 		* Return min Box2D position.
 		* @return {Vect2}
 		*/
-		Vect2 min() const
-		{
-			return this->_min;
-		}
+		Vect2 min() const;
 		/**
 		* Return max Box2D position.
 		* @return {Vect2}
 		*/
-		Vect2 max() const
-		{
-			return this->_max;
-		}
+		Vect2 max() const;
 		/**
 		* Return Box2D center.
 		* @return {Vect2}
 		*/
-		Vect2 center() const
-		{
-			return this->_center;
-		}
+		Vect2 center() const;
 		/**
 		* Return box size.
 		* @return {Vect2}
 		*/
-		Vect2 size() const
-		{
-			return Vect2::sub(this->max(), this->min());
-		}
-		bool containtsPoint(const Vect2& p)
-		{
-			if (p.x() > this->_min.x() || p.x() < this->_max.x() ||
-				p.y() > this->_min.y() || p.y() < this->_max.y())
-			{
-				return true;
-			}
-			return false;
-		}
+		Vect2 size() const;
+		bool containtsPoint(const Vect2& p);
 		/**
 		* Check if owner box contains another box
 		* @param  {Box2D} b: Another box
 		* @return {boolean}
 		*/
-		bool containsBox(const Box2D& b)
-		{
-			if ((this->_min.x() <= b._min.x()) && (b._max.x() <= this->_max.x()) &&
-			(this->_min.y() <= b._min.y()) && (b._max.y() <= this->_max.y()))
-			{
-				return true;
-			}
-			return false;
-		}
+		bool containsBox(const Box2D& b);
 		/**
 		* Check if owner box intersect another box
 		* @param  {Box2D} b: Another box
 		* @return {boolean}
 		*/
-		bool intersectsBox(const Box2D& b)
-		{
-			if (b._max.x() < this->_min.x() || b._min.x() > this->_max.x() ||
-				b._max.y() < this->_min.y() || b._min.y() > this->_max.y())
-			{
-				return false;
-			}
-			return true;
-		}
-		bool isEqual(const Box2D& b)
-		{
-			return b.min() == this->_min && b.max() == this->_max;
-		}
+		bool intersectsBox(const Box2D& b);
+		bool isEqual(const Box2D& b);
 	protected:
 		/**
 		* Min corner.

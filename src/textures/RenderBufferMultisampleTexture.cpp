@@ -20,28 +20,23 @@
  *
  */
 
-#ifndef __MB_RENDERBUFFER__
-#define __MB_RENDERBUFFER__
-
-#include "../Includes.hpp"
-#include "../maths/Vect2.hpp"
+#include "RenderBufferMultisampleTexture.hpp"
 
 namespace MB
 {
-	class RenderBuffer
+	RenderBufferMultisampleTexture::RenderBufferMultisampleTexture(const Vect2& size, unsigned int format, 
+		unsigned int attachment, unsigned int samples)
+		: RenderBuffer(size, format, attachment, samples)
 	{
-	public:
-		virtual void resize(const Vect2& size) = 0;
-		void bind();
-		void unbind();
-	protected:
-		RenderBuffer(const Vect2& size, unsigned int format, unsigned int attachment, unsigned int samples = 4);
-		unsigned int _handler;
-		unsigned int _samples;
-		unsigned int _format;
-		unsigned int _attachment;
-		Vect2 _size;
-	};
+		this->bind();
+		glRenderbufferStorageMultisample(GL_RENDERBUFFER, _samples, _format, (unsigned int)_size.x(), (unsigned int)size.y());
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, _attachment, GL_RENDERBUFFER, _handler);
+		this->unbind();
+	}
+	void RenderBufferMultisampleTexture::resize(const Vect2& size)
+	{
+		this->bind();
+		glRenderbufferStorageMultisample(GL_RENDERBUFFER, _samples, _format, (unsigned int)_size.x(), (unsigned int)size.y());
+		this->unbind();
+	}
 }
-
-#endif /* __MB_RENDERBUFFER__ */

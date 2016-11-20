@@ -30,20 +30,8 @@ namespace MB
 	class RenderBufferMultisampleTexture: public RenderBuffer
 	{
 	public:
-		RenderBufferMultisampleTexture(const Vect2& size, unsigned int format, unsigned int attachment)
-			: RenderBuffer(size, format, attachment)
-		{
-			this->bind();
-			glRenderbufferStorageMultisample(GL_RENDERBUFFER, _format, (unsigned int)_size.x(), (unsigned int)size.y());
-			glFramebufferRenderbuffer(GL_FRAMEBUFFER, _attachment, GL_RENDERBUFFER, _handler);
-			this->unbind();
-		}
-		virtual void resize(const Vect2& size)
-		{
-			this->bind();
-			glRenderbufferStorageMultisample(GL_RENDERBUFFER, _format, (unsigned int)_size.x(), (unsigned int)size.y());
-			this->unbind();
-		}
+		RenderBufferMultisampleTexture(const Vect2& size, unsigned int format, unsigned int attachment, unsigned int samples = 4);
+		virtual void resize(const Vect2& size);
 	};
 }
 

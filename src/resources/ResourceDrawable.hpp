@@ -31,30 +31,14 @@ namespace MB
 	class ResourceDrawable
 	{
 	public:
-		static void add(const std::string& key, Drawable* value)
-		{
-			_files[key] = value;
-		}
-		static Drawable* get(const std::string& key)
-		{
-			return _files[key];
-		}
-		static bool exist(const std::string& key)
-		{
-			return _files.find(key) == _files.end();
-		}
-		static void remove(const std::string& key)
-		{
-			_files.erase(key);
-		}
-		static void clear()
-		{
-			_files.clear();
-		}
+		static void add(const std::string& key, Drawable* value);
+		static Drawable* get(const std::string& key);
+		static bool exist(const std::string& key);
+		static void remove(const std::string& key);
+		static void clear();
 	protected:
 		static std::unordered_map<std::string, Drawable*> _files;
 	};
-	std::unordered_map<std::string, Drawable*> ResourceDrawable::_files;
 }
 
 #endif /* __MB_RESOURCE_DRAWABLE__ */

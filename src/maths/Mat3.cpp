@@ -20,28 +20,21 @@
  *
  */
 
-#ifndef __MB_RENDERBUFFER__
-#define __MB_RENDERBUFFER__
-
-#include "../Includes.hpp"
-#include "../maths/Vect2.hpp"
+#include "Mat3.hpp"
 
 namespace MB
 {
-	class RenderBuffer
-	{
-	public:
-		virtual void resize(const Vect2& size) = 0;
-		void bind();
-		void unbind();
-	protected:
-		RenderBuffer(const Vect2& size, unsigned int format, unsigned int attachment, unsigned int samples = 4);
-		unsigned int _handler;
-		unsigned int _samples;
-		unsigned int _format;
-		unsigned int _attachment;
-		Vect2 _size;
-	};
+    Mat3::Mat3()
+    {
+        static const float _ident[] = {
+            1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 1.0f
+        };
+        this->_values = std::vector<float>(_ident, _ident + sizeof(_ident) / sizeof(float));
+    }
+    Mat3::Mat3(const std::vector<float> values)
+    {
+        this->_values = values;
+    }
 }
-
-#endif /* __MB_RENDERBUFFER__ */

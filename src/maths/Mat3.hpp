@@ -24,13 +24,17 @@
 #define __MB_MAT3__
 
 #include <vector>
+#include <iostream>
 
 namespace MB
 {
 	class Mat3
 	{
 	public:
-        friend std::ostream& operator<<(std::ostream& str, const Mat3& m) {
+        Mat3();
+        Mat3(const std::vector<float> values);
+        friend std::ostream& operator<<(std::ostream& str, const Mat3& m)
+        {
             str << "Mat3(\n";
             str << "\t" << m._values[0] << ", " << m._values[1] << ", " << m._values[2] << ", \n";
             str << "\t" << m._values[3] << ", " << m._values[4] << ", " << m._values[5] << ", \n";

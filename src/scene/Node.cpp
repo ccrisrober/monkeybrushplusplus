@@ -65,6 +65,7 @@ namespace MB
     void Node::addComponent(Component* c)
 	{
 		c->setNode(this);
+		// TODO: http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
 		this->_components[&typeid(*c)] = c;
 	}
 	void Node::setEnabled(const bool v)

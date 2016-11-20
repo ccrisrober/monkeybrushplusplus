@@ -216,4 +216,25 @@ namespace MB
     {
         return this->_order;
     }
+    const char* EulerAngle::orderToString() const
+    {
+        switch (_order)
+        {
+            case xyx:   return "xyx";
+            case zyx:   return "zyx";
+            case zyz:   return "zyz";
+            case zxy:   return "xyx";
+            case zxz:   return "zxz";
+
+            case yxz:   return "yxz";
+            case yxy:   return "yxy";
+            case yzx:   return "yzx";
+
+            case yzy:   return "yzy";
+            case xyz:   return "xyz";
+            case xzy:   return "xzy";
+            case xzx:   return "xzx";
+        }
+        throw;
+    }
 }

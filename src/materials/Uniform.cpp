@@ -20,28 +20,44 @@
  *
  */
 
-#ifndef __MB_RENDERBUFFER__
-#define __MB_RENDERBUFFER__
-
-#include "../Includes.hpp"
-#include "../maths/Vect2.hpp"
+#include "Uniform.hpp"
 
 namespace MB
 {
-	class RenderBuffer
+    Uniform::Uniform()
+        : _type(Invalid)
+        , _value()
+    {
+    }
+    Uniform::Uniform(UniformType type_, any value_)
+        : _type(type_)
+        , _value(value_)
+        , _isDirty(true)
+    {
+    }
+    Uniform::Uniform(const Uniform& other)
+        : _type(other._type), _value(other._value)
+    {
+    }
+	any Uniform::value() const
+    {
+		return this->_value;
+	}
+	UniformType Uniform::type() const
+    {
+		return this->_type;
+	}
+	void Uniform::value(const any v)
 	{
-	public:
-		virtual void resize(const Vect2& size) = 0;
-		void bind();
-		void unbind();
-	protected:
-		RenderBuffer(const Vect2& size, unsigned int format, unsigned int attachment, unsigned int samples = 4);
-		unsigned int _handler;
-		unsigned int _samples;
-		unsigned int _format;
-		unsigned int _attachment;
-		Vect2 _size;
-	};
+		_isDirty = true;
+		_value = std::move(v);
+	}
+	bool Uniform::isDirty() const
+    {
+		return this->_isDirty;
+	}
+	void Uniform::setDirty(const bool d)
+	{
+		_isDirty = d;
+	}
 }
-
-#endif /* __MB_RENDERBUFFER__ */

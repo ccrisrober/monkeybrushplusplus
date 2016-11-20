@@ -32,42 +32,16 @@ namespace MB
 	class ResourceShader
 	{
 	public:
-		static void add(const char* key, const char* value)
-		{
-			_files[key] = value;
-		}
-		static const char* get(const char* key)
-		{
-			return _files[key];
-		}
-		static bool exist(const char* key)
-		{
-			return _files.find(key) == _files.end();
-		}
-		static void remove(const char* key)
-		{
-			_files.erase(key);
-		}
-		static void clear()
-		{
-			_files.clear();
-		}
-		static void loadShader(const char* alias, const char* filePath)
-		{
-			std::ifstream file(filePath);
-			std::stringstream buffer;
-			buffer << file.rdbuf();
-			const char* src = buffer.str().c_str();
-			ResourceShader::loadShaderFromText(alias, src);
-		}
-		static void loadShaderFromText(const char* alias, const char* shaderSource)
-		{
-			ResourceShader::add(alias, shaderSource);
-		}
+		static void add(const std::string& key, const std::string& value);
+		static const std::string& get(const std::string& key);
+		static bool exist(const std::string& key);
+		static void remove(const std::string& key);
+		static void clear();
+		static void loadShader(const std::string& alias, const std::string& filePath);
+		static void loadShaderFromText(const std::string& alias, const std::string& shaderSource);
 	protected:
-		static std::unordered_map<const char*, const char*> _files;
+		static std::unordered_map<std::string, std::string> _files;
 	};
-	std::unordered_map<const char*, const char*> ResourceShader::_files;
 }
 
 #endif /* __MB_RESOURCE_SHADER__ */

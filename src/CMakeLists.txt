@@ -5,47 +5,69 @@ set( NAMESPACE MONKEYBRUSHPLUSPLUS )
 set( INCLUDE_NAME MonkeyBrushPlusPlus )
 
 set( MONKEYBRUSHPLUSPLUS_SOURCES
+    core/BufferAttribute.cpp
     core/Color3.cpp
     core/Color4.cpp
-    
+    core/Framebuffer.cpp
     core/GLContext.cpp
     core/Input.cpp
     core/Log.cpp
+    core/PostProcess.cpp
     core/Program.cpp
     core/VertexArray.cpp
     core/VertexBuffer.cpp
     core/VertexUBO.cpp
-    core/Framebuffer.cpp
-    core/PostProcess.cpp
-
 
     extras/CustomPingPong.cpp
     extras/Easing.cpp
     extras/Ray.cpp
 
-    maths/Vect2.cpp
-    maths/Vect3.cpp
-    maths/Vect4.cpp
-    maths/Interpolation.cpp
-    maths/Quat.cpp
-    maths/EulerAngle.cpp
-    maths/Mat4.cpp
-    maths/Mathf.cpp
-
-    lights/Light.cpp
     lights/AmbientLight.cpp
     lights/DirectionalLight.cpp
     lights/HemisphericLight.cpp
+    lights/Light.cpp
     lights/PointLight.cpp
     lights/SpotLight.cpp
 
+    materials/Material.cpp
+    materials/NormalMaterial.cpp
+    materials/PostProcessMaterial.cpp
+    materials/ShaderMaterial.cpp
+    materials/SimpleShadingMaterial.cpp
+    materials/Uniform.cpp
+
+    maths/Box2D.cpp
+    maths/Box3D.cpp
+    maths/Curves.cpp
+    maths/EulerAngle.cpp
+    maths/Interpolation.cpp
+    maths/Mat2.cpp
+    maths/Mat3.cpp
+    maths/Mat4.cpp
+    maths/Mathf.cpp
+    maths/Quat.cpp
+    maths/Sphere2D.cpp
+    maths/Sphere3D.cpp
+    maths/Spline.cpp
+    maths/Vect2.cpp
+    maths/Vect3.cpp
+    maths/Vect4.cpp
+
+    others/Exception.cpp
+    
+    resources/ResourceShader.cpp
+    resources/ResourceDrawable.cpp
+
     scene/Component.cpp
+    scene/Engine.cpp
     scene/MeshRenderer.cpp
     scene/Node.cpp
-    scene/Transform.cpp
-    scene/Engine.cpp
     scene/Scene.cpp
+    scene/Transform.cpp
 
+    textures/RenderBuffer.cpp
+    textures/RenderBufferMultisampleTexture.cpp
+    textures/RenderBufferTexture.cpp
     textures/Texture.cpp
     textures/Texture2D.cpp
     textures/Texture2DArray.cpp
@@ -56,89 +78,92 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
 
 set( MONKEYBRUSHPLUSPLUS_HEADERS
     Includes.hpp
+    Helpers.hpp
     SimpleCamera.hpp
-    others/Exception.hpp
+
     cameras/Camera.hpp
     cameras/PerspectiveCamera.hpp
     cameras/OrthographicCamera.hpp
+
     constants/Constants.hpp
 
-    resources/ResourceShader.hpp
-    resources/ResourceDrawable.hpp
-
     core/BufferAttribute.hpp
-    core/Input.hpp
-    core/Query.hpp
-    core/Log.hpp
     core/Color3.hpp
     core/Color4.hpp
-    core/GLContext.hpp
     core/Framebuffer.hpp
+    core/GeometryFunctions.hpp
+    core/GLContext.hpp
+    core/GlobalState.hpp
+    core/Input.hpp
+    core/Log.hpp
+    core/PostProcess.hpp
     core/Program.hpp
+    core/Query.hpp
     core/VertexArray.hpp
     core/VertexBuffer.hpp
-    core/GlobalState.hpp
-    core/PostProcess.hpp
-	core/GeometryFunctions.hpp
-	core/VertexUBO.hpp
+    core/VertexUBO.hpp
 
     extras/CustomPingPong.hpp
-    extras/EventDispatcher.hpp
     extras/Easing.hpp
+    extras/EventDispatcher.hpp
     extras/Ray.hpp
 
-    materials/Uniform.hpp
+    lights/AmbientLight.hpp
+    lights/DirectionalLight.hpp
+    lights/HemisphericLight.hpp
+    lights/Light.hpp
+    lights/PointLight.hpp
+    lights/SpotLight.hpp
+
     materials/Material.hpp
-    materials/ShaderMaterial.hpp
     materials/NormalMaterial.hpp
-    materials/SimpleShadingMaterial.hpp
     materials/PostProcessMaterial.hpp
+    materials/ShaderMaterial.hpp
+    materials/SimpleShadingMaterial.hpp
+    materials/Uniform.hpp
 
-    models/Drawable.hpp
-    models/Cube.hpp
-    models/Capsule.hpp
-    models/Cone.hpp
-    models/Cylinder.hpp
-    models/Disc.hpp
-    models/Torus.hpp
-    models/Prism.hpp
-
-    maths/Vect2.hpp
-    maths/Vect3.hpp
-    maths/Vect4.hpp
-    maths/Interpolation.hpp
-    maths/Quat.hpp
+    maths/Box2D.hpp
+    maths/Box3D.hpp
+    maths/Curves.hpp
     maths/EulerAngle.hpp
-
+    maths/Interpolation.hpp
     maths/Mat2.hpp
     maths/Mat3.hpp
     maths/Mat4.hpp
     maths/Mathf.hpp
-
+    maths/Quat.hpp
     maths/Sphere2D.hpp
     maths/Sphere3D.hpp
-    maths/Box2D.hpp
-    maths/Box3D.hpp
-	maths/Curves.hpp
-	maths/Spline.hpp
+    maths/Spline.hpp
+    maths/Vect2.hpp
+    maths/Vect3.hpp
+    maths/Vect4.hpp
 
-    lights/Light.hpp
-    lights/AmbientLight.hpp
-    lights/DirectionalLight.hpp
-    lights/HemisphericLight.hpp
-    lights/PointLight.hpp
-    lights/SpotLight.hpp
-    
+    models/Capsule.hpp
+    models/Cone.hpp
+    models/Cube.hpp
+    models/Cylinder.hpp
+    models/Disc.hpp
+    models/Drawable.hpp
+    models/Prism.hpp
+    models/Torus.hpp
+
+    others/Exception.hpp
+
+    resources/ResourceDrawable.hpp
+    resources/ResourceShader.hpp
+
     scene/Component.hpp
+    scene/Engine.hpp
+    scene/Group.hpp
     scene/MeshRenderer.hpp
     scene/Node.hpp
-    scene/Transform.hpp
-    scene/Engine.hpp
     scene/Scene.hpp
+    scene/Transform.hpp
 
     textures/RenderBuffer.hpp
-    textures/RenderBufferTexture.hpp
     textures/RenderBufferMultisampleTexture.hpp
+    textures/RenderBufferTexture.hpp
     textures/Texture.hpp
     textures/Texture2D.hpp
     textures/Texture2DArray.hpp

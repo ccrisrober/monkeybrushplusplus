@@ -20,19 +20,49 @@
 *
 */
 
-#ifndef __MB_EXCEPTION__
-#define __MB_EXCEPTION__
-
-#include <exception>
+#include "PostProcessMaterial.hpp"
 
 namespace MB
 {
-	class MBException: public std::exception
+	PostProcessMaterial::PostProcessMaterial(const char* fsShader_)
+		: Material()
 	{
-	public:
+		const char* vsShader = 
+			"#version 330\n"
+			"layout(location = 0) in vec3 vertPosition\n;"
+			"out vec2 uv;\n"
+			"void main(void) {\n"
+			"	uv = vec2(vertPosition.xy * 0.5) + vec2(0.5);\n"
+			"	gl_Position = vec4(vertPosition, 1.0)\n;"
+			"}\n";
+		const char* fsShader;
+		if (fsShader_)
+		{
+			fsShader = fsShader_;
+		}
+		else
+		{
+			fsShader = 
+				"#version 330\n"
+				"uniform vec3 color;\n"
+				"out vec4 fragColor;\n"
+				"in vec2 uv;\n"
+				""
+				"void main()\n"
+				"{\n"
+				"    fragColor = vec4(uv, 0.0, 1.0);\n"
+				"}\n";
+		}
 		
-		MBException(const char* message);
-	};
-}
+		_program.loadFromText(vsShader, fsShader);
+		_program.compileAndLink();
+		_program.autocatching();
 
-#endif /* __MB_EXCEPTION__ */
+		_pp = new PostProcess();
+	}
+	void PostProcessMaterial::renderPP()
+	{
+		this->use();
+		this->_pp->bind();
+	}
+}

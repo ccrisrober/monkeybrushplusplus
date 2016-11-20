@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -20,40 +20,13 @@
 *
 */
 
-#ifndef __MB_LOG__
-#define __MB_LOG__
-
-#include <iostream>
-#include <ctime>
+#include "Exception.hpp"
 
 namespace MB
 {
-	class LOG
+	MBException::MBException(const char* message)
+		: std::exception(message)
 	{
-	public:
-		enum TLogLevel {
-			ALL,		// all messages are output
-			INFO,		// errors, warnings, and informative messages
-			WARNING,	// errors and warnings are output
-			ERROR,		// only errors are output
-			NONE		// no output
-		};
-		LOG();
-		LOG(TLogLevel type);
-		virtual ~LOG();
-
-		LOG& operator<<(const std::string &msg);
-		//template<class T>
-		//LOG& operator<<(const T &msg);
-		static TLogLevel level;
-		static bool headers;
-		static bool date;
-	private:
-		bool opened = false;
-		TLogLevel msglevel = ALL;
-		std::string getLogTime();
-		std::string getLabel(TLogLevel type);
-	};
+	}
 }
 
-#endif  /* __MB_LOG__ */

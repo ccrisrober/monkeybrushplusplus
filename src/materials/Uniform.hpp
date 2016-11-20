@@ -34,39 +34,14 @@ namespace MB
     class Uniform
 	{
     public:
-        Uniform()
-            : _type(Invalid)
-            , _value()
-        {
-        }
-        Uniform(UniformType type_, any value_ = nullptr)
-            : _type(type_)
-            , _value(value_)
-            , _isDirty(true)
-        {
-        }
-        Uniform(const Uniform& other)
-            : _type(other._type), _value(other._value)
-        {
-        }
-		any value() const {
-			return this->_value;
-		}
-		UniformType type() const {
-			return this->_type;
-		}
-		void value(const any v)
-		{
-			_isDirty = true;
-			_value = std::move(v);
-		}
-		bool isDirty() const {
-			return this->_isDirty;
-		}
-		void setDirty(const bool d)
-		{
-			_isDirty = d;
-		}
+        Uniform();
+        Uniform(UniformType type_, any value_ = nullptr);
+        Uniform(const Uniform& other);
+		any value() const;
+		UniformType type() const;
+		void value(const any v);
+		bool isDirty() const;
+		void setDirty(const bool d);
     protected:
         UniformType _type;
         any _value;

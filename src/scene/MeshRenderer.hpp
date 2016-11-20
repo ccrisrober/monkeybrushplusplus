@@ -34,6 +34,7 @@ namespace MB
 	{
 	public:
 		MeshRenderer(Drawable* mesh, Material* material);
+		MeshRenderer(const std::string& name, Material* material);
 		Material* getMaterial() const;
 		Drawable* getMesh() const;
 		void setMaterial(Material* m);
