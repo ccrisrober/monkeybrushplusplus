@@ -47,8 +47,8 @@ namespace MB
 			os << "\tRIGHT : " << o.right << std::endl;
 			os << "\tTOP  : " << o.top << std::endl;
 			os << "\tBOTTOM : " << o.bottom << std::endl;
-			os << "\tNEAR  : " << o.near << std::endl;
-			os << "\tFAR   : " << o.far << std::endl;
+			os << "\tNEAR  : " << o._near << std::endl;
+			os << "\tFAR   : " << o._far << std::endl;
 			os << ")";
 			return os;
 		}
@@ -59,7 +59,7 @@ namespace MB
 	protected:
 		virtual void updateProjectionMatrix()
 		{
-			_projectionMatrix = Mat4::orthographic(left, right, bottom, top, near, far);
+			_projectionMatrix = Mat4::orthographic(left, right, bottom, top, _near, _far);
 		}
 	};
 }

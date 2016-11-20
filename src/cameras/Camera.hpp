@@ -32,12 +32,10 @@ namespace MB
 	{
 	public:
 		Camera(float near_ = 0.1f, float far_ = 1000.0f)
-			: near(near_)
-			, far(far_)
+			: _near(near_)
+			, _far(far_)
 		{
 		}
-		float near;
-		float far;
 		Mat4 projectionMatrix() const
 		{
 			return this->_projectionMatrix;
@@ -50,10 +48,34 @@ namespace MB
 		{
 			return this->_transform;
 		}
+		void setNearFar(float near, float far)
+		{
+			this->_near = near;
+			this->_far = far;
+			updateProjectionMatrix();
+		}
+		float near() const {
+			return this->_near;
+		}
+		void near(float near)
+		{
+			this->_near = near;
+			updateProjectionMatrix();
+		}
+		float far() const {
+			return this->_far;
+		}
+		void far(float far)
+		{
+			this->_far = far;
+			updateProjectionMatrix();
+		}
 	protected:
 		Mat4 _viewMatrix;
 		Mat4 _projectionMatrix;
 		Transform _transform;
+		float _near;
+		float _far;
 
 		virtual void updateProjectionMatrix() = 0;
 	};

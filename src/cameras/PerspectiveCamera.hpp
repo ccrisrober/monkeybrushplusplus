@@ -41,20 +41,30 @@ namespace MB
 		friend std::ostream& operator <<(std::ostream& os, const PerspectiveCamera& o)
 		{
 			os << "PerspectiveCamera (" << std::endl;
-			os << "\tFOV   : " << o.fov << std::endl;
-			os << "\tASPECT: " << o.aspect << std::endl;
-			os << "\tNEAR  : " << o.near << std::endl;
-			os << "\tFAR   : " << o.far << std::endl;
+			os << "\tFOV   : " << o._fov << std::endl;
+			os << "\tASPECT: " << o._aspect << std::endl;
+			os << "\tNEAR  : " << o._near << std::endl;
+			os << "\tFAR   : " << o._far << std::endl;
 			os << ")";
 			return os;
 		}
-		float fov;
-		float aspect;
+		void setWindowSize(int width, int height)
+		{
+			this->_aspect = (float)width / (float)height;
+			updateProjectionMatrix();
+		}
+		void fov(float fov_)
+		{
+			this->_fov = fov_;
+			updateProjectionMatrix();
+		}
 	protected:
 		virtual void updateProjectionMatrix()
 		{
-			_projectionMatrix = Mat4::perspective(fov, aspect, near, far);
+			_projectionMatrix = Mat4::perspective(_fov, _aspect, _near, _far);
 		}
+		float _fov;
+		float _aspect;
 	};
 }
 

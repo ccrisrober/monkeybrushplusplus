@@ -48,6 +48,10 @@ namespace MB
 	}
 	void Scene::_subrender(Node* n, float dt)
 	{
+		if (!n->isEnabled())
+		{
+			return;
+		}
 		for (const auto& child : n->children())
 		{
 			this->_subrender(child, dt);

@@ -7,6 +7,18 @@
 #include "cameras/OrthographicCamera.hpp"
 
 
+#include "others/Exception.hpp"
+#include "resources/ResourceShader.hpp"
+
+
+#include "maths/Sphere2D.hpp"
+#include "maths/Sphere3D.hpp"
+#include "maths/Box2D.hpp"
+#include "maths/Box3D.hpp"
+#include "maths/Curves.hpp"
+#include "maths/Spline.hpp"
+
+
 #include "core/GeometryFunctions.hpp"
 #include "core/GLContext.hpp"
 #include "extras/CustomPingPong.hpp"
@@ -28,6 +40,7 @@
 #include "scene/MeshRenderer.hpp"
 #include "core/Color3.hpp"
 #include "models/Cube.hpp"
+#include "models/Disc.hpp"
 #include "models/Capsule.hpp"
 #include "models/Cylinder.hpp"
 #include "materials/SimpleShadingMaterial.hpp"
@@ -103,7 +116,6 @@ MB::Capsule* capsule;
 MB::Cylinder* cylinder;
 void renderFunc(float dt);
 
-
 MB::PostProcessMaterial* ppm;
 
 int main(void)
@@ -137,6 +149,29 @@ int main(void)
 	MB::SimpleShadingMaterial material4;
 	material4.uniform("color")->value(MB::Vect3(MB::Color3::Green));
 
+	unsigned int texSize = 1024;
+	unsigned int *data = new unsigned int[texSize * texSize * 3];
+	unsigned int n = 0;
+	// Generate some checker board pattern
+	for (unsigned int yy = 0; yy < texSize; ++yy) {
+		for (unsigned int xx = 0; xx < texSize; ++xx) {
+			if ((xx + yy) / 4 % 4 == 1) {
+				data[n++] = 128;
+				data[n++] = 128;
+				data[n++] = 128;
+			}
+			else {
+				data[n++] = 255;
+				data[n++] = 255;
+				data[n++] = 255;
+			}
+		}
+	}
+	MB::TexOptions options;
+	options.internalFormat = GL_RGB8;
+	options.format = GL_RGB;
+	options.type = GL_UNSIGNED_BYTE;
+	MB::Texture* tex = new MB::Texture2D(options, data, texSize, texSize);
 
 	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
 	const char* vertexShader = 
