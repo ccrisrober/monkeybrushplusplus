@@ -1,8 +1,22 @@
-set (MBCPP_SOURCES demo1.cpp)
-set (MBCPP_LINK_LIBRARIES
-    ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
-    glfw
+include_directories(
+	${PROJECT_BINARY_DIR}/include
+	${PROJECT_SOURCE_DIR}
+	${CMAKE_CURRENT_BINARY_DIR}
 )
 
-#common_application( mbcppDemo1 )
+set( MBHELLOWORLD_HEADERS )
+set( MBHELLOWORLD_SOURCES helloWorld.cpp )
+set( MBHELLOWORLD_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbHelloWorld )
+
+
+set( MBHELLOSCENEGRAPH_HEADERS )
+set( MBHELLOSCENEGRAPH_SOURCES helloSceneGraph.cpp )
+set( MBHELLOSCENEGRAPH_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbHelloSceneGraph )
