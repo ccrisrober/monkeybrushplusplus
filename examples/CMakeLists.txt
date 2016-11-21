@@ -72,3 +72,14 @@ set( MBBROWNIAN_LINK_LIBRARIES
 )
 
 common_application( mbBrownian )
+
+
+
+
+set( MBXOR_HEADERS )
+set( MBXOR_SOURCES xor.cpp )
+set( MBXOR_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbXor )

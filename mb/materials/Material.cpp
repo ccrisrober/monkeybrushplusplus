@@ -48,10 +48,14 @@ namespace MB
 			{
 				this->_program.sendUniformf(uniform.first, uniform.second->value().cast<float>());
 			}
-			else if (type == Integer)
-			{
-				this->_program.sendUniformi(uniform.first, uniform.second->value().cast<int>());
-			}
+            else if (type == Integer)
+            {
+                this->_program.sendUniformi(uniform.first, uniform.second->value().cast<int>());
+            }
+            else if (type == Boolean)
+            {
+                this->_program.sendUniformb(uniform.first, uniform.second->value().cast<bool>());
+            }
 			else if (type == Vector2)
             {
                 this->_program.sendUniform2v(uniform.first, uniform.second->value().cast<Vect2>()._values.data());
