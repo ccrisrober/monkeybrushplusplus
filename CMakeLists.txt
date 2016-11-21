@@ -29,6 +29,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
+common_find_package( Boost COMPONENTS unit_test_framework )
 
 list (APPEND MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES OpenGL GLEW glfw)
 
@@ -37,6 +38,8 @@ common_find_package_post()
 set( PROJECT_INCLUDE_NAME MonkeyBrushPlusPlus )
 
 add_subdirectory(src)
+add_subdirectory(examples)
+add_subdirectory(tests)
 
 install( FILES ${PROJECT_BINARY_DIR}/include/MonkeyBrusPlusPlus/defines.h
   DESTINATION include/MonkeyBrusPlusPlus )

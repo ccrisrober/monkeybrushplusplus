@@ -185,5 +185,13 @@ void renderFunc(float dt)
 	{
 		engine->state()->setPolygonMode(GL_LINE);
 	}
+	if (MB::Input::isKeyClicked(GLFW_KEY_1))
+	{
+		engine->state()->culling.setFlipSided(GL_CCW);
+	}
+	if (MB::Input::isKeyClicked(GLFW_KEY_2))
+	{
+		engine->state()->culling.setFlipSided(GL_CW);
+	}
 	scene->render(dt);
 }

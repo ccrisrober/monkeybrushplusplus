@@ -5,4 +5,4 @@ set (MBCPP_LINK_LIBRARIES
     glfw
 )
 
-common_application( mbcppDemo1 )
+#common_application( mbcppDemo1 )
