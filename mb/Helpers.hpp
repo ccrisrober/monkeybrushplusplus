@@ -36,7 +36,6 @@ public:
 		, _sign(1)
 		, _velocity(1.0f)
 	{
-		std::cout << "Creando MoveComponent component" << std::endl;
 	}
 	virtual void update(float dt)
 	{
@@ -78,7 +77,6 @@ public:
 		, _rotate(false)
 		, _axis(axis)
 	{
-		std::cout << "Creando RotateComponent component" << std::endl;
 	}
 	virtual void update(float dt)
 	{
@@ -117,7 +115,6 @@ public:
 		: MB::Component()
 		, _inc(0.0f)
 	{
-		std::cout << "Creando ScaleComponent component" << std::endl;
 	}
 	virtual void update(float /*dt*/)
 	{
@@ -138,7 +135,6 @@ public:
 	PrintPosition()
 		: MB::Component()
 	{
-		std::cout << "Creando PrintPosition component" << std::endl;
 	}
 	virtual void update(float)
 	{

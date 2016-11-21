@@ -84,7 +84,7 @@ namespace MB
 		}
 
 		MB_API
-		template<typename T>
+		template<typename T, bool = std::is_base_of<Component, T>::value>
 		T* getComponent()
 		{
 			if (_components.count(&typeid(T)) != 0)

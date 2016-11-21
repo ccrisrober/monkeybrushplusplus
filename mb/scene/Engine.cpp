@@ -69,7 +69,7 @@ namespace MB
 		
 		while (!glfwWindowShouldClose(this->_context->getWindow( )))
         {
-            this->_context->setTitle(std::to_string(calcFPS()).c_str(), false);
+            this->_context->setTitle(std::to_string(calcFPS()).c_str(), true);
 
 			glfwPollEvents();
 

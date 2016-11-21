@@ -49,6 +49,8 @@ namespace MB
         // bool _updateCamera = false;
         float timeElapsed;
 
+        bool _dirty;
+
 	public:
         Vect3 GetPos() const
         {
@@ -64,6 +66,8 @@ namespace MB
             this->worldUp = up_;
             this->yaw = yaw_;
             this->pitch = pitch_;
+
+            this->_dirty = true;
 
             //this->right = new MB.Vect3();
             //this->up = new MB.Vect3();
@@ -151,6 +155,7 @@ namespace MB
 			{
                 this->position = Vect3::scaleAndAdd(this->position, this->up, -velocity);
             }
+            _dirty = true;
         }
 
         void processMouseMovement(const float& _xOffset, const float& _yOffset)
@@ -169,6 +174,7 @@ namespace MB
             {
                 this->pitch = -89.0f;
             }
+            _dirty = true;
             this->updateCameraVectors();
         }
         float _fov = 45.0f;
@@ -197,17 +203,28 @@ namespace MB
 			this->right.normalize();
 			this->up = Vect3::cross(this->right, this->front);
 			this->up.normalize();
+
+            viewMatrix();
+
+            _dirty = true;
         }
+
+        Mat4 _view;
+        Mat4 _proj;
+
 		Mat4 viewMatrix()
 		{
-			return Mat4::lookAt(
-				this->position,
-				Vect3::add(
-					this->position,
-					this->front
-				),
-				this->up
-			);
+            if (_dirty)
+            {
+                _view = Mat4::lookAt(
+                this->position,
+                Vect3::add(
+                    this->position,
+                    this->front
+                ),
+                this->up);
+            }
+			return _view;
 		}
 		Mat4 orthoProjectionMatrix(const unsigned int& w, const unsigned int& h)
 		{
@@ -219,8 +236,12 @@ namespace MB
 		}
 		Mat4 projectionMatrix(const unsigned int w, const unsigned int h)
 		{
-			return Mat4::perspective(
-				Mathf::Deg2Rad * this->_fov, w / h, this->_near, this->_far);
+            if (_dirty)
+            {
+                _proj = Mat4::perspective(
+                    Mathf::Deg2Rad * this->_fov, w / h, this->_near, this->_far);
+            }
+			return _proj;
 		}
 
 		const float PI = 3.1415f;
