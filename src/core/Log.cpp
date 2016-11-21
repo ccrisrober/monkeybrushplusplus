@@ -47,7 +47,7 @@ namespace MB
 					operator << (getLogTime());
 				}
 			}
-			operator << ("]");
+			operator << ("] ");
 		}
 	}
 	LOG::~LOG()

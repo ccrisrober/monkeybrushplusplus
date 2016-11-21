@@ -1,9 +1,11 @@
 #include "Includes.hpp"
 #include "core/GLContext.hpp"
 #include "scene/Engine.hpp"
-#include "scene/Scene.hpp"
-#include "resources/ResourceDrawable.hpp"
 #include "scene/MeshRenderer.hpp"
+#include "scene/Scene.hpp"
+
+#include "resources/MaterialCache.hpp"
+#include "resources/ResourceDrawable.hpp"
 
 #include "materials/ShaderMaterial.hpp"
 #include "materials/NormalMaterial.hpp"
@@ -28,6 +30,10 @@ void renderFunc(float dt);
 
 int main(void)
 {
+	MB::LOG::headers = false;
+	MB::LOG::level = MB::LOG::INFO;
+	MB::LOG::date = true;
+
     MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
     engine = new MB::Engine(&context, false);
@@ -91,10 +97,10 @@ int main(void)
 	uniforms.push_back(std::make_pair("color", new MB::Uniform(MB::Vector3, MB::Vect3::createFromScalar(1.0f))));
 	uniforms.push_back(std::make_pair("viewPos", new MB::Uniform(MB::Vector3)));
 
-	MB::ShaderMaterial shaderMat(shaders, uniforms);
+	MB::ShaderMaterial shaderMat("shaderMat", shaders, uniforms);
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
-	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
+	mbCube->addComponent(new MB::MeshRenderer(cube, MB::MaterialCache::get("shaderMat")));
 	mbCube->addComponent(new MoveComponent());
 	mbCube->addComponent(new RotateComponent(Axis::x));
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
@@ -118,7 +124,7 @@ int main(void)
 	mbCube->addChild(mbTorus);
 
 	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
-	mbCylinder->addComponent(new MB::MeshRenderer(cylinder, &shaderMat));
+	mbCylinder->addComponent(new MB::MeshRenderer(cylinder, &material));
 	mbCylinder->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCylinder->transform().scale().set(0.5f, 1.0f, 2.0f);
 	mbTorus->addChild(mbCylinder);
@@ -128,7 +134,7 @@ int main(void)
 	});
 
 	std::function<void()> f1([&]() {
-		MB::LOG(MB::LOG::ALL) << "FIRST RENDER FINISHED";
+		MB::LOG(MB::LOG::INFO) << "FIRST RENDER FINISHED";
 	});
 
 	scene->registerBeforeRender(f0);
@@ -173,11 +179,11 @@ void renderFunc(float dt)
 	}
 	if (MB::Input::isKeyClicked(GLFW_KEY_M))
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		engine->state()->setPolygonMode(GL_FILL);
 	}
 	if (MB::Input::isKeyClicked(GLFW_KEY_N))
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		engine->state()->setPolygonMode(GL_LINE);
 	}
 	scene->render(dt);
 }

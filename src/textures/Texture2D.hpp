@@ -30,26 +30,12 @@ namespace MB
 	class Texture2D : public Texture
 	{
 	public:
-        Texture2D(const TexOptions& options,
-			unsigned int width, unsigned int height)
-            : Texture2D(options, nullptr, width, height)
-		{
-		}
-        Texture2D(const TexOptions& options, void* /*data*/,
-			unsigned int width, unsigned int height)
-			: Texture(options, GL_TEXTURE_2D)
-			, _width(width)
-			, _height(height)
-		{
-		}
-		Texture2D(const TexOptions& options, const std::string src)
-			: Texture(options, GL_TEXTURE_2D)
-			, _src(src)
-		{
-		}
-        ~Texture2D(void)
-		{
-		}
+		Texture2D(const TexOptions& options,
+			unsigned int width, unsigned int height);
+		Texture2D(const TexOptions& options, void* /*data*/,
+			unsigned int width, unsigned int height);
+		Texture2D(const TexOptions& options, const std::string src);
+		virtual ~Texture2D(void);
 	protected:
 		std::string _src;
 		unsigned int _width;

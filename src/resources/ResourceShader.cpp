@@ -28,23 +28,23 @@ namespace MB
 	
 	void ResourceShader::add(const std::string& key, const std::string& value)
 	{
-		_files[key] = value;
+		ResourceShader::_files[key] = value;
 	}
 	const std::string& ResourceShader::get(const std::string& key)
 	{
-		return _files[key];
+		return ResourceShader::_files[key];
 	}
 	bool ResourceShader::exist(const std::string& key)
 	{
-		return _files.find(key) == _files.end();
+		return ResourceShader::_files.find(key) == ResourceShader::_files.end();
 	}
 	void ResourceShader::remove(const std::string& key)
 	{
-		_files.erase(key);
+		ResourceShader::_files.erase(key);
 	}
 	void ResourceShader::clear()
 	{
-		_files.clear();
+		ResourceShader::_files.clear();
 	}
 	void ResourceShader::loadShader(const std::string& alias, const std::string& filePath)
 	{

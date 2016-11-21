@@ -55,6 +55,7 @@ set( MONKEYBRUSHPLUSPLUS_SOURCES
 
     others/Exception.cpp
     
+    resources/MaterialCache.cpp
     resources/ResourceShader.cpp
     resources/ResourceDrawable.cpp
 
@@ -150,6 +151,7 @@ set( MONKEYBRUSHPLUSPLUS_HEADERS
 
     others/Exception.hpp
 
+    resources/MaterialCache.hpp
     resources/ResourceDrawable.hpp
     resources/ResourceShader.hpp
 

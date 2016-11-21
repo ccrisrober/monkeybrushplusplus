@@ -80,4 +80,8 @@ namespace MB
 			uniform.second->setDirty(false);
 		}
 	}
+	void Material::unuse()
+	{
+		this->_program.unuse();
+	}
 }

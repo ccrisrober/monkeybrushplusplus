@@ -44,6 +44,7 @@ namespace MB
         TUniforms& uniforms();
         Uniform*& uniform(const std::string& name);
 		virtual void use();
+		virtual void unuse();
 		std::string id;
 		bool backFaceCull = true;
 		unsigned int sizeOrientation; // InvClockWise

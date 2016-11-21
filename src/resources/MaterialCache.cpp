@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal
+* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -20,22 +20,29 @@
 *
 */
 
-#ifndef __MB_TEXTURE2DARRAY__
-#define __MB_TEXTURE2DARRAY__
-
-#include "Texture.hpp"
-#include <vector>
+#include "MaterialCache.hpp"
 
 namespace MB
 {
-	class Texture2DArray : public Texture
+	std::unordered_map<std::string, Material*> MaterialCache::_files;
+	void MaterialCache::add(const std::string& key, Material* value)
 	{
-	public:
-		Texture2DArray(const TexOptions& options, std::vector< void* > data,
-			unsigned int width, unsigned int height);
-		virtual ~Texture2DArray(void);
-		void load(void);
-	};
+		MaterialCache::_files[key] = value;
+	}
+	Material* MaterialCache::get(const std::string& key)
+	{
+		return MaterialCache::_files[key];
+	}
+	bool MaterialCache::exist(const std::string& key)
+	{
+		return MaterialCache::_files.find(key) == MaterialCache::_files.end();
+	}
+	void MaterialCache::remove(const std::string& key)
+	{
+		MaterialCache::_files.erase(key);
+	}
+	void MaterialCache::clear()
+	{
+		MaterialCache::_files.clear();
+	}
 }
-
-#endif /* __MB_TEXTURE2DARRAY__ */

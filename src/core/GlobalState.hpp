@@ -35,6 +35,8 @@ namespace MB
 	public:
 		void setStatus(const bool enabled)
 		{
+			if (_cullingEnabled == enabled)
+				return;
 			if (enabled)
 			{
 				glEnable(GL_CULL_FACE);
@@ -43,6 +45,7 @@ namespace MB
 			{
 				glDisable(GL_CULL_FACE);
 			}
+			_cullingEnabled = enabled;
 		}
 		void setFlipSided(unsigned int flipSide)
 		{
@@ -62,6 +65,8 @@ namespace MB
 		}
 		void setStatus(const bool enabled)
 		{
+			if (_depthEnabled == enabled)
+				return;
 			if (enabled)
 			{
 				glEnable(GL_DEPTH_TEST);
@@ -70,6 +75,7 @@ namespace MB
 			{
 				glDisable(GL_DEPTH_TEST);
 			}
+			_depthEnabled = enabled;
 		}
 		void setMask(const bool mask)
 		{
@@ -87,6 +93,8 @@ namespace MB
 		{
 			glDepthRange(znear, zfar);
 		}
+	protected:
+		bool _depthEnabled = false;
     };
     class ColorState
     {
@@ -212,10 +220,27 @@ namespace MB
 		{
 			glViewport(vp.x(), vp.y(), vp.z(), vp.w());
 		}
-
+		float getLineWidth() const
+		{
+			return this->_lineWidth;
+		}
 		void setLineWidth(float width)
 		{
+			if (width == _lineWidth)
+				return;
 			glLineWidth(width);
+			_lineWidth = width;
+		}
+		unsigned int getPolygonMode() const
+		{
+			return this->_polygonMode;
+		}
+		void setPolygonMode(unsigned int mode)
+		{
+			if (mode == _polygonMode)
+				return;
+			glPolygonMode(GL_FRONT_AND_BACK, mode);
+			_polygonMode = mode;
 		}
 
         DepthState depth;
@@ -223,6 +248,10 @@ namespace MB
         ColorState color;
         StencilState stencil;
         BlendingState blending;
+
+	protected:
+		unsigned int _polygonMode = -1;
+		float _lineWidth = 1.0f;
 	};
 }
 

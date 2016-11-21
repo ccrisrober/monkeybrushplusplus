@@ -106,21 +106,21 @@ namespace MB
 			{
                 this->processKeyboard(1, speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_Y))
+            if (Input::isKeyPressed(GLFW_KEY_UP))
 			{
-                this->processMouseMovement(0.0, 1.0 * speed);
+                this->processMouseMovement(0.0f, 2.5f * speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_H))
+            if (Input::isKeyPressed(GLFW_KEY_DOWN))
 			{
-                this->processMouseMovement(0.0, -1.0 * speed);
+                this->processMouseMovement(0.0f, -2.5f * speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_G))
+            if (Input::isKeyPressed(GLFW_KEY_LEFT))
 			{
-                this->processMouseMovement(-1.0 * speed, 0.0);
+                this->processMouseMovement(-2.5f * speed, 0.0f);
             }
-            if (Input::isKeyPressed(GLFW_KEY_J))
+            if (Input::isKeyPressed(GLFW_KEY_RIGHT))
 			{
-                this->processMouseMovement(1.0 * speed, 0.0);
+                this->processMouseMovement(2.5f * speed, 0.0f);
             }
         }
         bool _firstMouse = false;

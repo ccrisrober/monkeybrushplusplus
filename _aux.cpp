@@ -88,34 +88,6 @@ void renderFunc(float dt);
 
 MB::PostProcessMaterial* ppm;
 
-using MB::LOG;
-
-
-int main_(int argc)
-{
-	LOG::headers = true;
-	LOG::level = LOG::INFO;
-	LOG::date = true;
-	//---------------------------
-	//LOG(LOG::ALL) << "DEBUG: Main executed with " << (argc - 1) << " arguments";
-	//LOG(LOG::INFO) << "INFO: Main executed with " << (argc - 1) << " arguments";
-	//LOG(LOG::WARNING) << "WARN: Main executed with " << (argc - 1) << " arguments";
-	//LOG(LOG::ERROR) << "ERROR: Main executed with " << (argc - 1) << " arguments";
-	//LOG(LOG::NONE) << "NONE: Main executed with " << (argc - 1) << " arguments";
-
-	int a;
-	std::cin >> a;
-	return 0;
-}
-
-int main3()
-{
-	MB::GLContext context(3, 3, 1024, 768, "Hello MB");
-	MB::Torus *torus = new MB::Torus();
-	torus->render();
-	return 0;
-}
-
 int main(void)
 {
     MB::GLContext context(3, 3, 1024, 768, "Hello MB");

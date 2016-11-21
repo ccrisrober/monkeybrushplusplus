@@ -21,10 +21,12 @@
  */
 
 #include "ShaderMaterial.hpp"
+#include "../resources/MaterialCache.hpp"
 
 namespace MB
 {
 	ShaderMaterial::ShaderMaterial(
+		const std::string& name,
 		const std::vector<std::pair<ShaderType, const char*> >& shaders,
 		const std::vector<std::pair<const char*, Uniform*> >& uniforms)
 	: Material()
@@ -56,5 +58,7 @@ namespace MB
 		}
 		_program.compileAndLink();
 		_program.autocatching();
+
+		MaterialCache::add(name, this);
 	}
 }

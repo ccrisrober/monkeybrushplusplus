@@ -32,14 +32,15 @@ namespace MB
 	class ResourceShader
 	{
 	public:
+		static void loadShader(const std::string& alias, const std::string& filePath);
+		static void loadShaderFromText(const std::string& alias, const std::string& shaderSource);
+	protected:
 		static void add(const std::string& key, const std::string& value);
 		static const std::string& get(const std::string& key);
 		static bool exist(const std::string& key);
 		static void remove(const std::string& key);
 		static void clear();
-		static void loadShader(const std::string& alias, const std::string& filePath);
-		static void loadShaderFromText(const std::string& alias, const std::string& shaderSource);
-	protected:
+
 		static std::unordered_map<std::string, std::string> _files;
 	};
 }
