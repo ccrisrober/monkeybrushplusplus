@@ -46,6 +46,8 @@ namespace MB
             auto type = uniform.second->type();
 			if (type == Float)
 			{
+				MB::any aa = uniform.second->value();
+				auto bb = aa.cast<float>();
 				this->_program.sendUniformf(uniform.first, uniform.second->value().cast<float>());
 			}
             else if (type == Integer)
@@ -62,6 +64,8 @@ namespace MB
             }
             else if (type == Vector3)
             {
+				auto a = uniform.second->value();
+				auto b = a.cast<Vect3>();
                 this->_program.sendUniform3v(uniform.first, uniform.second->value().cast<Vect3>()._values);
             }
             else if (type == Vector4)

@@ -31,7 +31,6 @@
 
 namespace MB
 {
-	MB_API
 	enum class InterpolationMode
 	{
 		catmullRom, linear, bezier

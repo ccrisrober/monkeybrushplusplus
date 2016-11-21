@@ -34,6 +34,10 @@ namespace MB
         , _value(value_)
         , _isDirty(true)
     {
+		if (type_ == MB::UniformType::Float)
+		{
+			_value = 0.0f;
+		}
     }
     Uniform::Uniform(const Uniform& other)
         : _type(other._type), _value(other._value)

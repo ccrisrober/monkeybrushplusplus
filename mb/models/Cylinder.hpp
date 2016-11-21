@@ -34,10 +34,8 @@ namespace MB
     public:
 		MB_API
         Cylinder(float radius, float height, unsigned int radialSubDiv = 15,
-            int heightSubDiv = 1, bool createTopBase = true, bool createBottomBase = true)
-        : Cone(radius, radius, height, radialSubDiv, heightSubDiv, createTopBase, createBottomBase)
-        {
-        }
+            int heightSubDiv = 1, bool createTopBase = true, 
+            bool createBottomBase = true);
     };
 }
 

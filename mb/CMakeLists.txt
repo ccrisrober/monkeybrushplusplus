@@ -148,6 +148,15 @@ set( MB_SOURCES
     maths/Vect3.cpp
     maths/Vect4.cpp
 
+    models/Capsule.cpp
+    models/Cone.cpp
+    models/Cube.cpp
+    models/Cylinder.cpp
+    models/Disc.cpp
+    models/Drawable.cpp
+    models/Prism.cpp
+    models/Torus.cpp
+
     others/Exception.cpp
     
     resources/MaterialCache.cpp
@@ -169,6 +178,7 @@ set( MB_SOURCES
     textures/Texture2DArray.cpp
     textures/Texture3D.cpp
 
+    Helpers.cpp
     #main.cpp
 )
 
@@ -177,9 +187,6 @@ set( MB_LINK_LIBRARIES
     ${GLEW_LIBRARIES}
     glfw
 )
-#if ( GLFW_FOUND )
-#  set(MB_LINK_LIBRARIES ${RETO_LINK_LIBRARIES} glfw )
-#endif( )
 
 common_library( MB )
 #common_application( MB )

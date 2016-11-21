@@ -20,22 +20,14 @@
  *
  */
 
-#include "Demo1.hpp"
+#include "Cylinder.hpp"
 
-class Demo1: public Demo 
+namespace MB
 {
-public:
-	virtual void run() override;
-}
-
-void Demo1::run()
-{
-
-}
-
-void main() 
-{
-	Demo1 d;
-	d.run();
-	return 0;
+    Cylinder::Cylinder(float radius, float height, unsigned int radialSubDiv,
+        int heightSubDiv, bool createTopBase, bool createBottomBase)
+    : Cone(radius, radius, height, radialSubDiv, heightSubDiv, createTopBase, 
+        createBottomBase)
+    {
+    }
 }

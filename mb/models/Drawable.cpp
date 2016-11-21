@@ -20,48 +20,29 @@
  *
  */
 
-#ifndef __MB_INPUT__
-#define __MB_INPUT__
-
-#include <mb/api.h>
-
-#include <vector>
-#include "../Includes.hpp"
+#include "Drawable.hpp"
 
 namespace MB
 {
-	class Input
-	{
-	public:
-        MB_API
-		static bool isKeyPressed(int keycode);
-        MB_API
-		static bool isKeyClicked(int keycode);
-        MB_API
-		static bool isButtonPressed(int button);
-        MB_API
-		static bool isButtonClicked(int button);
-
-        MB_API
-		static void update();
-
-        MB_API
-		static void init();
-
-        MB_API
-		static void _onKeyUp(unsigned int keycode);
-        MB_API
-		static void _onKeyDown(unsigned int keycode);
-
-	protected:
-		static bool _initializated;
-		static std::vector<bool> _buttonPreviousState;
-		static std::vector<bool> _isButtonPressed;
-		static std::vector<bool> _isButtonClicked;
-		static std::vector<bool> _keyPreviusState;
-		static std::vector<bool> _isKeyPressed;
-		static std::vector<bool> _isKeyClicked;
-	};
+    Drawable::Drawable()
+    {
+    }
+    void Drawable::render(unsigned int mode)
+    {
+        this->_vao->bind();
+        glDrawElements(mode, _indicesLen, GL_UNSIGNED_INT, 0);
+        this->_vao->unbind();
+    }
+    unsigned int Drawable::indicesLen() const
+    {
+        return this->_indicesLen;
+    }
+    void Drawable::addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
+        unsigned int numElems, unsigned int type)
+    {
+        VertexBuffer vb(GL_ARRAY_BUFFER);
+		vb.data(data, type);
+		vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
+        this->_handle.push_back(vb);
+    }
 }
-
-#endif /* __MB_INPUT__ */

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <mb/mb.h>
+#include <random>
 
 MB::Engine* engine;
 MB::Scene* scene;

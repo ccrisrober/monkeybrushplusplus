@@ -35,33 +35,16 @@ namespace MB
     {
     public:
         MB_API
-        void render()
-        {
-            this->_vao->bind();
-            glDrawElements(GL_TRIANGLES, _indicesLen, GL_UNSIGNED_INT, 0);
-            this->_vao->unbind();
-        }
+        void render(unsigned int mode);
         MB_API
-        unsigned int indicesLen() const
-        {
-            return this->_indicesLen;
-        }
+        unsigned int indicesLen() const;
     protected:
-        Drawable()
-        {
-            
-        }
+        Drawable();
 		unsigned int _indicesLen;
 		std::vector<VertexBuffer> _handle;
 		VertexArray* _vao;
         void addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
-            unsigned int numElems, unsigned int type = GL_STATIC_DRAW)
-        {
-            VertexBuffer vb(GL_ARRAY_BUFFER);
-			vb.data(data, type);
-			vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
-            this->_handle.push_back(vb);
-        }
+            unsigned int numElems, unsigned int type = GL_STATIC_DRAW);
     };
 }
 

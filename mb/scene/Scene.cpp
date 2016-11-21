@@ -64,7 +64,8 @@ namespace MB
 				auto mr = (MeshRenderer*)comp;
 				mr->getMaterial()->uniforms()["projection"]->value(this->camera->projectionMatrix(500, 500));
 				mr->getMaterial()->uniforms()["view"]->value(this->camera->viewMatrix());
-				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
+				//if (mr->getMaterial()->uniform("viewPos")) 
+				//	mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
 				mr->render();
 				++this->_totalMeshes;
 			}

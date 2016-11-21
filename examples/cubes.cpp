@@ -32,41 +32,41 @@ protected:
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+	MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
-    engine = new MB::Engine(&context, false);
+	engine = new MB::Engine(&context, false);
 	scene = new MB::Scene();
 
 	MB::Cube* cube = new MB::Cube(2.0f);
 
 	unsigned int MAX = 25;
-    for (unsigned int yy = 0; yy < MAX; ++yy)
-    {
-        for (unsigned int xx = 0; xx < MAX; ++xx)
-        {
-        	MB::Node* mbCube = new MB::Node(std::string("cube"));
+	for (unsigned int yy = 0; yy < MAX; ++yy)
+	{
+		for (unsigned int xx = 0; xx < MAX; ++xx)
+		{
+			MB::Node* mbCube = new MB::Node(std::string("cube"));
 
 			MB::SimpleShadingMaterial* material = new MB::SimpleShadingMaterial();
-			material->uniform("color")->value(MB::Vect3(MB::Color3((float)xx/MAX, (float)yy/MAX, 0.1f)));
+			material->uniform("color")->value(MB::Vect3(MB::Color3((float)xx / MAX, (float)yy / MAX, 0.1f)));
 
 			mbCube->addComponent(new MB::MeshRenderer(cube, material));
 			mbCube->addComponent(new Rotate());
 			mbCube->transform().position().set(
-        		-15.0f + xx * 3.0f,
-                -15.0f + yy * 3.0f,
-                0.0f);
+				-15.0f + xx * 3.0f,
+				-15.0f + yy * 3.0f,
+				0.0f);
 			mbCube->transform().rotation().z(xx * 0.21f + yy + 0.37f);
-        	scene->root()->addChild(mbCube);
-                    //.rotate(this.angle + xx * 0.21 + yy * 0.37, MB.Vect3.zAxis);
-        }
-    }
+			scene->root()->addChild(mbCube);
+			//.rotate(this.angle + xx * 0.21 + yy * 0.37, MB.Vect3.zAxis);
+		}
+	}
 
 	engine->run(renderFunc);
-    
+
 	delete(scene);
 	delete(engine);
 
-    return 0;
+	return 0;
 }
 
 void renderFunc(float dt)

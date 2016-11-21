@@ -58,15 +58,10 @@ namespace MB
 		virtual void use();
 		MB_API
 		virtual void unuse();
-		MB_API
 		std::string id;
-		MB_API
 		bool backFaceCull = true;
-		MB_API
 		unsigned int sizeOrientation; // InvClockWise
-		MB_API
 		bool depthTest = true;
-		MB_API
 		bool visible = true;
 	protected:
 		TUniforms _uniforms;

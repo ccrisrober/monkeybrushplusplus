@@ -6,12 +6,11 @@ MB::Scene* scene;
 
 void renderFunc(float dt);
 
-
 MB::PostProcessMaterial* ppm;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Quasicrystal demo");
+    MB::GLContext context(3, 3, 1024, 768, "XOR demo");
 
     engine = new MB::Engine(&context, false);
 	scene = new MB::Scene();
@@ -43,8 +42,10 @@ int main(void)
         "		fragColor = vec4(t1, t2, 0.0, 1.0);\n"
         "}\n");
 
-	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float));
+	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
 	ppm->addUniform("useColor", new MB::Uniform(MB::Boolean, false));
+
+	//MB::any v = ppm->uniform("iGlobalTime")->value().cast<float>();
 
 	engine->run(renderFunc);
     

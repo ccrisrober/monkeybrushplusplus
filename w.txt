@@ -1,3 +1,10 @@
 -DGLEW_INCLUDE_DIR=C:\Users\maldicion069\Documents\glew-2.0.0\include -DGLEW_LIBRARY=C:\Users\maldicion069\Documents\glew-2.0.0\lib\Release/Win32/glew32.lib
 
 -DGLEW_INCLUDE_DIR=c:\libs\glew-2.0.0\include -DGLEW_LIBRARY=c:\libs\glew-2.0.0\lib\Release/Win32/glew32.lib 
+
+cmake .. -DGLEW_INCLUDE_DIR=c:\libs\glew-2.0.0\include -DGLEW_LIBRARY=c:\libs\glew-2.0.0\lib\Release/Win32/glew32.lib -DGLFW_BUILD_TESTS=OFF
+
+
+
+
+

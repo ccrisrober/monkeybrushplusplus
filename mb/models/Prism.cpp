@@ -20,16 +20,13 @@
  *
  */
 
-#ifndef __MB_DEMO__
-#define __MB_DEMO__
+#include "Prism.hpp"
 
 namespace MB
 {
-	class Demo
-    {
-	public:
-        virtual void run() = 0;
-    };
+    Prism::Prism(float radius, float height, unsigned int sides,
+        unsigned int heightSubDiv, bool topCap, bool bottomCap)
+    : Cone(radius, radius, height, sides, heightSubDiv, topCap, bottomCap)
+    { }
 }
 
-#endif /* __MB_DEMO__ */

@@ -43,9 +43,7 @@ namespace MB
          */
         MB_API
         Prism(float radius, float height, unsigned int sides,
-            unsigned int heightSubDiv = 1, bool topCap = true, bool bottomCap = true)
-        : Cone(radius, radius, height, sides, heightSubDiv, topCap, bottomCap)
-        { }
+            unsigned int heightSubDiv = 1, bool topCap = true, bool bottomCap = true);
 	};
 }
 

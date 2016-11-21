@@ -23,125 +23,61 @@
 #ifndef __MB_HELPERS__
 #define __MB_HELPERS__
 
-#include <iostream>
+#include <mb/api.h>
+
 #include "scene/Component.hpp"
-#include "core/Input.hpp"
 
-class MoveComponent : public MB::Component
+namespace MB
 {
-public:
-	MoveComponent()
-		: MB::Component()
-		, _delta(0.01f)
-		, _sign(1)
-		, _velocity(1.0f)
+	class MoveComponent : public MB::Component
 	{
-	}
-	virtual void update(float dt)
-	{
-		if (MB::Input::isKeyPressed(GLFW_KEY_V))
-		{
-			this->_velocity -= 0.1f;
-			if (this->_velocity < 0.0f) this->_velocity = 0.0f;
-		}
-		else if (MB::Input::isKeyPressed(GLFW_KEY_B))
-		{
-			this->_velocity += 0.1f;
-			if (this->_velocity > 10.0f) this->_velocity = 10.0f;
-		}
-		if (this->_delta > 2.5f || this->_delta < -2.5f)
-		{
-			this->_sign *= -1;
-		}
-		this->_delta = (this->_delta > 2.5f) ? 2.5f : this->_delta;
-		this->_delta = (this->_delta < -2.5f) ? -2.5f : this->_delta;
-		this->_delta += this->_velocity * this->_sign * dt;
-		this->_node->transform().position().x(this->_delta);
-	}
-protected:
-	float _delta;
-	int _sign;
-	float _velocity;
+	public:
+		MB_API
+		MoveComponent();
+		MB_API
+		virtual void update(float dt);
+	protected:
+		float _delta;
+		int _sign;
+		float _velocity;
 	};
-enum class Axis
-{
-	x, y, z
+	enum class Axis
+	{
+		x, y, z
+	};
+	class RotateComponent : public MB::Component
+	{
+	public:
+		MB_API
+		RotateComponent(Axis axis);
+		MB_API
+		void setAxis(Axis axis);
+		MB_API
+		virtual void update(float dt);
+	protected:
+		float _delta;
+		float _velocity;
+		bool _rotate;
+		Axis _axis;
+	};
+	class ScaleComponent : public MB::Component
+	{
+	public:
+		MB_API
+		ScaleComponent();
+		MB_API
+		virtual void update(float /*dt*/);
+	protected:
+		float _inc;
+	};
+	class PrintPosition : public MB::Component
+	{
+	public:
+		MB_API
+		PrintPosition();
+		MB_API
+		virtual void update(float);
+	};
 };
-class RotateComponent : public MB::Component
-{
-public:
-	RotateComponent(Axis axis)
-		: MB::Component()
-		, _delta(0.01f)
-		, _velocity(1.0f)
-		, _rotate(false)
-		, _axis(axis)
-	{
-	}
-	virtual void update(float dt)
-	{
-		if (MB::Input::isKeyClicked(GLFW_KEY_SPACE))
-		{
-			this->_rotate = !this->_rotate;
-		}
-		if (this->_rotate)
-		{
-			this->_delta += this->_velocity * dt;
-			switch (_axis)
-			{
-			case Axis::x:
-				this->_node->transform().rotation().x(this->_delta);
-				break;
-			case Axis::y:
-				this->_node->transform().rotation().y(this->_delta);
-				break;
-			case Axis::z:
-				this->_node->transform().rotation().z(this->_delta);
-				break;
-			}
-		}
-	}
-protected:
-	float _delta;
-	float _velocity;
-	bool _rotate;
-	Axis _axis;
-};
-
-class ScaleComponent : public MB::Component
-{
-public:
-	ScaleComponent()
-		: MB::Component()
-		, _inc(0.0f)
-	{
-	}
-	virtual void update(float /*dt*/)
-	{
-		this->_node->transform().scale().set(
-			this->_inc * 0.01,
-			this->_inc * 0.01,
-			this->_inc * 0.01
-		);
-		this->_inc += 1.0f;
-	}
-protected:
-	float _inc;
-};
-
-class PrintPosition : public MB::Component
-{
-public:
-	PrintPosition()
-		: MB::Component()
-	{
-	}
-	virtual void update(float)
-	{
-		MB::Vect3 pos = this->_node->transform().position();
-		std::cout << "POSITION: " << pos.x() << ", " << pos.y() << ", " << pos.z() << std::endl;
-	}
-};
-
 
 #endif /* __MB_HELPERS__ */

@@ -47,7 +47,6 @@ namespace MB
 		void registerBeforeRender(const std::function<void()>& cb, bool recyclable = false);
 		MB_API
 		void registerAfterRender(const std::function<void()>& cb, bool recyclable = false);
-		MB_API
 		SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
 	private:
 		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue);

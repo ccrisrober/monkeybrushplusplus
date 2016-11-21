@@ -26,14 +26,15 @@
 
 namespace MB
 {
-	MeshRenderer::MeshRenderer(Drawable* mesh, Material* material)
+	MeshRenderer::MeshRenderer(Drawable* mesh, Material* material, unsigned int mode_)
 		: Component()
 		, _mesh(mesh)
 		, _material(material)
+		, _mode(mode_)
 	{
 	}
-	MeshRenderer::MeshRenderer(const std::string& name, Material* material)
-		: MeshRenderer(MB::ResourceDrawable::get(name), material)
+	MeshRenderer::MeshRenderer(const std::string& name, Material* material, unsigned int mode_)
+		: MeshRenderer(MB::ResourceDrawable::get(name), material, mode_)
 	{
 	}
 	Material* MeshRenderer::getMaterial() const
@@ -61,7 +62,11 @@ namespace MB
         //Uniform* Uview = _material->uniforms()["model"];
         //std::cout << Uview->value().cast<Mat4>() << std::endl;
         //this->_material->uniform("color")->value(Vect3(1.0f, 0.0f, 1.0f));
+
+		// TODO: FIIIIX auto aa = _material->uniform("time")->value();
+		//auto bb = aa.cast<float>();
+
 		this->_material->use();
-        this->_mesh->render();
+        this->_mesh->render(_mode);
 	}
 }

@@ -23,6 +23,8 @@
 #ifndef __MB_LOG__
 #define __MB_LOG__
 
+#include <mb/api.h>
+
 #include <iostream>
 #include <ctime>
 
@@ -38,10 +40,14 @@ namespace MB
 			ERROR,		// only errors are output
 			NONE		// no output
 		};
+        MB_API
 		LOG();
+        MB_API
 		LOG(TLogLevel type);
+        MB_API
 		virtual ~LOG();
 
+        MB_API
 		LOG& operator<<(const std::string &msg);
 		//template<class T>
 		//LOG& operator<<(const T &msg);

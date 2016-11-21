@@ -154,4 +154,24 @@ namespace MB
 	{
 		this->_tag = t;
 	}
+	// TODO template<typename T, bool = std::is_base_of<Component, T>::value>
+	template<typename T>
+	T* Node::getComponent()
+	{
+		if (_components.count(&typeid(T)) != 0)
+		{
+			return static_cast<T*>(_components[&typeid(T)]);
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
+	std::vector<MB::Component*> Node::getComponents()
+	{
+		std::vector<MB::Component*> values(_components.size());
+		auto value_selector = [](std::pair<const std::type_info*, MB::Component*> pair) {return pair.second; };
+		std::transform(_components.begin(), _components.end(), values.begin(), value_selector);
+		return values;
+	}
 }

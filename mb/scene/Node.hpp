@@ -83,27 +83,13 @@ namespace MB
 			return str;
 		}
 
+		// TODO template<typename T, bool = std::is_base_of<Component, T>::value>
+		template<typename T>
 		MB_API
-		template<typename T, bool = std::is_base_of<Component, T>::value>
-		T* getComponent()
-		{
-			if (_components.count(&typeid(T)) != 0)
-			{
-				return static_cast<T*>(_components[&typeid(T)]);
-			}
-			else
-			{
-				return nullptr;
-			}
-		}
+		T* getComponent();
+
 		MB_API
-		std::vector<MB::Component*> getComponents()
-		{
-			std::vector<MB::Component*> values(_components.size());
-			auto value_selector = [](std::pair<const std::type_info*, MB::Component*> pair) {return pair.second; };
-			std::transform(_components.begin(), _components.end(), values.begin(), value_selector);
-			return values;
-		}
+		std::vector<MB::Component*> getComponents();
 	private:
 		std::string _generateUUID() const;
 	protected:

@@ -6,6 +6,8 @@ MB::Scene* scene;
 
 void renderFunc(float dt);
 
+MB::Node* mbCube;
+
 int main(void)
 {
     MB::GLContext context(3, 3, 1024, 768, "Hello MB");
@@ -18,7 +20,7 @@ int main(void)
 	MB::SimpleShadingMaterial material;
 	material.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
 
-	MB::Node* mbCube = new MB::Node(std::string("cube"));
+	mbCube = new MB::Node(std::string("cube"));
 	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
 	mbCube->addComponent(new MoveComponent());
 	mbCube->addComponent(new RotateComponent(Axis::x));
@@ -42,37 +44,17 @@ void renderFunc(float dt)
 		engine->close();
 		return;
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_Z))
-	{
-		engine->state()->depth.setStatus(false);
-	}
 	if (MB::Input::isKeyClicked(GLFW_KEY_X))
 	{
-		engine->state()->depth.setStatus(true);
+		mbCube->getComponent<RotateComponent>()->setAxis(Axis::x);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_K))
+	else if (MB::Input::isKeyClicked(GLFW_KEY_Y))
 	{
-		engine->state()->culling.setStatus(false);
+		mbCube->getComponent<RotateComponent>()->setAxis(Axis::y);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_L))
+	else if (MB::Input::isKeyClicked(GLFW_KEY_Z))
 	{
-		engine->state()->culling.setStatus(true);
-	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_M))
-	{
-		engine->state()->setPolygonMode(GL_FILL);
-	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_N))
-	{
-		engine->state()->setPolygonMode(GL_LINE);
-	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_1))
-	{
-		engine->state()->culling.setFlipSided(GL_CCW);
-	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_2))
-	{
-		engine->state()->culling.setFlipSided(GL_CW);
+		mbCube->getComponent<RotateComponent>()->setAxis(Axis::z);
 	}
 	scene->render(dt);
 }

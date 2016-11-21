@@ -36,9 +36,9 @@ namespace MB
 	{
 	public:
 		MB_API
-		MeshRenderer(Drawable* mesh, Material* material);
+		MeshRenderer(Drawable* mesh, Material* material, unsigned int mode_ = GL_TRIANGLES);
 		MB_API
-		MeshRenderer(const std::string& name, Material* material);
+		MeshRenderer(const std::string& name, Material* material, unsigned int mode_ = GL_TRIANGLES);
 		MB_API
 		Material* getMaterial() const;
 		MB_API
@@ -49,9 +49,20 @@ namespace MB
 		void setMesh(Drawable* m);
 		MB_API
 		void render();
+		MB_API
+		unsigned int mode()
+		{
+			return this->_mode;
+		}
+		MB_API
+		void mode(unsigned int m)
+		{
+			this->_mode = m;
+		}
 	protected:
 		Drawable* _mesh;
 		Material* _material;
+		unsigned int _mode;
 	};
 }
 

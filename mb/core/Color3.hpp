@@ -75,25 +75,40 @@ namespace MB
          */
         MB_API
 		Color3& linearToGamma(const float& gammaFactor = 2.2f);
-
+        
+        MB_API
         static Color3 Aqua;
+        MB_API
         static Color3 Beige;
+        MB_API
         static Color3 Black;
+        MB_API
         static Color3 Blue;
+        MB_API
         static Color3 Brown;
+        MB_API
         static Color3 Cyan;
+        MB_API
         static Color3 Gold;
+        MB_API
         static Color3 Green;
+        MB_API
         static Color3 Indigo;
+        MB_API
         static Color3 Lavender;
+        MB_API
         static Color3 Orange;
+        MB_API
         static Color3 Pink;
+        MB_API
         static Color3 Purple;
+        MB_API
         static Color3 Red;
+        MB_API
         static Color3 Yellow;
+        MB_API
         static Color3 White;
-
-	protected:
+    protected:
 		Vect3 _color;
     };
 }
