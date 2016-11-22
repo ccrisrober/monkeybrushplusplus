@@ -23,7 +23,7 @@
 #ifndef __MB_OBJPARSER__
 #define __MB_OBJPARSER__
 
-#include <MB/api.h>
+#include <mb/api.h>
 
 #include <iostream>
 #include <fstream>
