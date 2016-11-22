@@ -36,7 +36,7 @@ namespace MB
 		Texture2D(const TexOptions& options,
 			unsigned int width, unsigned int height);
 		MB_API
-		Texture2D(const TexOptions& options, void* /*data*/,
+		Texture2D(const TexOptions& options, void* data,
 			unsigned int width, unsigned int height);
 		MB_API
 		Texture2D(const TexOptions& options, const std::string src);
@@ -45,6 +45,12 @@ namespace MB
 		std::string _src;
 		unsigned int _width;
 		unsigned int _height;
+
+		void configTexture( void* data = nullptr );
+		virtual void load( void );
+      	unsigned char* loadTexture( const char* fileName_,
+	        unsigned int& width_,
+	        unsigned int& height_ );
 	};
 }
 

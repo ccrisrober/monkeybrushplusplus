@@ -31,12 +31,13 @@ common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
 common_find_package( Boost COMPONENTS unit_test_framework )
 common_find_package( GLFW )
+common_find_package( FreeImage )
 
 #set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF)
 #set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
-list (APPEND MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES OpenGL GLEW GLFW)
+list (APPEND MONKEYBRUSHPLUSPLUS_DEPENDENT_LIBRARIES OpenGL GLEW GLFW FreeImage)
 
 common_find_package_post()
 

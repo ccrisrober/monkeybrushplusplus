@@ -188,6 +188,7 @@ set( MB_LINK_LIBRARIES
     ${OPENGL_LIBRARIES}
     ${GLEW_LIBRARIES}
     glfw
+    FreeImage
 )
 
 common_library( MB )
