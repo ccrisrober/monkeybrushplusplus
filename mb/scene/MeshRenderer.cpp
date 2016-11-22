@@ -53,20 +53,19 @@ namespace MB
 	{
 		this->_mesh = m;
 	}
-	void MeshRenderer::render()
+	void MeshRenderer::render(const Mat4& model)
 	{
-        this->_node->_updateMatrixWorld();
-		auto model = this->getNode()->transform().matrixWorld();
         this->_material->uniform("model")->value(model);
-        //std::cout << this->_node->name() << std::endl;
-        //Uniform* Uview = _material->uniforms()["model"];
-        //std::cout << Uview->value().cast<Mat4>() << std::endl;
-        //this->_material->uniform("color")->value(Vect3(1.0f, 0.0f, 1.0f));
-
-		// TODO: FIIIIX auto aa = _material->uniform("time")->value();
-		//auto bb = aa.cast<float>();
 
 		this->_material->use();
         this->_mesh->render(_mode);
+	}
+	unsigned int MeshRenderer::mode()
+	{
+		return this->_mode;
+	}
+	void MeshRenderer::mode(unsigned int m)
+	{
+		this->_mode = m;
 	}
 }

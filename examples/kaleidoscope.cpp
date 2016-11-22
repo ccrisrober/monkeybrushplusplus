@@ -22,66 +22,70 @@
 
 #include <iostream>
 #include <mb/mb.h>
+#include <shaderFiles.h>
 
 MB::Engine* engine;
 MB::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::Node* mbCube;
-MB::RotateComponent* r;
+MB::PostProcessMaterial* ppm;
+
+float sides, angle;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+	MB::GLContext context(3, 3, 1024, 768, "Kaleidoscope demo");
 
-    engine = new MB::Engine(&context, false);
+	engine = new MB::Engine(&context, false);
 	scene = new MB::Scene();
 
-	MB::Cube* cube = new MB::Cube(1.0f);
+	std::ifstream file(MB_SHADER_FILES_KALEIDOSCOPE_FRAG);
+	std::stringstream buffer;
+	buffer << file.rdbuf();
 
-	MB::SimpleShadingMaterial material;
-	material.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
+	ppm = new MB::PostProcessMaterial(buffer.str().c_str());
 
-	mbCube = new MB::Node(std::string("cube"));
-	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
-	mbCube->addComponent(new MB::MoveComponent());
-	r = new MB::RotateComponent(MB::Axis::x);
-	mbCube->addComponent(r);
+	sides = 5.0f;
+	angle = 121.0f;
 
-	scene->root()->addChild(mbCube);
+	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
+	ppm->addUniform("sides", new MB::Uniform(MB::Float, sides));
+	ppm->addUniform("angle", new MB::Uniform(MB::Float, angle));
 
 	engine->run(renderFunc);
-    
+
 	delete(scene);
 	delete(engine);
 
-    return 0;
+	return 0;
 }
 
+float globalTime = 0.0f;
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->camera->update(dt);
-	if (MB::Input::isKeyPressed(GLFW_KEY_ESCAPE))
+	globalTime += dt;
+	ppm->uniform("iGlobalTime")->value(globalTime);
+	if (MB::Input::isKeyClicked(GLFW_KEY_Z))
 	{
-		engine->close();
-		return;
+		sides -= 1.0f;
+		ppm->uniform("sides")->value(sides);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_X))
+	else if (MB::Input::isKeyClicked(GLFW_KEY_X))
 	{
-		r->setAxis(MB::Axis::x);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::x);
+		sides += 1.0f;
+		ppm->uniform("sides")->value(sides);
 	}
-	else if (MB::Input::isKeyClicked(GLFW_KEY_Y))
+	if (MB::Input::isKeyClicked(GLFW_KEY_A))
 	{
-		r->setAxis(MB::Axis::y);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::y);
+		angle -= 1.0f;
+		ppm->uniform("angle")->value(angle);
 	}
-	else if (MB::Input::isKeyClicked(GLFW_KEY_Z))
+	else if (MB::Input::isKeyClicked(GLFW_KEY_S))
 	{
-		r->setAxis(MB::Axis::z);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::z);
+		angle += 1.0f;
+		ppm->uniform("angle")->value(angle);
 	}
-	scene->render(dt);
+	ppm->renderPP();
 }

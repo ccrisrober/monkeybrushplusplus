@@ -55,6 +55,16 @@ namespace MB
         	this->_uniforms[name] = u;
         }
 		MB_API
+		bool hasUniform(const std::string& name)
+		{
+			return _uniforms.find(name) != _uniforms.end();
+		}
+		MB_API
+		Uniform* operator[](std::string& name)
+		{
+			return uniform(name);
+		}
+		MB_API
 		virtual void use();
 		MB_API
 		virtual void unuse();

@@ -59,12 +59,21 @@ namespace MB
 		n->setParent(this);
 		this->_children.push_back(n);
 	}
-    void Node::removeChild(Node* /*n*/) {
-		// TODO
+    void Node::removeChild(Node* n) {
+		auto it = std::find(_children.begin(), _children.end(), n);
+		if (it != _children.end())
+		{
+			_children.erase(it);
+		}
+	}
+	void Node::removeChild(unsigned int index)
+	{
+		_children.erase(_children.begin() + index);
 	}
     void Node::addComponent(Component* c)
 	{
 		c->setNode(this);
+		c->start();
 		// TODO: http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
 		this->_components[&typeid(*c)] = c;
 	}
@@ -146,6 +155,10 @@ namespace MB
 	{
 		return this->_name;
 	}
+	void Node::name(const std::string& n)
+	{
+		_name = n;
+	}
 	std::string Node::tag() const
 	{
 		return this->_tag;
@@ -154,13 +167,12 @@ namespace MB
 	{
 		this->_tag = t;
 	}
-	// TODO template<typename T, bool = std::is_base_of<Component, T>::value>
-	template<typename T>
-	T* Node::getComponent()
+	template<typename ComponentType>
+	ComponentType* Node::getComponent()
 	{
-		if (_components.count(&typeid(T)) != 0)
+		if (_components.count(&typeid(ComponentType)) != 0)
 		{
-			return static_cast<T*>(_components[&typeid(T)]);
+			return static_cast<ComponentType*>(_components[&typeid(ComponentType)]);
 		}
 		else
 		{
@@ -175,3 +187,5 @@ namespace MB
 		return values;
 	}
 }
+
+/* TODO template<typename T, bool = std::is_base_of<Component, T>::value>*/

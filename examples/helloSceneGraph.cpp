@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2016 maldicion069
+ *
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+ *
+ * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License version 3.0 as published
+ * by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ */
+
 #include <iostream>
 #include <mb/mb.h>
 
@@ -12,11 +34,11 @@ void renderFunc(float dt);
 
 int main(void)
 {
-	MB::LOG::headers = false;
-	MB::LOG::level = MB::LOG::INFO;
-	MB::LOG::date = true;
+	//MB::LOG::headers = false;
+	//MB::LOG::level = MB::LOG::INFO;
+	//MB::LOG::date = true;
 
-    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+    MB::GLContext context(3, 3, 1024, 768, "Hello SceneGraph");
 
     engine = new MB::Engine(&context, false);
 	scene = new MB::Scene();
@@ -83,8 +105,8 @@ int main(void)
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
 	mbCube->addComponent(new MB::MeshRenderer(cube, MB::MaterialCache::get("shaderMat")));
-	mbCube->addComponent(new MoveComponent());
-	mbCube->addComponent(new RotateComponent(Axis::x));
+	mbCube->addComponent(new MB::MoveComponent());
+	mbCube->addComponent(new MB::RotateComponent(MB::Axis::x));
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
 	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
 

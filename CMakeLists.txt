@@ -65,5 +65,5 @@ add_subdirectory(examples)
 #install( FILES ${PROJECT_BINARY_DIR}/include/MonkeyBrusPlusPlus/defines${SYSTEM}.h
 #	DESTINATION include/MonkeyBrusPlusPlus )
 
-include(CPackConfig)
-include(DoxygenRule)
+# include(CPackConfig)
+# include(DoxygenRule)

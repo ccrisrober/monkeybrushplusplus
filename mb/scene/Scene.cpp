@@ -20,6 +20,8 @@
  *
  */
 
+// TODO: http://gameprogrammingpatterns.com/dirty-flag.html
+
 #include "Scene.hpp"
 #include <iostream>
 #include "MeshRenderer.hpp"
@@ -64,9 +66,11 @@ namespace MB
 				auto mr = (MeshRenderer*)comp;
 				mr->getMaterial()->uniforms()["projection"]->value(this->camera->projectionMatrix(500, 500));
 				mr->getMaterial()->uniforms()["view"]->value(this->camera->viewMatrix());
-				//if (mr->getMaterial()->uniform("viewPos")) 
-				//	mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
-				mr->render();
+				if (mr->getMaterial()->hasUniform("viewPos")) 
+					mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
+				n->_updateMatrixWorld();
+				auto model = n->transform().matrixWorld();
+				mr->render(model);
 				++this->_totalMeshes;
 			}
 		}

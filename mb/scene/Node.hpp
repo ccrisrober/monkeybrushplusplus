@@ -40,7 +40,7 @@ namespace MB
 	{
 	public:
 		MB_API
-		Node(const std::string& name = "dummy", const std::string& tag = "SimpleTag");
+		Node(const std::string& name = "Node", const std::string& tag = "Untagged");
 		MB_API
 		bool isEnabled() const;
 		MB_API
@@ -52,7 +52,9 @@ namespace MB
 		MB_API
 		void addChild(Node* n);
 		MB_API
-        void removeChild(Node* /*n*/);
+		void removeChild(Node* n);
+		MB_API
+		void removeChild(unsigned int index);
 		MB_API
 		void addComponent(Component* c);
 		MB_API
@@ -65,31 +67,26 @@ namespace MB
 		Transform& transform();
 		MB_API
 		void _updateMatrixWorld(bool force = false);
-
 		MB_API
 		std::string name() const;
 		MB_API
 		std::string tag() const;
 		MB_API
-		void name(const std::string& n)
-		{
-			_name = n;
-		}
+		void name(const std::string& n);
 		MB_API
 		void tag(const std::string& t);
+
+		template<typename ComponentType>
 		MB_API
-		friend std::ostream& operator<<(std::ostream & str, const Node& n) {
+		ComponentType* getComponent();
+		MB_API
+		std::vector<MB::Component*> getComponents();
+
+		MB_API
+			friend std::ostream& operator<<(std::ostream & str, const Node& n) {
 			str << n._name << " => " << n._id;
 			return str;
 		}
-
-		// TODO template<typename T, bool = std::is_base_of<Component, T>::value>
-		template<typename T>
-		MB_API
-		T* getComponent();
-
-		MB_API
-		std::vector<MB::Component*> getComponents();
 	private:
 		std::string _generateUUID() const;
 	protected:

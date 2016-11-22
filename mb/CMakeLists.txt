@@ -71,6 +71,7 @@ set( MB_PUBLIC_HEADERS
     others/Exception.hpp
 
     resources/MaterialCache.hpp
+    resources/ObjParser.hpp
     resources/ResourceDrawable.hpp
     resources/ResourceShader.hpp
 
@@ -160,6 +161,7 @@ set( MB_SOURCES
     others/Exception.cpp
     
     resources/MaterialCache.cpp
+    resources/ObjParser.cpp
     resources/ResourceShader.cpp
     resources/ResourceDrawable.cpp
 

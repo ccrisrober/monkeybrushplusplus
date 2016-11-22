@@ -34,43 +34,55 @@ namespace MB
 	, _autoUpdate(true)
 	, _matrixWorldNeedUpdate(false)
 	{
-		std::function<void()> cbRotation([&]() {
+		std::function<void()> cbRotation([&]()
+		{
 			this->_quaternion = this->_quaternion.setFromEuler(this->_rotation);
 		});
 		_rotation.setCallback(cbRotation);
-		std::function<void()> cbQuaternion([=]() {
+		std::function<void()> cbQuaternion([=]()
+		{
 			this->_rotation = this->_rotation.setFromQuaternion(this->_quaternion, this->_rotation.order(), false);
 		});
 		_quaternion.setCallback(cbQuaternion);
 	}
-	Vect3& Transform::position() {
+	Vect3& Transform::position()
+	{
 		return this->_position;
 	}
-	EulerAngle& Transform::rotation() {
+	EulerAngle& Transform::rotation()
+	{
 		return this->_rotation;
 	}
-	Quat& Transform::quaternion() {
+	Quat& Transform::quaternion()
+	{
 		return this->_quaternion;
 	}
-	Vect3& Transform::scale() {
+	Vect3& Transform::scale()
+	{
 		return this->_scale;
 	}
-	void Transform::translateX(float dist) {
+	void Transform::translateX(float dist)
+	{
 		this->_translateOnAxis(Vect3(1.0f, 0.0f, 0.0f), dist);
 	}
-	void Transform::translateY(float dist) {
+	void Transform::translateY(float dist)
+	{
 		this->_translateOnAxis(Vect3(0.0f, 1.0f, 0.0f), dist);
 	}
-	void Transform::translateZ(float dist) {
+	void Transform::translateZ(float dist)
+	{
 		this->_translateOnAxis(Vect3(0.0f, 0.0f, 1.0f), dist);
 	}
-	void Transform::rotateX(float angle) {
+	void Transform::rotateX(float angle)
+	{
 		this->_rotateOnAxis(Vect3::xAxis, angle);
     }
-	void Transform::rotateY(float angle) {
+	void Transform::rotateY(float angle)
+	{
 		this->_rotateOnAxis(Vect3::yAxis, angle);
     }
-	void Transform::rotateZ(float angle) {
+	void Transform::rotateZ(float angle)
+	{
 		this->_rotateOnAxis(Vect3::zAxis, angle);
     }
 	void Transform::updateMatrix()
@@ -89,12 +101,14 @@ namespace MB
 		//Mat4 mat;
 		//return v.applyMat4(mat.inverse(this._matrixWorld));
     }
-    void Transform::_translateOnAxis(const Vect3& /*axis*/, float dist) {
+    void Transform::_translateOnAxis(const Vect3& /*axis*/, float dist)
+	{
 		Vect3 v;
 		//v.copy(axis).applyQuat(this->_quaternion);
 		this->_position = this->_position.add(v.multByScalar(dist));
     }
-    void Transform::_rotateOnAxis(const Vect3 /*axis*/, float /*angle*/) {
+    void Transform::_rotateOnAxis(const Vect3 /*axis*/, float /*angle*/)
+	{
 		Quat q1;
 		//q1.setFromAxisAngle(axis, angle);
 		//this->_quaternion = this->_quaternion.mult(q1);

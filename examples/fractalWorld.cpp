@@ -20,44 +20,45 @@
  *
  */
 
-#include "Uniform.hpp"
+#include <iostream>
+#include <mb/mb.h>
+#include <shaderFiles.h>
 
-namespace MB
+MB::Engine* engine;
+MB::Scene* scene;
+
+void renderFunc(float dt);
+
+MB::PostProcessMaterial* ppm;
+
+int main(void)
 {
-    Uniform::Uniform()
-        : _type(Invalid)
-        , _value()
-    {
-    }
-    Uniform::Uniform(UniformType type_, any value_)
-        : _type(type_)
-        , _value(value_)
-        , _isDirty(true)
-    {
-    }
-    Uniform::Uniform(const Uniform& other)
-        : _type(other._type), _value(other._value)
-    {
-    }
-	any Uniform::value() const
-    {
-		return this->_value;
-	}
-	UniformType Uniform::type() const
-    {
-		return this->_type;
-	}
-	void Uniform::value(const any v)
-	{
-		_isDirty = true;
-		_value = std::move(v);
-	}
-	bool Uniform::isDirty() const
-    {
-		return this->_isDirty;
-	}
-	void Uniform::setDirty(const bool d)
-	{
-		_isDirty = d;
-	}
+	MB::GLContext context(3, 3, 1024, 768, "Fractal world demo");
+
+	engine = new MB::Engine(&context, false);
+	scene = new MB::Scene();
+
+	std::ifstream file(MB_SHADER_FILES_FRACTALWORLD_FRAG);
+	std::stringstream buffer;
+	buffer << file.rdbuf();
+
+	ppm = new MB::PostProcessMaterial(buffer.str().c_str());
+
+	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
+
+	engine->run(renderFunc);
+
+	delete(scene);
+	delete(engine);
+
+	return 0;
+}
+
+float globalTime = 0.0f;
+void renderFunc(float dt)
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	globalTime += dt;
+	ppm->uniform("iGlobalTime")->value(globalTime);
+	ppm->renderPP();
 }

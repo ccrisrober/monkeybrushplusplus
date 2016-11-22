@@ -36,9 +36,9 @@ namespace MB
 	{
 	public:
 		MB_API
-        virtual ~Component()
-        {
-        }
+		Component();
+		MB_API
+		virtual void start() {}
 		MB_API
 		virtual void update(float /*dt*/);
 		MB_API
@@ -46,12 +46,13 @@ namespace MB
 		MB_API
 		void setNode(Node* n);
 		MB_API
-		friend std::ostream& operator<<(std::ostream & str, const Component& n) {
+		friend std::ostream& operator<<(std::ostream & str, const Component& n)
+		{
 			str << typeid(n).name();
 			return str;
 		}
 	protected:
-		Component();
+		virtual ~Component() {}
 		Node* _node;
 	};
     // TODO: UNUSED typedef std::shared_ptr<Component> ComponentPtr;

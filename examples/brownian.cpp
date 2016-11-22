@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2016 maldicion069
+ *
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+ *
+ * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License version 3.0 as published
+ * by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ */
+
 #include <iostream>
 #include <mb/mb.h>
 #include <random>
@@ -14,6 +36,9 @@ public:
 	: MB::Component()
 	, _generator(std::default_random_engine(0))
 	, _distribution(std::normal_distribution<float> (0.0f, 1.0f))
+	{
+	}
+	virtual void start()
 	{
 		_yPos = _node->transform().position().y();
 	}
@@ -42,8 +67,8 @@ int main(void)
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
 	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
-	mbCube->addComponent(new MoveComponent());
-	mbCube->addComponent(new RotateComponent(Axis::z));
+	mbCube->addComponent(new MB::MoveComponent());
+	mbCube->addComponent(new MB::RotateComponent(MB::Axis::z));
 	mbCube->addComponent(new BrownianMovement());
 	mbCube->transform().position().set(0.0f, 3.0f, 0.0f);
 

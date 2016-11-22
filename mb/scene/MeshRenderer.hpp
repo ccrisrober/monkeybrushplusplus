@@ -48,17 +48,11 @@ namespace MB
 		MB_API
 		void setMesh(Drawable* m);
 		MB_API
-		void render();
+		void render(const Mat4& model);
 		MB_API
-		unsigned int mode()
-		{
-			return this->_mode;
-		}
+		unsigned int mode();
 		MB_API
-		void mode(unsigned int m)
-		{
-			this->_mode = m;
-		}
+		void mode(unsigned int m);
 	protected:
 		Drawable* _mesh;
 		Material* _material;

@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2016 maldicion069
+ *
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+ *
+ * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License version 3.0 as published
+ * by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ */
+
 #include <iostream>
 #include <mb/mb.h>
 
@@ -10,9 +32,9 @@ MB::PostProcessMaterial* ppm;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "XOR demo");
+	MB::GLContext context(3, 3, 1024, 768, "XOR demo");
 
-    engine = new MB::Engine(&context, false);
+	engine = new MB::Engine(&context, false);
 	scene = new MB::Scene();
 
 	ppm = new MB::PostProcessMaterial(
@@ -22,42 +44,41 @@ int main(void)
 		"uniform bool useColor;\n"
 		"in vec2 uv;\n"
 		"void main() {\n"
-        "    vec2 p = -1. + 2. * uv;\n"
-        "    float t = iGlobalTime * 0.5;\n"
-        "    vec2 off1 = vec2(0.5 * cos(5.0 * t), 0.5 * sin(3.0 * t));\n"
-        "    vec2 off2 = vec2(0.6 * sin(3.0 * t), 0.4 * cos(2.0 * t));\n"
-        "    // Cartesian equation\n"
-        "    float r1 = sqrt(dot(p - off1, p - off1));\n"
-        "    float r2 = sqrt(dot(p - off2, p - off2));\n"
-        "    bool t1 = mod(r1, 0.2) > 0.1;\n"
-        "    bool t2 = mod(r2, 0.2) > 0.1;\n"
-        "    // XOR time\n"
-        "    float c = 0.0;\n"
-        "    if (t1) c = 1.0;\n"
-        "    if (t2) c = 1.0;\n"
-        "    if ((t1) && (t2)) c = 0.0;\n"
-        "    if(useColor)"
-        "    	fragColor = vec4(vec3(c),1.0);\n"
-        "    else\n"
-        "		fragColor = vec4(t1, t2, 0.0, 1.0);\n"
-        "}\n");
+		"    vec2 p = -1. + 2. * uv;\n"
+		"    float t = iGlobalTime * 0.5;\n"
+		"    vec2 off1 = vec2(0.5 * cos(5.0 * t), 0.5 * sin(3.0 * t));\n"
+		"    vec2 off2 = vec2(0.6 * sin(3.0 * t), 0.4 * cos(2.0 * t));\n"
+		"    // Cartesian equation\n"
+		"    float r1 = sqrt(dot(p - off1, p - off1));\n"
+		"    float r2 = sqrt(dot(p - off2, p - off2));\n"
+		"    bool t1 = mod(r1, 0.2) > 0.1;\n"
+		"    bool t2 = mod(r2, 0.2) > 0.1;\n"
+		"    // XOR time\n"
+		"    float c = 0.0;\n"
+		"    if (t1) c = 1.0;\n"
+		"    if (t2) c = 1.0;\n"
+		"    if ((t1) && (t2)) c = 0.0;\n"
+		"    if(useColor)"
+		"    	fragColor = vec4(vec3(c),1.0);\n"
+		"    else\n"
+		"		fragColor = vec4(t1, t2, 0.0, 1.0);\n"
+		"}\n");
 
 	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
-	ppm->addUniform("useColor", new MB::Uniform(MB::Boolean, false));
-
-	//MB::any v = ppm->uniform("iGlobalTime")->value().cast<float>();
+	ppm->addUniform("useColor", new MB::Uniform(MB::Boolean, true));
 
 	engine->run(renderFunc);
-    
+
 	delete(scene);
 	delete(engine);
 
-    return 0;
+	return 0;
 }
 
 float globalTime = 0.0f;
 void renderFunc(float dt)
 {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	globalTime += dt;
 	ppm->uniform("iGlobalTime")->value(globalTime);
 	if (MB::Input::isKeyPressed(GLFW_KEY_Z))
