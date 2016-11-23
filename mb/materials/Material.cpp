@@ -70,9 +70,7 @@ namespace MB
             }
             else if (type == Matrix2)
             {
-                // TODO
-                //auto value = uniform.second->value();
-                //this->_program.sendUniform2m(uniform.first, &uniform.second->value().cast<Mat2>()._values.data());
+                this->_program.sendUniform2m(uniform.first, uniform.second->value().cast<Mat2>()._values.data());
             }
             else if (type == Matrix3)
             {

@@ -1,3 +1,5 @@
-- Node::setEnabled(bool flag) => Node::setVisible(bool flag, bool applyToChildren = false);
-- Añadido std::string Node::uuid()
-
+- (22/11) Node::setEnabled(bool flag) => Node::setVisible(bool flag, bool applyToChildren = false);
+- (22/11) Añadido std::string Node::uuid()
+- (23/11) Añadido addLights(Light* l) y std::vector<Light> lights()
+- (23/11) Comprobado si añ añadir un hijo ya existe el mismo nodo dentro.
+- (23/11) Añadido método traverse a node. Traverse(std::function<void(Node*)>);

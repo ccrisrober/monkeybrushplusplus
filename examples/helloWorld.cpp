@@ -49,6 +49,13 @@ int main(void)
 	r = new MB::RotateComponent(MB::Axis::x);
 	mbCube->addComponent(r);
 
+
+	MB::Light* l1 = new MB::PointLight();
+	scene->addLight(l1);
+	MB::Light* l2 = new MB::PointLight();
+	scene->addLight(l2);
+	scene->addLight(l1);
+
 	scene->root()->addChild(mbCube);
 
 	engine->run(renderFunc);

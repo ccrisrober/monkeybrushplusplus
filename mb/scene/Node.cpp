@@ -50,14 +50,21 @@ namespace MB
         // TODO: Check parent in p node (addChild or removeChild in p.parent)
 		this->_parent = p;
 	}
-	void Node::addChild(Node* n)
+	void Node::addChild(Node* node)
 	{
-		if (n == this)
+		if (node == this)
 		{
 			throw "TODO: ERROR";
 		}
-		n->setParent(this);
-		this->_children.push_back(n);
+		for (const auto& n: _children)
+		{
+			if (node == n)
+			{
+				return;
+			}
+		}
+		node->setParent(this);
+		this->_children.push_back(node);
 	}
     void Node::removeChild(Node* n) {
 		auto it = std::find(_children.begin(), _children.end(), n);

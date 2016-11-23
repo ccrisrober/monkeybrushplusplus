@@ -29,15 +29,21 @@ MB::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::PostProcessMaterial* ppm;
 MB::PostProcessMaterial *ppm1, *ppm2;
 
-MB::CustomPingPong<MB::Texture*>* customPP;
+MB::Framebuffer* fbo;
+
+MB::Texture *currentTex, *oldTex;
+
+/*MB::CustomPingPong<MB::Texture*>* customPP;
+
+std::function<void()> cppCallback([]() {
+
+});*/
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 1024, 768, "Manga demo");
-
+	MB::GLContext context(3, 3, 512, 512, "Advention demo");
 
 	MB::TexOptions opts;
 	opts.minFilter = GL_NEAREST;
@@ -50,6 +56,7 @@ int main(void)
 	float h = 2.0f / ww;
 
 	std::vector<float> pixels; // TODO: OPTIMIZE (ww * hh * 4);
+	pixels.reserve(ww * hh * 4);
 	unsigned int Ro = 0.3f;
 	for (unsigned int i = 0; i < ww; ++i)
 	{
@@ -71,9 +78,9 @@ int main(void)
 	MB::Texture2D *tex2 = new MB::Texture2D(opts, pixels.data(),
 		context.getWidth(), context.getHeight());
 
-	customPP = new MB::CustomPingPong<MB::Texture*>(tex1, tex2);
+	//customPP = new MB::CustomPingPong<MB::Texture*>(tex1, tex2);
 	std::vector<MB::Texture*> textures = { tex1, tex2 };
-	MB::Framebuffer* fbo = new MB::Framebuffer(textures, 
+	fbo = new MB::Framebuffer(textures, 
 		MB::Vect2(context.getWidth(), context.getHeight()));
 
 	engine = new MB::Engine(&context, false);
@@ -85,6 +92,8 @@ int main(void)
 		buffer << file.rdbuf();
 
 		ppm1 = new MB::PostProcessMaterial(buffer.str().c_str());
+
+		ppm1->addUniform("tex", new MB::Uniform(MB::Integer, 0));
 	}
 
 
@@ -94,18 +103,12 @@ int main(void)
 		buffer << file.rdbuf();
 
 		ppm2 = new MB::PostProcessMaterial(buffer.str().c_str());
+
+		ppm2->addUniform("tex", new MB::Uniform(MB::Integer, 0));
 	}
 
-
-	{
-		std::ifstream file(MB_SHADER_FILES_MANGA_FRAG);
-		std::stringstream buffer;
-		buffer << file.rdbuf();
-
-		ppm = new MB::PostProcessMaterial(buffer.str().c_str());
-	}
-
-	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
+	currentTex = tex1;
+	oldTex = tex2;
 
 	engine->run(renderFunc);
 
@@ -120,6 +123,15 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	globalTime += dt;
-	ppm->uniform("iGlobalTime")->value(globalTime);
-	ppm->renderPP();
+
+	currentTex->bind(0);
+	fbo->bind();
+	fbo->replaceTexture(oldTex, 0);
+	ppm1->renderPP();
+	fbo->unbind();
+
+	std::swap(currentTex, oldTex);
+
+	currentTex->bind(0);
+	ppm2->renderPP();
 }

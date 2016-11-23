@@ -560,6 +560,20 @@ namespace MB
 		glUniformMatrix3fv(loc, 1, GL_FALSE, data);
 	}
 
+	void Program::sendUniform2m(const std::string& uniformName,
+		const std::vector< float > & data)
+	{
+		int loc = uniform(uniformName);
+		glUniformMatrix2fv(loc, 1, GL_FALSE, data.data());
+	}
+
+	void Program::sendUniform2m(const std::string& uniformName,
+		const float* data)
+	{
+		int loc = uniform(uniformName);
+		glUniformMatrix2fv(loc, 1, GL_FALSE, data);
+	}
+
 	void Program::sendUniformf(const std::string& uniformName,
 		float val)
 	{

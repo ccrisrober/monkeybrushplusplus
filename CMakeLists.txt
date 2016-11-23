@@ -43,7 +43,10 @@ common_find_package_post()
 
 add_subdirectory(mb)
 add_subdirectory(examples)
-#add_subdirectory(tests)
+
+if(${Boost_FOUND})
+	add_subdirectory(tests)
+endif()
 
 #set(PROJECT_VERSION_ABI ${${PROJECT_NAME}_VERSION_ABI})
 

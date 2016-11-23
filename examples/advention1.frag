@@ -7,7 +7,7 @@ in vec2 uv;
 uniform sampler2D tex;
 
 const float
-      h = 1./1024.,
+      h = 1./512.,
      dt = 0.01,
     tau = dt/h;
 

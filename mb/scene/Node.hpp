@@ -76,6 +76,21 @@ namespace MB
 		MB_API
 		void tag(const std::string& t);
 
+		/**
+		std::function<void(MB::Node*)> f([](MB::Node* n) {
+			std::cout << n->name() << std::endl;
+		});
+		*/
+		MB_API
+		void traverse(std::function<void(MB::Node* n)> f)
+		{
+			f(this);
+			for (auto& child: _children)
+			{
+				child->traverse(f);
+			}
+		}
+
 		template<typename ComponentType>
 		MB_API
 		ComponentType* getComponent();

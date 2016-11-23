@@ -416,6 +416,22 @@ namespace MB
 		*/
 		MB_API
 		void sendUniform4v(const std::string& uniform, const float* data);
+	    /**
+	     * Method to send a mat2
+	     * @param uniform: Uniform name
+	     * @param data: Data
+	     */
+	    MB_API
+	    void sendUniform2m( const std::string& uniform,
+	                        const std::vector< float > & data );
+	    /**
+	     * Method to send a mat2
+	     * @param uniform: Uniform name
+	     * @param data: Data
+	     */
+	    MB_API
+	    void sendUniform2m( const std::string& uniform,
+                        const float* data );
 		/**
 		* Method to send a mat3
 		* @param uniform: Uniform name

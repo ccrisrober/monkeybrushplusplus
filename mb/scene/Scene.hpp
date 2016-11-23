@@ -27,6 +27,7 @@
 
 #include "../SimpleCamera.hpp"
 #include "Node.hpp"
+#include "../lights/Light.hpp"
 
 namespace MB
 {
@@ -48,6 +49,26 @@ namespace MB
 		MB_API
 		void registerAfterRender(const std::function<void()>& cb, bool recyclable = false);
 		SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
+
+		MB_API
+		void addLight(MB::Light* light)
+		{
+			for (const auto& l: _lights)
+			{
+				if (l == light)
+				{
+					return;
+				}
+			}
+			_lights.push_back(light);
+		}
+
+		MB_API
+		std::vector<MB::Light*> lights() const
+		{
+			return this->_lights;
+		}
+
 	private:
 		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue);
 		Node* _searchName(const std::string& name, Node* elem);
@@ -57,6 +78,8 @@ namespace MB
 		std::vector<std::pair<std::function<void()>, bool>> _afterRender;
 		void _subrender(Node* n, float dt);
 		Node* _sceneGraph;
+
+		std::vector<MB::Light*> _lights;
 
 		unsigned int _totalMeshes;
 		//unsigned int _totalVertices;

@@ -1,0 +1,1 @@
+- Usar scripts de Python como componentes
