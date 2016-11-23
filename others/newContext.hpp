@@ -11,10 +11,12 @@ namespace MB
 		bool displayMouse;
 		bool debugWindowEvents;
 
-		WindowParams()
+		WindowParams(int width, int height)
 		{
 			this->x = 0;
 			this->y = 0;
+			this->width = width;
+			this->height = height;
 			this->title = "MB++";
 			this->displayFPS = true;
 			this->displayMouse = true;
