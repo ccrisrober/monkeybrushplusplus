@@ -29,13 +29,13 @@ namespace MB
 	, _id(_generateUUID())
 	, _parent(nullptr)
 	, _tag(tag)
-    , _isEnabled(true)
+    , _visible(true)
 	, _transform(Transform())
 	{
 	}
-	bool Node::isEnabled() const
+	bool Node::isVisible() const
 	{
-		return this->_isEnabled;
+		return this->_visible;
 	}
 	bool Node::hasParent() const
 	{
@@ -77,12 +77,15 @@ namespace MB
 		// TODO: http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
 		this->_components[&typeid(*c)] = c;
 	}
-	void Node::setEnabled(const bool v)
+	void Node::setVisible(const bool flag, const bool applyToChildren)
 	{
-		this->_isEnabled = v;
-		for(auto& c: this->_children)
+		this->_visible = flag;
+		if (applyToChildren)
 		{
-			c->setEnabled(v);
+			for (auto& c : this->_children)
+			{
+				c->setVisible(flag, applyToChildren);
+			}
 		}
 	}
 	void Node::removeAll()

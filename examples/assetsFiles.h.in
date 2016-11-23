@@ -20,26 +20,10 @@
  *
  */
 
-#ifndef __MB_SHADER_FILES__
-#define __MB_SHADER_FILES__
+#ifndef __MB_ASSETS_FILES__
+#define __MB_ASSETS_FILES__
 
-#define MB_SHADER_FILES_FRACTALWORLD_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/fractalWorld.frag"
+#define MB_TEXTURE_ASSETS \
+	"@PROJECT_SOURCE_DIR@/examples"
 
-
-#define MB_SHADER_FILES_KALEIDOSCOPE_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/kaleidoscope.frag"
-
-
-#define MB_SHADER_FILES_MANGA_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/manga.frag"
-
-
-#define MB_SHADER_FILES_ADVENTION_FIRST_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/advention1.frag"
-
-
-#define MB_SHADER_FILES_ADVENTION_SECOND_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/advention2.frag"
-
-#endif /* __MB_SHADER_FILES__ */
+#endif /* __MB_ASSETS_FILES__ */

@@ -8,6 +8,10 @@ configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/shaderFiles.h.in
 	${CMAKE_CURRENT_BINARY_DIR}/shaderFiles.h )
 
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/assetsFiles.h.in
+	${CMAKE_CURRENT_BINARY_DIR}/assetsFiles.h )
+
 set( MBHELLOWORLD_HEADERS )
 set( MBHELLOWORLD_SOURCES helloWorld.cpp )
 set( MBHELLOWORLD_LINK_LIBRARIES
@@ -15,6 +19,16 @@ set( MBHELLOWORLD_LINK_LIBRARIES
 )
 
 common_application( mbHelloWorld )
+
+
+
+set( MBHELLOTEXTURE_HEADERS )
+set( MBHELLOTEXTURE_SOURCES helloTexture.cpp )
+set( MBHELLOTEXTURE_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbHelloTexture )
 
 
 set( MBHELLOSCENEGRAPH_HEADERS )
@@ -87,6 +101,26 @@ set( MBXOR_LINK_LIBRARIES
 )
 
 common_application( mbXor )
+
+
+set( MBADVENTION_HEADERS )
+set( MBADVENTION_SOURCES advention.cpp )
+set( MBADVENTION_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbAdvention )
+
+
+
+
+set( MBMANGA_HEADERS )
+set( MBMANGA_SOURCES manga.cpp )
+set( MBMANGA_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbManga )
 
 
 

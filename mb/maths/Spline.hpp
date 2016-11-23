@@ -67,6 +67,7 @@ namespace MB
 	*/
 	class Spline3D
 	{
+	public:
 		MB_API
 		Spline3D(InterpolationMode intpMode = InterpolationMode::catmullRom,
 			const std::vector<Vect3>& points = std::vector<Vect3>());

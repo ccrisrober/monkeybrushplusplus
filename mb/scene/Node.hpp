@@ -42,7 +42,7 @@ namespace MB
 		MB_API
 		Node(const std::string& name = "Node", const std::string& tag = "Untagged");
 		MB_API
-		bool isEnabled() const;
+		bool isVisible() const;
 		MB_API
 		bool hasParent() const;
 		MB_API
@@ -58,7 +58,7 @@ namespace MB
 		MB_API
 		void addComponent(Component* c);
 		MB_API
-		void setEnabled(const bool v);
+		void setVisible(const bool flag, const bool applyToChildren = false);
 		MB_API
 		void removeAll();
 		MB_API
@@ -87,6 +87,12 @@ namespace MB
 			str << n._name << " => " << n._id;
 			return str;
 		}
+
+		MB_API
+		std::string uuid() const
+		{
+			return _id;
+		}
 	private:
 		std::string _generateUUID() const;
 	protected:
@@ -97,7 +103,7 @@ namespace MB
 		std::string _id;
         Node* _parent;
         std::string _tag;
-        bool _isEnabled;
+        bool _visible;
 		Transform _transform;
 	};
 }

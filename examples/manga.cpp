@@ -20,26 +20,45 @@
  *
  */
 
-#ifndef __MB_SHADER_FILES__
-#define __MB_SHADER_FILES__
+#include <iostream>
+#include <mb/mb.h>
+#include <shaderFiles.h>
 
-#define MB_SHADER_FILES_FRACTALWORLD_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/fractalWorld.frag"
+MB::Engine* engine;
+MB::Scene* scene;
 
+void renderFunc(float dt);
 
-#define MB_SHADER_FILES_KALEIDOSCOPE_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/kaleidoscope.frag"
+MB::PostProcessMaterial* ppm;
 
+int main(void)
+{
+	MB::GLContext context(3, 3, 1024, 768, "Manga demo");
 
-#define MB_SHADER_FILES_MANGA_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/manga.frag"
+	engine = new MB::Engine(&context, false);
+	scene = new MB::Scene();
 
+	std::ifstream file(MB_SHADER_FILES_MANGA_FRAG);
+	std::stringstream buffer;
+	buffer << file.rdbuf();
 
-#define MB_SHADER_FILES_ADVENTION_FIRST_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/advention1.frag"
+	ppm = new MB::PostProcessMaterial(buffer.str().c_str());
+	
+	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
 
+	engine->run(renderFunc);
 
-#define MB_SHADER_FILES_ADVENTION_SECOND_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/advention2.frag"
+	delete(scene);
+	delete(engine);
 
-#endif /* __MB_SHADER_FILES__ */
+	return 0;
+}
+
+float globalTime = 0.0f;
+void renderFunc(float dt)
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	globalTime += dt;
+	ppm->uniform("iGlobalTime")->value(globalTime);
+	ppm->renderPP();
+}

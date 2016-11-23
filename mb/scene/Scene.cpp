@@ -50,7 +50,7 @@ namespace MB
 	}
 	void Scene::_subrender(Node* n, float dt)
 	{
-		if (!n->isEnabled())
+		if (!n->isVisible())
 		{
 			return;
 		}
