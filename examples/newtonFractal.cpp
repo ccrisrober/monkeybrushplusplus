@@ -98,29 +98,30 @@ int main(void)
 void renderFunc(float)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (MB::Input::isKeyPressed(GLFW_KEY_Z))
+
+	if (MB::Input2::KeyPressed(MB::Keyboard::Key::Z))
 	{
 		iter -= 1;
 		ppm->uniform("iter")->value(iter);
 	}
-	else if (MB::Input::isKeyPressed(GLFW_KEY_X))
+	if (MB::Input2::KeyPressed(MB::Keyboard::Key::X))
 	{
 		iter += 1;
 		ppm->uniform("iter")->value(iter);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_W))
+	if (MB::Input2::KeyPressed(MB::Keyboard::Key::W))
 	{
 		offsetY += 0.1f;
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_S))
+	if (MB::Input2::KeyPressed(MB::Keyboard::Key::S))
 	{
 		offsetY -= 0.1f;
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_A))
+	if (MB::Input2::KeySinglePressed(MB::Keyboard::Key::A))
 	{
 		offsetX -= 0.1f;
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_D))
+	if (MB::Input2::KeySinglePressed(MB::Keyboard::Key::D))
 	{
 		offsetX += 0.1f;
 	}

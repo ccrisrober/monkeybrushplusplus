@@ -38,52 +38,21 @@ namespace MB
         , _height(height)
         , _title(title)
     {
-        if (!glfwInit())
-        {
-            throw "Failed to initialise GLFW";
-        }
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minVersion);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, maxVersion);
-        glfwWindowHint(GLFW_SAMPLES, 4);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-		std::cout << "OpenGL context version: (" << minVersion << ", " << maxVersion << ")" << std::endl;
-
-        this->_window = glfwCreateWindow(_width, _height, title, nullptr, nullptr);
-
-        if (_window == nullptr)
-	    {
-            glfwTerminate();
-            throw "Failed to create window with GLFW.";
-	    }
-
-
-		//glfwSetInputMode(_window, GLFW_STICKY_KEYS, GL_TRUE);
-		glfwMakeContextCurrent(_window);
-
-        // Initialize GLEW to setup the OpenGL Function pointers
-        glewExperimental = (GLboolean) true;
-        if (glewInit() != GLEW_OK)
-        {
-            glfwTerminate();
-            throw "Failed to initialise GLEW";
-        }
+		MB::WindowParams wp(width, height);
+		wp.title = title;
+		_window = new MB::GLFWWindow2(wp);
+		_window->init();
 
 		Input::init();
 
 		_state = new GlobalState();
 
-		/*std::function<void(GLFWwindow*, int, int, int)> mouseCallback([=](GLFWwindow*, int button, int action, int) {
-		});
-		std::function<void(GLFWwindow*, double, double)> scrollCallback([=](GLFWwindow*, double xoff, double yoff) {
-		});
-		std::function<void(GLFWwindow*, int, int, int, int)> keyCallback([=](GLFWwindow*, int key, int, int action, int) {
-		});*/
-		glfwSetKeyCallback(getWindow(), &key_callback);
-		glfwSetMouseButtonCallback(getWindow(), &mouse_button_callback);
+		GLFWwindow* window = (GLFWwindow*)_window->getWindow();
+
+		//glfwSetKeyCallback(window, &key_callback);
+		//glfwSetMouseButtonCallback(window, &mouse_button_callback);
 	}
-	GLFWwindow* GLContext::getWindow() const
+	Window* GLContext::getWindow() const
 	{
 		return this->_window;
 	}

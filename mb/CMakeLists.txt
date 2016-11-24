@@ -96,6 +96,16 @@ set( MB_PUBLIC_HEADERS
     Includes.hpp
     Helpers.hpp
     SimpleCamera.hpp
+
+    MB.hpp
+
+
+
+    core/os.hpp
+    io/Mouse.hpp
+    io/Keyboard.hpp
+    io/Input2.hpp
+    io/Window.hpp
 )
 
 set( MB_HEADERS )
@@ -181,6 +191,10 @@ set( MB_SOURCES
     textures/Texture3D.cpp
 
     Helpers.cpp
+
+    io/Input2.cpp
+    io/Window.cpp
+
     #main.cpp
 )
 

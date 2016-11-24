@@ -29,6 +29,10 @@
 #include "Input.hpp"
 #include "GlobalState.hpp"
 
+
+#include "../io/Window.hpp"
+
+
 namespace MB
 {
 	class GLContext
@@ -39,11 +43,11 @@ namespace MB
                   unsigned int width = 500, unsigned int height = 500,
                   const char* title = "Hello MB");
         MB_API
-		GLFWwindow* getWindow() const;
+		Window* getWindow() const;
         MB_API
         void close()
         {
-			glfwSetWindowShouldClose(_window, GLFW_TRUE);
+			//glfwSetWindowShouldClose(_window, GLFW_TRUE);
             //glfwTerminate();
         }
         MB_API
@@ -51,11 +55,11 @@ namespace MB
         {
             if (fullName)
             {
-                glfwSetWindowTitle(_window, (std::string(_title) + std::string(" - ") + std::string(title)).c_str());
+				_window->setTitle((std::string(_title) + std::string(" - ") + std::string(title)).c_str());
             }
             else
             {
-                glfwSetWindowTitle(_window, title);
+				_window->setTitle(title);
             }
         }
         MB_API
@@ -94,10 +98,12 @@ namespace MB
         unsigned int _maxVersion;
         unsigned int _width;
         unsigned int _height;
-		GLFWwindow* _window;
+		//GLFWwindow* _window;
         std::string _title;
 
 		GlobalState* _state;
+
+		Window* _window;
 	};
 }
 

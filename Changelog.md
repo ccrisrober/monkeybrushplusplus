@@ -3,3 +3,4 @@
 - (23/11) Añadido addLights(Light* l) y std::vector<Light> lights()
 - (23/11) Comprobado si añ añadir un hijo ya existe el mismo nodo dentro.
 - (23/11) Añadido método traverse a node. Traverse(std::function<void(Node*)>);
+- (24/11) Added io directory with input2, keyboard, mouse and window.

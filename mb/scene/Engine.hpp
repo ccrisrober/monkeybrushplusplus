@@ -30,6 +30,9 @@
 #include "../core/GLContext.hpp"
 #include "../maths/Vect4.hpp"
 
+
+#include "../io/Window.hpp"
+
 namespace MB
 {
 	class Engine

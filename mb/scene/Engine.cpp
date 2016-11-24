@@ -21,6 +21,7 @@
  */
 
 #include "Engine.hpp"
+#include "../io/Input2.hpp"
 #include "../core/Input.hpp"
 #include <string>
 
@@ -56,7 +57,7 @@ namespace MB
 	, lastFrame(0.0f)
 	, _debugLayer(debugLayer)
 	{
-		// TODO: INIT Input
+		Input2::initialize();
 	}
 	void Engine::run(std::function<void(float)> loop)
 	{
@@ -67,13 +68,14 @@ namespace MB
 		this->state()->depth.setStatus(true);
 		this->state()->culling.setStatus(true);
 		
-		while (!glfwWindowShouldClose(this->_context->getWindow( )))
+		while (this->_context->getWindow()->isRunning())
         {
             this->_context->setTitle(std::to_string(calcFPS()).c_str(), true);
 
-			glfwPollEvents();
+			this->_context->getWindow()->pollEvents();
 
-			MB::Input::update();
+			MB::Input2::update();
+			
 			currentFrame = glfwGetTime();
 			deltaTime = currentFrame - lastFrame;
 			lastFrame = currentFrame;  
@@ -83,8 +85,8 @@ namespace MB
 			{
 				check_gl_error();
 			}
-
-	        glfwSwapBuffers(this->_context->getWindow());
+			
+			this->_context->getWindow()->swapBuffers();
 	    }
 	}
 
