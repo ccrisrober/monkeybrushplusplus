@@ -97,6 +97,7 @@ set( MB_PUBLIC_HEADERS
     Helpers.hpp
     SimpleCamera.hpp
 
+    Macros.hpp
     MB.hpp
 
 

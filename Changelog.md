@@ -4,3 +4,4 @@
 - (23/11) Comprobado si añ añadir un hijo ya existe el mismo nodo dentro.
 - (23/11) Añadido método traverse a node. Traverse(std::function<void(Node*)>);
 - (24/11) Added io directory with input2, keyboard, mouse and window.
+- (24/11) Added Macros file for automatic getter and setter. Added thirds-resources (iniReader)
