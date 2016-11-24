@@ -39,6 +39,7 @@ namespace MB
 		bool debugWindowEvents;
 		unsigned int minVersion;
 		unsigned int maxVersion;
+		//bool resizable;
 
 		WindowParams(int width_, int height_)
 		{
@@ -49,6 +50,7 @@ namespace MB
 			this->debugWindowEvents = true;
 			this->minVersion = 3;
 			this->maxVersion = 3;
+			//this->resizable = true;
 		}
 	};
 
@@ -69,6 +71,51 @@ namespace MB
 		WindowParams _params;
 	};
 
+	/*class GlutWindow: public Window
+	{
+		void* getWindow()
+		{
+			return this->_handle;
+		}
+		GlutWindow(const WindowParams& params)
+			: MB::Window(params)
+		{
+			_handle = nullptr;
+		}
+		virtual ~GlutWindow() {
+			glutDestroyWindow(0);
+		}
+		virtual void setTitle(const char* title)
+		{
+			glutSetWindowTitle(title);
+		}
+		virtual bool init()
+		{
+			glutInit();
+    		glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+    		glutInitWindowSize(_params.width, _params.height_);
+    		glutCreateWindow(_params.title);
+		}
+
+		virtual bool isRunning()
+		{
+			return true;
+		}
+		virtual void pollEvents()
+		{
+		}
+		virtual void close()
+		{
+			glutDestroyWindow(0);
+		}
+		virtual void swapBuffers()
+		{
+			glutSwapBuffers();
+		}
+	protected:
+		void* _handle;
+	};*/
+
 	class GLFWWindow2 : public Window
 	{
 	public:
@@ -82,7 +129,8 @@ namespace MB
 		{
 			_handle = nullptr;
 		}
-		virtual ~GLFWWindow2() {
+		virtual ~GLFWWindow2()
+		{
 			glfwTerminate();
 		}
 		virtual void setTitle(const char* title)
@@ -91,16 +139,19 @@ namespace MB
 		}
 		virtual bool init();
 
-		virtual bool isRunning() {
+		virtual bool isRunning()
+		{
 			return glfwWindowShouldClose(_handle) == 0;
 		}
 		virtual void pollEvents() {
 			glfwPollEvents();
 		}
-		virtual void close() {
+		virtual void close()
+		{
 			glfwTerminate();
 		}
-		virtual void swapBuffers() {
+		virtual void swapBuffers()
+		{
 			glfwSwapBuffers(_handle);
 		}
 	protected:

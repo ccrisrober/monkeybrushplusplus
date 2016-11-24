@@ -35,7 +35,8 @@ namespace MB
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, _params.maxVersion);
 		glfwWindowHint(GLFW_SAMPLES, 4);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+		// TODO: glfwWindowHint(GLFW_RESIZABLE, _params.resizable);
+		glfwWindowHint(GLFW_RESIZABLE, false);
 
 		std::cout << "OpenGL context version: (" << _params.minVersion << ", " << _params.maxVersion << ")" << std::endl;
 
@@ -58,7 +59,7 @@ namespace MB
 			throw "Failed to initialise GLEW";
 		}
 
-		glfwSetKeyCallback(_handle, [](GLFWwindow* window, int key, int, int action, int)
+		glfwSetKeyCallback(_handle, [](GLFWwindow*, int key, int, int action, int)
 		{
 			if (action == GLFW_PRESS)
 			{
@@ -70,17 +71,17 @@ namespace MB
 			}
 		});
 
-		glfwSetCursorPosCallback(_handle, [](GLFWwindow* window, double xpos, double ypos)
+		glfwSetCursorPosCallback(_handle, [](GLFWwindow*, double xpos, double ypos)
 		{
 			static_cast<GLFWMouse*>(Input2::Mouse())->onMouseMove(static_cast<int>(xpos), static_cast<int>(ypos));
 		});
 
-		glfwSetMouseButtonCallback(_handle, [](GLFWwindow* window, int button, int action, int mods)
+		glfwSetMouseButtonCallback(_handle, [](GLFWwindow*, int button, int action, int)
 		{
 			static_cast<GLFWMouse*>(Input2::Mouse())->onMouseButtonEvent(button, action);
 		});
 
-		glfwSetScrollCallback(_handle, [](GLFWwindow* window, double xoffset, double yoffset)
+		glfwSetScrollCallback(_handle, [](GLFWwindow*, double xoffset, double yoffset)
 		{
 			static_cast<GLFWMouse*>(Input2::Mouse())->onMouseWheelEvent(static_cast<int>(xoffset), static_cast<int>(yoffset));
 		});

@@ -26,6 +26,8 @@
 #if defined(WIN32)
 	#include <direct.h>
 	//#include <windows.h>
+#else
+	#include <sys/stat.h>
 #endif
 
 #include <mb/api.h>
@@ -56,7 +58,7 @@ namespace MB
 			return aux;
 		}
 		MB_API
-		static bool isdir(const std::string& p)
+		static bool isdir(const std::string& /*p*/)
 		{
 			/*std::string _path = path(p);
 			#if defined(WIN32)

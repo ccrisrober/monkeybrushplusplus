@@ -22,7 +22,6 @@
 
 #include "Engine.hpp"
 #include "../io/Input2.hpp"
-#include "../core/Input.hpp"
 #include <string>
 
 #define check_gl_error() _check_gl_error(__FILE__,__LINE__)

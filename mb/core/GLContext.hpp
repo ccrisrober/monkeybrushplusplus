@@ -26,12 +26,9 @@
 #include <mb/api.h>
 
 #include "../Includes.hpp"
-#include "Input.hpp"
 #include "GlobalState.hpp"
 
-
 #include "../io/Window.hpp"
-
 
 namespace MB
 {
@@ -76,22 +73,6 @@ namespace MB
 		GlobalState* state()
 		{
 			return this->_state;
-		}
-	private:
-		static void mouse_button_callback(GLFWwindow*, int /*button*/, int /*action*/, int)
-		{
-			//if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
-		}
-		static void key_callback(GLFWwindow*, int key, int, int action, int)
-		{
-			if (action == GLFW_PRESS || action == GLFW_REPEAT)
-			{
-				Input::_onKeyDown(key);
-			}
-			else if (action == GLFW_RELEASE)
-			{
-				Input::_onKeyUp(key);
-			}
 		}
 	protected:
         unsigned int _minVersion;

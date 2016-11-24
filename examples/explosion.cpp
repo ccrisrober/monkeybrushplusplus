@@ -153,7 +153,7 @@ void renderFunc(float dt)
 	material->uniform("time")->value(globalTime);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (MB::Input::isKeyPressed(GLFW_KEY_ESCAPE))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;

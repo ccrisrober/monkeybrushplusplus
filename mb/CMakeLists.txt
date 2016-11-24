@@ -14,7 +14,7 @@ set( MB_PUBLIC_HEADERS
     core/GeometryFunctions.hpp
     core/GLContext.hpp
     core/GlobalState.hpp
-    core/Input.hpp
+    #core/Input.hpp
     core/Log.hpp
     core/PostProcess.hpp
     core/Program.hpp
@@ -101,7 +101,7 @@ set( MB_PUBLIC_HEADERS
 
 
 
-    core/os.hpp
+    #core/os.hpp
     io/Mouse.hpp
     io/Keyboard.hpp
     io/Input2.hpp
@@ -116,7 +116,7 @@ set( MB_SOURCES
     core/Color4.cpp
     core/Framebuffer.cpp
     core/GLContext.cpp
-    core/Input.cpp
+    #core/Input.cpp
     core/Log.cpp
     core/PostProcess.cpp
     core/Program.cpp
@@ -192,7 +192,9 @@ set( MB_SOURCES
 
     Helpers.cpp
 
+    io/Mouse.cpp
     io/Input2.cpp
+    io/Keyboard.cpp
     io/Window.cpp
 
     #main.cpp

@@ -81,11 +81,11 @@ void renderFunc(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	globalTime += dt;
 	ppm->uniform("iGlobalTime")->value(globalTime);
-	if (MB::Input::isKeyPressed(GLFW_KEY_Z))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Z))
 	{
 		ppm->uniform("useColor")->value(false);
 	}
-	else if (MB::Input::isKeyPressed(GLFW_KEY_X))
+	else if (MB::Input2::isKeyPressed(MB::Keyboard::Key::X))
 	{
 		ppm->uniform("useColor")->value(true);
 	}

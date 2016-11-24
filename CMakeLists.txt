@@ -27,6 +27,12 @@ set(COMMON_PROJECT_DOMAIN maldicion069)
 
 include(Common)
 
+
+
+# Allow warnings
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+
+
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
 common_find_package( Boost COMPONENTS unit_test_framework )
@@ -47,27 +53,6 @@ add_subdirectory(examples)
 if(${Boost_FOUND})
 	add_subdirectory(tests)
 endif()
-
-#set(PROJECT_VERSION_ABI ${${PROJECT_NAME}_VERSION_ABI})
-
-# Allow warnings
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
-
-
-
-#if(WIN32)
-#	set(GLEW_INCLUDE_DIR "c:/libs/glew-2.0.0/include")
-#	set(GLEW_LIBRARY "c:/libs/glew-2.0.0/lib/Release/Win32/glew32.lib")
-#endif()
-
-
-#set( PROJECT_INCLUDE_NAME MonkeyBrushPlusPlus )
-
-
-#install( FILES ${PROJECT_BINARY_DIR}/include/MonkeyBrusPlusPlus/defines.h
-#	DESTINATION include/MonkeyBrusPlusPlus )
-#install( FILES ${PROJECT_BINARY_DIR}/include/MonkeyBrusPlusPlus/defines${SYSTEM}.h
-#	DESTINATION include/MonkeyBrusPlusPlus )
 
 # include(CPackConfig)
 # include(DoxygenRule)

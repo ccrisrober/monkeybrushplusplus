@@ -24,7 +24,6 @@
 
 #include "../Includes.hpp"
 
-#include "Input.hpp"
 #include <functional>
 
 namespace MB
@@ -43,14 +42,7 @@ namespace MB
 		_window = new MB::GLFWWindow2(wp);
 		_window->init();
 
-		Input::init();
-
 		_state = new GlobalState();
-
-		GLFWwindow* window = (GLFWwindow*)_window->getWindow();
-
-		//glfwSetKeyCallback(window, &key_callback);
-		//glfwSetMouseButtonCallback(window, &mouse_button_callback);
 	}
 	Window* GLContext::getWindow() const
 	{

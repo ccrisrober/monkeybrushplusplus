@@ -86,40 +86,40 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (MB::Input::isKeyPressed(GLFW_KEY_ESCAPE))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_Z))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Z))
 	{
 		engine->state()->depth.setStatus(false);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_X))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::X))
 	{
 		engine->state()->depth.setStatus(true);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_K))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::K))
 	{
 		engine->state()->culling.setStatus(false);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_L))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::L))
 	{
 		engine->state()->culling.setStatus(true);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_M))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::M))
 	{
 		engine->state()->setPolygonMode(GL_FILL);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_N))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::N))
 	{
 		engine->state()->setPolygonMode(GL_LINE);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_1))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Num1))
 	{
 		engine->state()->culling.setFlipSided(GL_CCW);
 	}
-	if (MB::Input::isKeyClicked(GLFW_KEY_2))
+	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Num2))
 	{
 		engine->state()->culling.setFlipSided(GL_CW);
 	}

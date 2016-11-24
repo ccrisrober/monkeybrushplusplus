@@ -39,9 +39,9 @@ namespace MB
 		static MB::Keyboard* Keyboard();
 		static MB::Mouse* Mouse();
 		MB_API
-		static bool KeyPressed(Keyboard::Key key);
+		static bool isKeyPressed(Keyboard::Key key);
 		MB_API
-		static bool KeySinglePressed(Keyboard::Key key);
+		static bool isKeyClicked(Keyboard::Key key);
 		MB_API
 		static bool KeyReleased(Keyboard::Key key);
 		MB_API

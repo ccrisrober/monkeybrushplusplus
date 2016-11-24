@@ -26,7 +26,7 @@
 #include "maths/Mathf.hpp"
 #include "maths/Vect3.hpp"
 #include "maths/Mat4.hpp"
-#include "core/Input.hpp"
+#include "io/Input2.hpp"
 
 namespace MB
 {
@@ -80,49 +80,49 @@ namespace MB
 
             float speed = 1.0f;
 
-            if (Input::isKeyPressed(GLFW_KEY_LEFT_SHIFT))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::LShift))
 			{
                 speed = 2.5f;
             }
 
-            if (Input::isKeyPressed(GLFW_KEY_W))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::W))
 			{
 				//std::cout << "CAMERA POSITION: " << this->GetPos().x() << ", " << this->GetPos().y() << ", " << this->GetPos().z() << std::endl;
                 this->processKeyboard(4, speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_S))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::S))
 			{
                 this->processKeyboard(5, speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_A))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::A))
 			{
                 this->processKeyboard(2, speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_D))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::D))
 			{
                 this->processKeyboard(3, speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_E))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::E))
 			{
                 this->processKeyboard(0, speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_Q))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::Q))
 			{
                 this->processKeyboard(1, speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_UP))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::Up))
 			{
                 this->processMouseMovement(0.0f, 2.5f * speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_DOWN))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::Down))
 			{
                 this->processMouseMovement(0.0f, -2.5f * speed);
             }
-            if (Input::isKeyPressed(GLFW_KEY_LEFT))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::Left))
 			{
                 this->processMouseMovement(-2.5f * speed, 0.0f);
             }
-            if (Input::isKeyPressed(GLFW_KEY_RIGHT))
+            if (Input2::isKeyPressed(MB::Keyboard::Key::Right))
 			{
                 this->processMouseMovement(2.5f * speed, 0.0f);
             }

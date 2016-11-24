@@ -48,12 +48,12 @@ namespace MB
 		auto input = Input2::instance();
 		return input->_mouse;
 	}
-	bool Input2::KeyPressed(Keyboard::Key key)
+	bool Input2::isKeyPressed(Keyboard::Key key)
 	{
 		auto input = Input2::instance();
 		return input->_keyboard->keyPress(key);
 	}
-	bool Input2::KeySinglePressed(Keyboard::Key key)
+	bool Input2::isKeyClicked(Keyboard::Key key)
 	{
 		auto input = Input2::instance();
 		return input->_keyboard->singleKeyPress(key);
