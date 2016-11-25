@@ -186,3 +186,13 @@ set( MBCOLORBLIND_LINK_LIBRARIES
 
 common_application( mbColorBlind )
 
+
+
+set( MBTEST1_HEADERS )
+set( MBTEST1_SOURCES test1.cpp )
+set( MBTEST1_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbTest1 )
+

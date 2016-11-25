@@ -20,35 +20,47 @@
 *
 */
 
-#ifndef __MB_PERSPECTIVE_CAMERA__
-#define __MB_PERSPECTIVE_CAMERA__
-
-#include <mb/api.h>
-
 #include "Camera.hpp"
-#include <iostream>
 
 namespace MB
 {
-	class PerspectiveCamera: public Camera
+	Camera::Camera(float near_, float far_)
+		: _near(near_)
+		, _far(far_)
 	{
-	public:
-		MB_API
-		PerspectiveCamera(float fov_ = 45.0f, 
-			float aspect_ = 1.0f, float near_ = 0.1f, 
-			float far_ = 1000.0f);
-		MB_API
-		friend std::ostream& operator <<(std::ostream& os, 
-			const PerspectiveCamera& o);
-		MB_API
-		void setWindowSize(int width, int height);
-		MB_API
-		void fov(float fov_);
-	protected:
-		virtual void updateProjectionMatrix();
-		float _fov;
-		float _aspect;
-	};
+	}
+	Mat4 Camera::projectionMatrix() const
+	{
+		return this->_projectionMatrix;
+	}
+	Mat4 Camera::viewMatrix() const
+	{
+		return this->_viewMatrix;
+	}
+	Transform& Camera::transform()
+	{
+		return this->_transform;
+	}
+	void Camera::setNearFar(float near, float far)
+	{
+		this->_near = near;
+		this->_far = far;
+		updateProjectionMatrix();
+	}
+	float Camera::near() const {
+		return this->_near;
+	}
+	void Camera::near(float near)
+	{
+		this->_near = near;
+		updateProjectionMatrix();
+	}
+	float Camera::far() const {
+		return this->_far;
+	}
+	void Camera::far(float far)
+	{
+		this->_far = far;
+		updateProjectionMatrix();
+	}
 }
-
-#endif /* __MB_PERSPECTIVE_CAMERA__ */

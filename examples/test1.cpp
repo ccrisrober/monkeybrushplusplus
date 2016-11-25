@@ -20,34 +20,43 @@
  *
  */
 
-#include "GLContext.hpp"
+#include <iostream>
+#include <mb/mb.h>
+#include <vector>
 
-#include "../Includes.hpp"
+MB::Engine* engine;
+MB::Scene* scene;
 
-#include <functional>
+void renderFunc(float dt);
 
-namespace MB
+int main(void)
 {
-    GLContext::GLContext(unsigned int maxVersion, unsigned int minVersion,
-                         unsigned int width, unsigned int height,
-                         const char* title)
-		: _minVersion(minVersion)
-		, _maxVersion(maxVersion)
-        , _width(width)
-        , _height(height)
-        , _title(title)
-    {
-		MB::WindowParams wp(width, height);
-		wp.title = title;
-		wp.minVersion = minVersion;
-		wp.maxVersion = maxVersion;
-		_window = new MB::GLFWWindow2(wp);
-		_window->init();
+    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
-		_state = new GlobalState();
-	}
-	Window* GLContext::getWindow() const
-	{
-		return this->_window;
-	}
+    engine = new MB::Engine(&context, false);
+	scene = new MB::Scene(engine);
+
+	auto camera = new MB::PerspectiveCamera(90.0f, 1.0, 0.01f, 1000.0f);
+
+	camera->setWindowSize(context.getWidth(), context.getHeight());
+
+	auto view = camera->viewMatrix();
+	auto proj = camera->projectionMatrix();
+	camera->transform().position().set(0.0f, 1.5f, 5.5f);
+	camera->transform().rotation().set(0.0f, 1.0f, 0.0f);
+	view = camera->viewMatrix();
+
+	MB::Drawable* geom;
+	MB::Material* material;
+	auto particles = new MB::ParticleSystem(geom, material);
+
+	engine->run(renderFunc);
+    
+	delete(scene);
+	delete(engine);
+
+    return 0;
+}
+void renderFunc(float)
+{
 }

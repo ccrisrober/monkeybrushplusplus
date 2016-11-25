@@ -73,6 +73,10 @@ namespace MB
 		unsigned int sizeOrientation; // InvClockWise
 		bool depthTest = true;
 		bool visible = true;
+
+		bool blending;
+		unsigned int blendSrc;
+		unsigned int blendDst;
 	protected:
 		TUniforms _uniforms;
         Program _program;

@@ -20,35 +20,36 @@
 *
 */
 
-#ifndef __MB_PERSPECTIVE_CAMERA__
-#define __MB_PERSPECTIVE_CAMERA__
-
-#include <mb/api.h>
-
-#include "Camera.hpp"
-#include <iostream>
+#include "OrthographicCamera.hpp"
 
 namespace MB
 {
-	class PerspectiveCamera: public Camera
+	OrthographicCamera::OrthographicCamera(float left_, 
+		float right_, float top_, float bottom_, float near_, 
+		float far_)
+	: Camera(near_, far_)
+	, left(left_)
+	, right(right_)
+	, top(top_)
+	, bottom(bottom_)
 	{
-	public:
-		MB_API
-		PerspectiveCamera(float fov_ = 45.0f, 
-			float aspect_ = 1.0f, float near_ = 0.1f, 
-			float far_ = 1000.0f);
-		MB_API
-		friend std::ostream& operator <<(std::ostream& os, 
-			const PerspectiveCamera& o);
-		MB_API
-		void setWindowSize(int width, int height);
-		MB_API
-		void fov(float fov_);
-	protected:
-		virtual void updateProjectionMatrix();
-		float _fov;
-		float _aspect;
-	};
+		updateProjectionMatrix();
+	}
+	std::ostream& operator << (std::ostream& os, const OrthographicCamera& o)
+	{
+		os << "OrthographicCamera (" << std::endl;
+		os << "\tLEFT  : " << o.left << std::endl;
+		os << "\tRIGHT : " << o.right << std::endl;
+		os << "\tTOP  : " << o.top << std::endl;
+		os << "\tBOTTOM : " << o.bottom << std::endl;
+		os << "\tNEAR  : " << o._near << std::endl;
+		os << "\tFAR   : " << o._far << std::endl;
+		os << ")";
+		return os;
+	}
+	void OrthographicCamera::updateProjectionMatrix()
+	{
+		_projectionMatrix = Mat4::orthographic(left, right, 
+			bottom, top, _near, _far);
+	}
 }
-
-#endif /* __MB_PERSPECTIVE_CAMERA__ */

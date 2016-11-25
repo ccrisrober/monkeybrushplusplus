@@ -1,9 +1,9 @@
 source_group(\\ FILES CMakeLists.txt)
 
 set( MB_PUBLIC_HEADERS
-    # cameras/Camera.hpp
-    # cameras/PerspectiveCamera.hpp
-    # cameras/OrthographicCamera.hpp
+    cameras/Camera.hpp
+    cameras/PerspectiveCamera.hpp
+    cameras/OrthographicCamera.hpp
 
     constants/Constants.hpp
 
@@ -26,6 +26,7 @@ set( MB_PUBLIC_HEADERS
     extras/CustomPingPong.hpp
     extras/Easing.hpp
     extras/EventDispatcher.hpp
+    extras/ParticleSystem.hpp
     extras/Ray.hpp
 
     lights/AmbientLight.hpp
@@ -113,6 +114,10 @@ set( MB_PUBLIC_HEADERS
 set( MB_HEADERS )
 
 set( MB_SOURCES
+    cameras/Camera.cpp
+    cameras/PerspectiveCamera.cpp
+    cameras/OrthographicCamera.cpp
+
     core/BufferAttribute.cpp
     core/Color3.cpp
     core/Color4.cpp

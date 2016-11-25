@@ -36,7 +36,7 @@ namespace MB
 	{
 	public:
         MB_API
-        GLContext(unsigned int minVersion = 3, unsigned int maxVersion = 3,
+        GLContext(unsigned int maxVersion = 3, unsigned int minVersion = 3,
                   unsigned int width = 500, unsigned int height = 500,
                   const char* title = "Hello MB");
         MB_API
