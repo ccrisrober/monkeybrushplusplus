@@ -34,7 +34,7 @@ void renderFunc(float dt);
 
 
 
-#include <regex>
+/*#include <regex>
 #include <map>
 #include <string>
 std::map<std::string, std::string> trozos;
@@ -44,7 +44,6 @@ std::string _processImports(const std::string& src)
 
 	std::string s(src);
 	std::smatch m;
-	const char* rg = "/#import<(.+)>(\\[(.*)\\])*(\\((.*)\\))*/g";
 	std::regex regex(rg, std::tr1::regex_constants::extended);
 	while (std::regex_search(s, m, regex))
 	{
@@ -65,7 +64,7 @@ void trozitos() {
 	std::string shader = "#import<prueba>";
 	std::string code = _processImports(shader);
 	std::cout << code << std::endl;
-}
+}*/
 
 
 
@@ -80,7 +79,7 @@ void trozitos() {
 
 int main(void)
 {
-	trozitos();
+	//trozitos();
 	//MB::LOG::headers = false;
 	//MB::LOG::level = MB::LOG::INFO;
 	//MB::LOG::date = true;

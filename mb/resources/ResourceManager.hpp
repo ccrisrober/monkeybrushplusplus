@@ -129,7 +129,7 @@ namespace MB
          */
         void asyncLoadFailed(const std::string& resName)
         {
-            std::cout << "ERROR" << std::endl;
+            std::cout << "ERROR loading " << resName << std::endl;
             --_numOutstandingLoads;
             _checkForAllLoadCompleted();
         }

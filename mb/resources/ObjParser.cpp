@@ -29,7 +29,7 @@ namespace MB
 	{
 	}
 
-	std::string ObjParser::loadFile( std::string& filename )
+	std::string ObjParser::loadFile( const std::string& filename )
 	{
 		std::ifstream file( filename.c_str( ) );
 		std::stringstream buffer;
@@ -91,9 +91,9 @@ namespace MB
 		return str.substr( first, ( last - first + 1 ) );
 	}
 
-	std::vector< int > ObjParser::splitFace( std::string& line )
+	std::vector< unsigned int > ObjParser::splitFace( std::string& line )
 	{
-		std::vector< int > values;
+		std::vector< unsigned int > values;
 		std::vector< std::string > _splitFace = split( line, '/' );
 
 		for ( std::string& face : _splitFace )
@@ -104,7 +104,7 @@ namespace MB
 		return values;
 	}
 
-	Model ObjParser::loadObj( std::string& filename, bool calculateTangAndBi )
+	Model ObjParser::loadObj( const std::string& filename, bool calculateTangAndBi )
 	{
 		Model m;
 		m.vertices.clear( );
@@ -160,7 +160,7 @@ namespace MB
 					}
 					else
 					{
-						std::vector< int > vertex = splitFace( elems[ j ] );
+						std::vector< unsigned int > vertex = splitFace( elems[ j ] );
 						auto v = ( vertex[0] - 1 ) * 3;
 						m.vertices.push_back( verts[ v ] );
 						m.vertices.push_back( verts[ v + 1 ] );

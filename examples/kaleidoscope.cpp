@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <mb/mb.h>
+#include <assetsFiles.h>
 #include <shaderFiles.h>
 
 MB::Engine* engine;
@@ -49,9 +50,16 @@ int main(void)
 	sides = 5.0f;
 	angle = 121.0f;
 
+	MB::TexOptions opts;
+	opts.wrapS = GL_MIRRORED_REPEAT;
+	opts.wrapT = GL_MIRRORED_REPEAT;
+	MB::Texture2D* tex = new MB::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));
+	tex->bind(0);
+
 	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
 	ppm->addUniform("sides", new MB::Uniform(MB::Float, sides));
 	ppm->addUniform("angle", new MB::Uniform(MB::Float, angle));
+	ppm->addUniform("tex", new MB::Uniform(MB::Integer, 0));
 
 	engine->run(renderFunc);
 
@@ -61,11 +69,20 @@ int main(void)
 	return 0;
 }
 
+bool play = true;
+
 float globalTime = 0.0f;
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	globalTime += dt;
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Space))
+	{
+		play = !play;
+	}
+	if (play)
+	{
+		globalTime += dt * 0.33f;
+	}
 	ppm->uniform("iGlobalTime")->value(globalTime);
 	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
 	{

@@ -51,6 +51,9 @@ namespace MB
 		float far() const;
 		MB_API
 		void far(float far);
+
+		MB_API
+		virtual ~Camera() {}
 	protected:
 		Mat4 _viewMatrix;
 		Mat4 _projectionMatrix;

@@ -187,14 +187,22 @@ namespace MB
 	template<typename ComponentType>
 	ComponentType* Node::getComponent()
 	{
-		if (_components.count(&typeid(ComponentType)) != 0)
+		/*if (_components.count(&typeid(ComponentType)) != 0)
 		{
 			return static_cast<ComponentType*>(_components[&typeid(ComponentType)]);
 		}
 		else
 		{
 			return nullptr;
+		}*/
+		for (const auto& comp: _components)
+		{
+			if (typeid(comp) == typeid(ComponentType))
+			{
+				return comp;
+			}
 		}
+		return nullptr;
 	}
 	std::vector<MB::Component*> Node::getComponents() const
 	{

@@ -196,3 +196,36 @@ set( MBTEST1_LINK_LIBRARIES
 
 common_application( mbTest1 )
 
+
+
+
+
+set( MBHELLOMESH_HEADERS )
+set( MBHELLOMESH_SOURCES helloMesh.cpp )
+set( MBHELLOMESH_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbHelloMesh )
+
+
+
+
+set( MBEVENTDISPATCHER_HEADERS )
+set( MBEVENTDISPATCHER_SOURCES eventDispatcher.cpp )
+set( MBEVENTDISPATCHER_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbEventDispatcher )
+
+
+
+set( MBSPHERICALHARMONICS_HEADERS )
+set( MBSPHERICALHARMONICS_SOURCES sphericalHarmonics.cpp )
+set( MBSPHERICALHARMONICS_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbSphericalHarmonics )
+

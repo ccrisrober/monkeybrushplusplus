@@ -66,6 +66,8 @@ set( MB_PUBLIC_HEADERS
     models/Cylinder.hpp
     models/Disc.hpp
     models/Drawable.hpp
+    models/Mesh.hpp
+    models/Polyhedron.hpp
     models/Prism.hpp
     models/Torus.hpp
 
@@ -93,13 +95,14 @@ set( MB_PUBLIC_HEADERS
     textures/Texture2DArray.hpp
     textures/Texture3D.hpp
 
+    utils/NonCopyable.hpp
     utils/any.hpp
+    utils/macros.hpp
 
     Includes.hpp
     Helpers.hpp
     SimpleCamera.hpp
 
-    Macros.hpp
     MB.hpp
 
 

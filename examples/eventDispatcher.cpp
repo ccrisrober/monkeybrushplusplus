@@ -22,42 +22,26 @@
 
 #include <iostream>
 #include <mb/mb.h>
-#include <vector>
 
-MB::Engine* engine;
-MB::Scene* scene;
+class Button: public MB::EventDispatcher
+{
+public:
+	Button() {}
 
-void renderFunc(float dt);
+	/*void dispose()
+	{
+		dispatchEvent("dispose");
+	}*/
+	void randomEvent(const MB::Event& /*ev*/)
+	{
+	}
+};
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
-
-    engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
-
-	auto camera = new MB::PerspectiveCamera(90.0f, 1.0, 0.01f, 1000.0f);
-
-	camera->setWindowSize(context.getWidth(), context.getHeight());
-
-	auto view = camera->viewMatrix();
-	auto proj = camera->projectionMatrix();
-	camera->transform().position().set(0.0f, 1.5f, 5.5f);
-	camera->transform().rotation().set(0.0f, 1.0f, 0.0f);
-	view = camera->viewMatrix();
-
-	MB::Drawable* geom = nullptr;
-	MB::Material* material = nullptr;
-	auto particles = new MB::ParticleSystem(geom, material);
-	particles->sort(true);
-
-	engine->run(renderFunc);
-    
-	delete(scene);
-	delete(engine);
+    //Button bt;
+    //bt.dispose();
+    //bt.addEventListener("click", EventListener)
 
     return 0;
-}
-void renderFunc(float)
-{
 }

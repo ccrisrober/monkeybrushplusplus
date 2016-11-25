@@ -35,6 +35,11 @@ namespace MB
 		MB_API
 		BufferAttribute(std::vector<float> arr, unsigned int size);
 		MB_API
+		void array(const std::vector<float> arr)
+		{
+			this->_arr = arr;
+		}
+		MB_API
         unsigned int size() const;
 		MB_API
         std::vector<float> array() const;
