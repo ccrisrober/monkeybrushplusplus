@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <mb/mb.h>
+#include <assetsFiles.h>
 #include <shaderFiles.h>
 
 MB::Engine* engine;
@@ -33,18 +34,23 @@ MB::PostProcessMaterial* ppm;
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 1024, 768, "Fractal world demo");
+	MB::GLContext context(3, 3, 1024, 768, "Color Blind demo");
 
 	engine = new MB::Engine(&context, false);
 	scene = new MB::Scene(engine);
 
-	std::ifstream file(MB_SHADER_FILES_FRACTALWORLD_FRAG);
+	std::ifstream file(MB_SHADER_FILES_COLOR_BLIND_FRAG);
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 
 	ppm = new MB::PostProcessMaterial(buffer.str().c_str());
 
-	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
+	MB::TexOptions opts;
+	MB::Texture2D* tex = new MB::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));
+	tex->bind(0);
+
+	ppm->addUniform("tex", new MB::Uniform(MB::Integer, 0));
+	ppm->addUniform("mode", new MB::Uniform(MB::Integer, 0));
 
 	engine->run(renderFunc);
 
@@ -54,11 +60,24 @@ int main(void)
 	return 0;
 }
 
-float globalTime = 0.0f;
-void renderFunc(float dt)
+void renderFunc(float)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	globalTime += dt;
-	ppm->uniform("iGlobalTime")->value(globalTime);
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num1))
+	{
+		ppm->uniform("mode")->value(0);
+	}
+	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num2))
+	{
+		ppm->uniform("mode")->value(1);
+	}
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num3))
+	{
+		ppm->uniform("mode")->value(2);
+	}
+	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num4))
+	{
+		ppm->uniform("mode")->value(3);
+	}
 	ppm->renderPP();
 }

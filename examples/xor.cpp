@@ -35,7 +35,7 @@ int main(void)
 	MB::GLContext context(3, 3, 1024, 768, "XOR demo");
 
 	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	ppm = new MB::PostProcessMaterial(
 		"#version 330\n"

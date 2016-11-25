@@ -73,6 +73,7 @@ set( MB_PUBLIC_HEADERS
     resources/MaterialCache.hpp
     resources/ObjParser.hpp
     resources/ResourceDrawable.hpp
+    resources/ResourceManager.hpp
     resources/ResourceShader.hpp
 
     scene/Component.hpp

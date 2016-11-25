@@ -119,37 +119,47 @@ namespace MB
 	class GLFWWindow2 : public Window
 	{
 	public:
+		MB_API
 		void* getWindow()
 		{
 			return this->_handle;
 		}
 
+		MB_API
 		GLFWWindow2(const WindowParams& params)
 			: MB::Window(params)
 		{
 			_handle = nullptr;
 		}
+		MB_API
 		virtual ~GLFWWindow2()
 		{
 			glfwTerminate();
 		}
+		MB_API
 		virtual void setTitle(const char* title)
 		{
 			glfwSetWindowTitle(_handle, title);
 		}
+		MB_API
 		virtual bool init();
 
+		MB_API
 		virtual bool isRunning()
 		{
 			return glfwWindowShouldClose(_handle) == 0;
 		}
-		virtual void pollEvents() {
+		MB_API
+		virtual void pollEvents()
+		{
 			glfwPollEvents();
 		}
+		MB_API
 		virtual void close()
 		{
 			glfwTerminate();
 		}
+		MB_API
 		virtual void swapBuffers()
 		{
 			glfwSwapBuffers(_handle);

@@ -107,12 +107,19 @@ namespace MB
 	class GLFWKeyboard : public Keyboard
 	{
 	public:
+		MB_API
 		GLFWKeyboard();
+		MB_API
 		void onKeyUp(int code);
+		MB_API
 		void onKeyDown(int code);
+		MB_API
 		virtual bool keyPress(const Key& k);
+		MB_API
 		virtual bool keyRelease(const Key& /*k*/);
+		MB_API
 		virtual bool singleKeyPress(const Key& k);
+		MB_API
 		virtual void update();
 	private:
 		std::vector<bool> _keyPreviusState;

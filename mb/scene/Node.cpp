@@ -82,7 +82,14 @@ namespace MB
 		c->setNode(this);
 		c->start();
 		// TODO: http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
-		this->_components[&typeid(*c)] = c;
+		//this->_components[&typeid(*c)] = c;
+		for (const auto& comp : _components)
+		{
+			if (comp == c) {
+				return;
+			}
+		}
+		this->_components.push_back(c);
 	}
 	void Node::setVisible(const bool flag, const bool applyToChildren)
 	{
@@ -189,12 +196,13 @@ namespace MB
 			return nullptr;
 		}
 	}
-	std::vector<MB::Component*> Node::getComponents()
+	std::vector<MB::Component*> Node::getComponents() const
 	{
-		std::vector<MB::Component*> values(_components.size());
-		auto value_selector = [](std::pair<const std::type_info*, MB::Component*> pair) {return pair.second; };
-		std::transform(_components.begin(), _components.end(), values.begin(), value_selector);
-		return values;
+		//std::vector<MB::Component*> values(_components.size());
+		//auto value_selector = [](std::pair<const std::type_info*, MB::Component*> pair) {return pair.second; };
+		//std::transform(_components.begin(), _components.end(), values.begin(), value_selector);
+		//return values;
+		return _components;
 	}
 }
 

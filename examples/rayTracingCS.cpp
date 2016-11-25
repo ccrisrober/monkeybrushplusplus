@@ -30,21 +30,47 @@ MB::Scene* scene;
 void renderFunc(float dt);
 
 MB::PostProcessMaterial* ppm;
+MB::Program* computeProg;
+
+MB::Texture2D * tex;
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 1024, 768, "Fractal world demo");
+	MB::GLContext context(4, 4, 720, 480, "Ray Tracing CS");
 
 	engine = new MB::Engine(&context, false);
 	scene = new MB::Scene(engine);
 
-	std::ifstream file(MB_SHADER_FILES_FRACTALWORLD_FRAG);
-	std::stringstream buffer;
-	buffer << file.rdbuf();
+	{
+		std::ifstream file(MB_SHADER_FILES_PASSTHROUGHT);
+		std::stringstream buffer;
+		buffer << file.rdbuf();
 
-	ppm = new MB::PostProcessMaterial(buffer.str().c_str());
+		ppm = new MB::PostProcessMaterial(buffer.str().c_str());
 
-	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
+		ppm->addUniform("tex", new MB::Uniform(MB::Integer, 0));
+	}
+	{
+		computeProg = new MB::Program();
+		std::ifstream file(MB_SHADER_FILES_RAYTRACING_COMPUTESHADER);
+		std::stringstream buffer;
+		buffer << file.rdbuf();
+		computeProg->loadComputeShaderFromText(buffer.str());
+		computeProg->compileAndLink();
+		computeProg->autocatching();
+	}
+
+	MB::TexOptions options;
+	options.wrapS = GL_CLAMP_TO_EDGE;
+	options.wrapT = GL_CLAMP_TO_EDGE;
+	options.minFilter = GL_LINEAR;
+	options.magFilter = GL_LINEAR;
+	options.internalFormat = GL_RGBA32F;
+	options.format = GL_RGBA;
+	options.type = GL_FLOAT;
+
+	tex = new MB::Texture2D(options, 512, 512);
+	tex->bindImageTexture(0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
 
 	engine->run(renderFunc);
 
@@ -55,10 +81,16 @@ int main(void)
 }
 
 float globalTime = 0.0f;
+
 void renderFunc(float dt)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	globalTime += dt;
-	ppm->uniform("iGlobalTime")->value(globalTime);
+	computeProg->use();
+	computeProg->sendUniformf("time", globalTime);
+	computeProg->sendUniform2v("size", MB::Vect2(512.0f, 512.0f)._values);
+	computeProg->launchComputeWork(512, 512, 1);
+	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	ppm->renderPP();
 }

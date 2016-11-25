@@ -58,7 +58,7 @@ int main(void)
     MB::GLContext context(3, 3, 1024, 768, "Brownian Motion");
 
     engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	MB::Cube* cube = new MB::Cube(1.0f);
 
@@ -66,7 +66,7 @@ int main(void)
 	material.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
-	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
+	mbCube->setMesh(new MB::MeshRenderer(cube, &material));
 	mbCube->addComponent(new MB::MoveComponent());
 	mbCube->addComponent(new MB::RotateComponent(MB::Axis::z));
 	mbCube->addComponent(new BrownianMovement());

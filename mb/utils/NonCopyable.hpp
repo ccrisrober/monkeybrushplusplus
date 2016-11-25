@@ -20,55 +20,25 @@
  *
  */
 
-#ifndef __MB_ENGINE__
-#define __MB_ENGINE__
+#ifndef __MB_NONCOPYABLE__
+#define __MB_NONCOPYABLE__
 
 #include <mb/api.h>
 
-#include <iostream>
-#include <functional>
-#include "../core/GLContext.hpp"
-#include "../maths/Vect4.hpp"
-
-
-#include "../io/Window.hpp"
+#include "../Includes.hpp"
+#include "../maths/Vect2.hpp"
 
 namespace MB
 {
-	class Engine
+	class NonCopyable
 	{
-	public:
-		MB_API
-		Engine(GLContext* context, bool debugLayer = true);
-		MB_API
-		void run(std::function<void(float)> loop);
-		MB_API
-		void close();
-		MB_API
-        void setViewport(const Vect4& vp)
-		{
-			this->_context->state()->setViewport(vp);
-		}
-		MB_API
-		GlobalState * state()
-		{
-			return this->_context->state();
-		}
-		MB_API
-		GLContext* context()
-		{
-			return this->_context;
-		}
-    private:
-		double calcFPS(double theTimeInterval = 1.0f);
-	protected:
-        GLContext* _context;
-        float deltaTime;
-        float lastFrame;
-		bool _debugLayer;
-
-        double currentTime;
-	};
+		protected:
+			NonCopyable() {}
+			~NonCopyable() {}
+		private:
+			NonCopyable( const NonCopyable& ) = delete;
+			const NonCopyable& operator=( const NonCopyable& ) = delete;
+		};
 }
 
-#endif /* __MB_ENGINE__ */
+#endif /* __MB_NONCOPYABLE__ */

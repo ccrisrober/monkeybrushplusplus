@@ -34,8 +34,17 @@ namespace MB
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, _params.minVersion);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, _params.maxVersion);
 		glfwWindowHint(GLFW_SAMPLES, 4);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		// TODO: glfwWindowHint(GLFW_RESIZABLE, _params.resizable);
+
+
+
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+
+
+
 		glfwWindowHint(GLFW_RESIZABLE, false);
 
 		std::cout << "OpenGL context version: (" << _params.minVersion << ", " << _params.maxVersion << ")" << std::endl;

@@ -39,6 +39,8 @@ namespace MB
     {
 		MB::WindowParams wp(width, height);
 		wp.title = title;
+		wp.minVersion = minVersion;
+		wp.maxVersion = maxVersion;
 		_window = new MB::GLFWWindow2(wp);
 		_window->init();
 

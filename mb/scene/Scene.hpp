@@ -31,11 +31,12 @@
 
 namespace MB
 {
+	class Engine;
 	class Scene
 	{
 	public:
 		MB_API
-		Scene();
+		Scene(Engine* engine);
 		MB_API
 		void render(float dt);
 		MB_API
@@ -49,26 +50,10 @@ namespace MB
 		MB_API
 		void registerAfterRender(const std::function<void()>& cb, bool recyclable = false);
 		SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
-
 		MB_API
-		void addLight(MB::Light* light)
-		{
-			for (const auto& l: _lights)
-			{
-				if (l == light)
-				{
-					return;
-				}
-			}
-			_lights.push_back(light);
-		}
-
+		void addLight(MB::Light* light);
 		MB_API
-		std::vector<MB::Light*> lights() const
-		{
-			return this->_lights;
-		}
-
+		std::vector<MB::Light*> lights() const;
 	private:
 		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue);
 		Node* _searchName(const std::string& name, Node* elem);
@@ -76,7 +61,9 @@ namespace MB
 	protected:
 		std::vector<std::pair<std::function<void()>, bool>> _beforeRender;
 		std::vector<std::pair<std::function<void()>, bool>> _afterRender;
-		void _subrender(Node* n, float dt);
+		void _subUpdate(Node* n, float dt);
+		void _subrender(Node* n);
+		void updateCamera();
 		Node* _sceneGraph;
 
 		std::vector<MB::Light*> _lights;
@@ -85,7 +72,10 @@ namespace MB
 		//unsigned int _totalVertices;
 		//unsigned int _drawCalls;
 		//unsigned int _totalIndices;
+		Engine* _engine;
 
+		Mat4 _projection;
+		Mat4 _view;
 	};
 }
 

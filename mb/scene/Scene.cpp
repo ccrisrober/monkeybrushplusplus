@@ -25,55 +25,18 @@
 #include "Scene.hpp"
 #include <iostream>
 #include "MeshRenderer.hpp"
+#include "Engine.hpp"
 
 namespace MB
 {
-	Scene::Scene()
+	Scene::Scene(Engine* engine)
 	: _sceneGraph(new Node())
+	, _engine(engine)
 	{
-	}
-	void Scene::render(float dt)
-	{
-		_totalMeshes = 0;
-		// Before render functions
-		applyQueue(_beforeRender);
-		for (const auto& child : this->_sceneGraph->children())
-		{
-			this->_subrender(child, dt);
-		}
-		// After render functions
-		applyQueue(_afterRender);
 	}
 	Node* Scene::root() const
 	{
 		return this->_sceneGraph;
-	}
-	void Scene::_subrender(Node* n, float dt)
-	{
-		if (!n->isVisible())
-		{
-			return;
-		}
-		for (const auto& child : n->children())
-		{
-			this->_subrender(child, dt);
-		}
-		for (const auto& comp : n->getComponents())
-		{
-			comp->update(dt);
-			if (dynamic_cast<MeshRenderer*>(comp))
-			{
-				auto mr = (MeshRenderer*)comp;
-				mr->getMaterial()->uniforms()["projection"]->value(this->camera->projectionMatrix(500, 500));
-				mr->getMaterial()->uniforms()["view"]->value(this->camera->viewMatrix());
-				if (mr->getMaterial()->hasUniform("viewPos")) 
-					mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
-				n->_updateMatrixWorld();
-				auto model = n->transform().matrixWorld();
-				mr->render(model);
-				++this->_totalMeshes;
-			}
-		}
 	}
 	Node* Scene::findByName(const std::string& name)
 	{
@@ -140,5 +103,74 @@ namespace MB
 			}
 		}
 		return nullptr;
+	}
+	void Scene::render(float dt)
+	{
+		_totalMeshes = 0;
+		// Before render functions
+		applyQueue(_beforeRender);
+		_subUpdate(root(), dt);
+		_subrender(root());
+		// After render functions
+		applyQueue(_afterRender);
+	}
+	void Scene::_subUpdate(Node* n, float dt)
+	{
+		if (!n->isVisible())
+		{
+			return;
+		}
+		for (const auto& comp : n->getComponents())
+		{
+			comp->update(dt);
+		}
+		updateCamera();
+		for (const auto& child : n->children())
+		{
+			this->_subUpdate(child, dt);
+		}
+	}
+	void Scene::updateCamera()
+	{
+		_projection = this->camera->projectionMatrix(this->_engine->context()->getWidth(), this->_engine->context()->getHeight());
+		_view = this->camera->viewMatrix();
+	}
+	void Scene::_subrender(Node* n)
+	{
+		if (!n->isVisible())
+		{
+			return;
+		}
+		auto mr = n->getMesh();
+		if (mr != nullptr)
+		{
+			mr->getMaterial()->uniforms()["projection"]->value(_projection);
+			mr->getMaterial()->uniforms()["view"]->value(_view);
+			if (mr->getMaterial()->hasUniform("viewPos"))
+				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
+			n->_updateMatrixWorld();
+			auto model = n->transform().matrixWorld();
+			mr->render(model);
+			++this->_totalMeshes;
+		}
+		for (const auto& child : n->children())
+		{
+			this->_subrender(child);
+		}
+	}
+	void Scene::addLight(MB::Light* light)
+	{
+		for (const auto& l : _lights)
+		{
+			if (l == light)
+			{
+				return;
+			}
+		}
+		_lights.push_back(light);
+	}
+	std::vector<MB::Light*> Scene::lights() const
+	{
+		return this->_lights;
 	}
 }

@@ -36,7 +36,7 @@ int main(void)
 	MB::GLContext context(3, 3, 1024, 768, "Manga demo");
 
 	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	std::ifstream file(MB_SHADER_FILES_MANGA_FRAG);
 	std::stringstream buffer;

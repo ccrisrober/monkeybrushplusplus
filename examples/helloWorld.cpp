@@ -36,7 +36,7 @@ int main(void)
     MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
     engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	MB::Cube* cube = new MB::Cube(1.0f);
 
@@ -44,7 +44,7 @@ int main(void)
 	material.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
 
 	mbCube = new MB::Node(std::string("cube"));
-	mbCube->addComponent(new MB::MeshRenderer(cube, &material));
+	mbCube->setMesh(new MB::MeshRenderer(cube, &material));
 	mbCube->addComponent(new MB::MoveComponent());
 	r = new MB::RotateComponent(MB::Axis::x);
 	mbCube->addComponent(r);

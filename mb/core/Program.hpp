@@ -32,11 +32,15 @@
 #include <functional>
 #include <regex>
 
+
+// TODO: Move to CmakeLists
 #define MB_GEOMETRY_SHADERS
 #define MB_TESSELATION_SHADERS
 #define MB_COMPUTE_SHADERS
 #define MB_SUBPROGRAMS
 #define MB_OCC_QUERY
+
+// TODO: Use const char* instead of std::string&
 
 namespace MB
 {
@@ -161,6 +165,22 @@ namespace MB
 		*/
 		MB_API
 		bool loadComputeShader(const std::string& file);
+
+		/**
+		* Maximum global work group (total work in a dispatch)
+		*/
+		MB_API
+		static void getMaximumGlobalWorkGroup(unsigned int& maxX, unsigned int& maxY, unsigned int& maxZ);
+		/**
+		* Maximum local work group (one shader's slice)
+		*/
+		MB_API
+		static void getMaximumLocalWorkGroup(unsigned int& maxX, unsigned int& maxY, unsigned int& maxZ);
+		/**
+		* Maximum compute shader invocations (x * y * z)
+		*/
+		MB_API
+		static int getMaximumComputeShaderInvocations();
 #endif
 		/**
 		* Method to load and add a vertex and fragment shaders from text

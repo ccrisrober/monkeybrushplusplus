@@ -32,8 +32,55 @@ MB::Prism* prism;
 
 void renderFunc(float dt);
 
+
+
+#include <regex>
+#include <map>
+#include <string>
+std::map<std::string, std::string> trozos;
+
+std::string _processImports(const std::string& src)
+{
+
+	std::string s(src);
+	std::smatch m;
+	const char* rg = "/#import<(.+)>(\\[(.*)\\])*(\\((.*)\\))*/g";
+	std::regex regex(rg, std::tr1::regex_constants::extended);
+	while (std::regex_search(s, m, regex))
+	{
+		std::vector<std::string> vv;
+		vv.push_back(*(m.begin() + 1));
+		s = m.suffix().str();
+		s += trozos[vv[0]];
+	}
+	
+
+	return s;
+}
+
+void trozitos() {
+	trozos["prueba"] = "Codigo prueba";
+	trozos["prueba2"] = "Codigo prueb2a";
+
+	std::string shader = "#import<prueba>";
+	std::string code = _processImports(shader);
+	std::cout << code << std::endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 int main(void)
 {
+	trozitos();
 	//MB::LOG::headers = false;
 	//MB::LOG::level = MB::LOG::INFO;
 	//MB::LOG::date = true;
@@ -41,7 +88,7 @@ int main(void)
     MB::GLContext context(3, 3, 1024, 768, "Hello SceneGraph");
 
     engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	MB::ResourceDrawable::add("capsule", new MB::Capsule(0.5f, 1.0f));
 
@@ -104,31 +151,31 @@ int main(void)
 	MB::ShaderMaterial shaderMat("shaderMat", shaders, uniforms);
 
 	MB::Node* mbCube = new MB::Node(std::string("cube"));
-	mbCube->addComponent(new MB::MeshRenderer(cube, MB::MaterialCache::get("shaderMat")));
+	mbCube->setMesh(new MB::MeshRenderer(cube, MB::MaterialCache::get("shaderMat")));
 	mbCube->addComponent(new MB::MoveComponent());
 	mbCube->addComponent(new MB::RotateComponent(MB::Axis::x));
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
 	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
 
 	MB::Node* mbPrism = new MB::Node(std::string("prism"));
-	mbPrism->addComponent(new MB::MeshRenderer(prism, &normalMat));
+	mbPrism->setMesh(new MB::MeshRenderer(prism, &normalMat));
 	mbPrism->transform().position().set(-0.44f, -2.0f, 2.35f);
 	mbPrism->transform().scale().set(0.5f, 0.5f, 1.0f);
 	mbCube->addChild(mbPrism);
 
 	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
-	mbCapsule->addComponent(new MB::MeshRenderer(MB::ResourceDrawable::get("capsule"), &normalMat));
+	mbCapsule->setMesh(new MB::MeshRenderer(MB::ResourceDrawable::get("capsule"), &normalMat));
 	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
 	mbPrism->addChild(mbCapsule);
 
 	MB::Node* mbTorus = new MB::Node(std::string("torus"));
-	mbTorus->addComponent(new MB::MeshRenderer("torus", &normalMat));
+	mbTorus->setMesh(new MB::MeshRenderer("torus", &normalMat));
 	mbTorus->transform().position().set(1.1f, -1.91f, -1.08f);
 	mbTorus->transform().scale().set(1.0f, 0.5f, 1.0f);
 	mbCube->addChild(mbTorus);
 
 	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
-	mbCylinder->addComponent(new MB::MeshRenderer(cylinder, &material));
+	mbCylinder->setMesh(new MB::MeshRenderer(cylinder, &material));
 	mbCylinder->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCylinder->transform().scale().set(0.5f, 1.0f, 2.0f);
 	mbTorus->addChild(mbCylinder);

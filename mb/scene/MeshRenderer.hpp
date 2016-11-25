@@ -27,12 +27,12 @@
 
 #include "../models/Drawable.hpp"
 #include "../materials/Material.hpp"
-#include "Component.hpp"
-#include "Node.hpp"
+//#include "Component.hpp"
+//#include "Node.hpp"
 
 namespace MB
 {
-	class MeshRenderer: public Component
+	class MeshRenderer//: public Component
 	{
 	public:
 		MB_API

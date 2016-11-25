@@ -27,8 +27,8 @@
 namespace MB
 {
 	MeshRenderer::MeshRenderer(Drawable* mesh, Material* material, unsigned int mode_)
-		: Component()
-		, _mesh(mesh)
+		//: Component()
+		: _mesh(mesh)
 		, _material(material)
 		, _mode(mode_)
 	{
