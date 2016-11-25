@@ -271,6 +271,42 @@ namespace MB
 	{
 		return _load(file, GL_COMPUTE_SHADER);
 	}
+	void Program::getMaximumGlobalWorkGroup(unsigned int& maxX, unsigned int& maxY, unsigned int& maxZ)
+	{
+		int work_grp_size[3];
+		// maximum global work group (total work in a dispatch)
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &work_grp_size[0]);
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 1, &work_grp_size[1]);
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 2, &work_grp_size[2]);
+
+		maxX = work_grp_size[0];
+		maxY = work_grp_size[1];
+		maxZ = work_grp_size[2];
+		printf("max global (total) work group size x:%i y:%i z:%i\n",
+			work_grp_size[0], work_grp_size[1], work_grp_size[2]);
+	}
+	void Program::getMaximumLocalWorkGroup(unsigned int& maxX, unsigned int& maxY, unsigned int& maxZ)
+	{
+		int work_grp_size[3];
+		// maximum global work group (total work in a dispatch)
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, &work_grp_size[0]);
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, &work_grp_size[1]);
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, &work_grp_size[2]);
+
+		maxX = work_grp_size[0];
+		maxY = work_grp_size[1];
+		maxZ = work_grp_size[2];
+		printf("max local (in one shader) work group sizes x:%i y:%i z:%i\n",
+			work_grp_size[0], work_grp_size[1], work_grp_size[2]);
+	}
+	int Program::getMaximumComputeShaderInvocations()
+	{
+		int work_grp_inv;
+		glGetIntegerv(GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS, &work_grp_inv);
+		printf("max computer shader invocations %i\n", work_grp_inv);
+
+		return work_grp_inv;
+	}
 #endif
 
 	void Program::_destroy(void)

@@ -33,6 +33,7 @@
 #include <algorithm>
 
 #include "Component.hpp"
+#include "MeshRenderer.hpp"
 
 namespace MB
 {
@@ -76,6 +77,16 @@ namespace MB
 		MB_API
 		void tag(const std::string& t);
 
+		MB_API
+		void setMesh(MeshRenderer* mesh)
+		{
+			this->_mesh = mesh;
+		}
+		MeshRenderer* getMesh() const
+		{
+			return this->_mesh;
+		}
+
 		/**
 		std::function<void(MB::Node*)> f([](MB::Node* n) {
 			std::cout << n->name() << std::endl;
@@ -95,7 +106,7 @@ namespace MB
 		MB_API
 		ComponentType* getComponent();
 		MB_API
-		std::vector<MB::Component*> getComponents();
+		std::vector<MB::Component*> getComponents() const;
 
 		MB_API
 			friend std::ostream& operator<<(std::ostream & str, const Node& n) {
@@ -111,8 +122,10 @@ namespace MB
 	private:
 		std::string _generateUUID() const;
 	protected:
+		MeshRenderer* _mesh = nullptr;
 		std::vector<Node*> _children;
-		std::unordered_map<const std::type_info*, MB::Component*> _components;
+		//std::unordered_map<const std::type_info*, MB::Component*> _components;
+		std::vector<MB::Component*> _components;
 
 		std::string _name;
 		std::string _id;

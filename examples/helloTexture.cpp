@@ -65,7 +65,7 @@ int main(void)
     MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
     engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	MB::Torus* torus = new MB::Torus(0.5f, 0.25f, 25, 40);
 
@@ -117,7 +117,7 @@ int main(void)
 	MB::ShaderMaterial material("textureShader", shaders, uniforms);
 
 	mbCube = new MB::Node(std::string("cube"));
-	mbCube->addComponent(new MB::MeshRenderer(torus, &material));
+	mbCube->setMesh(new MB::MeshRenderer(torus, &material));
 	mbCube->addComponent(new SplineMovement());
 	r = new MB::RotateComponent(MB::Axis::x);
 	mbCube->addComponent(r);

@@ -1,7 +1,11 @@
 - (22/11) Node::setEnabled(bool flag) => Node::setVisible(bool flag, bool applyToChildren = false);
-- (22/11) Añadido std::string Node::uuid()
-- (23/11) Añadido addLights(Light* l) y std::vector<Light> lights()
-- (23/11) Comprobado si añ añadir un hijo ya existe el mismo nodo dentro.
-- (23/11) Añadido método traverse a node. Traverse(std::function<void(Node*)>);
+- (22/11) Added std::string Node::uuid()
+- (23/11) Added addLights(Light* l) and std::vector<Light> lights()
+- (23/11) Checked if parent has a child in children list.
+- (23/11) Added Node::traverse(std::function<void(Node*)>;
 - (24/11) Added io directory with input2, keyboard, mouse and window.
 - (24/11) Added Macros file for automatic getter and setter. Added thirds-resources (iniReader)
+- (24/11) Changed _components data structure in Node from map to vector for respect components order.
+- (24/11) Added ResourceManager for any type (using MB::any)
+- (24/11) Reorganized scene rendering in update stage and render stage.
+- (24/11) Scene knows engine.

@@ -41,7 +41,7 @@ int main(void)
     MB::GLContext context(3, 3, 1024, 768, "Quasicrystal demo");
 
     engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	iter = 90;
 
@@ -99,21 +99,21 @@ void renderFunc(float)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Z))
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
 	{
 		iter -= 1;
 		ppm->uniform("iter")->value(iter);
 	}
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::X))
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
 	{
 		iter += 1;
 		ppm->uniform("iter")->value(iter);
 	}
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::W))
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::W))
 	{
 		offsetY += 0.1f;
 	}
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::S))
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::S))
 	{
 		offsetY -= 0.1f;
 	}

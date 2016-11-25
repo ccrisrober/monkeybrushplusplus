@@ -35,11 +35,28 @@
 	"@PROJECT_SOURCE_DIR@/examples/manga.frag"
 
 
+#define MB_SHADER_FILES_COLOR_BLIND_FRAG \
+	"@PROJECT_SOURCE_DIR@/examples/colorBlind.frag"
+
+
 #define MB_SHADER_FILES_ADVENTION_FIRST_FRAG \
 	"@PROJECT_SOURCE_DIR@/examples/advention1.frag"
 
 
 #define MB_SHADER_FILES_ADVENTION_SECOND_FRAG \
 	"@PROJECT_SOURCE_DIR@/examples/advention2.frag"
+
+
+
+#define MB_SHADER_FILES_RAYTRACING_COMPUTESHADER \
+	"@PROJECT_SOURCE_DIR@/examples/rayTracing.cs"
+
+
+
+#define MB_SHADER_FILES_PASSTHROUGHT \
+	"@PROJECT_SOURCE_DIR@/examples/passthrought.frag"
+
+#define MB_SHADER_FILES_RENDER2TEXTURE_COMPUTESHADER \
+	"@PROJECT_SOURCE_DIR@/examples/renderToTexture.cs"
 
 #endif /* __MB_SHADER_FILES__ */

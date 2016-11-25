@@ -34,9 +34,13 @@ namespace MB
 	class Input2
 	{
 	public:
+		MB_API
 		static void initialize();
+		MB_API
 		static void destroy();
+		MB_API
 		static MB::Keyboard* Keyboard();
+		MB_API
 		static MB::Mouse* Mouse();
 		MB_API
 		static bool isKeyPressed(Keyboard::Key key);
@@ -48,16 +52,27 @@ namespace MB
 		static int MouseX();
 		MB_API
 		static int MouseY();
+		MB_API
 		static Input2* instance();
+		MB_API
 		static int PreviousMouseX();
+		MB_API
 		static int PreviousMouseY();
+		MB_API
 		static int MouseWheelX();
+		MB_API
 		static int MouseWheelY();
+		MB_API
 		static int DeltaX(int val);
+		MB_API
 		static int DeltaY(int val);
+		MB_API
 		static bool MouseButtonPress(MouseButton button);
+		MB_API
 		static bool MouseButtonSinglePress(MouseButton button);
+		MB_API
 		static bool MouseButtonRelease(MouseButton button);
+		MB_API
 		static void update();
 	protected:
 		MB::Keyboard* _keyboard;

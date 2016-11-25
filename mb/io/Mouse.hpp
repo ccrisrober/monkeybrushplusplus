@@ -53,19 +53,33 @@ namespace MB
 	class GLFWMouse : public Mouse
 	{
 	public:
+		MB_API
 		GLFWMouse();
+		MB_API
 		virtual ~GLFWMouse();
+		MB_API
 		virtual int mouseX();
+		MB_API
 		virtual int mouseY();
+		MB_API
 		virtual int previousMouseX();
+		MB_API
 		virtual int previousMouseY();
+		MB_API
 		virtual int mouseWheelX();
+		MB_API
 		virtual int mouseWheelY();
+		MB_API
 		virtual int deltaX(int val);
+		MB_API
 		virtual int deltaY(int val);
+		MB_API
 		virtual bool buttonRelease(MouseButton button);
+		MB_API
 		virtual bool buttonPress(MouseButton button);
+		MB_API
 		virtual bool singleButtonPress(MouseButton button);
+		MB_API
 		virtual void update();
 
 		void onMouseMove(int x, int y);

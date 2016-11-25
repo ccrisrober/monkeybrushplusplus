@@ -38,7 +38,7 @@ int main(void)
 	MB::GLContext context(3, 3, 1024, 768, "Kaleidoscope demo");
 
 	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	std::ifstream file(MB_SHADER_FILES_KALEIDOSCOPE_FRAG);
 	std::stringstream buffer;

@@ -84,7 +84,7 @@ int main(void)
 		MB::Vect2(context.getWidth(), context.getHeight()));
 
 	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	{
 		std::ifstream file(MB_SHADER_FILES_ADVENTION_FIRST_FRAG);

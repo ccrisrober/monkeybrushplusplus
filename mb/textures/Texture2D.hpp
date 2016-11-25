@@ -40,7 +40,13 @@ namespace MB
 			unsigned int width, unsigned int height);
 		MB_API
 		Texture2D(const TexOptions& options, const std::string src);
+		MB_API
 		virtual ~Texture2D(void);
+		MB_API
+		void bindImageTexture(unsigned int unit, unsigned int level, unsigned int layered, unsigned int layer, unsigned int access, unsigned int format)
+		{
+			glBindImageTexture(unit, _handler, level, layered, layer, access, format);
+		}
 	protected:
 		std::string _src;
 		unsigned int _width;

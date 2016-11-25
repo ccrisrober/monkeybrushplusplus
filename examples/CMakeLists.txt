@@ -154,3 +154,35 @@ set( MBKALEIDOSCOPE_LINK_LIBRARIES
 
 common_application( mbKaleidoscope )
 
+
+
+
+
+set( MBRAYTRACINGCS_HEADERS )
+set( MBRAYTRACINGCS_SOURCES rayTracingCS.cpp )
+set( MBRAYTRACINGCS_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbRayTracingCS )
+
+
+set( MBRENDERTOTEXTURECS_HEADERS )
+set( MBRENDERTOTEXTURECS_SOURCES renderToTextureCS.cpp )
+set( MBRENDERTOTEXTURECS_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbRenderToTextureCS )
+
+
+
+
+set( MBCOLORBLIND_HEADERS )
+set( MBCOLORBLIND_SOURCES colorBlind.cpp )
+set( MBCOLORBLIND_LINK_LIBRARIES
+	MB
+)
+
+common_application( mbColorBlind )
+

@@ -39,7 +39,7 @@ int main(void)
     MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
     engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 
 	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
@@ -114,20 +114,20 @@ int main(void)
 	MB::Torus* torus = new MB::Torus(0.5f, 0.25f, 25, 40);
 
 	mbObj = new MB::Node(std::string("torus"));
-	mbObj->addComponent(new MB::MeshRenderer(torus, material));
+	mbObj->setMesh(new MB::MeshRenderer(torus, material));
 	mbObj->addComponent(new MB::MoveComponent());
 	mbObj->addComponent(new MB::RotateComponent(MB::Axis::x));
 	mbObj->transform().position().y(3.5f);
 	mbObj->transform().rotation().y(-1.44f);
 
 	mbObj2 = new MB::Node(std::string("torus"));
-	mbObj2->addComponent(new MB::MeshRenderer(torus, material));
+	mbObj2->setMesh(new MB::MeshRenderer(torus, material));
 	mbObj2->addComponent(new MB::MoveComponent());
 	mbObj2->addComponent(new MB::RotateComponent(MB::Axis::y));
 	mbObj2->transform().position().y(0.0f);
 
 	mbObj3 = new MB::Node(std::string("torus"));
-	mbObj3->addComponent(new MB::MeshRenderer(torus, material));
+	mbObj3->setMesh(new MB::MeshRenderer(torus, material));
 	mbObj3->addComponent(new MB::MoveComponent());
 	mbObj3->addComponent(new MB::RotateComponent(MB::Axis::z));
 	mbObj3->transform().position().y(-3.5f);

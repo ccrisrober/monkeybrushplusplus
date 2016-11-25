@@ -37,7 +37,7 @@ int main(void)
     MB::GLContext context(3, 3, 1024, 768, "Quasicrystal demo");
 
     engine = new MB::Engine(&context, false);
-	scene = new MB::Scene();
+	scene = new MB::Scene(engine);
 
 	ratio = 10.5f;
 
