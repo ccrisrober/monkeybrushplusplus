@@ -167,11 +167,15 @@ int main(void)
 	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
 	mbPrism->addChild(mbCapsule);
 
+	mbPrism->layer().set(2);
+
 	MB::Node* mbTorus = new MB::Node(std::string("torus"));
 	mbTorus->setMesh(new MB::MeshRenderer("torus", &normalMat));
 	mbTorus->transform().position().set(1.1f, -1.91f, -1.08f);
 	mbTorus->transform().scale().set(1.0f, 0.5f, 1.0f);
 	mbCube->addChild(mbTorus);
+
+	mbTorus->layer().set(2);
 
 	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
 	mbCylinder->setMesh(new MB::MeshRenderer(cylinder, &material));
@@ -204,6 +208,10 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::C))
+	{
+		scene->camera->layer().toggle(2);
+	}
 	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Esc))
 	{
 		engine->close();

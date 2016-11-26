@@ -39,7 +39,7 @@ int main(void)
     engine = new MB::Engine(&context, false);
 	scene = new MB::Scene(engine);
 
-	MB::Mesh* mesh = new MB::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj"));
+	MB::Mesh* mesh = new MB::Mesh(MB_MODEL_ASSETS + std::string("/cube.obj_"));
 
 	MB::SimpleShadingMaterial material;
 	material.uniform("color")->value(MB::Vect3(MB::Color3::Green));
@@ -49,13 +49,6 @@ int main(void)
 	mbMesh->addComponent(new MB::MoveComponent());
 	r = new MB::RotateComponent(MB::Axis::x);
 	mbMesh->addComponent(r);
-
-
-	MB::Light* l1 = new MB::PointLight();
-	scene->addLight(l1);
-	MB::Light* l2 = new MB::PointLight();
-	scene->addLight(l2);
-	scene->addLight(l1);
 
 	scene->root()->addChild(mbMesh);
 

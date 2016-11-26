@@ -20,22 +20,35 @@
  *
  */
 
-#ifndef __MB_POLYHEDRON__
-#define __MB_POLYHEDRON__
-
-#include <mb/api.h>
-
-#include "Drawable.hpp"
+#include "Octahedron.hpp"
+#include <cmath>
 
 namespace MB
 {
-    class Polyhedron: public Drawable
-    {
-    protected:
-		Polyhedron();
-        void create(std::vector<float>& verts, std::vector<unsigned int>& el, 
-			const float& radius, const unsigned int& subdivisions);
-    };
-}
+	Octahedron::Octahedron(const float& radius, const unsigned int& subdivisions)
+	: Polyhedron()
+	{
+		float a = 1.0f / (2.0f * std::sqrt(2.0f));
+        float b = 1.0f / 2.0f;
 
-#endif /* __MB_POLYHEDRON__ */
+		std::vector<float> verts = {
+               a,  0.0f,  0.0f,
+              -a,  0.0f,  0.0f,
+             0.0f,    b,  0.0f,
+             0.0f,   -b,  0.0f,
+             0.0f, 0.0f,   a,
+             0.0f, 0.0f,  -a
+		};
+		std::vector<unsigned int> el = {
+            0, 2, 4,
+            0, 4, 3,
+            0, 3, 5,
+            0, 5, 2,
+            1, 2, 5,
+            1, 5, 3,
+            1, 3, 4,
+            1, 4, 2
+		};
+		this->create(verts, el, radius, subdivisions);
+	}
+}

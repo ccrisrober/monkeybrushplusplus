@@ -28,35 +28,30 @@ MB::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::Node* mbCube;
-MB::RotateComponent* r;
+typedef MB::RotateComponent* RC;
+
+MB::Node* mbModel;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+	MB::GLContext context(3, 3, 1024, 768, "Hello MB");
 
     engine = new MB::Engine(&context, false);
 	scene = new MB::Scene(engine);
 
-	MB::Cube* cube = new MB::Cube(1.0f);
+	MB::Polyhedron* model = new MB::Tetrahedron(1.0f, 2);
 
 	MB::SimpleShadingMaterial material;
 	material.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
 
-	mbCube = new MB::Node(std::string("cube"));
-	mbCube->setMesh(new MB::MeshRenderer(cube, &material));
-	mbCube->addComponent(new MB::MoveComponent());
-	r = new MB::RotateComponent(MB::Axis::x);
-	mbCube->addComponent(r);
+	mbModel = new MB::Node(std::string("model"));
+	mbModel->setMesh(new MB::MeshRenderer(model, &material));
+	mbModel->addComponent(new MB::MoveComponent());
+	mbModel->addComponent(new MB::RotateComponent(MB::Axis::x));
 
-
-	MB::Light* l1 = new MB::PointLight();
-	scene->addLight(l1);
-	MB::Light* l2 = new MB::PointLight();
-	scene->addLight(l2);
-	scene->addLight(l1);
-
-	scene->root()->addChild(mbCube);
+	mbModel->getComponent<MB::RotateComponent>()->setRotate(true);
+	
+	scene->root()->addChild(mbModel);
 
 	engine->run(renderFunc);
     
@@ -77,18 +72,20 @@ void renderFunc(float dt)
 	}
 	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
 	{
+		MB::RotateComponent* r = mbModel->getComponent<MB::RotateComponent>();
 		r->setAxis(MB::Axis::x);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::x);
 	}
 	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Y))
 	{
+		MB::RotateComponent* r = mbModel->getComponent<MB::RotateComponent>();
 		r->setAxis(MB::Axis::y);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::y);
 	}
 	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
 	{
+		MB::RotateComponent* r = mbModel->getComponent<MB::RotateComponent>();
 		r->setAxis(MB::Axis::z);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::z);
 	}
+	engine->state()->culling.setStatus(false);
+	engine->state()->setPolygonMode(GL_LINE);
 	scene->render(dt);
 }

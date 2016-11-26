@@ -27,6 +27,7 @@
 #include "maths/Vect3.hpp"
 #include "maths/Mat4.hpp"
 #include "io/Input2.hpp"
+#include "core/Layer.hpp"
 
 namespace MB
 {
@@ -50,8 +51,14 @@ namespace MB
         float timeElapsed;
 
         bool _dirty;
+		
+		Layer _layer;
 
 	public:
+		Layer& layer()
+		{
+			return _layer;
+		}
         Vect3 GetPos() const
         {
             return this->position;

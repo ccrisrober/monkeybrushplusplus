@@ -142,7 +142,7 @@ namespace MB
 			return;
 		}
 		auto mr = n->getMesh();
-		if (mr != nullptr)
+		if ( (camera->layer().check(n->layer())) && (mr != nullptr))
 		{
 			mr->getMaterial()->uniforms()["projection"]->value(_projection);
 			mr->getMaterial()->uniforms()["view"]->value(_view);

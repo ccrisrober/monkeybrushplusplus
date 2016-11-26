@@ -20,22 +20,49 @@
  *
  */
 
-#ifndef __MB_POLYHEDRON__
-#define __MB_POLYHEDRON__
+#ifndef __MB__LAYER__
+#define __MB__LAYER__
 
 #include <mb/api.h>
 
-#include "Drawable.hpp"
+#include <array>
 
 namespace MB
 {
-    class Polyhedron: public Drawable
-    {
-    protected:
-		Polyhedron();
-        void create(std::vector<float>& verts, std::vector<unsigned int>& el, 
-			const float& radius, const unsigned int& subdivisions);
-    };
+	class Layer
+	{
+	public:
+		MB_API
+		Layer();
+		MB_API
+		void set(const int& channel);
+		MB_API
+		void enable(const int& channel);
+		MB_API
+		void toggle(const int& channel);
+		MB_API
+		void disable(const int& channel);
+		MB_API
+		bool check(const Layer& layer2) const;
+		MB_API
+		bool check(const int& channel) const;
+	protected:
+		int _mask;
+	};
+
+	class LayerLookup
+	{
+	public:
+		MB_API
+		static std::string name(const int& channel);
+		MB_API
+		static void name(const std::string name, const int& index);
+	protected:
+		static std::array<std::string, 32> _names;
+		static bool _initialized;
+
+		static void initialize();
+	};
 }
 
-#endif /* __MB_POLYHEDRON__ */
+#endif /* __MB__LAYER__ */

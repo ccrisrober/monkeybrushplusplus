@@ -32,6 +32,8 @@
 #include "Transform.hpp"
 #include <algorithm>
 
+#include "../core/Layer.hpp"
+
 #include "Component.hpp"
 #include "MeshRenderer.hpp"
 
@@ -86,14 +88,8 @@ namespace MB
 		{
 			return this->_mesh;
 		}
-
-		/**
-		std::function<void(MB::Node*)> f([](MB::Node* n) {
-			std::cout << n->name() << std::endl;
-		});
-		*/
 		MB_API
-		void traverse(std::function<void(MB::Node* n)> f)
+		void traverse(const std::function<void(MB::Node* n)>& f)
 		{
 			f(this);
 			for (auto& child: _children)
@@ -101,12 +97,32 @@ namespace MB
 				child->traverse(f);
 			}
 		}
-
-		template<typename ComponentType>
-		MB_API
-		ComponentType* getComponent();
+		template <typename T>
+		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+		T* getComponent()
+		{
+			for (auto comp : _components)
+			{
+				std::cout << typeid(*comp).name() << std::endl;
+				std::cout << typeid(T).name() << std::endl;
+				if (typeid(*comp) == typeid(T))
+				{
+					return static_cast<T*>(comp);
+				}
+			}
+			return nullptr;
+		}
 		MB_API
 		std::vector<MB::Component*> getComponents() const;
+		MB_API
+		Component* getComponentByIndex(unsigned int index)
+		{
+			if (index >= _components.size())
+			{
+				throw "Component dont found";
+			}
+			return _components.at(index);
+		}
 
 		MB_API
 			friend std::ostream& operator<<(std::ostream & str, const Node& n) {
@@ -118,6 +134,10 @@ namespace MB
 		std::string uuid() const
 		{
 			return _id;
+		}
+		Layer& layer()
+		{
+			return _layer;
 		}
 	private:
 		std::string _generateUUID() const;
@@ -133,6 +153,8 @@ namespace MB
         std::string _tag;
         bool _visible;
 		Transform _transform;
+
+		Layer _layer;
 	};
 }
 

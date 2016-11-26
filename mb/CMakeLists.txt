@@ -15,6 +15,7 @@ set( MB_PUBLIC_HEADERS
     core/GLContext.hpp
     core/GlobalState.hpp
     #core/Input.hpp
+    core/Layer.hpp
     core/Log.hpp
     core/PostProcess.hpp
     core/Program.hpp
@@ -60,15 +61,19 @@ set( MB_PUBLIC_HEADERS
     maths/Vect3.hpp
     maths/Vect4.hpp
 
+
     models/Capsule.hpp
     models/Cone.hpp
     models/Cube.hpp
     models/Cylinder.hpp
     models/Disc.hpp
     models/Drawable.hpp
+    models/Icosahedron.hpp
     models/Mesh.hpp
+    models/Octahedron.hpp
     models/Polyhedron.hpp
     models/Prism.hpp
+    models/Tetrahedron.hpp
     models/Torus.hpp
 
     others/Exception.hpp
@@ -127,6 +132,7 @@ set( MB_SOURCES
     core/Framebuffer.cpp
     core/GLContext.cpp
     #core/Input.cpp
+    core/Layer.cpp
     core/Log.cpp
     core/PostProcess.cpp
     core/Program.cpp
@@ -175,7 +181,12 @@ set( MB_SOURCES
     models/Cylinder.cpp
     models/Disc.cpp
     models/Drawable.cpp
+    models/Icosahedron.cpp
+    models/Mesh.cpp
+    models/Octahedron.cpp
+    models/Polyhedron.cpp
     models/Prism.cpp
+    models/Tetrahedron.cpp
     models/Torus.cpp
 
     others/Exception.cpp

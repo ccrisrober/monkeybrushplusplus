@@ -39,7 +39,7 @@ int main(void)
     engine = new MB::Engine(&context, false);
 	scene = new MB::Scene(engine);
 
-	MB::Mesh* mesh = new MB::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj"));
+	MB::Mesh* mesh = new MB::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
 	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
 	const char* vertexShader =

@@ -35,36 +35,7 @@ namespace MB
     {
     public:
         MB_API
-        Mesh(const std::string& fileRoute)
-        : Drawable()
-        {
-            MB::ObjParser obj;
-            MB::Model model = obj.loadObj(fileRoute);
-
-            BufferAttribute verts(std::vector<float>(model.vertices.size()), 3);
-            verts.array(model.vertices);
-            BufferAttribute norms(std::vector<float>(model.normals.size()), 3);
-            norms.array(model.normals);
-            BufferAttribute texCoords(std::vector<float>(model.texCoords.size()), 2);
-            texCoords.array(model.texCoords);
-
-            _vao = new VertexArray();
-            _vao->bind();
-
-                addBufferArray(0, verts.array(), 3, GL_STATIC_DRAW);
-                addBufferArray(1, norms.array(), 3, GL_STATIC_DRAW);
-                addBufferArray(2, texCoords.array(), 2, GL_STATIC_DRAW);
-
-                std::vector<unsigned int> data = model.indices;
-                unsigned int type = GL_STATIC_DRAW;
-
-                VertexBuffer vbIndices(GL_ELEMENT_ARRAY_BUFFER);
-                vbIndices.data(data, type);
-                _indicesLen = data.size();
-                this->_handle.push_back(vbIndices);
-
-            _vao->unbind();
-        }
+        Mesh(const std::string& fileRoute);
 	};
 }
 

@@ -20,22 +20,25 @@
  *
  */
 
-#ifndef __MB_POLYHEDRON__
-#define __MB_POLYHEDRON__
-
-#include <mb/api.h>
-
-#include "Drawable.hpp"
+#include "Tetrahedron.hpp"
 
 namespace MB
 {
-    class Polyhedron: public Drawable
-    {
-    protected:
-		Polyhedron();
-        void create(std::vector<float>& verts, std::vector<unsigned int>& el, 
-			const float& radius, const unsigned int& subdivisions);
-    };
+	Tetrahedron::Tetrahedron(const float& radius, const unsigned int& subdivisions)
+	: Polyhedron()
+	{
+		std::vector<float> verts = {
+			 1.0f,  1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+            -1.0f,  1.0f, -1.0f,
+             1.0f, -1.0f, -1.0f
+		};
+		std::vector<unsigned int> el = {
+             2,  1,  0,
+             0,  3,  2,
+             1,  3,  0,
+             2,  3,  1
+		};
+		this->create(verts, el, radius, subdivisions);
+	}
 }
-
-#endif /* __MB_POLYHEDRON__ */

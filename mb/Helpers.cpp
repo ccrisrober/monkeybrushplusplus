@@ -63,10 +63,10 @@ namespace MB
 		, _axis(axis)
 	{
 	}
-	void RotateComponent::setAxis(Axis axis)
+	/*void RotateComponent::setAxis(Axis axis)
 	{
 		_axis = axis;
-	}
+	}*/
 	void RotateComponent::update(float dt)
 	{
 		if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Space))

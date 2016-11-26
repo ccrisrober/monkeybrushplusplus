@@ -29,10 +29,20 @@ protected: varType varName;\
 public: virtual varType get##funName(void) const { return varName; }\
 public: virtual void set##funName(varType var){ varName = var; }
 
+// Create automatic setter.
+#define MB_SYNTHESIZE_WRITEONLY(varType, varName, funName)\
+protected: varType varName;\
+public: virtual void set##funName(varType var){ varName = var; }
+
 // Create automatic getter and setter with pass by reference.
 #define MB_SYNTHESIZE_PASS_BY_REF(varType, varName, funName)\
 protected: varType varName;\
 public: virtual const varType& get##funName(void) const { return varName; }\
+public: virtual void set##funName(const varType& var){ varName = var; }
+
+// Create automatic setter with pass by reference.
+#define MB_SYNTHESIZE_WRITEONLY_PASS_BY_REF(varType, varName, funName)\
+protected: varType varName;\
 public: virtual void set##funName(const varType& var){ varName = var; }
 
 // Create automatic getter for readonly.

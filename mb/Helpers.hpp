@@ -24,6 +24,7 @@
 #define __MB_HELPERS__
 
 #include <mb/api.h>
+#include "utils/macros.hpp"
 
 #include "scene/Component.hpp"
 
@@ -50,15 +51,15 @@ namespace MB
 	public:
 		MB_API
 		RotateComponent(Axis axis);
-		MB_API
-		void setAxis(Axis axis);
+		//MB_API
+		//void setAxis(Axis axis);
 		MB_API
 		virtual void update(float dt);
+		MB_SYNTHESIZE_WRITEONLY(bool, _rotate, Rotate);
+		MB_SYNTHESIZE_WRITEONLY(Axis, _axis, Axis);
 	protected:
 		float _delta;
 		float _velocity;
-		bool _rotate;
-		Axis _axis;
 	};
 	class ScaleComponent : public MB::Component
 	{

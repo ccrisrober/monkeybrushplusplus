@@ -184,17 +184,17 @@ namespace MB
 	{
 		this->_tag = t;
 	}
-	template<typename ComponentType>
+	/*template<typename ComponentType>
 	ComponentType* Node::getComponent()
 	{
-		/*if (_components.count(&typeid(ComponentType)) != 0)
-		{
-			return static_cast<ComponentType*>(_components[&typeid(ComponentType)]);
-		}
-		else
-		{
-			return nullptr;
-		}*/
+		//if (_components.count(&typeid(ComponentType)) != 0)
+		//{
+		//	return static_cast<ComponentType*>(_components[&typeid(ComponentType)]);
+		//}
+		//else
+		//{
+		//	return nullptr;
+		//}
 		for (const auto& comp: _components)
 		{
 			if (typeid(comp) == typeid(ComponentType))
@@ -203,7 +203,7 @@ namespace MB
 			}
 		}
 		return nullptr;
-	}
+	}*/
 	std::vector<MB::Component*> Node::getComponents() const
 	{
 		//std::vector<MB::Component*> values(_components.size());

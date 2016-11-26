@@ -20,22 +20,22 @@
  *
  */
 
-#ifndef __MB_POLYHEDRON__
-#define __MB_POLYHEDRON__
+#ifndef __MB_OCTAHEDRON__
+#define __MB_OCTAHEDRON__
 
 #include <mb/api.h>
 
-#include "Drawable.hpp"
+#include "Polyhedron.hpp"
 
 namespace MB
 {
-    class Polyhedron: public Drawable
-    {
-    protected:
-		Polyhedron();
-        void create(std::vector<float>& verts, std::vector<unsigned int>& el, 
-			const float& radius, const unsigned int& subdivisions);
-    };
+	class Octahedron : public Polyhedron
+	{
+	public:
+		MB_API
+		Octahedron(const float& radius = 1.0f,
+			const unsigned int& subdivisions = 1);
+	};
 }
 
-#endif /* __MB_POLYHEDRON__ */
+#endif /* __MB_OCTAHEDRON__ */
