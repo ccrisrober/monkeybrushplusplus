@@ -32,58 +32,8 @@ MB::Prism* prism;
 
 void renderFunc(float dt);
 
-
-
-/*#include <regex>
-#include <map>
-#include <string>
-std::map<std::string, std::string> trozos;
-
-std::string _processImports(const std::string& src)
-{
-
-	std::string s(src);
-	std::smatch m;
-	std::regex regex(rg, std::tr1::regex_constants::extended);
-	while (std::regex_search(s, m, regex))
-	{
-		std::vector<std::string> vv;
-		vv.push_back(*(m.begin() + 1));
-		s = m.suffix().str();
-		s += trozos[vv[0]];
-	}
-	
-
-	return s;
-}
-
-void trozitos() {
-	trozos["prueba"] = "Codigo prueba";
-	trozos["prueba2"] = "Codigo prueb2a";
-
-	std::string shader = "#import<prueba>";
-	std::string code = _processImports(shader);
-	std::cout << code << std::endl;
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
 int main(void)
 {
-	//trozitos();
-	//MB::LOG::headers = false;
-	//MB::LOG::level = MB::LOG::INFO;
-	//MB::LOG::date = true;
-
     MB::GLContext context(3, 3, 1024, 768, "Hello SceneGraph");
 
     engine = new MB::Engine(&context, false);

@@ -122,7 +122,10 @@ namespace MB
 		}
 		for (const auto& comp : n->getComponents())
 		{
-			comp->update(dt);
+			if (comp->isEnabled())
+			{
+				comp->update(dt);
+			}
 		}
 		updateCamera();
 		for (const auto& child : n->children())

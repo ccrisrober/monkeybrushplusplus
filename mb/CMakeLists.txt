@@ -103,6 +103,7 @@ set( MB_PUBLIC_HEADERS
     utils/NonCopyable.hpp
     utils/any.hpp
     utils/macros.hpp
+    utils/utils.hpp
 
     Includes.hpp
     Helpers.hpp
@@ -217,6 +218,10 @@ set( MB_SOURCES
     io/Input2.cpp
     io/Keyboard.cpp
     io/Window.cpp
+
+
+    utils/utils.cpp
+    
 
     #main.cpp
 )

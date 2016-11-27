@@ -1,4 +1,3 @@
-#include "Component.hpp"
 /*
  * Copyright (c) 2016 maldicion069
  *
@@ -21,39 +20,27 @@
  *
  */
 
-#include "Component.hpp"
+#ifndef __MB_UTILS__
+#define __MB_UTILS__
+
+#include <mb/api.h>
+
+#include <string>
 
 namespace MB
 {
-	void Component::start() {}
-    void Component::update(float) { }
-	Node* Component::getNode() const
+	namespace utils
 	{
-		return this->_node;
-	}
-	void Component::setNode(Node* n)
-	{
-		this->_node = n;
-	}
-	std::ostream& operator<<(std::ostream & str, const Component& n)
-	{
-		str << typeid(n).name();
-		return str;
-	}
-	bool Component::isEnabled() const
-	{
-		return _enabled;
-	}
-	void Component::enable()
-	{
-		setEnabled(true);
-	}
-	void Component::disable()
-	{
-		setEnabled(false);
-	}
-	void Component::setEnabled(const bool v)
-	{
-		_enabled = v;
+		template<typename T>
+		struct deleter : std::unary_function<const T*, void>
+		{
+			void operator() (const T *ptr) const
+			{
+				delete ptr;
+			}
+		};
+		std::string generateUUID();
 	}
 }
+
+#endif /* __MB_UTILS __ */

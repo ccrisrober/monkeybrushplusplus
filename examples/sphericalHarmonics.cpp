@@ -110,7 +110,6 @@ int main(void)
 	scene->addLight(l1);
 
 	scene->root()->addChild(mbMesh);
-
 	engine->run(renderFunc);
     
 	delete(scene);

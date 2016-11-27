@@ -1,4 +1,3 @@
-#include "Component.hpp"
 /*
  * Copyright (c) 2016 maldicion069
  *
@@ -21,39 +20,38 @@
  *
  */
 
-#include "Component.hpp"
+#include "utils.hpp"
+#include <algorithm>
 
 namespace MB
 {
-	void Component::start() {}
-    void Component::update(float) { }
-	Node* Component::getNode() const
+	namespace utils
 	{
-		return this->_node;
-	}
-	void Component::setNode(Node* n)
-	{
-		this->_node = n;
-	}
-	std::ostream& operator<<(std::ostream & str, const Component& n)
-	{
-		str << typeid(n).name();
-		return str;
-	}
-	bool Component::isEnabled() const
-	{
-		return _enabled;
-	}
-	void Component::enable()
-	{
-		setEnabled(true);
-	}
-	void Component::disable()
-	{
-		setEnabled(false);
-	}
-	void Component::setEnabled(const bool v)
-	{
-		_enabled = v;
+		std::string generateUUID()
+		{
+			char GUID[40];
+			int t = 0;
+			std::string szTemp = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
+			std::string szHex = "0123456789ABCDEF-";
+			int nLen = szTemp.size();
+
+			for (t = 0; t<nLen + 1; t++)
+			{
+				int r = rand() % 16;
+				char c = ' ';
+
+				switch (szTemp[t])
+				{
+				case 'x': { c = szHex[r]; } break;
+				case 'y': { c = szHex[(r & 0x03) | 0x08]; } break;
+				case '-': { c = '-'; } break;
+				case '4': { c = '4'; } break;
+				}
+
+				GUID[t] = (t < nLen) ? c : 0x00;
+			}
+
+			return std::string(GUID);
+		};
 	}
 }

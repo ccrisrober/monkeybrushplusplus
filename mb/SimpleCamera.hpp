@@ -31,7 +31,8 @@
 
 namespace MB
 {
-    class SimpleCamera {
+    class SimpleCamera
+    {
 	protected:
         // Camera attrs
         Vect3 position;

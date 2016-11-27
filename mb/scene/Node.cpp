@@ -26,12 +26,17 @@ namespace MB
 {
 	Node::Node(const std::string& name, const std::string& tag)
 	: _name(name)
-	, _id(_generateUUID())
+	, _id(MB::utils::generateUUID())
 	, _parent(nullptr)
 	, _tag(tag)
     , _visible(true)
 	, _transform(Transform())
 	{
+	}
+	Node::~Node()
+	{
+		removeChildren();
+		removeComponents();
 	}
 	bool Node::isVisible() const
 	{
@@ -50,46 +55,66 @@ namespace MB
         // TODO: Check parent in p node (addChild or removeChild in p.parent)
 		this->_parent = p;
 	}
-	void Node::addChild(Node* node)
+	void Node::addChild(Node* child)
 	{
-		if (node == this)
+		if (child == this)
 		{
 			throw "TODO: ERROR";
 		}
-		for (const auto& n: _children)
+		if (std::find(_children.begin(), _children.end(), child) == _children.end())
 		{
-			if (node == n)
-			{
-				return;
-			}
+			child->setParent(this);
+			this->_children.push_back(child);
 		}
-		node->setParent(this);
-		this->_children.push_back(node);
 	}
-    void Node::removeChild(Node* n) {
-		auto it = std::find(_children.begin(), _children.end(), n);
+    void Node::removeChild(Node* child) {
+		auto it = std::find(_children.begin(), _children.end(), child);
 		if (it != _children.end())
 		{
 			_children.erase(it);
 		}
+		child->_parent = nullptr;
 	}
 	void Node::removeChild(unsigned int index)
 	{
 		_children.erase(_children.begin() + index);
 	}
+	unsigned int Node::getNumChildren() const
+	{
+		return _children.size();
+	}
+	unsigned int Node::getNumComponents() const
+	{
+		return _components.size();
+	}
+	Node* Node::getChild(unsigned int index)
+	{
+		if (index >= _children.size())
+		{
+			throw "Children dont found";
+		}
+		return _children.at(index);
+	}
+	void Node::removeChildren()
+	{
+		std::for_each(_children.begin(), _children.end(), MB::utils::deleter<Node>());
+		_children.clear();
+	}
+	void Node::removeComponents()
+	{
+		std::for_each(_components.begin(), _components.end(), MB::utils::deleter<Component>());
+		_components.clear();
+	}
     void Node::addComponent(Component* c)
 	{
-		c->setNode(this);
-		c->start();
 		// TODO: http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
 		//this->_components[&typeid(*c)] = c;
-		for (const auto& comp : _components)
+		if (std::find(_components.begin(), _components.end(), c) == _components.end())
 		{
-			if (comp == c) {
-				return;
-			}
+			c->setNode(this);
+			c->start();
+			this->_components.push_back(c);
 		}
-		this->_components.push_back(c);
 	}
 	void Node::setVisible(const bool flag, const bool applyToChildren)
 	{
@@ -101,11 +126,6 @@ namespace MB
 				c->setVisible(flag, applyToChildren);
 			}
 		}
-	}
-	void Node::removeAll()
-	{
-        // TODO: Clear Nodes ...
-		this->_children.clear( );
 	}
 	std::vector<Node*> Node::children() const
 	{
@@ -142,32 +162,6 @@ namespace MB
 			child->_updateMatrixWorld(force);
 		}
 	}
-	std::string Node::_generateUUID() const
-	{
-        char GUID[40];
-        int t = 0;
-        std::string szTemp = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
-        std::string szHex = "0123456789ABCDEF-";
-        int nLen = szTemp.size();
-
-        for (t=0; t<nLen+1; t++)
-        {
-            int r = rand () % 16;
-            char c = ' ';
-
-            switch (szTemp[t])
-            {
-                case 'x' : { c = szHex [r]; } break;
-                case 'y' : { c = szHex [(r & 0x03) | 0x08]; } break;
-                case '-' : { c = '-'; } break;
-                case '4' : { c = '4'; } break;
-            }
-
-            GUID[t] = ( t < nLen ) ? c : 0x00;
-        }
-
-        return std::string(GUID);
-	}
 	std::string Node::name() const
 	{
 		return this->_name;
@@ -184,34 +178,96 @@ namespace MB
 	{
 		this->_tag = t;
 	}
-	/*template<typename ComponentType>
-	ComponentType* Node::getComponent()
+	std::vector<MB::Component*> Node::getComponents() const
 	{
-		//if (_components.count(&typeid(ComponentType)) != 0)
-		//{
-		//	return static_cast<ComponentType*>(_components[&typeid(ComponentType)]);
-		//}
-		//else
-		//{
-		//	return nullptr;
-		//}
-		for (const auto& comp: _components)
+		return _components;
+	}
+	void Node::setMesh(MeshRenderer* mesh)
+	{
+		this->_mesh = mesh;
+	}
+	MeshRenderer*Node::getMesh() const
+	{
+		return this->_mesh;
+	}
+	void Node::traverse(const std::function<void(MB::Node* n)>& f)
+	{
+		f(this);
+		for (auto& child : _children)
 		{
-			if (typeid(comp) == typeid(ComponentType))
+			child->traverse(f);
+		}
+	}
+	template <typename T>
+	//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+	void Node::enableComponent()
+	{
+		for (auto comp : _components)
+		{
+			if (typeid(*comp) == typeid(T))
 			{
-				return comp;
+				comp->enable();
+			}
+		}
+	}
+	template <typename T>
+	//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+	void Node::disableComponent()
+	{
+		for (auto comp : _components)
+		{
+			if (typeid(*comp) == typeid(T))
+			{
+				comp->disable();
+			}
+		}
+	}
+	template <typename T>
+	//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+	bool Node::hasComponent() const
+	{
+		for (auto comp : _components)
+		{
+			if (typeid(*comp) == typeid(T))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+	T* Node::getComponent()
+	{
+		for (auto comp : _components)
+		{
+			// std::cout << typeid(*comp).name() << std::endl;
+			// std::cout << typeid(T).name() << std::endl;
+			if (typeid(*comp) == typeid(T))
+			{
+				return static_cast<T*>(comp);
 			}
 		}
 		return nullptr;
-	}*/
-	std::vector<MB::Component*> Node::getComponents() const
+	}
+	Component* Node::getComponentByIndex(unsigned int index)
 	{
-		//std::vector<MB::Component*> values(_components.size());
-		//auto value_selector = [](std::pair<const std::type_info*, MB::Component*> pair) {return pair.second; };
-		//std::transform(_components.begin(), _components.end(), values.begin(), value_selector);
-		//return values;
-		return _components;
+		if (index >= _components.size())
+		{
+			throw "Component dont found";
+		}
+		return _components.at(index);
+	}
+	std::ostream& operator<<(std::ostream & str, const Node& n)
+	{
+		str << n._name << " => " << n._id;
+		return str;
+	}
+	std::string Node::uuid() const
+	{
+		return _id;
+	}
+	Layer& Node::layer()
+	{
+		return _layer;
 	}
 }
-
-/* TODO template<typename T, bool = std::is_base_of<Component, T>::value>*/

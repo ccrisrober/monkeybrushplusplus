@@ -36,6 +36,7 @@
 
 #include "Component.hpp"
 #include "MeshRenderer.hpp"
+#include "../utils/utils.hpp"
 
 namespace MB
 {
@@ -45,6 +46,8 @@ namespace MB
 		MB_API
 		Node(const std::string& name = "Node", const std::string& tag = "Untagged");
 		MB_API
+		virtual ~Node();
+		MB_API
 		bool isVisible() const;
 		MB_API
 		bool hasParent() const;
@@ -53,17 +56,25 @@ namespace MB
 		MB_API
 		void setParent(Node* p);
 		MB_API
-		void addChild(Node* n);
+		void addChild(Node* child);
 		MB_API
-		void removeChild(Node* n);
+		void removeChild(Node* child);
 		MB_API
 		void removeChild(unsigned int index);
+		MB_API
+		unsigned int getNumChildren() const;
+		MB_API
+		unsigned int getNumComponents() const;
+		MB_API
+		Node* getChild(unsigned int index);
+		MB_API
+		void removeChildren();
+		MB_API
+		void removeComponents();
 		MB_API
 		void addComponent(Component* c);
 		MB_API
 		void setVisible(const bool flag, const bool applyToChildren = false);
-		MB_API
-		void removeAll();
 		MB_API
 		std::vector<Node*> children() const;
 		MB_API
@@ -78,73 +89,41 @@ namespace MB
 		void name(const std::string& n);
 		MB_API
 		void tag(const std::string& t);
-
-		MB_API
-		void setMesh(MeshRenderer* mesh)
-		{
-			this->_mesh = mesh;
-		}
-		MeshRenderer* getMesh() const
-		{
-			return this->_mesh;
-		}
-		MB_API
-		void traverse(const std::function<void(MB::Node* n)>& f)
-		{
-			f(this);
-			for (auto& child: _children)
-			{
-				child->traverse(f);
-			}
-		}
-		template <typename T>
-		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-		T* getComponent()
-		{
-			for (auto comp : _components)
-			{
-				std::cout << typeid(*comp).name() << std::endl;
-				std::cout << typeid(T).name() << std::endl;
-				if (typeid(*comp) == typeid(T))
-				{
-					return static_cast<T*>(comp);
-				}
-			}
-			return nullptr;
-		}
 		MB_API
 		std::vector<MB::Component*> getComponents() const;
 		MB_API
-		Component* getComponentByIndex(unsigned int index)
-		{
-			if (index >= _components.size())
-			{
-				throw "Component dont found";
-			}
-			return _components.at(index);
-		}
-
+		void setMesh(MeshRenderer* mesh);
 		MB_API
-			friend std::ostream& operator<<(std::ostream & str, const Node& n) {
-			str << n._name << " => " << n._id;
-			return str;
-		}
-
+		MeshRenderer* getMesh() const;
 		MB_API
-		std::string uuid() const
-		{
-			return _id;
-		}
-		Layer& layer()
-		{
-			return _layer;
-		}
-	private:
-		std::string _generateUUID() const;
+		void traverse(const std::function<void(MB::Node* n)>& f);
+		template <typename T>
+		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+		//MB_API
+		void enableComponent();
+		template <typename T>
+		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+		//MB_API
+		void disableComponent();
+		template <typename T>
+		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+		//MB_API
+		bool hasComponent() const;
+		template <typename T>
+		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+		//MB_API
+		T* getComponent();
+		MB_API
+		Component* getComponentByIndex(unsigned int index);
+		MB_API
+		friend std::ostream& operator<<(std::ostream & str, const Node& n);
+		MB_API
+		std::string uuid() const;
+		MB_API
+		Layer& layer();
 	protected:
 		MeshRenderer* _mesh = nullptr;
 		std::vector<Node*> _children;
-		//std::unordered_map<const std::type_info*, MB::Component*> _components;
 		std::vector<MB::Component*> _components;
 
 		std::string _name;

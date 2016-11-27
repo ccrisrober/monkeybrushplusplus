@@ -14,4 +14,6 @@
 - (25/11) Added layer and layer look up.
 - (26/11) Added Icosahedron, Octahedron and Tetrahedron.
 - (26/11) Added layer to SimpleCamera and Node
-- (26/11) Fixeed GetComponent<K>()
+- (26/11) Fixed GetComponent<K>()
+- (27/11) Added removeChildren, getChild(unsigned int), getNumChildren, getNumComponents, removeComponents to Node.
+- (27/11) Added enabled attribute and methods for update in Component class.
