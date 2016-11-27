@@ -30,6 +30,8 @@ namespace mb
     void Drawable::render(unsigned int mode)
     {
         this->_vao->bind();
+        // glPatchParameteri(GL_PATCH_VERTICES, 3);
+        // glDrawElements( GL_PATCHES, _indicesLen, GL_UNSIGNED_INT, 0 );
         glDrawElements(mode, _indicesLen, GL_UNSIGNED_INT, 0);
         this->_vao->unbind();
     }

@@ -75,7 +75,7 @@ float globalTime = 0.0f;
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Space))
+	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Space))
 	{
 		play = !play;
 	}
@@ -84,22 +84,22 @@ void renderFunc(float dt)
 		globalTime += dt * 0.33f;
 	}
 	ppm->uniform("iGlobalTime")->value(globalTime);
-	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
+	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
 	{
 		sides -= 1.0f;
 		ppm->uniform("sides")->value(sides);
 	}
-	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
+	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		sides += 1.0f;
 		ppm->uniform("sides")->value(sides);
 	}
-	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::A))
+	if (mb::Input::isKeyClicked(mb::Keyboard::Key::A))
 	{
 		angle -= 1.0f;
 		ppm->uniform("angle")->value(angle);
 	}
-	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::S))
+	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::S))
 	{
 		angle += 1.0f;
 		ppm->uniform("angle")->value(angle);

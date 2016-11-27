@@ -24,7 +24,7 @@
 
 namespace mb
 {
-    PointLight::PointLight(const Vect3 pos)
+    PointLight::PointLight(const Vect3& pos)
     :Light()
     , _position(pos)
     {

@@ -26,9 +26,22 @@
 #include <mb/api.h>
 
 #include "../core/Color3.hpp"
+#include "../Includes.hpp"
 
 namespace mb
 {
+	template<typename T>
+	inline std::shared_ptr<T> make_shared()
+	{
+		struct Derived : public T { };
+		return std::make_shared<Derived>();
+	}
+	template <typename T, typename... Args>
+	inline std::shared_ptr<T> make_shared(Args&& ... args)
+	{
+		return std::make_shared<Derived<T>>(std::move(args)...);
+	}
+
 	class Light
 	{
 	public:
@@ -60,6 +73,7 @@ namespace mb
         Color3 _color;
         Color3 _specColor;
 	};
+	typedef std::shared_ptr<Light> LightPtr;
 }
 
 #endif /* __MB_LIGHT__ */

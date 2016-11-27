@@ -105,6 +105,7 @@ set( MB_PUBLIC_HEADERS
     utils/any.hpp
     utils/macros.hpp
     utils/utils.hpp
+    utils/iniReader.hpp
 
     Includes.hpp
     Helpers.hpp
@@ -114,7 +115,7 @@ set( MB_PUBLIC_HEADERS
     #core/os.hpp
     io/Mouse.hpp
     io/Keyboard.hpp
-    io/Input2.hpp
+    io/Input.hpp
     io/Window.hpp
 )
 
@@ -213,13 +214,14 @@ set( MB_SOURCES
     Helpers.cpp
 
     io/Mouse.cpp
-    io/Input2.cpp
+    io/Input.cpp
     io/Keyboard.cpp
     io/Window.cpp
 
 
     utils/utils.cpp
     utils/ArgumentParser.cpp
+    utils/iniReader.cpp
 
 
     #main.cpp

@@ -21,7 +21,7 @@
  */
 
 #include "Engine.hpp"
-#include "../io/Input2.hpp"
+#include "../io/Input.hpp"
 #include <string>
 
 #define check_gl_error() _check_gl_error(__FILE__,__LINE__)
@@ -56,7 +56,7 @@ namespace mb
 	, lastFrame(0.0f)
 	, _debugLayer(debugLayer)
 	{
-		Input2::initialize();
+		Input::initialize();
 	}
 	void Engine::run(std::function<void(float)> loop)
 	{
@@ -73,7 +73,7 @@ namespace mb
 
 			this->_context->getWindow()->pollEvents();
 
-			mb::Input2::update();
+			mb::Input::update();
 			
 			currentFrame = glfwGetTime();
 			deltaTime = currentFrame - lastFrame;

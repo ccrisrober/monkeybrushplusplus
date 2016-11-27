@@ -20,117 +20,117 @@
 *
 */
 
-#include "Input2.hpp"
+#include "Input.hpp"
 
 namespace mb
 {
-	void Input2::initialize()
+	void Input::initialize()
 	{
-		Input2* _instance = Input2::instance();
+		Input* _instance = Input::instance();
 
 		_instance->_keyboard = new GLFWKeyboard();
 		_instance->_mouse = new GLFWMouse();
 	}
-	void Input2::destroy()
+	void Input::destroy()
 	{
-		Input2* _instance = Input2::instance();
+		Input* _instance = Input::instance();
 		delete _instance->_mouse;
 		delete _instance->_keyboard;
 		delete _instance;
 	}
-	mb::Keyboard* Input2::Keyboard()
+	mb::Keyboard* Input::Keyboard()
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_keyboard;
 	}
-	mb::Mouse* Input2::Mouse()
+	mb::Mouse* Input::Mouse()
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse;
 	}
-	bool Input2::isKeyPressed(Keyboard::Key key)
+	bool Input::isKeyPressed(Keyboard::Key key)
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_keyboard->keyPress(key);
 	}
-	bool Input2::isKeyClicked(Keyboard::Key key)
+	bool Input::isKeyClicked(Keyboard::Key key)
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_keyboard->singleKeyPress(key);
 	}
-	bool Input2::KeyReleased(Keyboard::Key key)
+	bool Input::KeyReleased(Keyboard::Key key)
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_keyboard->keyRelease(key);
 	}
-	int Input2::MouseX()
+	int Input::MouseX()
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->mouseX();
 	}
-	int Input2::MouseY()
+	int Input::MouseY()
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->mouseY();
 	}
-	Input2* Input2::instance()
+	Input* Input::instance()
 	{
-		if (!Input2::_instance)
+		if (!Input::_instance)
 		{
-			Input2::_instance = new mb::Input2();
+			Input::_instance = new mb::Input();
 		}
-		return Input2::_instance;
+		return Input::_instance;
 	}
-	int Input2::PreviousMouseX()
+	int Input::PreviousMouseX()
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->previousMouseX();
 	}
-	int Input2::PreviousMouseY()
+	int Input::PreviousMouseY()
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->previousMouseY();
 	}
-	int Input2::MouseWheelX()
+	int Input::MouseWheelX()
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->mouseWheelX();
 	}
-	int Input2::MouseWheelY()
+	int Input::MouseWheelY()
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->mouseWheelY();
 	}
-	int Input2::DeltaX(int val)
+	int Input::DeltaX(int val)
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->deltaX(val);
 	}
-	int Input2::DeltaY(int val)
+	int Input::DeltaY(int val)
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->deltaY(val);
 	}
-	bool Input2::MouseButtonPress(MouseButton button)
+	bool Input::MouseButtonPress(MouseButton button)
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->buttonPress(button);
 	}
-	bool Input2::MouseButtonSinglePress(MouseButton button)
+	bool Input::MouseButtonSinglePress(MouseButton button)
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->singleButtonPress(button);
 	}
-	bool Input2::MouseButtonRelease(MouseButton button)
+	bool Input::MouseButtonRelease(MouseButton button)
 	{
-		auto input = Input2::instance();
+		auto input = Input::instance();
 		return input->_mouse->buttonRelease(button);
 	}
-	void Input2::update()
+	void Input::update()
 	{
-		Input2* _instance = Input2::instance();
+		Input* _instance = Input::instance();
 		_instance->_keyboard->update();
 		_instance->_mouse->update();
 	}
-	Input2* Input2::_instance = nullptr;
+	Input* Input::_instance = nullptr;
 }

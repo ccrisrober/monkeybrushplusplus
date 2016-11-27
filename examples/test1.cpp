@@ -24,16 +24,27 @@
 #include <mb/mb.h>
 #include <assetsFiles.h>
 
+//#include <rapidjson/include/rapidjson/document.h>
+
 mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
 
 mb::Node* mbMesh;
-mb::RotateComponent* r;
+
+//using namespace rapidjson;
 
 int main(int argc, const char** argv)
 {
+	/*std::string sceneFile = std::string(MB_FILES_ASSETS + std::string("/scene.json"));
+	std::ifstream file(sceneFile);
+	std::stringstream buffer;
+	buffer << file.rdbuf();
+
+	Document document;
+	document.Parse(buffer.str().c_str());*/
+
 	mb::ArgumentParser parser = mb::ArgumentParser().description("just an example");
 
 	parser.add_option("-f", "--file").dest("filename")
@@ -65,8 +76,10 @@ int main(int argc, const char** argv)
 	mbMesh = new mb::Node(std::string("mesh"));
 	mbMesh->setMesh(new mb::MeshRenderer(mesh, &material));
 	mbMesh->addComponent(new mb::MoveComponent());
-	r = new mb::RotateComponent(mb::Axis::x);
-	mbMesh->addComponent(r);
+	mbMesh->addComponent(new mb::RotateComponent(mb::Axis::x));
+
+
+	auto light = mb::LightPtr(new mb::PointLight());
 
 	mb::Layer l;
 	mb::Layer l2;
@@ -86,6 +99,16 @@ int main(int argc, const char** argv)
 
 	scene->root()->addChild(mbMesh);
 
+	std::string iniFile = std::string(MB_FILES_ASSETS + std::string("/sample.ini"));
+	mb::ini::parseIniFile(iniFile);
+	std::cout << "MYSQL Host: " << mb::ini::getOptionToString("mysql_host") << "\n"; //Return string
+	std::cout << "MYSQL User: " << mb::ini::getOptionToString("mysql_user") << "\n"; //Return string
+	std::cout << "MYSQL Pass: " << mb::ini::getOptionToString("mysql_pass") << "\n"; //Return string
+	std::cout << "MYSQL DB: " << mb::ini::getOptionToChar("mysql_db") << "\n"; //Return char
+	std::cout << "MYSQL Socket: " << mb::ini::getOptionToChar("mysql_socket") << "\n"; //Return char
+	std::cout << "MYSQL Port: " << mb::ini::getOptionToInt("mysql_port") << "\n"; //Return int
+	std::cout << "Bad Config Item: " << mb::ini::getOptionToString("bad_config_item") << "\n"; //Should return nothing
+
 	// engine->run(renderFunc);
 
 	delete(scene);
@@ -98,25 +121,22 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Esc))
+	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;
 	}
-	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
+	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
 	{
-		r->setAxis(mb::Axis::x);
-		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
+		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
 	}
-	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Y))
+	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
 	{
-		r->setAxis(mb::Axis::y);
-		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
+		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
 	}
-	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
+	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
 	{
-		r->setAxis(mb::Axis::z);
-		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
+		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
 	}
 	scene->render(dt);
 }

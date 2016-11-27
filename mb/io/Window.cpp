@@ -21,7 +21,7 @@
 */
 
 #include "Window.hpp"
-#include "Input2.hpp"
+#include "Input.hpp"
 
 namespace mb
 {
@@ -72,27 +72,27 @@ namespace mb
 		{
 			if (action == GLFW_PRESS)
 			{
-				static_cast<GLFWKeyboard*>(Input2::Keyboard())->onKeyDown(key);
+				static_cast<GLFWKeyboard*>(Input::Keyboard())->onKeyDown(key);
 			}
 			else if (action == GLFW_RELEASE)
 			{
-				static_cast<GLFWKeyboard*>(Input2::Keyboard())->onKeyUp(key);
+				static_cast<GLFWKeyboard*>(Input::Keyboard())->onKeyUp(key);
 			}
 		});
 
 		glfwSetCursorPosCallback(_handle, [](GLFWwindow*, double xpos, double ypos)
 		{
-			static_cast<GLFWMouse*>(Input2::Mouse())->onMouseMove(static_cast<int>(xpos), static_cast<int>(ypos));
+			static_cast<GLFWMouse*>(Input::Mouse())->onMouseMove(static_cast<int>(xpos), static_cast<int>(ypos));
 		});
 
 		glfwSetMouseButtonCallback(_handle, [](GLFWwindow*, int button, int action, int)
 		{
-			static_cast<GLFWMouse*>(Input2::Mouse())->onMouseButtonEvent(button, action);
+			static_cast<GLFWMouse*>(Input::Mouse())->onMouseButtonEvent(button, action);
 		});
 
 		glfwSetScrollCallback(_handle, [](GLFWwindow*, double xoffset, double yoffset)
 		{
-			static_cast<GLFWMouse*>(Input2::Mouse())->onMouseWheelEvent(static_cast<int>(xoffset), static_cast<int>(yoffset));
+			static_cast<GLFWMouse*>(Input::Mouse())->onMouseWheelEvent(static_cast<int>(xoffset), static_cast<int>(yoffset));
 		});
 
 		return true;

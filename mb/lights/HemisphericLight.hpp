@@ -46,6 +46,7 @@ namespace mb
         Vect3 _direction;
         Color3 _groundColor;
     };
+    typedef std::shared_ptr<HemisphericLight> HemisphericLightPtr;
 }
 
 #endif /* __MB_HEMISPHERIC_LIGHT__ */

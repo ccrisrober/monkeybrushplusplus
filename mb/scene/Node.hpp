@@ -43,6 +43,23 @@ namespace mb
 	class Node
 	{
 	public:
+		// Creates GameObject from prefab and adds it to the scene.
+		MB_API
+		static Node* createFromPrefab(const Node& /*prefab*/)
+		{
+			// TODO
+			/**
+			 * Clone all components
+			 * Initialize all components
+			*/
+			return nullptr;
+		}
+		Node(const Node&)
+		{
+			// TODO
+		}
+
+
 		MB_API
 		Node(const std::string& name = "Node", const std::string& tag = "Untagged");
 		MB_API

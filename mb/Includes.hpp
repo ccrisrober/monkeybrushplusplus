@@ -40,4 +40,6 @@
 
 #include <GLFW/glfw3.h>
 
+#include <memory>
+
 #endif /* __MB_INCLUDES__ */

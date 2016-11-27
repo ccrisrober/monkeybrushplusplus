@@ -33,7 +33,7 @@ namespace mb
     {
 	public:
 		MB_API
-        PointLight(const Vect3 pos = Vect3::createFromScalar(0.0f));
+        PointLight(const Vect3& pos = Vect3::createFromScalar(0.0f));
 		MB_API
 		Vect3 position() const;
 		MB_API
@@ -41,6 +41,7 @@ namespace mb
     protected:
         Vect3 _position;
     };
+	typedef std::shared_ptr<PointLight> PointLightPtr;
 }
 
 #endif /* __MB_POINT_LIGHT__ */

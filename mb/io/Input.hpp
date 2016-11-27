@@ -20,8 +20,8 @@
 *
 */
 
-#ifndef __MB_INPUT2__
-#define __MB_INPUT2__
+#ifndef __MB_INPUT__
+#define __MB_INPUT__
 
 #include <mb/api.h>
 
@@ -31,7 +31,7 @@
 
 namespace mb
 {
-	class Input2
+	class Input
 	{
 	public:
 		MB_API
@@ -53,7 +53,7 @@ namespace mb
 		MB_API
 		static int MouseY();
 		MB_API
-		static Input2* instance();
+		static Input* instance();
 		MB_API
 		static int PreviousMouseX();
 		MB_API
@@ -78,8 +78,8 @@ namespace mb
 		mb::Keyboard* _keyboard;
 		mb::Mouse*    _mouse;
 
-		static Input2 *_instance;
+		static Input *_instance;
 	};
 }
 
-#endif /* __MB_INPUT2__ */
+#endif /* __MB_INPUT__ */

@@ -58,6 +58,7 @@ namespace mb
         this->_material->uniform("model")->value(model);
 
 		this->_material->use();
+
         this->_mesh->render(_mode);
 	}
 	unsigned int MeshRenderer::mode()

@@ -69,24 +69,24 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Esc))
+	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;
 	}
-	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
+	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
 	}
-	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Y))
+	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
 	{
 		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
 	}
-	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
+	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
 	{
 		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
 	}
-	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::P))
+	if (mb::Input::isKeyClicked(mb::Keyboard::Key::P))
 	{
 		mbModel->toggleComponent<mb::MoveComponent>();
 	}

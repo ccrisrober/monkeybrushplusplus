@@ -21,7 +21,7 @@
 */
 
 #include "Helpers.hpp"
-#include "io/Input2.hpp"
+#include "io/Input.hpp"
 #include "scene/Node.hpp"
 #include <iostream>
 
@@ -36,12 +36,12 @@ namespace mb
 	}
 	void MoveComponent::update(float dt)
 	{
-		if (mb::Input2::isKeyPressed(mb::Keyboard::Key::V))
+		if (mb::Input::isKeyPressed(mb::Keyboard::Key::V))
 		{
 			this->_velocity -= 0.1f;
 			if (this->_velocity < 0.0f) this->_velocity = 0.0f;
 		}
-		else if (mb::Input2::isKeyPressed(mb::Keyboard::Key::B))
+		else if (mb::Input::isKeyPressed(mb::Keyboard::Key::B))
 		{
 			this->_velocity += 0.1f;
 			if (this->_velocity > 10.0f) this->_velocity = 10.0f;
@@ -69,7 +69,7 @@ namespace mb
 	}*/
 	void RotateComponent::update(float dt)
 	{
-		if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Space))
+		if (mb::Input::isKeyClicked(mb::Keyboard::Key::Space))
 		{
 			this->_rotate = !this->_rotate;
 		}

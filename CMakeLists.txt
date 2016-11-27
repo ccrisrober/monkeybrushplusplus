@@ -33,9 +33,11 @@ include(Common)
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 
 
+common_find_package( Eigen3 REQUIRED SYSTEM )
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
 common_find_package( Boost COMPONENTS unit_test_framework )
+#common_find_package( rapidjson )
 common_find_package( GLFW )
 common_find_package(FreeImage REQUIRED SYSTEM)
 
@@ -43,11 +45,11 @@ common_find_package(FreeImage REQUIRED SYSTEM)
 set(GLFW_BUILD_TESTS OFF)
 #set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
-list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW FreeImage)
+list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW FreeImage Eigen3)
 
 common_find_package_post()
 
-# add_subdirectory(third-resources)
+# add_subdirectory(tr)
 add_subdirectory(mb)
 add_subdirectory(examples)
 

@@ -41,6 +41,7 @@ namespace mb
     protected:
         Vect3 _direction;
     };
+    typedef std::shared_ptr<DirectionalLight> DirectionalLightPtr;
 }
 
 #endif /* __MB_DIRECTIONAL_LIGHT__ */

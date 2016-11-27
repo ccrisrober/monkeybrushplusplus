@@ -47,6 +47,16 @@ namespace mb
 		{
 			glBindImageTexture(unit, _handler, level, layered, layer, access, format);
 		}
+		MB_API
+		unsigned int getWidth() const
+		{
+			return _width;
+		}
+		MB_API
+		unsigned int getHeight() const
+		{
+			return _height;
+		}
 	protected:
 		std::string _src;
 		unsigned int _width;

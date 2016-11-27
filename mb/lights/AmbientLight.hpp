@@ -35,6 +35,7 @@ namespace mb
 		MB_API
         AmbientLight();
     };
+    typedef std::shared_ptr<AmbientLight> AmbientLightPtr;
 }
 
 #endif /* __MB_AMBIENT_LIGHT__ */

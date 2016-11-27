@@ -28,5 +28,8 @@
 	
 #define MB_MODEL_ASSETS \
 	"@PROJECT_SOURCE_DIR@/examples"
+	
+#define MB_FILES_ASSETS \
+	"@PROJECT_SOURCE_DIR@/examples"
 
 #endif /* __MB_ASSETS_FILES__ */

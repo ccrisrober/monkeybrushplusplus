@@ -52,6 +52,7 @@ namespace mb
 		Vect3 _direction;
 		float _cutOff;
     };
+	typedef std::shared_ptr<SpotLight> SpotLightPtr;
 }
 
 #endif /* __MB_SPOT_LIGHT__ */

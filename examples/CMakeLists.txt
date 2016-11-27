@@ -191,6 +191,7 @@ common_application( mbColorBlind )
 set( MBTEST1_HEADERS )
 set( MBTEST1_SOURCES test1.cpp )
 set( MBTEST1_LINK_LIBRARIES
+    #rapidjson
 	mb
 )
 
@@ -238,4 +239,15 @@ set( MBFLATWAVE_LINK_LIBRARIES
 )
 
 common_application( mbFlatWave )
+
+
+
+
+set( MBTRIANGLETESSELATION_HEADERS )
+set( MBTRIANGLETESSELATION_SOURCES triangleTesselation.cpp )
+set( MBTRIANGLETESSELATION_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbTriangleTesselation )
 

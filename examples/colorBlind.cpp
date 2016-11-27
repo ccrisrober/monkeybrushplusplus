@@ -63,19 +63,19 @@ int main(void)
 void renderFunc(float)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num1))
+	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num1))
 	{
 		ppm->uniform("mode")->value(0);
 	}
-	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num2))
+	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num2))
 	{
 		ppm->uniform("mode")->value(1);
 	}
-	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num3))
+	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num3))
 	{
 		ppm->uniform("mode")->value(2);
 	}
-	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num4))
+	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num4))
 	{
 		ppm->uniform("mode")->value(3);
 	}
