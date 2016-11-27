@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
-project(MB VERSION 0.1.0 )
+project(MB VERSION 1.9.2 )
 set(MB_VERSION_ABI 1)
 
 # Disable in source building

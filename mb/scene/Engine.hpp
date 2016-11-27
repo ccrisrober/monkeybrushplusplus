@@ -45,20 +45,11 @@ namespace MB
 		MB_API
 		void close();
 		MB_API
-        void setViewport(const Vect4& vp)
-		{
-			this->_context->state()->setViewport(vp);
-		}
+		void setViewport(const Vect4& vp);
 		MB_API
-		GlobalState * state()
-		{
-			return this->_context->state();
-		}
+		GlobalState * state();
 		MB_API
-		GLContext* context()
-		{
-			return this->_context;
-		}
+		GLContext* context();
     private:
 		double calcFPS(double theTimeInterval = 1.0f);
 	protected:

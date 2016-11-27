@@ -53,4 +53,40 @@ namespace MB
 	{
 		return x() == v.x() && y() == v.y();
 	}
+	std::ostream& operator<<(std::ostream& str, const Vect2& v)
+	{
+		str << "Vect2(";
+		str << v._values[0] << ", " << v._values[1];
+		str << ")";
+		return str;
+	}
+
+	Vect2& Vect2::multByScalar(float s)
+	{
+		x(x() * s);
+		y(y() * s);
+
+		return *this;
+	}
+	Vect2 Vect2::add(const Vect2& v, const Vect2& v2)
+	{
+		return Vect2(
+			v.x() + v2.x(),
+			v.y() + v2.y()
+		);
+	}
+	Vect2 Vect2::sub(const Vect2& v, const Vect2& v2)
+	{
+		return Vect2(
+			v.x() - v2.x(),
+			v.y() - v2.y()
+		);
+	}
+	Vect2& Vect2::scale(float value)
+	{
+		this->x(x() * value);
+		this->y(y() * value);
+
+		return *this;
+	}
 }

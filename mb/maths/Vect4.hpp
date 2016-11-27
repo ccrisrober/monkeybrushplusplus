@@ -51,14 +51,8 @@ namespace MB
         float w() const;
         MB_API
         void w(const float& v);
-        MB_API
-        friend std::ostream& operator<<(std::ostream& str, const Vect4& v) {
-            str << "Vect4(";
-            str << v._values[0] << ", " << v._values[1] << ", "
-                                << v._values[2] << ", " << v._values[3];
-            str << ")";
-            return str;
-        }
+		MB_API
+		friend std::ostream& operator<<(std::ostream& str, const Vect4& v);
     public:
         std::vector<float> _values;
 	};

@@ -50,20 +50,11 @@ namespace MB
 		MB_API
         Uniform*& uniform(const std::string& name);
 		MB_API
-        void addUniform(const std::string& name, Uniform* u)
-        {
-        	this->_uniforms[name] = u;
-        }
+		void addUniform(const std::string& name, Uniform* u);
 		MB_API
-		bool hasUniform(const std::string& name)
-		{
-			return _uniforms.find(name) != _uniforms.end();
-		}
+		bool hasUniform(const std::string& name);
 		MB_API
-		Uniform* operator[](std::string& name)
-		{
-			return uniform(name);
-		}
+		Uniform* operator[](std::string& name);
 		MB_API
 		virtual void use();
 		MB_API

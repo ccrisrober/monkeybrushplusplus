@@ -29,7 +29,7 @@
 
 namespace MB
 {
-	template <class T>
+	template <typename T>
 	class CustomPingPong
 	{
 	public:

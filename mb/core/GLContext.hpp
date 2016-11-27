@@ -41,39 +41,16 @@ namespace MB
                   const char* title = "Hello MB");
         MB_API
 		Window* getWindow() const;
-        MB_API
-        void close()
-        {
-			//glfwSetWindowShouldClose(_window, GLFW_TRUE);
-            //glfwTerminate();
-        }
-        MB_API
-        void setTitle(const char* title, bool fullName = true)
-        {
-            if (fullName)
-            {
-				_window->setTitle((std::string(_title) + std::string(" - ") + std::string(title)).c_str());
-            }
-            else
-            {
-				_window->setTitle(title);
-            }
-        }
-        MB_API
-        unsigned int getWidth() const
-        {
-            return this->_width;
-        }
-        MB_API
-        unsigned int getHeight() const
-        {
-            return this->_height;
-        }
-        MB_API
-		GlobalState* state()
-		{
-			return this->_state;
-		}
+		MB_API
+		void close();
+		MB_API
+		void setTitle(const char* title, bool fullName = true);
+		MB_API
+		unsigned int getWidth() const;
+		MB_API
+		unsigned int getHeight() const;
+		MB_API
+		GlobalState* state();
 	protected:
         unsigned int _minVersion;
         unsigned int _maxVersion;

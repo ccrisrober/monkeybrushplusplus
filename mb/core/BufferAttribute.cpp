@@ -29,6 +29,10 @@ namespace MB
     , _size(size)
     {
     }
+	void BufferAttribute::array(const std::vector<float> arr)
+	{
+		this->_arr = arr;
+	}
     unsigned int BufferAttribute::size() const 
     {
         return this->_size;

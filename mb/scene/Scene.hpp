@@ -42,9 +42,14 @@ namespace MB
 		MB_API
 		Node* root() const;
 		MB_API
+		// TODO: Move to Node
 		Node* findByName(const std::string& name);
 		MB_API
+			// TODO: Move to Node
 		Node* findByTag(const std::string& tag);
+		MB_API
+		// TODO: Move to Node
+		Node* findById(const std::string uuid);
 		MB_API
 		void registerBeforeRender(const std::function<void()>& cb, bool recyclable = false);
 		MB_API
@@ -58,6 +63,7 @@ namespace MB
 		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue);
 		Node* _searchName(const std::string& name, Node* elem);
 		Node* _searchTag(const std::string& tag, Node* elem);
+		Node* _searchUUID(const std::string& uuid, Node* elem);
 	protected:
 		std::vector<std::pair<std::function<void()>, bool>> _beforeRender;
 		std::vector<std::pair<std::function<void()>, bool>> _afterRender;

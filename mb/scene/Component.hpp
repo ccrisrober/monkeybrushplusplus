@@ -54,6 +54,8 @@ namespace MB
 		MB_API
 		void setEnabled(const bool v);
 		MB_API
+		void toggle();
+		MB_API
 		virtual ~Component() {}
 	protected:
 		Node* _node;

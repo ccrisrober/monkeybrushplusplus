@@ -97,22 +97,73 @@ namespace MB
 		MeshRenderer* getMesh() const;
 		MB_API
 		void traverse(const std::function<void(MB::Node* n)>& f);
+		MB_API
+		void traverseAncestors(const std::function<void(MB::Node* n)>& f);
+
+
+
 		template <typename T>
-		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-		//MB_API
-		void enableComponent();
+		void toggleComponent()
+		{
+			for (auto comp : _components)
+			{
+				if (typeid(*comp) == typeid(T))
+				{
+					comp->toggle();
+				}
+			}
+		}
 		template <typename T>
-		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-		//MB_API
-		void disableComponent();
-		template <typename T>
-		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-		//MB_API
-		bool hasComponent() const;
-		template <typename T>
-		//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-		//MB_API
-		T* getComponent();
+		void enableComponent()
+		{
+			for (auto comp : _components)
+			{
+				if (typeid(*comp) == typeid(T))
+				{
+					comp->enable();
+				}
+			}
+		}
+		template <class T>
+		void disableComponent()
+		{
+			for (auto comp : _components)
+			{
+				if (typeid(*comp) == typeid(T))
+				{
+					comp->disable();
+				}
+			}
+		}
+		template <class T>
+		bool hasComponent() const
+		{
+			for (auto comp : _components)
+			{
+				if (typeid(*comp) == typeid(T))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		template <class T>
+		T* getComponent()
+		{
+			for (auto comp : _components)
+			{
+				// std::cout << typeid(*comp).name() << std::endl;
+				// std::cout << typeid(T).name() << std::endl;
+				if (typeid(*comp) == typeid(T))
+				{
+					return static_cast<T*>(comp);
+				}
+			}
+			return nullptr;
+		}
+
+
+
 		MB_API
 		Component* getComponentByIndex(unsigned int index);
 		MB_API
@@ -138,3 +189,5 @@ namespace MB
 }
 
 #endif /* __MB_NODE__ */
+
+//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>

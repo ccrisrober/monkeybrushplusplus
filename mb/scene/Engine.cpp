@@ -94,6 +94,21 @@ namespace MB
         this->_context->close();
     }
 
+	void Engine::setViewport(const Vect4& vp)
+	{
+		this->_context->state()->setViewport(vp);
+	}
+
+	GlobalState * Engine::state()
+	{
+		return this->_context->state();
+	}
+
+	GLContext* Engine::context()
+	{
+		return this->_context;
+	}
+
 	double Engine::calcFPS(double theTimeInterval)
 	{
 		// Static values which only get initialised the first time the function runs

@@ -50,4 +50,32 @@ namespace MB
 	{
 		return this->_window;
 	}
+	void GLContext::close()
+	{
+		//glfwSetWindowShouldClose(_window, GLFW_TRUE);
+		//glfwTerminate();
+	}
+	void GLContext::setTitle(const char* title, bool fullName)
+	{
+		if (fullName)
+		{
+			_window->setTitle((std::string(_title) + std::string(" - ") + std::string(title)).c_str());
+		}
+		else
+		{
+			_window->setTitle(title);
+		}
+	}
+	unsigned int GLContext::getWidth() const
+	{
+		return this->_width;
+	}
+	unsigned int GLContext::getHeight() const
+	{
+		return this->_height;
+	}
+	GlobalState* GLContext::state()
+	{
+		return this->_state;
+	}
 }

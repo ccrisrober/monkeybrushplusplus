@@ -37,15 +37,8 @@ namespace MB
         Mat2();
         MB_API
         Mat2(const std::vector<float> values);
-        MB_API
-        friend std::ostream& operator<<(std::ostream& str, const Mat2& m)
-		{
-            str << "Mat2(\n";
-            str << "\t" << m._values[0] << ", " << m._values[1] << ", \n";
-            str << "\t" << m._values[2] << ", " << m._values[3] << "\n";
-            str << ")";
-            return str;
-        }
+		MB_API
+		friend std::ostream& operator<<(std::ostream& str, const Mat2& m);
         std::vector<float> _values;
 	};
 }

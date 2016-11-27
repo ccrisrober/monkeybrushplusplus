@@ -64,4 +64,12 @@ namespace MB
     {
         this->_values[3] = v;
     }
+	std::ostream& operator<<(std::ostream& str, const Vect4& v)
+	{
+		str << "Vect4(";
+		str << v._values[0] << ", " << v._values[1] << ", "
+			<< v._values[2] << ", " << v._values[3];
+		str << ")";
+		return str;
+	}
 }

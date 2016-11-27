@@ -56,4 +56,8 @@ namespace MB
 	{
 		_enabled = v;
 	}
+	void Component::toggle()
+	{
+		setEnabled(!isEnabled());
+	}
 }

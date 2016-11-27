@@ -99,14 +99,7 @@ namespace MB
 		MB_API
 		static float dot(const Vect3& v, const Vect3& v2);
 		MB_API
-		Vect3& scale(float value)
-		{
-			this->x(x() * value);
-			this->y(y() * value);
-			this->z(z() * value);
-
-			return *this;
-		}
+		Vect3& scale(float value);
 		MB_API
 		virtual bool operator==(const Vect3& other) const;
 		MB_API
@@ -114,13 +107,7 @@ namespace MB
 		MB_API
 		bool operator==(const Vect3& v);
 		MB_API
-        friend std::ostream& operator<<(std::ostream& str, const Vect3& v)
-        {
-            str << "Vect3(";
-            str << v._values[0] << ", " << v._values[1] << ", " << v._values[2];
-			str << ")";
-            return str;
-        }
+		friend std::ostream& operator<<(std::ostream& str, const Vect3& v);
 	public:
 		std::vector<float> _values;
 	};

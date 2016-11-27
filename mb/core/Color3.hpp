@@ -48,6 +48,7 @@ namespace MB
         float g() const;
         MB_API
         float b() const;
+
         MB_API
         void r(const float v);
         MB_API

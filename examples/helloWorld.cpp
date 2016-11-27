@@ -50,6 +50,10 @@ int main(void)
 	mbModel->addComponent(new MB::RotateComponent(MB::Axis::x));
 
 	mbModel->getComponent<MB::RotateComponent>()->setRotate(true);
+
+	//mbModel->disableComponent<MB::RotateComponent>();
+	//mbModel->enableComponent<MB::RotateComponent>();
+	//mbModel->hasComponent<MB::RotateComponent>();
 	
 	scene->root()->addChild(mbModel);
 
@@ -72,18 +76,19 @@ void renderFunc(float dt)
 	}
 	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
 	{
-		MB::RotateComponent* r = mbModel->getComponent<MB::RotateComponent>();
-		r->setAxis(MB::Axis::x);
+		mbModel->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::x);
 	}
 	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Y))
 	{
-		MB::RotateComponent* r = mbModel->getComponent<MB::RotateComponent>();
-		r->setAxis(MB::Axis::y);
+		mbModel->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::y);
 	}
 	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
 	{
-		MB::RotateComponent* r = mbModel->getComponent<MB::RotateComponent>();
-		r->setAxis(MB::Axis::z);
+		mbModel->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::z);
+	}
+	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::P))
+	{
+		mbModel->toggleComponent<MB::MoveComponent>();
 	}
 	engine->state()->culling.setStatus(false);
 	engine->state()->setPolygonMode(GL_LINE);

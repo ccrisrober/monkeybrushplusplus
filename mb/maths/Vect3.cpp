@@ -230,6 +230,14 @@ namespace MB
 
 		return (x * x2 + y * y2 + z * z2);
 	}
+	Vect3& Vect3::scale(float value)
+	{
+		this->x(x() * value);
+		this->y(y() * value);
+		this->z(z() * value);
+
+		return *this;
+	}
 	bool Vect3::operator==(const Vect3& other) const
 	{
 		for (unsigned int i = 0; i < 3; ++i) {
@@ -247,5 +255,12 @@ namespace MB
 	bool Vect3::operator==(const Vect3& v)
 	{
 		return x() == v.x() && y() == v.y() && z() == v.z();
+	}
+	std::ostream& operator<<(std::ostream& str, const Vect3& v)
+	{
+		str << "Vect3(";
+		str << v._values[0] << ", " << v._values[1] << ", " << v._values[2];
+		str << ")";
+		return str;
 	}
 }

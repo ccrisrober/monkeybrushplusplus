@@ -17,3 +17,5 @@
 - (26/11) Fixed GetComponent<K>()
 - (27/11) Added removeChildren, getChild(unsigned int), getNumChildren, getNumComponents, removeComponents to Node.
 - (27/11) Added enabled attribute and methods for update in Component class.
+- (27/11) Added traverseAscentors(callback) in Node. Added FindById in Scene.
+- (27/11) Added ArgumentParser to utils.

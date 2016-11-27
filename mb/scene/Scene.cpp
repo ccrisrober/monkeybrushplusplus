@@ -48,6 +48,11 @@ namespace MB
 		Node* toRet = this->_searchTag(tag, root());
 		return toRet;
 	}
+	Node* Scene::findById(const std::string uuid)
+	{
+		Node* toRet = this->_searchUUID(uuid, root());
+		return toRet;
+	}
 	void Scene::registerBeforeRender(const std::function<void()>& cb, bool recyclable)
 	{
 		this->_beforeRender.push_back(std::make_pair(cb, recyclable));
@@ -97,6 +102,22 @@ namespace MB
 		for (auto& c : elem->children())
 		{
 			auto child = this->_searchTag(tag, c);
+			if (child)
+			{
+				return child;
+			}
+		}
+		return nullptr;
+	}
+	Node* Scene::_searchUUID(const std::string& uuid, Node* elem)
+	{
+		if (elem->hasParent() && elem->uuid() == uuid) {
+			return elem;
+		}
+		// Search in childrens
+		for (auto& c : elem->children())
+		{
+			auto child = this->_searchUUID(uuid, c);
 			if (child)
 			{
 				return child;

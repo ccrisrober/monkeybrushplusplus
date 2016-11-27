@@ -100,6 +100,7 @@ set( MB_PUBLIC_HEADERS
     textures/Texture2DArray.hpp
     textures/Texture3D.hpp
 
+    utils/ArgumentParser.hpp
     utils/NonCopyable.hpp
     utils/any.hpp
     utils/macros.hpp
@@ -221,7 +222,8 @@ set( MB_SOURCES
 
 
     utils/utils.cpp
-    
+    utils/ArgumentParser.cpp
+
 
     #main.cpp
 )

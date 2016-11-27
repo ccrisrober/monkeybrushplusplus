@@ -198,56 +198,13 @@ namespace MB
 			child->traverse(f);
 		}
 	}
-	template <typename T>
-	//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-	void Node::enableComponent()
+	void Node::traverseAncestors(const std::function<void(MB::Node* n)>& f)
 	{
-		for (auto comp : _components)
+		if (this->_parent != nullptr)
 		{
-			if (typeid(*comp) == typeid(T))
-			{
-				comp->enable();
-			}
+			f(this);
+			this->_parent->traverseAncestors(f);
 		}
-	}
-	template <typename T>
-	//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-	void Node::disableComponent()
-	{
-		for (auto comp : _components)
-		{
-			if (typeid(*comp) == typeid(T))
-			{
-				comp->disable();
-			}
-		}
-	}
-	template <typename T>
-	//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-	bool Node::hasComponent() const
-	{
-		for (auto comp : _components)
-		{
-			if (typeid(*comp) == typeid(T))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-	T* Node::getComponent()
-	{
-		for (auto comp : _components)
-		{
-			// std::cout << typeid(*comp).name() << std::endl;
-			// std::cout << typeid(T).name() << std::endl;
-			if (typeid(*comp) == typeid(T))
-			{
-				return static_cast<T*>(comp);
-			}
-		}
-		return nullptr;
 	}
 	Component* Node::getComponentByIndex(unsigned int index)
 	{
