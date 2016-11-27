@@ -22,7 +22,7 @@
 
 #include "PostProcess.hpp"
 
-namespace MB
+namespace mb
 {
 	PostProcess::PostProcess()
 	{

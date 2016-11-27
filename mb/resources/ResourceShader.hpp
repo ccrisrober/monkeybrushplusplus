@@ -29,7 +29,7 @@
 #include <fstream>
 #include <sstream>
 
-namespace MB
+namespace mb
 {
 	class ResourceShader
 	{

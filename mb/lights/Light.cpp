@@ -22,7 +22,7 @@
 
 #include "Light.hpp"
 
-namespace MB
+namespace mb
 {
 	Light::Light()
 	: _intensity(1.0f)

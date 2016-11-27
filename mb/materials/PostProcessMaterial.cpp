@@ -22,7 +22,7 @@
 
 #include "PostProcessMaterial.hpp"
 
-namespace MB
+namespace mb
 {
 	PostProcessMaterial::PostProcessMaterial(const char* fsShader_)
 		: Material()

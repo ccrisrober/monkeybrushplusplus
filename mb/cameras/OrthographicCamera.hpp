@@ -28,42 +28,24 @@
 #include "Camera.hpp"
 #include <iostream>
 
-namespace MB
+namespace mb
 {
 	class OrthographicCamera : public Camera
 	{
 	public:
 		MB_API
-		OrthographicCamera(float left_, float right_, float top_, float bottom_, float near_ = 0.1f, float far_ = 1000.0f)
-			: Camera(near_, far_)
-			, left(left_)
-			, right(right_)
-			, top(top_)
-			, bottom(bottom_)
-		{
-			updateProjectionMatrix();
-		}
-		friend std::ostream& operator <<(std::ostream& os, const OrthographicCamera& o)
-		{
-			os << "OrthographicCamera (" << std::endl;
-			os << "\tLEFT  : " << o.left << std::endl;
-			os << "\tRIGHT : " << o.right << std::endl;
-			os << "\tTOP  : " << o.top << std::endl;
-			os << "\tBOTTOM : " << o.bottom << std::endl;
-			os << "\tNEAR  : " << o._near << std::endl;
-			os << "\tFAR   : " << o._far << std::endl;
-			os << ")";
-			return os;
-		}
+		OrthographicCamera(float left_, float right_, 
+			float top_, float bottom_, float near_ = 0.1f, 
+			float far_ = 1000.0f);
+		MB_API
+		friend std::ostream& operator <<(std::ostream& os, 
+			const OrthographicCamera& o);
 		float left;
 		float right;
 		float top;
 		float bottom;
 	protected:
-		virtual void updateProjectionMatrix()
-		{
-			_projectionMatrix = Mat4::orthographic(left, right, bottom, top, _near, _far);
-		}
+		virtual void updateProjectionMatrix();
 	};
 }
 

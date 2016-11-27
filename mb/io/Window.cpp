@@ -23,7 +23,7 @@
 #include "Window.hpp"
 #include "Input2.hpp"
 
-namespace MB
+namespace mb
 {
 	bool GLFWWindow2::init()
 	{

@@ -28,7 +28,7 @@
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
 
-namespace MB
+namespace mb
 {
 	class PostProcess
 	{

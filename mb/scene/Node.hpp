@@ -32,16 +32,21 @@
 #include "Transform.hpp"
 #include <algorithm>
 
+#include "../core/Layer.hpp"
+
 #include "Component.hpp"
 #include "MeshRenderer.hpp"
+#include "../utils/utils.hpp"
 
-namespace MB
+namespace mb
 {
 	class Node
 	{
 	public:
 		MB_API
 		Node(const std::string& name = "Node", const std::string& tag = "Untagged");
+		MB_API
+		virtual ~Node();
 		MB_API
 		bool isVisible() const;
 		MB_API
@@ -51,17 +56,25 @@ namespace MB
 		MB_API
 		void setParent(Node* p);
 		MB_API
-		void addChild(Node* n);
+		void addChild(Node* child);
 		MB_API
-		void removeChild(Node* n);
+		void removeChild(Node* child);
 		MB_API
 		void removeChild(unsigned int index);
+		MB_API
+		unsigned int getNumChildren() const;
+		MB_API
+		unsigned int getNumComponents() const;
+		MB_API
+		Node* getChild(unsigned int index);
+		MB_API
+		void removeChildren();
+		MB_API
+		void removeComponents();
 		MB_API
 		void addComponent(Component* c);
 		MB_API
 		void setVisible(const bool flag, const bool applyToChildren = false);
-		MB_API
-		void removeAll();
 		MB_API
 		std::vector<Node*> children() const;
 		MB_API
@@ -76,56 +89,93 @@ namespace MB
 		void name(const std::string& n);
 		MB_API
 		void tag(const std::string& t);
-
 		MB_API
-		void setMesh(MeshRenderer* mesh)
-		{
-			this->_mesh = mesh;
-		}
-		MeshRenderer* getMesh() const
-		{
-			return this->_mesh;
-		}
-
-		/**
-		std::function<void(MB::Node*)> f([](MB::Node* n) {
-			std::cout << n->name() << std::endl;
-		});
-		*/
+		std::vector<mb::Component*> getComponents() const;
 		MB_API
-		void traverse(std::function<void(MB::Node* n)> f)
+		void setMesh(MeshRenderer* mesh);
+		MB_API
+		MeshRenderer* getMesh() const;
+		MB_API
+		void traverse(const std::function<void(mb::Node* n)>& f);
+		MB_API
+		void traverseAncestors(const std::function<void(mb::Node* n)>& f);
+
+
+
+		template <typename T>
+		void toggleComponent()
 		{
-			f(this);
-			for (auto& child: _children)
+			for (auto comp : _components)
 			{
-				child->traverse(f);
+				if (typeid(*comp) == typeid(T))
+				{
+					comp->toggle();
+				}
 			}
 		}
-
-		template<typename ComponentType>
-		MB_API
-		ComponentType* getComponent();
-		MB_API
-		std::vector<MB::Component*> getComponents() const;
-
-		MB_API
-			friend std::ostream& operator<<(std::ostream & str, const Node& n) {
-			str << n._name << " => " << n._id;
-			return str;
-		}
-
-		MB_API
-		std::string uuid() const
+		template <typename T>
+		void enableComponent()
 		{
-			return _id;
+			for (auto comp : _components)
+			{
+				if (typeid(*comp) == typeid(T))
+				{
+					comp->enable();
+				}
+			}
 		}
-	private:
-		std::string _generateUUID() const;
+		template <class T>
+		void disableComponent()
+		{
+			for (auto comp : _components)
+			{
+				if (typeid(*comp) == typeid(T))
+				{
+					comp->disable();
+				}
+			}
+		}
+		template <class T>
+		bool hasComponent() const
+		{
+			for (auto comp : _components)
+			{
+				if (typeid(*comp) == typeid(T))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		template <class T>
+		T* getComponent()
+		{
+			for (auto comp : _components)
+			{
+				// std::cout << typeid(*comp).name() << std::endl;
+				// std::cout << typeid(T).name() << std::endl;
+				if (typeid(*comp) == typeid(T))
+				{
+					return static_cast<T*>(comp);
+				}
+			}
+			return nullptr;
+		}
+
+
+
+		MB_API
+		Component* getComponentByIndex(unsigned int index);
+		MB_API
+		friend std::ostream& operator<<(std::ostream & str, const Node& n);
+		MB_API
+		std::string uuid() const;
+		MB_API
+		Layer& layer();
 	protected:
 		MeshRenderer* _mesh = nullptr;
 		std::vector<Node*> _children;
-		//std::unordered_map<const std::type_info*, MB::Component*> _components;
-		std::vector<MB::Component*> _components;
+		std::vector<mb::Component*> _components;
 
 		std::string _name;
 		std::string _id;
@@ -133,7 +183,11 @@ namespace MB
         std::string _tag;
         bool _visible;
 		Transform _transform;
+
+		Layer _layer;
 	};
 }
 
 #endif /* __MB_NODE__ */
+
+//template <typename T, bool = std::is_base_of<BaseComponent, T>::value>

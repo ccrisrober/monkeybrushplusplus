@@ -28,7 +28,7 @@
 #include "Vect2.hpp"
 #include <limits>
 
-namespace MB
+namespace mb
 {
 	class Box2D
 	{

@@ -22,7 +22,7 @@
 
 #include "Material.hpp"
 
-namespace MB
+namespace mb
 {
 	Material::Material()
 	{
@@ -36,6 +36,18 @@ namespace MB
     {
         return this->_uniforms[name];
     }
+	void Material::addUniform(const std::string& name, Uniform* u)
+	{
+		this->_uniforms[name] = u;
+	}
+	bool Material::hasUniform(const std::string& name)
+	{
+		return _uniforms.find(name) != _uniforms.end();
+	}
+	Uniform* Material::operator[](std::string& name)
+	{
+		return uniform(name);
+	}
 	void Material::use()
 	{
 		this->_program.use();

@@ -27,7 +27,7 @@
 
 #include "Vect3.hpp"
 
-namespace MB
+namespace mb
 {
 	class Sphere3D
 	{

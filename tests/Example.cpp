@@ -15,9 +15,10 @@ BOOST_AUTO_TEST_CASE ( test_cube_indices_len )
 
 BOOST_AUTO_TEST_CASE ( test_lights_repeated )
 {
-	MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+	MB::GLContext context(4, 3, 1024, 768, "Hello MB");
 
-	auto scene = new MB::Scene();
+	auto engine = new MB::Engine(&context);
+	auto scene = new MB::Scene(engine);
 
 	MB::Light* l1 = new MB::PointLight();
 	scene->addLight(l1);

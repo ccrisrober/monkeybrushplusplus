@@ -22,7 +22,7 @@
 
 #include "SimpleShadingMaterial.hpp"
 
-namespace MB
+namespace mb
 {
     SimpleShadingMaterial::SimpleShadingMaterial()
     : Material()

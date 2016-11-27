@@ -22,7 +22,7 @@
 
 #include "Input2.hpp"
 
-namespace MB
+namespace mb
 {
 	void Input2::initialize()
 	{
@@ -38,12 +38,12 @@ namespace MB
 		delete _instance->_keyboard;
 		delete _instance;
 	}
-	MB::Keyboard* Input2::Keyboard()
+	mb::Keyboard* Input2::Keyboard()
 	{
 		auto input = Input2::instance();
 		return input->_keyboard;
 	}
-	MB::Mouse* Input2::Mouse()
+	mb::Mouse* Input2::Mouse()
 	{
 		auto input = Input2::instance();
 		return input->_mouse;
@@ -77,7 +77,7 @@ namespace MB
 	{
 		if (!Input2::_instance)
 		{
-			Input2::_instance = new MB::Input2();
+			Input2::_instance = new mb::Input2();
 		}
 		return Input2::_instance;
 	}

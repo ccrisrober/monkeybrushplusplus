@@ -33,13 +33,13 @@
 #include <iterator>
 #include <algorithm>
 
-namespace MB
+namespace mb
 {
 	struct Model
 	{
 		std::vector< float > vertices;
 		std::vector< float > normals;
-		std::vector< int > indices;
+		std::vector< unsigned int > indices;
 		std::vector< float > texCoords;
 		std::vector< float > tangents;
 		std::vector< float > bitangents;
@@ -60,14 +60,14 @@ namespace MB
 		 * @return Model object with parsed values.
 		 */
 		MB_API
-		Model loadObj( std::string& filename, bool calculateTangAndBi = false );
+		Model loadObj( const std::string& filename, bool calculateTangAndBi = false );
 	protected:
 		/*
 			Load all file content
 			@param std::string filename
 			@return std::string
 		*/
-		std::string loadFile( std::string& filename );
+		std::string loadFile( const std::string& filename );
 		/*
 			Split string by character separator
 			@param string line
@@ -79,7 +79,7 @@ namespace MB
 		bool isFloat( const std::string& myString );
 		std::vector< float > splitLineToFloats( std::string& line );
 		std::string trim( const std::string& str );
-		std::vector< int > splitFace( std::string& line );
+		std::vector< unsigned int > splitFace( std::string& line );
 	};
 }
 

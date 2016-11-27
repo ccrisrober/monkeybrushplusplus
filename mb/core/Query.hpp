@@ -26,7 +26,7 @@
 #include "../Includes.hpp"
 #include <functional>
 
-namespace MB
+namespace mb
 {
 	class Query
 	{

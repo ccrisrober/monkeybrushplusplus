@@ -28,46 +28,24 @@
 #include "Camera.hpp"
 #include <iostream>
 
-namespace MB
+namespace mb
 {
 	class PerspectiveCamera: public Camera
 	{
 	public:
 		MB_API
-		PerspectiveCamera(float fov_ = 45.0f, float aspect_ = 1.0f, float near_ = 0.1f, float far_ = 1000.0f)
-			: Camera(near_, far_)
-			, _fov(fov_)
-			, _aspect(aspect_)
-		{
-			updateProjectionMatrix();
-		}
-		friend std::ostream& operator <<(std::ostream& os, const PerspectiveCamera& o)
-		{
-			os << "PerspectiveCamera (" << std::endl;
-			os << "\tFOV   : " << o._fov << std::endl;
-			os << "\tASPECT: " << o._aspect << std::endl;
-			os << "\tNEAR  : " << o._near << std::endl;
-			os << "\tFAR   : " << o._far << std::endl;
-			os << ")";
-			return os;
-		}
+		PerspectiveCamera(float fov_ = 45.0f, 
+			float aspect_ = 1.0f, float near_ = 0.1f, 
+			float far_ = 1000.0f);
 		MB_API
-		void setWindowSize(int width, int height)
-		{
-			this->_aspect = (float)width / (float)height;
-			updateProjectionMatrix();
-		}
+		friend std::ostream& operator <<(std::ostream& os, 
+			const PerspectiveCamera& o);
 		MB_API
-		void fov(float fov_)
-		{
-			this->_fov = fov_;
-			updateProjectionMatrix();
-		}
+		void setWindowSize(int width, int height);
+		MB_API
+		void fov(float fov_);
 	protected:
-		virtual void updateProjectionMatrix()
-		{
-			_projectionMatrix = Mat4::perspective(_fov, _aspect, _near, _far);
-		}
+		virtual void updateProjectionMatrix();
 		float _fov;
 		float _aspect;
 	};

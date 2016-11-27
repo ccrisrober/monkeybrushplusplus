@@ -27,7 +27,7 @@
 
 #include "Node.hpp"
 
-namespace MB
+namespace mb
 {
 	class Group: public Node
 	{

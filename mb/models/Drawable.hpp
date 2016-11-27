@@ -29,7 +29,7 @@
 #include "../core/VertexArray.hpp"
 #include "../core/VertexBuffer.hpp"
 
-namespace MB
+namespace mb
 {
     class Drawable
     {

@@ -22,7 +22,7 @@
 
 #include "Sphere3D.hpp"
 
-namespace MB
+namespace mb
 {
 	Sphere3D::Sphere3D(const Vect3& center, const float& radius)
 		: _center(center)

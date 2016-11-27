@@ -9,3 +9,13 @@
 - (24/11) Added ResourceManager for any type (using MB::any)
 - (24/11) Reorganized scene rendering in update stage and render stage.
 - (24/11) Scene knows engine.
+- (25/11) Added mesh model.
+- (25/11) Added Polyhedron base code.
+- (25/11) Added layer and layer look up.
+- (26/11) Added Icosahedron, Octahedron and Tetrahedron.
+- (26/11) Added layer to SimpleCamera and Node
+- (26/11) Fixed GetComponent<K>()
+- (27/11) Added removeChildren, getChild(unsigned int), getNumChildren, getNumComponents, removeComponents to Node.
+- (27/11) Added enabled attribute and methods for update in Component class.
+- (27/11) Added traverseAscentors(callback) in Node. Added FindById in Scene.
+- (27/11) Added ArgumentParser to utils.

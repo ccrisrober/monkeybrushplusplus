@@ -23,7 +23,7 @@
 #include "Texture2D.hpp"
 #include <FreeImage.h>
 
-namespace MB
+namespace mb
 {
 	Texture2D::Texture2D(const TexOptions& options,
 		unsigned int width, unsigned int height)

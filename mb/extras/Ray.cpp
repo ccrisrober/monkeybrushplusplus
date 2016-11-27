@@ -21,7 +21,7 @@
  */
 #include "Ray.hpp"
 
-namespace MB
+namespace mb
 {
 	Ray::Ray(const Vect3& origin, const Vect3& direction)
 	: _origin(origin)

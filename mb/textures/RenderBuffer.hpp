@@ -28,7 +28,7 @@
 #include "../Includes.hpp"
 #include "../maths/Vect2.hpp"
 
-namespace MB
+namespace mb
 {
 	class RenderBuffer
 	{

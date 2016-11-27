@@ -27,7 +27,7 @@
 
 #include "../maths/Vect3.hpp"
 
-namespace MB
+namespace mb
 {
 	class Ray
     {

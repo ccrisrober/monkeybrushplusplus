@@ -23,7 +23,7 @@
 #include "Sphere2D.hpp"
 #include <cmath>
 
-namespace MB
+namespace mb
 {
 	Sphere2D::Sphere2D(const Vect2& center, const float& radius)
 		: _center(center)

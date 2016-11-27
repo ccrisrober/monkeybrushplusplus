@@ -27,7 +27,7 @@
 
 #include "../Includes.hpp"
 
-namespace MB
+namespace mb
 {
 	struct WindowParams
 	{
@@ -78,7 +78,7 @@ namespace MB
 			return this->_handle;
 		}
 		GlutWindow(const WindowParams& params)
-			: MB::Window(params)
+			: mb::Window(params)
 		{
 			_handle = nullptr;
 		}
@@ -127,7 +127,7 @@ namespace MB
 
 		MB_API
 		GLFWWindow2(const WindowParams& params)
-			: MB::Window(params)
+			: mb::Window(params)
 		{
 			_handle = nullptr;
 		}

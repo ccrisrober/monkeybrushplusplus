@@ -27,7 +27,7 @@
 
 #include "RenderBuffer.hpp"
 
-namespace MB
+namespace mb
 {
 	class RenderBufferTexture: public RenderBuffer
 	{

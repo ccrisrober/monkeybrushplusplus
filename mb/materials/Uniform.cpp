@@ -22,7 +22,7 @@
 
 #include "Uniform.hpp"
 
-namespace MB
+namespace mb
 {
     Uniform::Uniform()
         : _type(Invalid)

@@ -30,7 +30,7 @@
 #include "../maths/Vect3.hpp"
 #include "../maths/Mat4.hpp"
 
-namespace MB
+namespace mb
 {
 	class Transform
 	{

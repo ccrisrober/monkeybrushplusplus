@@ -35,7 +35,7 @@
 #include "../maths/Mat3.hpp"
 #include "../maths/Mat4.hpp"
 
-namespace MB
+namespace mb
 {
     typedef std::unordered_map<std::string, Uniform*> TUniforms;
 	class Material
@@ -50,20 +50,11 @@ namespace MB
 		MB_API
         Uniform*& uniform(const std::string& name);
 		MB_API
-        void addUniform(const std::string& name, Uniform* u)
-        {
-        	this->_uniforms[name] = u;
-        }
+		void addUniform(const std::string& name, Uniform* u);
 		MB_API
-		bool hasUniform(const std::string& name)
-		{
-			return _uniforms.find(name) != _uniforms.end();
-		}
+		bool hasUniform(const std::string& name);
 		MB_API
-		Uniform* operator[](std::string& name)
-		{
-			return uniform(name);
-		}
+		Uniform* operator[](std::string& name);
 		MB_API
 		virtual void use();
 		MB_API
@@ -73,6 +64,10 @@ namespace MB
 		unsigned int sizeOrientation; // InvClockWise
 		bool depthTest = true;
 		bool visible = true;
+
+		bool blending;
+		unsigned int blendSrc;
+		unsigned int blendDst;
 	protected:
 		TUniforms _uniforms;
         Program _program;

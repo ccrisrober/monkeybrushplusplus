@@ -27,7 +27,7 @@
 
 #include "Light.hpp"
 
-namespace MB
+namespace mb
 {
 	class HemisphericLight: public Light
     {

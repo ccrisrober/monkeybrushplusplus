@@ -27,7 +27,7 @@
 
 #include "../core/Color3.hpp"
 
-namespace MB
+namespace mb
 {
 	class Light
 	{

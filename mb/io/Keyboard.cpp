@@ -22,7 +22,7 @@
 
 #include "Keyboard.hpp"
 
-namespace MB
+namespace mb
 {
 	
 	Keyboard::~Keyboard() { };

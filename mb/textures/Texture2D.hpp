@@ -27,7 +27,7 @@
 
 #include "Texture.hpp"
 
-namespace MB
+namespace mb
 {
 	class Texture2D : public Texture
 	{

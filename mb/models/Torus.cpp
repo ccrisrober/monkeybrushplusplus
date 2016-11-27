@@ -22,7 +22,7 @@
 
 #include "Torus.hpp"
 
-namespace MB
+namespace mb
 {
     Torus::Torus(float outerRadius, float innerRadius,
         unsigned int sides, unsigned int rings)

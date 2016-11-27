@@ -22,7 +22,7 @@
 
 #include "Cylinder.hpp"
 
-namespace MB
+namespace mb
 {
     Cylinder::Cylinder(float radius, float height, unsigned int radialSubDiv,
         int heightSubDiv, bool createTopBase, bool createBottomBase)

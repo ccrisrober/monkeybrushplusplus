@@ -24,28 +24,28 @@
 #include <mb/mb.h>
 #include <shaderFiles.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::PostProcessMaterial *ppm1, *ppm2;
+mb::PostProcessMaterial *ppm1, *ppm2;
 
-MB::Framebuffer* fbo;
+mb::Framebuffer* fbo;
 
-MB::Texture *currentTex, *oldTex;
+mb::Texture *currentTex, *oldTex;
 
-/*MB::CustomPingPong<MB::Texture*>* customPP;
+mb::CustomPingPong<mb::Texture*>* customPP;
 
 std::function<void()> cppCallback([]() {
 
-});*/
+});
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 512, 512, "Advention demo");
+	mb::GLContext context(3, 3, 512, 512, "Advention demo");
 
-	MB::TexOptions opts;
+	mb::TexOptions opts;
 	opts.minFilter = GL_NEAREST;
 	opts.magFilter = GL_NEAREST;
 	opts.type = GL_FLOAT;
@@ -73,27 +73,27 @@ int main(void)
 		}
 	}
 
-	MB::Texture2D *tex1 = new MB::Texture2D(opts, pixels.data(),
+	mb::Texture2D *tex1 = new mb::Texture2D(opts, pixels.data(),
 		context.getWidth(), context.getHeight());
-	MB::Texture2D *tex2 = new MB::Texture2D(opts, pixels.data(),
+	mb::Texture2D *tex2 = new mb::Texture2D(opts, pixels.data(),
 		context.getWidth(), context.getHeight());
 
-	//customPP = new MB::CustomPingPong<MB::Texture*>(tex1, tex2);
-	std::vector<MB::Texture*> textures = { tex1, tex2 };
-	fbo = new MB::Framebuffer(textures, 
-		MB::Vect2(context.getWidth(), context.getHeight()));
+	customPP = new mb::CustomPingPong<mb::Texture*>(tex1, tex2);
+	std::vector<mb::Texture*> textures = { tex1, tex2 };
+	fbo = new mb::Framebuffer(textures, 
+		mb::Vect2(context.getWidth(), context.getHeight()));
 
-	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+	engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
 	{
 		std::ifstream file(MB_SHADER_FILES_ADVENTION_FIRST_FRAG);
 		std::stringstream buffer;
 		buffer << file.rdbuf();
 
-		ppm1 = new MB::PostProcessMaterial(buffer.str().c_str());
+		ppm1 = new mb::PostProcessMaterial(buffer.str().c_str());
 
-		ppm1->addUniform("tex", new MB::Uniform(MB::Integer, 0));
+		ppm1->addUniform("tex", new mb::Uniform(mb::Integer, 0));
 	}
 
 
@@ -102,9 +102,9 @@ int main(void)
 		std::stringstream buffer;
 		buffer << file.rdbuf();
 
-		ppm2 = new MB::PostProcessMaterial(buffer.str().c_str());
+		ppm2 = new mb::PostProcessMaterial(buffer.str().c_str());
 
-		ppm2->addUniform("tex", new MB::Uniform(MB::Integer, 0));
+		ppm2->addUniform("tex", new mb::Uniform(mb::Integer, 0));
 	}
 
 	currentTex = tex1;
@@ -119,10 +119,10 @@ int main(void)
 }
 
 float globalTime = 0.0f;
-void renderFunc(float dt)
+void renderFunc(float /*dt*/)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	globalTime += dt;
+	//globalTime += dt;
 
 	currentTex->bind(0);
 	fbo->bind();

@@ -28,59 +28,32 @@
 #include "../maths/Mat4.hpp"
 #include "../scene/Transform.hpp"
 
-namespace MB
+namespace mb
 {
 	class Camera
 	{
 	public:
 		MB_API
-		Camera(float near_ = 0.1f, float far_ = 1000.0f)
-			: _near(near_)
-			, _far(far_)
-		{
-		}
+		Camera(float near_ = 0.1f, float far_ = 1000.0f);
 		MB_API
-		Mat4 projectionMatrix() const
-		{
-			return this->_projectionMatrix;
-		}
+		Mat4 projectionMatrix() const;
 		MB_API
-		Mat4 viewMatrix() const
-		{
-			return this->_viewMatrix;
-		}
+		Mat4 viewMatrix() const;
 		MB_API
-		Transform transform() const
-		{
-			return this->_transform;
-		}
+		Transform& transform();
 		MB_API
-		void setNearFar(float near, float far)
-		{
-			this->_near = near;
-			this->_far = far;
-			updateProjectionMatrix();
-		}
+		void setNearFar(float near, float far);
 		MB_API
-		float near() const {
-			return this->_near;
-		}
+		float near() const;
 		MB_API
-		void near(float near)
-		{
-			this->_near = near;
-			updateProjectionMatrix();
-		}
+		void near(float near);
 		MB_API
-		float far() const {
-			return this->_far;
-		}
+		float far() const;
 		MB_API
-		void far(float far)
-		{
-			this->_far = far;
-			updateProjectionMatrix();
-		}
+		void far(float far);
+
+		MB_API
+		virtual ~Camera() {}
 	protected:
 		Mat4 _viewMatrix;
 		Mat4 _projectionMatrix;

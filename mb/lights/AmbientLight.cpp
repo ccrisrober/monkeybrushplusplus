@@ -22,7 +22,7 @@
 
 #include "AmbientLight.hpp"
 
-namespace MB
+namespace mb
 {
     AmbientLight::AmbientLight()
     : Light()

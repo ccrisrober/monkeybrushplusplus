@@ -22,7 +22,7 @@
 
 #include "Quat.hpp"
 
-namespace MB
+namespace mb
 {
 	Quat::Quat(float x, float y, float z, float w)
 	{

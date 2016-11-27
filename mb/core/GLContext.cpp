@@ -26,9 +26,9 @@
 
 #include <functional>
 
-namespace MB
+namespace mb
 {
-    GLContext::GLContext(unsigned int minVersion, unsigned int maxVersion,
+    GLContext::GLContext(unsigned int maxVersion, unsigned int minVersion,
                          unsigned int width, unsigned int height,
                          const char* title)
 		: _minVersion(minVersion)
@@ -37,11 +37,11 @@ namespace MB
         , _height(height)
         , _title(title)
     {
-		MB::WindowParams wp(width, height);
+		mb::WindowParams wp(width, height);
 		wp.title = title;
 		wp.minVersion = minVersion;
 		wp.maxVersion = maxVersion;
-		_window = new MB::GLFWWindow2(wp);
+		_window = new mb::GLFWWindow2(wp);
 		_window->init();
 
 		_state = new GlobalState();
@@ -49,5 +49,33 @@ namespace MB
 	Window* GLContext::getWindow() const
 	{
 		return this->_window;
+	}
+	void GLContext::close()
+	{
+		//glfwSetWindowShouldClose(_window, GLFW_TRUE);
+		//glfwTerminate();
+	}
+	void GLContext::setTitle(const char* title, bool fullName)
+	{
+		if (fullName)
+		{
+			_window->setTitle((std::string(_title) + std::string(" - ") + std::string(title)).c_str());
+		}
+		else
+		{
+			_window->setTitle(title);
+		}
+	}
+	unsigned int GLContext::getWidth() const
+	{
+		return this->_width;
+	}
+	unsigned int GLContext::getHeight() const
+	{
+		return this->_height;
+	}
+	GlobalState* GLContext::state()
+	{
+		return this->_state;
 	}
 }

@@ -27,7 +27,7 @@
 
 #include "../utils/any.hpp"
 
-namespace MB
+namespace mb
 {
     MB_API
     typedef enum

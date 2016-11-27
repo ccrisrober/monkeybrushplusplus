@@ -23,8 +23,9 @@
 
 #include "Component.hpp"
 
-namespace MB
+namespace mb
 {
+	void Component::start() {}
     void Component::update(float) { }
 	Node* Component::getNode() const
 	{
@@ -34,5 +35,29 @@ namespace MB
 	{
 		this->_node = n;
 	}
-	Component::Component() { }
+	std::ostream& operator<<(std::ostream & str, const Component& n)
+	{
+		str << typeid(n).name();
+		return str;
+	}
+	bool Component::isEnabled() const
+	{
+		return _enabled;
+	}
+	void Component::enable()
+	{
+		setEnabled(true);
+	}
+	void Component::disable()
+	{
+		setEnabled(false);
+	}
+	void Component::setEnabled(const bool v)
+	{
+		_enabled = v;
+	}
+	void Component::toggle()
+	{
+		setEnabled(!isEnabled());
+	}
 }

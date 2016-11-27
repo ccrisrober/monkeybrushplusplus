@@ -23,7 +23,7 @@
 #include "EulerAngle.hpp"
 #include "Quat.hpp"
 
-namespace MB
+namespace mb
 {
 	EulerAngle::EulerAngle(float x, float y, float z, RotSeq order)
 	: _order(order)

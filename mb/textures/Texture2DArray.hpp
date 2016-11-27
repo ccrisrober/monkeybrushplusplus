@@ -28,7 +28,7 @@
 #include "Texture.hpp"
 #include <vector>
 
-namespace MB
+namespace mb
 {
 	class Texture2DArray : public Texture
 	{

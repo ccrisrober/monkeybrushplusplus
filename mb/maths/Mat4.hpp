@@ -29,7 +29,7 @@
 #include <iostream>
 #include "Vect3.hpp"
 
-namespace MB
+namespace mb
 {
 	class Quat;
 	class Mat4
@@ -66,16 +66,7 @@ namespace MB
 		static Mat4 lookAt(const Vect3& pos, const Vect3& target, const Vect3& up);
 		
 		MB_API
-        friend std::ostream& operator<<(std::ostream& str, const Mat4& m)
-        {
-            str << "Mat4(\n";
-            str << "\t" << m._values[0] << ", " << m._values[1] << ", " << m._values[2] << ", " << m._values[4] << ", \n";
-            str << "\t" << m._values[4] << ", " << m._values[5] << ", " << m._values[6] << ", " << m._values[7] << ", \n";
-            str << "\t" << m._values[8] << ", " << m._values[8] << ", " << m._values[10] << ", " << m._values[11] << ", \n";
-            str << "\t" << m._values[12] << ", " << m._values[13] << ", " << m._values[14] <<", " << m._values[15] << "\n";
-            str << ")";
-            return str;
-        }
+		friend std::ostream& operator<<(std::ostream& str, const Mat4& m);
     public:
 		std::vector<float> _values;
 	};

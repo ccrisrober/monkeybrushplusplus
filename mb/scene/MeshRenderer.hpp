@@ -30,7 +30,7 @@
 //#include "Component.hpp"
 //#include "Node.hpp"
 
-namespace MB
+namespace mb
 {
 	class MeshRenderer//: public Component
 	{

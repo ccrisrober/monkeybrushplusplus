@@ -22,7 +22,7 @@
 
 #include "ResourceDrawable.hpp"
 
-namespace MB
+namespace mb
 {
 	std::unordered_map<std::string, Drawable*> ResourceDrawable::_files;
 	void ResourceDrawable::add(const std::string& key, Drawable* value)

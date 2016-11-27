@@ -32,7 +32,7 @@
 #include "Mat4.hpp"
 #include "Mathf.hpp"
 
-namespace MB
+namespace mb
 {
     MB_API
 	typedef enum

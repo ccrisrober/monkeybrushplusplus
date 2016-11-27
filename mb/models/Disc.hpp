@@ -28,7 +28,7 @@
 #include "Drawable.hpp"
 #include "../core/BufferAttribute.hpp"
 
-namespace MB
+namespace mb
 {
     class Disc: public Drawable
     {

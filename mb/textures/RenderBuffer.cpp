@@ -22,7 +22,7 @@
 
 #include "RenderBuffer.hpp"
 
-namespace MB
+namespace mb
 {
 	RenderBuffer::RenderBuffer(const Vect2& size, unsigned int format, unsigned int attachment, unsigned int samples)
 	: _size(size)

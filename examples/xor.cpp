@@ -23,21 +23,21 @@
 #include <iostream>
 #include <mb/mb.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::PostProcessMaterial* ppm;
+mb::PostProcessMaterial* ppm;
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 1024, 768, "XOR demo");
+	mb::GLContext context(3, 3, 1024, 768, "XOR demo");
 
-	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+	engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
-	ppm = new MB::PostProcessMaterial(
+	ppm = new mb::PostProcessMaterial(
 		"#version 330\n"
 		"out vec4 fragColor;\n"
 		"uniform float iGlobalTime;\n"
@@ -64,8 +64,8 @@ int main(void)
 		"		fragColor = vec4(t1, t2, 0.0, 1.0);\n"
 		"}\n");
 
-	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
-	ppm->addUniform("useColor", new MB::Uniform(MB::Boolean, true));
+	ppm->addUniform("iGlobalTime", new mb::Uniform(mb::Float, 0.0f));
+	ppm->addUniform("useColor", new mb::Uniform(mb::Boolean, true));
 
 	engine->run(renderFunc);
 
@@ -81,11 +81,11 @@ void renderFunc(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	globalTime += dt;
 	ppm->uniform("iGlobalTime")->value(globalTime);
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Z))
+	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Z))
 	{
 		ppm->uniform("useColor")->value(false);
 	}
-	else if (MB::Input2::isKeyPressed(MB::Keyboard::Key::X))
+	else if (mb::Input2::isKeyPressed(mb::Keyboard::Key::X))
 	{
 		ppm->uniform("useColor")->value(true);
 	}

@@ -24,7 +24,7 @@
 #include "Interpolation.hpp"
 #include "Mathf.hpp"
 
-namespace MB
+namespace mb
 {
 	Spline2D::Spline2D(InterpolationMode intpMode, const std::vector<Vect2>& points)
 		: _intpMode(intpMode)

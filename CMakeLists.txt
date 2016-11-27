@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
-project(MB VERSION 0.1.0 )
+project(MB VERSION 1.9.2 )
 set(MB_VERSION_ABI 1)
 
 # Disable in source building
@@ -47,7 +47,7 @@ list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW FreeImage)
 
 common_find_package_post()
 
-add_subdirectory(third-resources)
+# add_subdirectory(third-resources)
 add_subdirectory(mb)
 add_subdirectory(examples)
 
@@ -56,4 +56,4 @@ if(${Boost_FOUND})
 endif()
 
 # include(CPackConfig)
-# include(DoxygenRule)
+include(DoxygenRule)

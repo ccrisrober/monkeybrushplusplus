@@ -24,7 +24,7 @@
 #include "../materials/Uniform.hpp"
 #include "../resources/ResourceDrawable.hpp"
 
-namespace MB
+namespace mb
 {
 	MeshRenderer::MeshRenderer(Drawable* mesh, Material* material, unsigned int mode_)
 		//: Component()
@@ -34,7 +34,7 @@ namespace MB
 	{
 	}
 	MeshRenderer::MeshRenderer(const std::string& name, Material* material, unsigned int mode_)
-		: MeshRenderer(MB::ResourceDrawable::get(name), material, mode_)
+		: MeshRenderer(mb::ResourceDrawable::get(name), material, mode_)
 	{
 	}
 	Material* MeshRenderer::getMaterial() const

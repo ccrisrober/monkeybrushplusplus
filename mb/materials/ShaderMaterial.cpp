@@ -23,7 +23,7 @@
 #include "ShaderMaterial.hpp"
 #include "../resources/MaterialCache.hpp"
 
-namespace MB
+namespace mb
 {
 	ShaderMaterial::ShaderMaterial(
 		const std::string& name,

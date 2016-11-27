@@ -29,7 +29,7 @@
 #include <vector>
 #include "../utils/any.hpp"
 
-namespace MB
+namespace mb
 {
     class Event
     {

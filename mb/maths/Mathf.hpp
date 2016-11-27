@@ -30,7 +30,7 @@
 #include <cmath>
 #include <algorithm>
 
-namespace MB
+namespace mb
 {
 	class Mathf
 	{

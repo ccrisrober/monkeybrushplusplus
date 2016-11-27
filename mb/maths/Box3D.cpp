@@ -22,7 +22,7 @@
 
 #include "Box3D.hpp"
 
-namespace MB
+namespace mb
 {
 	Box3D::Box3D(const Vect3& min, const Vect3& max)
 	{

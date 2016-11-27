@@ -22,7 +22,7 @@
 
 #include "Color3.hpp"
 
-namespace MB
+namespace mb
 {
 	Color3::Color3(float r, float g, float b)
 	{

@@ -28,7 +28,7 @@
 #include <unordered_map>
 #include "../models/Drawable.hpp"
 
-namespace MB
+namespace mb
 {
 	class ResourceDrawable
 	{

@@ -23,13 +23,13 @@
 #include <iostream>
 #include <mb/mb.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
 
-MB::PostProcessMaterial* ppm;
+mb::PostProcessMaterial* ppm;
 
 int iter;
 
@@ -38,14 +38,14 @@ float offsetY = 0.0f;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Quasicrystal demo");
+    mb::GLContext context(3, 3, 1024, 768, "Quasicrystal demo");
 
-    engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+    engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
 	iter = 90;
 
-	ppm = new MB::PostProcessMaterial(
+	ppm = new mb::PostProcessMaterial(
 		"#version 330\n"
 		"out vec4 fragColor;\n"
 		"in vec2 uv;\n"
@@ -85,8 +85,8 @@ int main(void)
         "    fragColor.rgb = vec3(0.0, ans, ans * 0.5);\n"
         "    fragColor.w = 1.;\n"
         "}\n");
-	ppm->addUniform("iter", new MB::Uniform(MB::Integer, iter));
-	ppm->addUniform("offset", new MB::Uniform(MB::Vector2, MB::Vect2(offsetX, offsetY)));
+	ppm->addUniform("iter", new mb::Uniform(mb::Integer, iter));
+	ppm->addUniform("offset", new mb::Uniform(mb::Vector2, mb::Vect2(offsetX, offsetY)));
 
 	engine->run(renderFunc);
     
@@ -99,32 +99,32 @@ void renderFunc(float)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
 	{
 		iter -= 1;
 		ppm->uniform("iter")->value(iter);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		iter += 1;
 		ppm->uniform("iter")->value(iter);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::W))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::W))
 	{
 		offsetY += 0.1f;
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::S))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::S))
 	{
 		offsetY -= 0.1f;
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::A))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::A))
 	{
 		offsetX -= 0.1f;
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::D))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::D))
 	{
 		offsetX += 0.1f;
 	}
-	ppm->uniform("offset")->value(MB::Vect2(offsetX, offsetY));
+	ppm->uniform("offset")->value(mb::Vect2(offsetX, offsetY));
 	ppm->renderPP();
 }

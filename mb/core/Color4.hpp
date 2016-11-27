@@ -28,7 +28,7 @@
 #include "../maths/Vect4.hpp"
 #include "Color3.hpp"
 
-namespace MB
+namespace mb
 {
 	class Color4
     {

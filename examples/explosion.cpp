@@ -24,25 +24,25 @@
 #include <mb/mb.h>
 #include <vector>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::Node* mbObj;
-MB::Node* mbObj2;
-MB::Node* mbObj3;
-MB::ShaderMaterial* material;
+mb::Node* mbObj;
+mb::Node* mbObj2;
+mb::Node* mbObj3;
+mb::ShaderMaterial* material;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+    mb::GLContext context(3, 3, 1024, 768, "Hello mb");
 
-    engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+    engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
 
-	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
 	const char* vertexShader =
 		"#version 330 core\n"
 		"layout(location = 0) in vec3 position;\n"
@@ -97,39 +97,39 @@ int main(void)
 		"	fragColor = vec4(color, 1.0);\n"
 		"}";
 
-	shaders.push_back(std::make_pair(MB::VertexShader, vertexShader));
-	shaders.push_back(std::make_pair(MB::GeometryShader, geometryShader));
-	shaders.push_back(std::make_pair(MB::FragmentShader, fragmentShader));
+	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
+	shaders.push_back(std::make_pair(mb::GeometryShader, geometryShader));
+	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
 
 
-	std::vector<std::pair<const char*, MB::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("color", new MB::Uniform(MB::Vector3, MB::Vect3(0.0f, 1.0f, 1.0f))));
-	uniforms.push_back(std::make_pair("time", new MB::Uniform(MB::Float, 0.015f)));
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
+	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3(0.0f, 1.0f, 1.0f))));
+	uniforms.push_back(std::make_pair("time", new mb::Uniform(mb::Float, 0.015f)));
 
-	material = new MB::ShaderMaterial("geomExplosion", shaders, uniforms);
+	material = new mb::ShaderMaterial("geomExplosion", shaders, uniforms);
 
-	MB::Torus* torus = new MB::Torus(0.5f, 0.25f, 25, 40);
+	mb::Torus* torus = new mb::Torus(0.5f, 0.25f, 25, 40);
 
-	mbObj = new MB::Node(std::string("torus"));
-	mbObj->setMesh(new MB::MeshRenderer(torus, material));
-	mbObj->addComponent(new MB::MoveComponent());
-	mbObj->addComponent(new MB::RotateComponent(MB::Axis::x));
+	mbObj = new mb::Node(std::string("torus"));
+	mbObj->setMesh(new mb::MeshRenderer(torus, material));
+	mbObj->addComponent(new mb::MoveComponent());
+	mbObj->addComponent(new mb::RotateComponent(mb::Axis::x));
 	mbObj->transform().position().y(3.5f);
 	mbObj->transform().rotation().y(-1.44f);
 
-	mbObj2 = new MB::Node(std::string("torus"));
-	mbObj2->setMesh(new MB::MeshRenderer(torus, material));
-	mbObj2->addComponent(new MB::MoveComponent());
-	mbObj2->addComponent(new MB::RotateComponent(MB::Axis::y));
+	mbObj2 = new mb::Node(std::string("torus"));
+	mbObj2->setMesh(new mb::MeshRenderer(torus, material));
+	mbObj2->addComponent(new mb::MoveComponent());
+	mbObj2->addComponent(new mb::RotateComponent(mb::Axis::y));
 	mbObj2->transform().position().y(0.0f);
 
-	mbObj3 = new MB::Node(std::string("torus"));
-	mbObj3->setMesh(new MB::MeshRenderer(torus, material));
-	mbObj3->addComponent(new MB::MoveComponent());
-	mbObj3->addComponent(new MB::RotateComponent(MB::Axis::z));
+	mbObj3 = new mb::Node(std::string("torus"));
+	mbObj3->setMesh(new mb::MeshRenderer(torus, material));
+	mbObj3->addComponent(new mb::MoveComponent());
+	mbObj3->addComponent(new mb::RotateComponent(mb::Axis::z));
 	mbObj3->transform().position().y(-3.5f);
 	mbObj3->transform().rotation().x(1.44f/2.0f);
 
@@ -153,7 +153,7 @@ void renderFunc(float dt)
 	material->uniform("time")->value(globalTime);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Esc))
+	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;

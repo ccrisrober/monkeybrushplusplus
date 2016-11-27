@@ -22,7 +22,7 @@
 
 #include "Mat2.hpp"
 
-namespace MB
+namespace mb
 {
     Mat2::Mat2()
     {
@@ -36,4 +36,12 @@ namespace MB
     {
         this->_values = values;
     }
+	std::ostream& operator<<(std::ostream& str, const Mat2& m)
+	{
+		str << "Mat2(\n";
+		str << "\t" << m._values[0] << ", " << m._values[1] << ", \n";
+		str << "\t" << m._values[2] << ", " << m._values[3] << "\n";
+		str << ")";
+		return str;
+	}
 }

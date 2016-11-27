@@ -1,9 +1,9 @@
 source_group(\\ FILES CMakeLists.txt)
 
 set( MB_PUBLIC_HEADERS
-    # cameras/Camera.hpp
-    # cameras/PerspectiveCamera.hpp
-    # cameras/OrthographicCamera.hpp
+    cameras/Camera.hpp
+    cameras/PerspectiveCamera.hpp
+    cameras/OrthographicCamera.hpp
 
     constants/Constants.hpp
 
@@ -15,6 +15,7 @@ set( MB_PUBLIC_HEADERS
     core/GLContext.hpp
     core/GlobalState.hpp
     #core/Input.hpp
+    core/Layer.hpp
     core/Log.hpp
     core/PostProcess.hpp
     core/Program.hpp
@@ -26,6 +27,7 @@ set( MB_PUBLIC_HEADERS
     extras/CustomPingPong.hpp
     extras/Easing.hpp
     extras/EventDispatcher.hpp
+    extras/ParticleSystem.hpp
     extras/Ray.hpp
 
     lights/AmbientLight.hpp
@@ -59,13 +61,19 @@ set( MB_PUBLIC_HEADERS
     maths/Vect3.hpp
     maths/Vect4.hpp
 
+
     models/Capsule.hpp
     models/Cone.hpp
     models/Cube.hpp
     models/Cylinder.hpp
     models/Disc.hpp
     models/Drawable.hpp
+    models/Icosahedron.hpp
+    models/Mesh.hpp
+    models/Octahedron.hpp
+    models/Polyhedron.hpp
     models/Prism.hpp
+    models/Tetrahedron.hpp
     models/Torus.hpp
 
     others/Exception.hpp
@@ -92,15 +100,15 @@ set( MB_PUBLIC_HEADERS
     textures/Texture2DArray.hpp
     textures/Texture3D.hpp
 
+    utils/ArgumentParser.hpp
+    utils/NonCopyable.hpp
     utils/any.hpp
+    utils/macros.hpp
+    utils/utils.hpp
 
     Includes.hpp
     Helpers.hpp
     SimpleCamera.hpp
-
-    Macros.hpp
-    MB.hpp
-
 
 
     #core/os.hpp
@@ -113,12 +121,17 @@ set( MB_PUBLIC_HEADERS
 set( MB_HEADERS )
 
 set( MB_SOURCES
+    cameras/Camera.cpp
+    cameras/PerspectiveCamera.cpp
+    cameras/OrthographicCamera.cpp
+
     core/BufferAttribute.cpp
     core/Color3.cpp
     core/Color4.cpp
     core/Framebuffer.cpp
     core/GLContext.cpp
     #core/Input.cpp
+    core/Layer.cpp
     core/Log.cpp
     core/PostProcess.cpp
     core/Program.cpp
@@ -167,7 +180,12 @@ set( MB_SOURCES
     models/Cylinder.cpp
     models/Disc.cpp
     models/Drawable.cpp
+    models/Icosahedron.cpp
+    models/Mesh.cpp
+    models/Octahedron.cpp
+    models/Polyhedron.cpp
     models/Prism.cpp
+    models/Tetrahedron.cpp
     models/Torus.cpp
 
     others/Exception.cpp
@@ -199,6 +217,11 @@ set( MB_SOURCES
     io/Keyboard.cpp
     io/Window.cpp
 
+
+    utils/utils.cpp
+    utils/ArgumentParser.cpp
+
+
     #main.cpp
 )
 
@@ -210,5 +233,5 @@ set( MB_LINK_LIBRARIES
     #FreeImage
 )
 
-common_library( MB )
-#common_application( MB )
+common_library( mb )
+#common_application( mb )

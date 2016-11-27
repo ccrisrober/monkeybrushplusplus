@@ -22,7 +22,7 @@
 
 #include "HemisphericLight.hpp"
 
-namespace MB
+namespace mb
 {
     HemisphericLight::HemisphericLight(const Vect3 dir)
     :Light()

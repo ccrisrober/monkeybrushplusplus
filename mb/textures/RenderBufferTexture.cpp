@@ -22,7 +22,7 @@
 
 #include "RenderBufferTexture.hpp"
 
-namespace MB
+namespace mb
 {
 	RenderBufferTexture::RenderBufferTexture(const Vect2& size, unsigned int format, unsigned int attachment)
 	: RenderBuffer(size, format, attachment)

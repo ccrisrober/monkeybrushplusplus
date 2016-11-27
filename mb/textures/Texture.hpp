@@ -32,7 +32,7 @@
 #include <iostream>
 #include <functional>
 
-namespace MB
+namespace mb
 {
     struct TexOptions
     {

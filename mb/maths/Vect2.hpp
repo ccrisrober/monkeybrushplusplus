@@ -28,7 +28,7 @@
 #include <iostream>
 #include <vector>
 
-namespace MB
+namespace mb
 {
 	class Vect2
 	{
@@ -49,20 +49,8 @@ namespace MB
 		MB_API
 		bool operator==(const Vect2& v);
 		MB_API
-        friend std::ostream& operator<<(std::ostream& str, const Vect2& v) {
-            str << "Vect2(";
-            str << v._values[0] << ", " << v._values[1];
-            str << ")";
-            return str;
-        }
-
-		Vect2& multByScalar(float s)
-		{
-			x(x() * s);
-			y(y() * s);
-
-			return *this;
-		}
+		friend std::ostream& operator<<(std::ostream& str, const Vect2& v);
+		Vect2& multByScalar(float s);
 		/**
 		* Adds two Vect2´s
 		* @param  {Vect2}    v  First Vect2 operand
@@ -70,13 +58,7 @@ namespace MB
 		* @param  {Vect2 = null} dest Destiny Vect2 (optional)
 		* @return {number} a new Vect2
 		*/
-		static Vect2 add(const Vect2& v, const Vect2& v2)
-		{
-			return Vect2(
-				v.x() + v2.x(),
-				v.y() + v2.y()
-			);
-		}
+		static Vect2 add(const Vect2& v, const Vect2& v2);
 		/**
 		* Subtracts two Vect2´s
 		* @param  {Vect2}    v  First Vect2 operand
@@ -84,20 +66,8 @@ namespace MB
 		* @param  {Vect2 = null} dest Destiny Vect2 (optional)
 		* @return {number} a new Vect2
 		*/
-		static Vect2 sub(const Vect2& v, const Vect2& v2)
-		{
-			return Vect2(
-				v.x() - v2.x(),
-				v.y() - v2.y()
-			);
-		}
-		Vect2& scale(float value)
-		{
-			this->x(x() * value);
-			this->y(y() * value);
-
-			return *this;
-		}
+		static Vect2 sub(const Vect2& v, const Vect2& v2);
+		Vect2& scale(float value);
     public:
         std::vector<float> _values;
 	};

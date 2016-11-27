@@ -28,7 +28,7 @@
 #include <unordered_map>
 #include "../materials/Material.hpp"
 
-namespace MB
+namespace mb
 {
 	class MaterialCache
 	{

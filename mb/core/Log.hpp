@@ -28,7 +28,7 @@
 #include <iostream>
 #include <ctime>
 
-namespace MB
+namespace mb
 {
 	class LOG
 	{
