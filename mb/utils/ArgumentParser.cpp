@@ -34,7 +34,7 @@
 # define _(s) ((const char *) (s))
 #endif
 
-namespace MB
+namespace mb
 {
 	////////// auxiliary (std::string) functions { //////////
 	class str_wrap

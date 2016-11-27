@@ -27,7 +27,7 @@
 
 #include <vector>
 
-namespace MB
+namespace mb
 {
 	class BufferAttribute
     {

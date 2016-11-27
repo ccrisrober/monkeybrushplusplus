@@ -24,15 +24,15 @@
 #include <mb/mb.h>
 #include <assetsFiles.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::Node* mbCube;
-MB::RotateComponent* r;
+mb::Node* mbCube;
+mb::RotateComponent* r;
 
-class SplineMovement : public MB::Component
+class SplineMovement : public mb::Component
 {
 public:
 	SplineMovement()
@@ -42,34 +42,34 @@ public:
 	}
 	void start()
 	{
-		el = new MB::curves::Ellipse(
-			MB::Vect2(0.5f, 0.0f),
-			MB::Vect2(3.2f, 2.5f),
-			0.0f, 2.0f * MB::Mathf::PI, false);
+		el = new mb::curves::Ellipse(
+			mb::Vect2(0.5f, 0.0f),
+			mb::Vect2(3.2f, 2.5f),
+			0.0f, 2.0f * mb::Mathf::PI, false);
 	}
 	void update(float dt)
 	{
 		t += (dt / 10.0f);
 		if (t > 1.0f) t = 0.0f;
 
-		MB::Vect2 v = el->evaluate(t);
+		mb::Vect2 v = el->evaluate(t);
 		_node->transform().position().set(v.x(), v.y(), -5.0f);
 	}
 protected:
 	float t;
-	MB::curves::Ellipse *el;
+	mb::curves::Ellipse *el;
 };
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+    mb::GLContext context(3, 3, 1024, 768, "Hello mb");
 
-    engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+    engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
-	MB::Torus* torus = new MB::Torus(0.5f, 0.25f, 25, 40);
+	mb::Torus* torus = new mb::Torus(0.5f, 0.25f, 25, 40);
 
-	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
 	const char* vertexShader =
 		"#version 330\n"
 		"layout(location = 0) in vec3 position;"
@@ -104,26 +104,26 @@ int main(void)
 		"	fragColor = vec4(texture(tex, uv).rgb, 1.0);"
 		"}";
 
-	shaders.push_back(std::make_pair(MB::VertexShader, vertexShader));
-	shaders.push_back(std::make_pair(MB::FragmentShader, fragmentShader));
+	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
+	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
 
-	std::vector<std::pair<const char*, MB::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("viewPos", new MB::Uniform(MB::Vector3)));
-	uniforms.push_back(std::make_pair("tex", new MB::Uniform(MB::Integer, 0)));
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
+	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("viewPos", new mb::Uniform(mb::Vector3)));
+	uniforms.push_back(std::make_pair("tex", new mb::Uniform(mb::Integer, 0)));
 
-	MB::ShaderMaterial material("textureShader", shaders, uniforms);
+	mb::ShaderMaterial material("textureShader", shaders, uniforms);
 
-	mbCube = new MB::Node(std::string("cube"));
-	mbCube->setMesh(new MB::MeshRenderer(torus, &material));
+	mbCube = new mb::Node(std::string("cube"));
+	mbCube->setMesh(new mb::MeshRenderer(torus, &material));
 	mbCube->addComponent(new SplineMovement());
-	r = new MB::RotateComponent(MB::Axis::x);
+	r = new mb::RotateComponent(mb::Axis::x);
 	mbCube->addComponent(r);
 
-	MB::TexOptions opts;
-	MB::Texture2D* tex = new MB::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/matcap.jpg"));
+	mb::TexOptions opts;
+	mb::Texture2D* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/matcap.jpg"));
 	tex->bind(0);
 
 	scene->root()->addChild(mbCube);
@@ -140,25 +140,25 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Esc))
+	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
 	{
-		r->setAxis(MB::Axis::x);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::x);
+		r->setAxis(mb::Axis::x);
+		//mbCube->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Y))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Y))
 	{
-		r->setAxis(MB::Axis::y);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::y);
+		r->setAxis(mb::Axis::y);
+		//mbCube->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
 	{
-		r->setAxis(MB::Axis::z);
-		//mbCube->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::z);
+		r->setAxis(mb::Axis::z);
+		//mbCube->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
 	}
 	scene->render(dt);
 }

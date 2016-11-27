@@ -22,7 +22,7 @@
 
 #include "DirectionalLight.hpp"
 
-namespace MB
+namespace mb
 {
     DirectionalLight::DirectionalLight(const Vect3 dir)
         :Light()

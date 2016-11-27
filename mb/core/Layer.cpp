@@ -24,7 +24,7 @@
 
 // Based on https://www.tutorialspoint.com/cplusplus/cpp_bitwise_operators.htm
 
-namespace MB
+namespace mb
 {
     // Default mask as 0
 	Layer::Layer() 

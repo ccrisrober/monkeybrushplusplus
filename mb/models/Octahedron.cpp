@@ -23,7 +23,7 @@
 #include "Octahedron.hpp"
 #include <cmath>
 
-namespace MB
+namespace mb
 {
 	Octahedron::Octahedron(const float& radius, const unsigned int& subdivisions)
 	: Polyhedron()

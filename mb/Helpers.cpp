@@ -25,10 +25,10 @@
 #include "scene/Node.hpp"
 #include <iostream>
 
-namespace MB
+namespace mb
 {
 	MoveComponent::MoveComponent()
-		: MB::Component()
+		: mb::Component()
 		, _delta(0.01f)
 		, _sign(1)
 		, _velocity(1.0f)
@@ -36,12 +36,12 @@ namespace MB
 	}
 	void MoveComponent::update(float dt)
 	{
-		if (MB::Input2::isKeyPressed(MB::Keyboard::Key::V))
+		if (mb::Input2::isKeyPressed(mb::Keyboard::Key::V))
 		{
 			this->_velocity -= 0.1f;
 			if (this->_velocity < 0.0f) this->_velocity = 0.0f;
 		}
-		else if (MB::Input2::isKeyPressed(MB::Keyboard::Key::B))
+		else if (mb::Input2::isKeyPressed(mb::Keyboard::Key::B))
 		{
 			this->_velocity += 0.1f;
 			if (this->_velocity > 10.0f) this->_velocity = 10.0f;
@@ -56,7 +56,7 @@ namespace MB
 		this->_node->transform().position().x(this->_delta);
 	}
 	RotateComponent::RotateComponent(Axis axis)
-		: MB::Component()
+		: mb::Component()
 		, _delta(0.01f)
 		, _velocity(1.0f)
 		, _rotate(false)
@@ -69,7 +69,7 @@ namespace MB
 	}*/
 	void RotateComponent::update(float dt)
 	{
-		if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Space))
+		if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Space))
 		{
 			this->_rotate = !this->_rotate;
 		}
@@ -91,7 +91,7 @@ namespace MB
 		}
 	}
 	ScaleComponent::ScaleComponent()
-		: MB::Component()
+		: mb::Component()
 		, _inc(0.0f)
 	{
 	}
@@ -105,12 +105,12 @@ namespace MB
 		this->_inc += 1.0f;
 	}
 	PrintPosition::PrintPosition()
-		: MB::Component()
+		: mb::Component()
 	{
 	}
 	void PrintPosition::update(float)
 	{
-		MB::Vect3 pos = this->_node->transform().position();
+		mb::Vect3 pos = this->_node->transform().position();
 		std::cout << "POSITION: " << pos.x() << ", " << pos.y() << ", " << pos.z() << std::endl;
 	}
 }

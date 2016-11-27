@@ -29,7 +29,7 @@
 #include "Mouse.hpp"
 #include "Keyboard.hpp"
 
-namespace MB
+namespace mb
 {
 	class Input2
 	{
@@ -39,9 +39,9 @@ namespace MB
 		MB_API
 		static void destroy();
 		MB_API
-		static MB::Keyboard* Keyboard();
+		static mb::Keyboard* Keyboard();
 		MB_API
-		static MB::Mouse* Mouse();
+		static mb::Mouse* Mouse();
 		MB_API
 		static bool isKeyPressed(Keyboard::Key key);
 		MB_API
@@ -75,8 +75,8 @@ namespace MB
 		MB_API
 		static void update();
 	protected:
-		MB::Keyboard* _keyboard;
-		MB::Mouse*    _mouse;
+		mb::Keyboard* _keyboard;
+		mb::Mouse*    _mouse;
 
 		static Input2 *_instance;
 	};

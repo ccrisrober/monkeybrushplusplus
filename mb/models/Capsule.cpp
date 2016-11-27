@@ -22,7 +22,7 @@
 
 #include "Capsule.hpp"
 
-namespace MB
+namespace mb
 {
     Capsule::Capsule(float radius, float height,
         unsigned int subHeight, unsigned int numSegm)

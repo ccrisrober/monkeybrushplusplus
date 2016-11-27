@@ -25,41 +25,41 @@
 #include <assetsFiles.h>
 #include <shaderFiles.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::PostProcessMaterial* ppm;
+mb::PostProcessMaterial* ppm;
 
 float sides, angle;
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 1024, 768, "Kaleidoscope demo");
+	mb::GLContext context(3, 3, 1024, 768, "Kaleidoscope demo");
 
-	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+	engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
 	std::ifstream file(MB_SHADER_FILES_KALEIDOSCOPE_FRAG);
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 
-	ppm = new MB::PostProcessMaterial(buffer.str().c_str());
+	ppm = new mb::PostProcessMaterial(buffer.str().c_str());
 
 	sides = 5.0f;
 	angle = 121.0f;
 
-	MB::TexOptions opts;
+	mb::TexOptions opts;
 	opts.wrapS = GL_MIRRORED_REPEAT;
 	opts.wrapT = GL_MIRRORED_REPEAT;
-	MB::Texture2D* tex = new MB::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));
+	mb::Texture2D* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));
 	tex->bind(0);
 
-	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
-	ppm->addUniform("sides", new MB::Uniform(MB::Float, sides));
-	ppm->addUniform("angle", new MB::Uniform(MB::Float, angle));
-	ppm->addUniform("tex", new MB::Uniform(MB::Integer, 0));
+	ppm->addUniform("iGlobalTime", new mb::Uniform(mb::Float, 0.0f));
+	ppm->addUniform("sides", new mb::Uniform(mb::Float, sides));
+	ppm->addUniform("angle", new mb::Uniform(mb::Float, angle));
+	ppm->addUniform("tex", new mb::Uniform(mb::Integer, 0));
 
 	engine->run(renderFunc);
 
@@ -75,7 +75,7 @@ float globalTime = 0.0f;
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Space))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Space))
 	{
 		play = !play;
 	}
@@ -84,22 +84,22 @@ void renderFunc(float dt)
 		globalTime += dt * 0.33f;
 	}
 	ppm->uniform("iGlobalTime")->value(globalTime);
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
 	{
 		sides -= 1.0f;
 		ppm->uniform("sides")->value(sides);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		sides += 1.0f;
 		ppm->uniform("sides")->value(sides);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::A))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::A))
 	{
 		angle -= 1.0f;
 		ppm->uniform("angle")->value(angle);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::S))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::S))
 	{
 		angle += 1.0f;
 		ppm->uniform("angle")->value(angle);

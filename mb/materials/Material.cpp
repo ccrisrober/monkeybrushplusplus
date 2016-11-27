@@ -22,7 +22,7 @@
 
 #include "Material.hpp"
 
-namespace MB
+namespace mb
 {
 	Material::Material()
 	{

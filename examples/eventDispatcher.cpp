@@ -23,7 +23,7 @@
 #include <iostream>
 #include <mb/mb.h>
 
-class Button: public MB::EventDispatcher
+class Button: public mb::EventDispatcher
 {
 public:
 	Button() {}
@@ -32,7 +32,7 @@ public:
 	{
 		dispatchEvent("dispose");
 	}*/
-	void randomEvent(const MB::Event& /*ev*/)
+	void randomEvent(const mb::Event& /*ev*/)
 	{
 	}
 };

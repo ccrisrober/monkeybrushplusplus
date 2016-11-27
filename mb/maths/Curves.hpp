@@ -30,7 +30,7 @@
 #include "Mathf.hpp"
 #include <vector>
 
-namespace MB
+namespace mb
 {
 	namespace curves
 	{

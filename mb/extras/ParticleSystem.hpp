@@ -29,18 +29,18 @@
 #include "../materials/Material.hpp"
 #include "../cameras/Camera.hpp"
 
-namespace MB
+namespace mb
 {
 	class ParticleSystem
     {
     public:
-        ParticleSystem(MB::Drawable* mesh, MB::Material* material)
+        ParticleSystem(mb::Drawable* mesh, mb::Material* material)
 			: _mesh(mesh)
 			, _material(material)
         {
 
         }
-        void sort(MB::Camera& /*camera*/)
+        void sort(mb::Camera& /*camera*/)
         {
             if (_sortParticles)
             {
@@ -59,8 +59,8 @@ namespace MB
 
     protected:
         bool _sortParticles;
-		MB::Drawable* _mesh;
-		MB::Material* _material;
+		mb::Drawable* _mesh;
+		mb::Material* _material;
     };
 }
 

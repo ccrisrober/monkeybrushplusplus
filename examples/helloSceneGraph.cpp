@@ -23,34 +23,34 @@
 #include <iostream>
 #include <mb/mb.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
-MB::Cube* cube;
-MB::Cylinder* cylinder;
-MB::Prism* prism;
+mb::Cube* cube;
+mb::Cylinder* cylinder;
+mb::Prism* prism;
 
 void renderFunc(float dt);
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Hello SceneGraph");
+    mb::GLContext context(3, 3, 1024, 768, "Hello SceneGraph");
 
-    engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+    engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
-	MB::ResourceDrawable::add("capsule", new MB::Capsule(0.5f, 1.0f));
+	mb::ResourceDrawable::add("capsule", new mb::Capsule(0.5f, 1.0f));
 
-	cube = new MB::Cube(1.0f);
-	cylinder = new MB::Cylinder(1.0f, 1.5f, 25, 15);
-	prism = new MB::Prism(1.0f, 1.5f, 5);
-	MB::ResourceDrawable::add("torus", new MB::Torus(0.5f, 0.25f, 25, 40));
+	cube = new mb::Cube(1.0f);
+	cylinder = new mb::Cylinder(1.0f, 1.5f, 25, 15);
+	prism = new mb::Prism(1.0f, 1.5f, 5);
+	mb::ResourceDrawable::add("torus", new mb::Torus(0.5f, 0.25f, 25, 40));
 
-	MB::SimpleShadingMaterial material;
-	material.uniform("color")->value(MB::Vect3(MB::Color3::Red));
-	MB::NormalMaterial normalMat;
+	mb::SimpleShadingMaterial material;
+	material.uniform("color")->value(mb::Vect3(mb::Color3::Red));
+	mb::NormalMaterial normalMat;
 
-	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
 	const char* vertexShader =
 		"#version 330\n"
 		"layout(location = 0) in vec3 position;"
@@ -86,49 +86,49 @@ int main(void)
 		"	fragColor.rgb -= vec3(outTexCoord, 0.0);"
 		"}";
 
-	shaders.push_back(std::make_pair(MB::VertexShader, vertexShader));
-	shaders.push_back(std::make_pair(MB::FragmentShader, fragmentShader));
+	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
+	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
 
 
-	std::vector<std::pair<const char*, MB::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("color", new MB::Uniform(MB::Vector3, MB::Vect3::createFromScalar(1.0f))));
-	uniforms.push_back(std::make_pair("viewPos", new MB::Uniform(MB::Vector3)));
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
+	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3::createFromScalar(1.0f))));
+	uniforms.push_back(std::make_pair("viewPos", new mb::Uniform(mb::Vector3)));
 
-	MB::ShaderMaterial shaderMat("shaderMat", shaders, uniforms);
+	mb::ShaderMaterial shaderMat("shaderMat", shaders, uniforms);
 
-	MB::Node* mbCube = new MB::Node(std::string("cube"));
-	mbCube->setMesh(new MB::MeshRenderer(cube, MB::MaterialCache::get("shaderMat")));
-	mbCube->addComponent(new MB::MoveComponent());
-	mbCube->addComponent(new MB::RotateComponent(MB::Axis::x));
+	mb::Node* mbCube = new mb::Node(std::string("cube"));
+	mbCube->setMesh(new mb::MeshRenderer(cube, mb::MaterialCache::get("shaderMat")));
+	mbCube->addComponent(new mb::MoveComponent());
+	mbCube->addComponent(new mb::RotateComponent(mb::Axis::x));
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
 	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
 
-	MB::Node* mbPrism = new MB::Node(std::string("prism"));
-	mbPrism->setMesh(new MB::MeshRenderer(prism, &normalMat));
+	mb::Node* mbPrism = new mb::Node(std::string("prism"));
+	mbPrism->setMesh(new mb::MeshRenderer(prism, &normalMat));
 	mbPrism->transform().position().set(-0.44f, -2.0f, 2.35f);
 	mbPrism->transform().scale().set(0.5f, 0.5f, 1.0f);
 	mbCube->addChild(mbPrism);
 
-	MB::Node* mbCapsule = new MB::Node(std::string("capsule"));
-	mbCapsule->setMesh(new MB::MeshRenderer(MB::ResourceDrawable::get("capsule"), &normalMat));
+	mb::Node* mbCapsule = new mb::Node(std::string("capsule"));
+	mbCapsule->setMesh(new mb::MeshRenderer(mb::ResourceDrawable::get("capsule"), &normalMat));
 	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
 	mbPrism->addChild(mbCapsule);
 
 	mbPrism->layer().set(2);
 
-	MB::Node* mbTorus = new MB::Node(std::string("torus"));
-	mbTorus->setMesh(new MB::MeshRenderer("torus", &normalMat));
+	mb::Node* mbTorus = new mb::Node(std::string("torus"));
+	mbTorus->setMesh(new mb::MeshRenderer("torus", &normalMat));
 	mbTorus->transform().position().set(1.1f, -1.91f, -1.08f);
 	mbTorus->transform().scale().set(1.0f, 0.5f, 1.0f);
 	mbCube->addChild(mbTorus);
 
 	mbTorus->layer().set(2);
 
-	MB::Node* mbCylinder = new MB::Node(std::string("cylinder"));
-	mbCylinder->setMesh(new MB::MeshRenderer(cylinder, &material));
+	mb::Node* mbCylinder = new mb::Node(std::string("cylinder"));
+	mbCylinder->setMesh(new mb::MeshRenderer(cylinder, &material));
 	mbCylinder->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCylinder->transform().scale().set(0.5f, 1.0f, 2.0f);
 	mbTorus->addChild(mbCylinder);
@@ -138,7 +138,7 @@ int main(void)
 	});
 
 	std::function<void()> f1([&]() {
-		MB::LOG(MB::LOG::INFO) << "FIRST RENDER FINISHED";
+		mb::LOG(mb::LOG::INFO) << "FIRST RENDER FINISHED";
 	});
 
 	scene->registerBeforeRender(f0);
@@ -158,46 +158,46 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::C))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::C))
 	{
 		scene->camera->layer().toggle(2);
 	}
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Esc))
+	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
 	{
 		std::cout << "DEPTH OFF" << std::endl;
 		engine->state()->depth.setStatus(false);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		std::cout << "DEPTH OK" << std::endl;
 		engine->state()->depth.setStatus(true);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::K))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::K))
 	{
 		engine->state()->culling.setStatus(false);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::L))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::L))
 	{
 		engine->state()->culling.setStatus(true);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::M))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::M))
 	{
 		engine->state()->setPolygonMode(GL_FILL);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::N))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::N))
 	{
 		engine->state()->setPolygonMode(GL_LINE);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num1))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num1))
 	{
 		engine->state()->culling.setFlipSided(GL_CCW);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num2))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num2))
 	{
 		engine->state()->culling.setFlipSided(GL_CW);
 	}

@@ -22,7 +22,7 @@
 
 #include "VertexUBO.hpp"
 
-namespace MB
+namespace mb
 {
 	VertexUBO::VertexUBO(const Program& prog, const char* name, 
 		unsigned int blockBindIdx)

@@ -31,7 +31,7 @@
 #define MACRO_SP_WARNING(name, type) std::cerr << "WARNING: '" << name << "' " << type << " doesn't exist or appears unused." << std::endl;
 
 
-namespace MB
+namespace mb
 {
 	void Program::autocatching(bool attributes, bool uniforms)
 	{

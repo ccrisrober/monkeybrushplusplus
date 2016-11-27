@@ -29,7 +29,7 @@
 #include "../core/BufferAttribute.hpp"
 #include "../resources/ObjParser.hpp"
 
-namespace MB
+namespace mb
 {
     class Mesh: public Drawable
     {

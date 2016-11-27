@@ -22,13 +22,13 @@
 
 #include "Mesh.hpp"
 
-namespace MB
+namespace mb
 {
         Mesh::Mesh(const std::string& fileRoute)
     : Drawable()
     {
-        MB::ObjParser obj;
-        MB::Model model = obj.loadObj(fileRoute);
+        mb::ObjParser obj;
+        mb::Model model = obj.loadObj(fileRoute);
 
         BufferAttribute verts(std::vector<float>(model.vertices.size()), 3);
         verts.array(model.vertices);

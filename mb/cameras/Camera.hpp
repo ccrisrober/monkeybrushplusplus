@@ -28,7 +28,7 @@
 #include "../maths/Mat4.hpp"
 #include "../scene/Transform.hpp"
 
-namespace MB
+namespace mb
 {
 	class Camera
 	{

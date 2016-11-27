@@ -38,7 +38,7 @@
 #include "MeshRenderer.hpp"
 #include "../utils/utils.hpp"
 
-namespace MB
+namespace mb
 {
 	class Node
 	{
@@ -90,15 +90,15 @@ namespace MB
 		MB_API
 		void tag(const std::string& t);
 		MB_API
-		std::vector<MB::Component*> getComponents() const;
+		std::vector<mb::Component*> getComponents() const;
 		MB_API
 		void setMesh(MeshRenderer* mesh);
 		MB_API
 		MeshRenderer* getMesh() const;
 		MB_API
-		void traverse(const std::function<void(MB::Node* n)>& f);
+		void traverse(const std::function<void(mb::Node* n)>& f);
 		MB_API
-		void traverseAncestors(const std::function<void(MB::Node* n)>& f);
+		void traverseAncestors(const std::function<void(mb::Node* n)>& f);
 
 
 
@@ -175,7 +175,7 @@ namespace MB
 	protected:
 		MeshRenderer* _mesh = nullptr;
 		std::vector<Node*> _children;
-		std::vector<MB::Component*> _components;
+		std::vector<mb::Component*> _components;
 
 		std::string _name;
 		std::string _id;

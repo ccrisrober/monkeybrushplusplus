@@ -29,7 +29,7 @@
 #include "Vect3.hpp"
 #include <vector>
 
-namespace MB
+namespace mb
 {
 	enum class InterpolationMode
 	{

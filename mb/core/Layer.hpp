@@ -27,7 +27,7 @@
 
 #include <array>
 
-namespace MB
+namespace mb
 {
 	class Layer
 	{

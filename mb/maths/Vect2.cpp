@@ -21,7 +21,7 @@
  */
 #include "Vect2.hpp"
 
-namespace MB
+namespace mb
 {
 	Vect2::Vect2(float x, float y)
 	{

@@ -31,7 +31,7 @@
 #include "EulerAngle.hpp"
 #include "Mat4.hpp"
 
-namespace MB
+namespace mb
 {
 	class Quat
 	{

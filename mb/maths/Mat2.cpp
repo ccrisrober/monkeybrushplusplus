@@ -22,7 +22,7 @@
 
 #include "Mat2.hpp"
 
-namespace MB
+namespace mb
 {
     Mat2::Mat2()
     {

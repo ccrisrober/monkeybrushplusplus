@@ -27,7 +27,7 @@
 
 #include <string>
 
-namespace MB
+namespace mb
 {
 	namespace utils
 	{

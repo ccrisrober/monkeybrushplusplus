@@ -22,7 +22,7 @@
 
 #include "Framebuffer.hpp"
 
-namespace MB
+namespace mb
 {
 	Framebuffer::Framebuffer(const std::vector<Texture*>& textures, 
 		const Vect2& size, bool depth)

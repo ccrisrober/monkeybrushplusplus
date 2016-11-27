@@ -25,7 +25,7 @@
 #include <map>
 #include <string>
 
-namespace MB
+namespace mb
 {
 	Polyhedron::Polyhedron()
 	: Drawable() {}

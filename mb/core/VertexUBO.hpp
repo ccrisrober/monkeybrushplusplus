@@ -28,7 +28,7 @@
 #include "../Includes.hpp"
 #include "Program.hpp"
 
-namespace MB
+namespace mb
 {
 	class VertexUBO
 	{

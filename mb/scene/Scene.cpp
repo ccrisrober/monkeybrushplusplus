@@ -27,7 +27,7 @@
 #include "MeshRenderer.hpp"
 #include "Engine.hpp"
 
-namespace MB
+namespace mb
 {
 	Scene::Scene(Engine* engine)
 	: _sceneGraph(new Node())
@@ -182,7 +182,7 @@ namespace MB
 			this->_subrender(child);
 		}
 	}
-	void Scene::addLight(MB::Light* light)
+	void Scene::addLight(mb::Light* light)
 	{
 		for (const auto& l : _lights)
 		{
@@ -193,7 +193,7 @@ namespace MB
 		}
 		_lights.push_back(light);
 	}
-	std::vector<MB::Light*> Scene::lights() const
+	std::vector<mb::Light*> Scene::lights() const
 	{
 		return this->_lights;
 	}

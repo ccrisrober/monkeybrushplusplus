@@ -22,7 +22,7 @@
 
 #include "BufferAttribute.hpp"
 
-namespace MB
+namespace mb
 {
 	BufferAttribute::BufferAttribute(std::vector<float> arr, unsigned int size)
     : _arr(arr)

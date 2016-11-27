@@ -24,7 +24,7 @@
 #include "Quat.hpp"
 
 // TODO: Usar std::array en vez de std::vector!
-namespace MB
+namespace mb
 {
 	Mat4::Mat4()
 	{

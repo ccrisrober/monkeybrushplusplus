@@ -26,7 +26,7 @@
 #include <exception>
 #include <string>
 
-/*namespace MB
+/*namespace mb
 {
 	class MBException: public std::exception
 	{

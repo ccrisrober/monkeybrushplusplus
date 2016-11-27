@@ -22,7 +22,7 @@
 
 #include "Tetrahedron.hpp"
 
-namespace MB
+namespace mb
 {
 	Tetrahedron::Tetrahedron(const float& radius, const unsigned int& subdivisions)
 	: Polyhedron()

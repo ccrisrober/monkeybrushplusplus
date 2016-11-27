@@ -30,7 +30,7 @@
 #include "../maths/Mathf.hpp"
 #include "../core/BufferAttribute.hpp"
 
-namespace MB
+namespace mb
 {
     class Cone: public Drawable
     {

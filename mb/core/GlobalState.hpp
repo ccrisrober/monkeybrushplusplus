@@ -28,7 +28,7 @@
 
 #include "../Includes.hpp"
 
-namespace MB
+namespace mb
 {
     class CullingState
     {

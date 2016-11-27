@@ -22,7 +22,7 @@
 
 #include "Interpolation.hpp"
 
-namespace MB
+namespace mb
 {
 	float Interpolation::linear(float p0, float p1, float t)
 	{

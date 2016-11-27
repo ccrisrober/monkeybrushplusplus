@@ -31,7 +31,7 @@
   - PATCH version when you make backwards-compatible bug fixes.
  */
 
-namespace MB
+namespace mb
 {
 	const int MB_VERSION_MAJOR = 1;
 	const int MB_VERSION_MINOR = 9;

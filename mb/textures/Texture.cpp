@@ -1,6 +1,6 @@
 #include "Texture.hpp"
 
-namespace MB
+namespace mb
 {
     Texture::Texture( const TexOptions& options, unsigned int type )
     : _handler( -1 )

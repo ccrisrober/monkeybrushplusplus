@@ -22,7 +22,7 @@
 
 #include "Curves.hpp"
 
-namespace MB
+namespace mb
 {
 	namespace curves
 	{

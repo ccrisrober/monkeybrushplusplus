@@ -23,7 +23,7 @@
 #include "Vect3.hpp"
 #include "../core/Color3.hpp"
 
-namespace MB
+namespace mb
 {
 	Vect3 Vect3::xAxis(1.0f, 0.0f, 0.0f);
 	Vect3 Vect3::yAxis(0.0f, 1.0f, 0.0f);

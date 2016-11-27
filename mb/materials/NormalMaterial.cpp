@@ -22,7 +22,7 @@
 
 #include "NormalMaterial.hpp"
 
-namespace MB
+namespace mb
 {
     NormalMaterial::NormalMaterial()
     : Material()

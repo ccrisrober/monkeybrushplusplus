@@ -22,7 +22,7 @@
 
 #include "Color4.hpp"
 
-namespace MB
+namespace mb
 {
 	Color4::Color4(float r, float g, float b, float a)
 	{

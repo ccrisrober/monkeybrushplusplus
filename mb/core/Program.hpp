@@ -42,7 +42,7 @@
 
 // TODO: Use const char* instead of std::string&
 
-namespace MB
+namespace mb
 {
 	class Program
 	{

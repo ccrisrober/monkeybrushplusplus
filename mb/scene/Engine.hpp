@@ -33,7 +33,7 @@
 
 #include "../io/Window.hpp"
 
-namespace MB
+namespace mb
 {
 	class Engine
 	{

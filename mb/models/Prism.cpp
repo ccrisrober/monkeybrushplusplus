@@ -22,7 +22,7 @@
 
 #include "Prism.hpp"
 
-namespace MB
+namespace mb
 {
     Prism::Prism(float radius, float height, unsigned int sides,
         unsigned int heightSubDiv, bool topCap, bool bottomCap)

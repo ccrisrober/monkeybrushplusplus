@@ -23,7 +23,7 @@
 
 #include "Component.hpp"
 
-namespace MB
+namespace mb
 {
 	void Component::start() {}
     void Component::update(float) { }

@@ -22,7 +22,7 @@
 
 #include "Cone.hpp"
 
-namespace MB
+namespace mb
 {
     Cone::Cone(float bottomRadius, float topRadius,
 		float height, unsigned int radialSubDiv, int heightSubDiv,

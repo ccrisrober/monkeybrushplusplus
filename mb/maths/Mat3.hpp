@@ -28,7 +28,7 @@
 #include <vector>
 #include <iostream>
 
-namespace MB
+namespace mb
 {
 	class Mat3
 	{

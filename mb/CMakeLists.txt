@@ -110,9 +110,6 @@ set( MB_PUBLIC_HEADERS
     Helpers.hpp
     SimpleCamera.hpp
 
-    MB.hpp
-
-
 
     #core/os.hpp
     io/Mouse.hpp
@@ -236,5 +233,5 @@ set( MB_LINK_LIBRARIES
     #FreeImage
 )
 
-common_library( MB )
-#common_application( MB )
+common_library( mb )
+#common_application( mb )

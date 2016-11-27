@@ -33,7 +33,7 @@
 #include <iterator>
 #include <algorithm>
 
-namespace MB
+namespace mb
 {
 	struct Model
 	{

@@ -28,7 +28,7 @@
 #include "../utils/any.hpp"
 
 /**
-MB::ResourceManager manager;
+mb::ResourceManager manager;
 bool loaded = manager.isAssetLoaded("matcap"); // MB_TEXTURE_ASSETS + std::string("/matcap.jpg"));
 std::cout << "MAPCAP LOADED: " << loaded << std::endl;
 manager.asyncLoadRequested("matcap");
@@ -36,10 +36,10 @@ manager.asyncLoadCompleted("matcap", options); // TODO: Y USAR ANY??
 loaded = manager.isAssetLoaded("matcap"); // MB_TEXTURE_ASSETS + std::string("/matcap.jpg"));
 std::cout << "MAPCAP LOADED: " << loaded << std::endl;
 
-MB::TexOptions ass = manager.retrieveAsset("matcap").cast<MB::TexOptions>();
+mb::TexOptions ass = manager.retrieveAsset("matcap").cast<mb::TexOptions>();
  */
 
-namespace MB
+namespace mb
 {
 	class ResourceManager
 	{

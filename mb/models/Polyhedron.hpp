@@ -27,7 +27,7 @@
 
 #include "Drawable.hpp"
 
-namespace MB
+namespace mb
 {
     class Polyhedron: public Drawable
     {

@@ -22,31 +22,6 @@
 
 #include "CustomPingPong.hpp"
 
-namespace MB
+namespace mb
 {
-	template<class T>
-	CustomPingPong<T>::CustomPingPong(const T & elem1, const T & elem2)
-	: _elem1(std::move(elem1))
-	, _elem2(std::move(elem2))
-	{
-	}
-	template<class T>
-	void CustomPingPong<T>::swap(std::function<void()> cb)
-	{
-		std::swap(_elem1, _elem2);
-		if (cb)
-		{
-			cb();
-		}
-	}
-	template<class T>
-	T CustomPingPong<T>::first() const
-	{
-		return _elem1;
-	}
-	template<class T>
-	T CustomPingPong<T>::last() const
-	{
-		return _elem2;
-	}
 }

@@ -22,7 +22,7 @@
 
 #include "Cube.hpp"
 
-namespace MB
+namespace mb
 {
     Cube::Cube(float side)
     : Drawable()

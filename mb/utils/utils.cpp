@@ -23,7 +23,7 @@
 #include "utils.hpp"
 #include <algorithm>
 
-namespace MB
+namespace mb
 {
 	namespace utils
 	{

@@ -27,20 +27,33 @@
 
 #include <functional>
 
-namespace MB
+namespace mb
 {
 	template <typename T>
 	class CustomPingPong
 	{
 	public:
-		MB_API
-		CustomPingPong(const T& elem1, const T& elem2);
-		MB_API
-		void swap(std::function<void()> cb = nullptr);
-		MB_API
-		T first() const;
-		MB_API
-		T last() const;
+		/* CustomPingPong<T>:: */CustomPingPong(const T & elem1, const T & elem2)
+			: _elem1(std::move(elem1))
+			, _elem2(std::move(elem2))
+		{
+		}
+		void /* CustomPingPong<T>:: */swap(std::function<void()> cb)
+		{
+			std::swap(_elem1, _elem2);
+			if (cb)
+			{
+				cb();
+			}
+		}
+		T /* CustomPingPong<T>:: */first() const
+		{
+			return _elem1;
+		}
+		T /* CustomPingPong<T>:: */last() const
+		{
+			return _elem2;
+		}
 	protected:
 		T _elem1;
 		T _elem2;

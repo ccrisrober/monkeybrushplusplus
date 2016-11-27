@@ -22,7 +22,7 @@
 
 #include "Box2D.hpp"
 
-namespace MB
+namespace mb
 {
 	Box2D::Box2D(const Vect2& min, const Vect2& max)
 	{

@@ -31,7 +31,7 @@
 #include "../textures/RenderBufferTexture.hpp"
 #include "../maths/Vect2.hpp"
 
-namespace MB
+namespace mb
 {
 	class Framebuffer
 	{

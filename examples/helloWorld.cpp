@@ -23,37 +23,37 @@
 #include <iostream>
 #include <mb/mb.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-typedef MB::RotateComponent* RC;
+typedef mb::RotateComponent* RC;
 
-MB::Node* mbModel;
+mb::Node* mbModel;
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 1024, 768, "Hello MB");
+	mb::GLContext context(3, 3, 1024, 768, "Hello mb");
 
-    engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+    engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
-	MB::Polyhedron* model = new MB::Tetrahedron(1.0f, 2);
+	mb::Polyhedron* model = new mb::Tetrahedron(1.0f, 2);
 
-	MB::SimpleShadingMaterial material;
-	material.uniform("color")->value(MB::Vect3(MB::Color3::Blue));
+	mb::SimpleShadingMaterial material;
+	material.uniform("color")->value(mb::Vect3(mb::Color3::Blue));
 
-	mbModel = new MB::Node(std::string("model"));
-	mbModel->setMesh(new MB::MeshRenderer(model, &material));
-	mbModel->addComponent(new MB::MoveComponent());
-	mbModel->addComponent(new MB::RotateComponent(MB::Axis::x));
+	mbModel = new mb::Node(std::string("model"));
+	mbModel->setMesh(new mb::MeshRenderer(model, &material));
+	mbModel->addComponent(new mb::MoveComponent());
+	mbModel->addComponent(new mb::RotateComponent(mb::Axis::x));
 
-	mbModel->getComponent<MB::RotateComponent>()->setRotate(true);
+	mbModel->getComponent<mb::RotateComponent>()->setRotate(true);
 
-	//mbModel->disableComponent<MB::RotateComponent>();
-	//mbModel->enableComponent<MB::RotateComponent>();
-	//mbModel->hasComponent<MB::RotateComponent>();
+	//mbModel->disableComponent<mb::RotateComponent>();
+	//mbModel->enableComponent<mb::RotateComponent>();
+	//mbModel->hasComponent<mb::RotateComponent>();
 	
 	scene->root()->addChild(mbModel);
 
@@ -69,26 +69,26 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Esc))
+	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
 	{
-		mbModel->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::x);
+		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Y))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Y))
 	{
-		mbModel->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::y);
+		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
 	{
-		mbModel->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::z);
+		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::P))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::P))
 	{
-		mbModel->toggleComponent<MB::MoveComponent>();
+		mbModel->toggleComponent<mb::MoveComponent>();
 	}
 	engine->state()->culling.setStatus(false);
 	engine->state()->setPolygonMode(GL_LINE);

@@ -22,7 +22,7 @@
 
 #include "MaterialCache.hpp"
 
-namespace MB
+namespace mb
 {
 	std::unordered_map<std::string, Material*> MaterialCache::_files;
 	void MaterialCache::add(const std::string& key, Material* value)

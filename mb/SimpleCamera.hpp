@@ -29,7 +29,7 @@
 #include "io/Input2.hpp"
 #include "core/Layer.hpp"
 
-namespace MB
+namespace mb
 {
     class SimpleCamera
     {
@@ -88,49 +88,49 @@ namespace MB
 
             float speed = 1.0f;
 
-            if (Input2::isKeyPressed(MB::Keyboard::Key::LShift))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::LShift))
 			{
                 speed = 2.5f;
             }
 
-            if (Input2::isKeyPressed(MB::Keyboard::Key::W))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::W))
 			{
 				//std::cout << "CAMERA POSITION: " << this->GetPos().x() << ", " << this->GetPos().y() << ", " << this->GetPos().z() << std::endl;
                 this->processKeyboard(4, speed);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::S))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::S))
 			{
                 this->processKeyboard(5, speed);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::A))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::A))
 			{
                 this->processKeyboard(2, speed);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::D))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::D))
 			{
                 this->processKeyboard(3, speed);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::E))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::E))
 			{
                 this->processKeyboard(0, speed);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::Q))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::Q))
 			{
                 this->processKeyboard(1, speed);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::Up))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::Up))
 			{
                 this->processMouseMovement(0.0f, 2.5f * speed);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::Down))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::Down))
 			{
                 this->processMouseMovement(0.0f, -2.5f * speed);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::Left))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::Left))
 			{
                 this->processMouseMovement(-2.5f * speed, 0.0f);
             }
-            if (Input2::isKeyPressed(MB::Keyboard::Key::Right))
+            if (Input2::isKeyPressed(mb::Keyboard::Key::Right))
 			{
                 this->processMouseMovement(2.5f * speed, 0.0f);
             }

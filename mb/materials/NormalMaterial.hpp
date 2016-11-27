@@ -28,7 +28,7 @@
 #include "Material.hpp"
 #include "Uniform.hpp"
 
-namespace MB
+namespace mb
 {
     class NormalMaterial: public Material
     {

@@ -47,7 +47,7 @@ list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW FreeImage)
 
 common_find_package_post()
 
-add_subdirectory(third-resources)
+# add_subdirectory(third-resources)
 add_subdirectory(mb)
 add_subdirectory(examples)
 
@@ -56,4 +56,4 @@ if(${Boost_FOUND})
 endif()
 
 # include(CPackConfig)
-# include(DoxygenRule)
+include(DoxygenRule)

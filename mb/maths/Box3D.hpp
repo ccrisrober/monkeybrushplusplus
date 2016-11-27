@@ -28,7 +28,7 @@
 #include "Vect3.hpp"
 #include <limits>
 
-namespace MB
+namespace mb
 {
 	class Box3D
 	{

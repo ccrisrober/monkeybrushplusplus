@@ -24,24 +24,24 @@
 #include <mb/mb.h>
 #include <assetsFiles.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::Node* mbMesh;
-MB::RotateComponent* r;
+mb::Node* mbMesh;
+mb::RotateComponent* r;
 
 int main(void)
 {
-    MB::GLContext context(4, 3, 1024, 768, "Spherical Harmonics");
+    mb::GLContext context(4, 3, 1024, 768, "Spherical Harmonics");
 
-    engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+    engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
-	MB::Mesh* mesh = new MB::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
+	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
-	std::vector<std::pair<MB::ShaderType, const char*> > shaders;
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
 	const char* vertexShader =
 		"#version 430\n"
 		"layout(location = 0) in vec3 position;"
@@ -85,27 +85,27 @@ int main(void)
         "    fragColor = vec4(pow(col.xyz, vec3(invGamma)),1.0);"
         "}";
 
-	shaders.push_back(std::make_pair(MB::VertexShader, vertexShader));
-	shaders.push_back(std::make_pair(MB::FragmentShader, fragmentShader));
+	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
+	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
 
 
-	std::vector<std::pair<const char*, MB::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new MB::Uniform(MB::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new MB::Uniform(MB::Matrix4)));
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
+	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
 
-	MB::ShaderMaterial material("shMaterial", shaders, uniforms);
+	mb::ShaderMaterial material("shMaterial", shaders, uniforms);
 
-	mbMesh = new MB::Node(std::string("mesh"));
-	mbMesh->setMesh(new MB::MeshRenderer(mesh, &material));
-	mbMesh->addComponent(new MB::MoveComponent());
-	r = new MB::RotateComponent(MB::Axis::x);
+	mbMesh = new mb::Node(std::string("mesh"));
+	mbMesh->setMesh(new mb::MeshRenderer(mesh, &material));
+	mbMesh->addComponent(new mb::MoveComponent());
+	r = new mb::RotateComponent(mb::Axis::x);
 	mbMesh->addComponent(r);
 
 
-	MB::Light* l1 = new MB::PointLight();
+	mb::Light* l1 = new mb::PointLight();
 	scene->addLight(l1);
-	MB::Light* l2 = new MB::PointLight();
+	mb::Light* l2 = new mb::PointLight();
 	scene->addLight(l2);
 	scene->addLight(l1);
 
@@ -122,25 +122,25 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Esc))
+	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::X))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::X))
 	{
-		r->setAxis(MB::Axis::x);
-		//mbMesh->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::x);
+		r->setAxis(mb::Axis::x);
+		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Y))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Y))
 	{
-		r->setAxis(MB::Axis::y);
-		//mbMesh->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::y);
+		r->setAxis(mb::Axis::y);
+		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Z))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Z))
 	{
-		r->setAxis(MB::Axis::z);
-		//mbMesh->getComponent<MB::RotateComponent>()->setAxis(MB::Axis::z);
+		r->setAxis(mb::Axis::z);
+		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
 	}
 	scene->render(dt);
 }

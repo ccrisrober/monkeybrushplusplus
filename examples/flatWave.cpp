@@ -35,11 +35,9 @@ mb::Framebuffer* fbo;
 
 mb::Texture *currentTex, *oldTex;
 
-mb::CustomPingPong<mb::Texture*>* customPP;
+mb::CustomPingPong<mb::Texture2D*>* customPP;
 
-std::function<void()> cppCallback([]() {
-
-});
+std::function<void()> cb;
 
 int main(void)
 {
@@ -78,10 +76,16 @@ int main(void)
 	mb::Texture2D *tex2 = new mb::Texture2D(opts, pixels.data(),
 		context.getWidth(), context.getHeight());
 
-	customPP = new mb::CustomPingPong<mb::Texture*>(tex1, tex2);
+	customPP = new mb::CustomPingPong<mb::Texture2D*>(tex1, tex2);
 	std::vector<mb::Texture*> textures = { tex1, tex2 };
 	fbo = new mb::Framebuffer(textures, 
 		mb::Vect2(context.getWidth(), context.getHeight()));
+
+	cb = std::function<void()>([&]() {
+		customPP->first()->bind(0);
+		fbo->bind();
+		fbo->replaceTexture(customPP->last(), 0);
+	});
 
 	engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
@@ -118,20 +122,18 @@ int main(void)
 	return 0;
 }
 
-float globalTime = 0.0f;
-void renderFunc(float /*dt*/)
+void renderFunc(float)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//globalTime += dt;
-
-	currentTex->bind(0);
-	fbo->bind();
-	fbo->replaceTexture(oldTex, 0);
-	ppm1->renderPP();
+	for (unsigned int i = 0; i < 1; ++i)
+	{
+		customPP->swap(cb);
+		ppm1->renderPP();
+	}
+	fbo->unbind();
 	fbo->unbind();
 
 	std::swap(currentTex, oldTex);
-
 	currentTex->bind(0);
 	ppm2->renderPP();
 }

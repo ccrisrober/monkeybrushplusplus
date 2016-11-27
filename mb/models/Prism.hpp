@@ -27,7 +27,7 @@
 
 #include "Cone.hpp"
 
-namespace MB
+namespace mb
 {
     class Prism: public Cone
     {

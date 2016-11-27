@@ -22,7 +22,7 @@
 
 #include "Transform.hpp"
 
-namespace MB
+namespace mb
 {
 	Transform::Transform()
 	: _position(Vect3::createFromScalar(0.0f))

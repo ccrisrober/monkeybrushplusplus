@@ -23,7 +23,7 @@
 #include "Disc.hpp"
 #include "../maths/Mathf.hpp"
 
-namespace MB
+namespace mb
 {
 	Disc::Disc(float radius, unsigned int divisions, unsigned int stacks,
 		float innerRadius, float stackInc)

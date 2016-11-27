@@ -27,7 +27,7 @@
 
 #include "Texture.hpp"
 
-namespace MB
+namespace mb
 {
 	class Texture3D : public Texture
 	{

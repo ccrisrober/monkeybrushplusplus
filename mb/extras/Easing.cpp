@@ -26,7 +26,7 @@
 #include "../maths/Mathf.hpp"
 #include <cmath>
 
-namespace MB
+namespace mb
 {
 	namespace Easing
 	{

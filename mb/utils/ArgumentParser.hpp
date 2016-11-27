@@ -33,7 +33,7 @@
 #include <iostream>
 #include <sstream>
 
-namespace MB
+namespace mb
 {
 	class ArgumentParser;
 	class OptionGroup;

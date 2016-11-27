@@ -22,7 +22,7 @@
 
 #include "ResourceShader.hpp"
 
-namespace MB
+namespace mb
 {
 	std::unordered_map<std::string, std::string> ResourceShader::_files;
 	

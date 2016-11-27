@@ -29,7 +29,7 @@
 #include <typeinfo>
 #include <memory>
 
-namespace MB
+namespace mb
 {
 	class Node;
 	class Component

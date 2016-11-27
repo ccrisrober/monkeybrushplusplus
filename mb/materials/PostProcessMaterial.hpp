@@ -29,7 +29,7 @@
 #include "Uniform.hpp"
 #include "../core/PostProcess.hpp"
 
-namespace MB
+namespace mb
 {
 	class PostProcessMaterial : public Material
 	{

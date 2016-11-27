@@ -22,7 +22,7 @@
 
 #include "Log.hpp"
 
-namespace MB
+namespace mb
 {
 	LOG::LOG() {}
 	LOG::LOG(TLogLevel type)

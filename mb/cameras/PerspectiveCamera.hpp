@@ -28,7 +28,7 @@
 #include "Camera.hpp"
 #include <iostream>
 
-namespace MB
+namespace mb
 {
 	class PerspectiveCamera: public Camera
 	{

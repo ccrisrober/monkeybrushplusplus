@@ -28,9 +28,9 @@
 
 #include "scene/Component.hpp"
 
-namespace MB
+namespace mb
 {
-	class MoveComponent : public MB::Component
+	class MoveComponent : public mb::Component
 	{
 	public:
 		MB_API
@@ -46,7 +46,7 @@ namespace MB
 	{
 		x, y, z
 	};
-	class RotateComponent : public MB::Component
+	class RotateComponent : public mb::Component
 	{
 	public:
 		MB_API
@@ -61,7 +61,7 @@ namespace MB
 		float _delta;
 		float _velocity;
 	};
-	class ScaleComponent : public MB::Component
+	class ScaleComponent : public mb::Component
 	{
 	public:
 		MB_API
@@ -71,7 +71,7 @@ namespace MB
 	protected:
 		float _inc;
 	};
-	class PrintPosition : public MB::Component
+	class PrintPosition : public mb::Component
 	{
 	public:
 		MB_API

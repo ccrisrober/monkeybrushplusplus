@@ -22,7 +22,7 @@
 
 #include "Exception.hpp"
 
-/*namespace MB
+/*namespace mb
 {
 	MBException::MBException(const std::string& message)
 		: std::exception(message)

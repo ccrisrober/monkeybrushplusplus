@@ -22,7 +22,7 @@
 
 #include "Input.hpp"
 
-namespace MB
+namespace mb
 {
 	bool Input::_initializated = false;
 

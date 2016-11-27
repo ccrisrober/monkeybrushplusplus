@@ -22,7 +22,7 @@
 
 #include "RenderBufferMultisampleTexture.hpp"
 
-namespace MB
+namespace mb
 {
 	RenderBufferMultisampleTexture::RenderBufferMultisampleTexture(const Vect2& size, unsigned int format, 
 		unsigned int attachment, unsigned int samples)

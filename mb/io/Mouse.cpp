@@ -22,13 +22,13 @@
 
 #include "Mouse.hpp"
 
-using MB::ctes::MouseButton;
+using mb::ctes::MouseButton;
 
 #define MOUSE_LEFTBUTTON 0
 #define MOUSE_CENTERBUTTON 1
 #define MOUSE_RIGHTBUTTON 2 
 
-namespace MB
+namespace mb
 {
 	Mouse::~Mouse() {}
 	GLFWMouse::GLFWMouse()

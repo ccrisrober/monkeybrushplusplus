@@ -27,7 +27,7 @@
 
 #include "Polyhedron.hpp"
 
-namespace MB
+namespace mb
 {
 	class Tetrahedron : public Polyhedron
 	{

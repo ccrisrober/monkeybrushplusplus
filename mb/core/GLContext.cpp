@@ -26,7 +26,7 @@
 
 #include <functional>
 
-namespace MB
+namespace mb
 {
     GLContext::GLContext(unsigned int maxVersion, unsigned int minVersion,
                          unsigned int width, unsigned int height,
@@ -37,11 +37,11 @@ namespace MB
         , _height(height)
         , _title(title)
     {
-		MB::WindowParams wp(width, height);
+		mb::WindowParams wp(width, height);
 		wp.title = title;
 		wp.minVersion = minVersion;
 		wp.maxVersion = maxVersion;
-		_window = new MB::GLFWWindow2(wp);
+		_window = new mb::GLFWWindow2(wp);
 		_window->init();
 
 		_state = new GlobalState();

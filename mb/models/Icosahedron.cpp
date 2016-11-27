@@ -23,7 +23,7 @@
 #include "Icosahedron.hpp"
 #include <cmath>
 
-namespace MB
+namespace mb
 {
 	Icosahedron::Icosahedron(const float& radius, const unsigned int& subdivisions)
 	: Polyhedron()

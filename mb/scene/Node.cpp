@@ -22,11 +22,11 @@
 
 #include "Node.hpp"
 
-namespace MB
+namespace mb
 {
 	Node::Node(const std::string& name, const std::string& tag)
 	: _name(name)
-	, _id(MB::utils::generateUUID())
+	, _id(mb::utils::generateUUID())
 	, _parent(nullptr)
 	, _tag(tag)
     , _visible(true)
@@ -97,12 +97,12 @@ namespace MB
 	}
 	void Node::removeChildren()
 	{
-		std::for_each(_children.begin(), _children.end(), MB::utils::deleter<Node>());
+		std::for_each(_children.begin(), _children.end(), mb::utils::deleter<Node>());
 		_children.clear();
 	}
 	void Node::removeComponents()
 	{
-		std::for_each(_components.begin(), _components.end(), MB::utils::deleter<Component>());
+		std::for_each(_components.begin(), _components.end(), mb::utils::deleter<Component>());
 		_components.clear();
 	}
     void Node::addComponent(Component* c)
@@ -178,7 +178,7 @@ namespace MB
 	{
 		this->_tag = t;
 	}
-	std::vector<MB::Component*> Node::getComponents() const
+	std::vector<mb::Component*> Node::getComponents() const
 	{
 		return _components;
 	}
@@ -190,7 +190,7 @@ namespace MB
 	{
 		return this->_mesh;
 	}
-	void Node::traverse(const std::function<void(MB::Node* n)>& f)
+	void Node::traverse(const std::function<void(mb::Node* n)>& f)
 	{
 		f(this);
 		for (auto& child : _children)
@@ -198,7 +198,7 @@ namespace MB
 			child->traverse(f);
 		}
 	}
-	void Node::traverseAncestors(const std::function<void(MB::Node* n)>& f)
+	void Node::traverseAncestors(const std::function<void(mb::Node* n)>& f)
 	{
 		if (this->_parent != nullptr)
 		{

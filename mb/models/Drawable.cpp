@@ -22,7 +22,7 @@
 
 #include "Drawable.hpp"
 
-namespace MB
+namespace mb
 {
     Drawable::Drawable()
     {

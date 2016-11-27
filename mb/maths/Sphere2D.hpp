@@ -27,7 +27,7 @@
 
 #include "Vect2.hpp"
 
-namespace MB
+namespace mb
 {
 	class Sphere2D
 	{

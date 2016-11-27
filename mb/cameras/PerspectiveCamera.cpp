@@ -22,7 +22,7 @@
 
 #include "PerspectiveCamera.hpp"
 
-namespace MB
+namespace mb
 {
 	PerspectiveCamera::PerspectiveCamera(float fov_, float aspect_, float near_, float far_)
 		: Camera(near_, far_)

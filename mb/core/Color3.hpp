@@ -28,7 +28,7 @@
 #include "../maths/Vect3.hpp"
 #include <cmath>
 
-namespace MB
+namespace mb
 {
 	class Color3
     {

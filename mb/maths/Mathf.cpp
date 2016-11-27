@@ -22,7 +22,7 @@
 
 #include "Mathf.hpp"
 
-namespace MB
+namespace mb
 {
     float Mathf::lerp(float x, float x1, float x2, float q00, float q01)
     {

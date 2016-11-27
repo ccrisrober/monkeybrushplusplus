@@ -22,7 +22,7 @@
 
 #include "Texture3D.hpp"
 
-namespace MB
+namespace mb
 {
 	Texture3D::Texture3D(const TexOptions& options, void* data, unsigned int width,
 		unsigned int height, unsigned int depth) :

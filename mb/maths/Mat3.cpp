@@ -22,7 +22,7 @@
 
 #include "Mat3.hpp"
 
-namespace MB
+namespace mb
 {
     Mat3::Mat3()
     {

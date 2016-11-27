@@ -27,7 +27,7 @@
 
 #include "Cone.hpp"
 
-namespace MB
+namespace mb
 {
     class Cylinder: public Cone
     {

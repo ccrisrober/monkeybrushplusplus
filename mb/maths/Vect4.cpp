@@ -22,7 +22,7 @@
 
 #include "Vect4.hpp"
 
-namespace MB
+namespace mb
 {
     Vect4::Vect4(float x, float y, float z, float a)
     {

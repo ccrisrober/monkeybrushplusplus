@@ -28,7 +28,7 @@
 #include <iostream>
 #include <vector>
 
-namespace MB
+namespace mb
 {
 	class Vect2
 	{

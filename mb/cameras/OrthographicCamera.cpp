@@ -22,7 +22,7 @@
 
 #include "OrthographicCamera.hpp"
 
-namespace MB
+namespace mb
 {
 	OrthographicCamera::OrthographicCamera(float left_, 
 		float right_, float top_, float bottom_, float near_, 

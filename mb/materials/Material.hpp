@@ -35,7 +35,7 @@
 #include "../maths/Mat3.hpp"
 #include "../maths/Mat4.hpp"
 
-namespace MB
+namespace mb
 {
     typedef std::unordered_map<std::string, Uniform*> TUniforms;
 	class Material

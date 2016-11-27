@@ -22,7 +22,7 @@
 
 #include "Camera.hpp"
 
-namespace MB
+namespace mb
 {
 	Camera::Camera(float near_, float far_)
 		: _near(near_)

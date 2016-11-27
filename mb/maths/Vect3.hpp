@@ -29,7 +29,7 @@
 #include <vector>
 #include <cmath>
 
-namespace MB
+namespace mb
 {
 	class Color3;
 	class Vect3

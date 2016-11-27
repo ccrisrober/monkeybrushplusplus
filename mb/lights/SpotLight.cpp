@@ -22,7 +22,7 @@
 
 #include "SpotLight.hpp"
 
-namespace MB
+namespace mb
 {
 	SpotLight::SpotLight(const Vect3 pos, const Vect3 dir, float coff)
 		: Light()

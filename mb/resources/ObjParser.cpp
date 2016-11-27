@@ -23,7 +23,7 @@
 #include "ObjParser.hpp"
 #include <math.h>
 
-namespace MB
+namespace mb
 {
 	ObjParser::ObjParser( void )
 	{

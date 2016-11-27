@@ -25,32 +25,32 @@
 #include <assetsFiles.h>
 #include <shaderFiles.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::PostProcessMaterial* ppm;
+mb::PostProcessMaterial* ppm;
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 1024, 768, "Color Blind demo");
+	mb::GLContext context(3, 3, 1024, 768, "Color Blind demo");
 
-	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+	engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
 	std::ifstream file(MB_SHADER_FILES_COLOR_BLIND_FRAG);
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 
-	ppm = new MB::PostProcessMaterial(buffer.str().c_str());
+	ppm = new mb::PostProcessMaterial(buffer.str().c_str());
 
-	MB::TexOptions opts;
-	MB::Texture2D* tex = new MB::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));
+	mb::TexOptions opts;
+	mb::Texture2D* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));
 	tex->bind(0);
 
-	ppm->addUniform("tex", new MB::Uniform(MB::Integer, 0));
-	ppm->addUniform("mode", new MB::Uniform(MB::Integer, 0));
+	ppm->addUniform("tex", new mb::Uniform(mb::Integer, 0));
+	ppm->addUniform("mode", new mb::Uniform(mb::Integer, 0));
 
 	engine->run(renderFunc);
 
@@ -63,19 +63,19 @@ int main(void)
 void renderFunc(float)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num1))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num1))
 	{
 		ppm->uniform("mode")->value(0);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num2))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num2))
 	{
 		ppm->uniform("mode")->value(1);
 	}
-	if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num3))
+	if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num3))
 	{
 		ppm->uniform("mode")->value(2);
 	}
-	else if (MB::Input2::isKeyClicked(MB::Keyboard::Key::Num4))
+	else if (mb::Input2::isKeyClicked(mb::Keyboard::Key::Num4))
 	{
 		ppm->uniform("mode")->value(3);
 	}

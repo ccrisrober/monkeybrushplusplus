@@ -32,7 +32,7 @@
 
 #include <mb/api.h>
 
-namespace MB
+namespace mb
 {
 	class os
 	{

@@ -29,7 +29,7 @@
 #include <stdexcept>
 #include <typeinfo>
 
-namespace MB
+namespace mb
 {
 	namespace detail {
 

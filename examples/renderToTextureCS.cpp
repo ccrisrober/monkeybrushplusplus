@@ -24,34 +24,34 @@
 #include <mb/mb.h>
 #include <shaderFiles.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::PostProcessMaterial* ppm;
-MB::Program* computeProg;
+mb::PostProcessMaterial* ppm;
+mb::Program* computeProg;
 
-MB::Texture2D * tex;
+mb::Texture2D * tex;
 
 int main(void)
 {
-	MB::GLContext context(4, 4, 720, 480, "Ray Tracing CS");
+	mb::GLContext context(4, 4, 720, 480, "Ray Tracing CS");
 
-	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+	engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
 	{
 		std::ifstream file(MB_SHADER_FILES_PASSTHROUGHT);
 		std::stringstream buffer;
 		buffer << file.rdbuf();
 
-		ppm = new MB::PostProcessMaterial(buffer.str().c_str());
+		ppm = new mb::PostProcessMaterial(buffer.str().c_str());
 
-		ppm->addUniform("tex", new MB::Uniform(MB::Integer, 0));
+		ppm->addUniform("tex", new mb::Uniform(mb::Integer, 0));
 	}
 	{
-		computeProg = new MB::Program();
+		computeProg = new mb::Program();
 		std::ifstream file(MB_SHADER_FILES_RENDER2TEXTURE_COMPUTESHADER);
 		std::stringstream buffer;
 		buffer << file.rdbuf();
@@ -60,7 +60,7 @@ int main(void)
 		computeProg->autocatching();
 	}
 
-	MB::TexOptions options;
+	mb::TexOptions options;
 	options.wrapS = GL_CLAMP_TO_EDGE;
 	options.wrapT = GL_CLAMP_TO_EDGE;
 	options.minFilter = GL_LINEAR;
@@ -69,7 +69,7 @@ int main(void)
 	options.format = GL_RGBA;
 	options.type = GL_FLOAT;
 
-	tex = new MB::Texture2D(options, 512, 512);
+	tex = new mb::Texture2D(options, 512, 512);
 	tex->bindImageTexture(0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA8);
 
 	engine->run(renderFunc);

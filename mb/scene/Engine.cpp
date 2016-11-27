@@ -48,7 +48,7 @@ void _check_gl_error(const char *file, int line)
 	}
 }
 
-namespace MB
+namespace mb
 {
 	Engine::Engine(GLContext* context, bool debugLayer)
 	: _context(context)
@@ -61,8 +61,8 @@ namespace MB
 	void Engine::run(std::function<void(float)> loop)
 	{
 		float currentFrame;
-		this->state()->color.setClear(MB::Color4(0.0f, 0.0f, 0.0f, 1.0f));
-		this->state()->setViewport(MB::Vect4(0, 0, this->_context->getWidth(), this->_context->getHeight()));
+		this->state()->color.setClear(mb::Color4(0.0f, 0.0f, 0.0f, 1.0f));
+		this->state()->setViewport(mb::Vect4(0, 0, this->_context->getWidth(), this->_context->getHeight()));
 		
 		this->state()->depth.setStatus(true);
 		this->state()->culling.setStatus(true);
@@ -73,7 +73,7 @@ namespace MB
 
 			this->_context->getWindow()->pollEvents();
 
-			MB::Input2::update();
+			mb::Input2::update();
 			
 			currentFrame = glfwGetTime();
 			deltaTime = currentFrame - lastFrame;

@@ -29,7 +29,7 @@
 #include <iostream>
 #include "Vect3.hpp"
 
-namespace MB
+namespace mb
 {
 	class Quat;
 	class Mat4

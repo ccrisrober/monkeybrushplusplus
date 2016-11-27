@@ -25,7 +25,7 @@
 
 #include "../Includes.hpp"
 
-namespace MB
+namespace mb
 {
 	namespace ctes
 	{

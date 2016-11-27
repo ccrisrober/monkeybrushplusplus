@@ -29,9 +29,9 @@
 #include "../constants/Constants.hpp"
 #include "../Includes.hpp"
 
-using MB::ctes::MouseButton;
+using mb::ctes::MouseButton;
 
-namespace MB
+namespace mb
 {
 	class Mouse
 	{

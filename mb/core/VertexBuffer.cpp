@@ -22,7 +22,7 @@
 
 #include "VertexBuffer.hpp"
 
-namespace MB
+namespace mb
 {
 	VertexBuffer::VertexBuffer(unsigned int type)
         : _type(type)

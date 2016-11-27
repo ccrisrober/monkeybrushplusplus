@@ -22,7 +22,7 @@
 
 #include "Texture2DArray.hpp"
 
-namespace MB
+namespace mb
 {
 	Texture2DArray::Texture2DArray(const TexOptions& options, std::vector< void* > data,
 		unsigned int width, unsigned int height)

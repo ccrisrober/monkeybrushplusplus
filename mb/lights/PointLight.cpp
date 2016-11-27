@@ -22,7 +22,7 @@
 
 #include "PointLight.hpp"
 
-namespace MB
+namespace mb
 {
     PointLight::PointLight(const Vect3 pos)
     :Light()

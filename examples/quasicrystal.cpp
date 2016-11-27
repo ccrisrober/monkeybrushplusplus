@@ -23,25 +23,25 @@
 #include <iostream>
 #include <mb/mb.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
 
-MB::PostProcessMaterial* ppm;
+mb::PostProcessMaterial* ppm;
 float ratio;
 
 int main(void)
 {
-    MB::GLContext context(3, 3, 1024, 768, "Quasicrystal demo");
+    mb::GLContext context(3, 3, 1024, 768, "Quasicrystal demo");
 
-    engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+    engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
 	ratio = 10.5f;
 
-	ppm = new MB::PostProcessMaterial(
+	ppm = new mb::PostProcessMaterial(
 		"#version 330\n"
         "#define PI 3.14159\n"
 		"out vec4 fragColor;\n"
@@ -69,8 +69,8 @@ int main(void)
         "    fragColor.w = 1.;"
         "}\n");
 
-	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float));
-	ppm->addUniform("ratio", new MB::Uniform(MB::Float, ratio));
+	ppm->addUniform("iGlobalTime", new mb::Uniform(mb::Float));
+	ppm->addUniform("ratio", new mb::Uniform(mb::Float, ratio));
 
 	engine->run(renderFunc);
     
@@ -86,12 +86,12 @@ void renderFunc(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	globalTime += dt;
 	ppm->uniform("iGlobalTime")->value(globalTime * 2.5f);
-	if (MB::Input2::isKeyPressed(MB::Keyboard::Key::Z))
+	if (mb::Input2::isKeyPressed(mb::Keyboard::Key::Z))
 	{
 		ratio -= 0.1f;
 		ppm->uniform("ratio")->value(ratio);
 	}
-	else if (MB::Input2::isKeyPressed(MB::Keyboard::Key::X))
+	else if (mb::Input2::isKeyPressed(mb::Keyboard::Key::X))
 	{
 		ratio += 0.1f;
 		ppm->uniform("ratio")->value(ratio);

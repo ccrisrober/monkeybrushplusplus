@@ -22,7 +22,7 @@
 
 #include "VertexArray.hpp"
 
-namespace MB
+namespace mb
 {
 	VertexArray::VertexArray()
 	: _handler(0)

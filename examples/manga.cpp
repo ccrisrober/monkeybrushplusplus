@@ -24,27 +24,27 @@
 #include <mb/mb.h>
 #include <shaderFiles.h>
 
-MB::Engine* engine;
-MB::Scene* scene;
+mb::Engine* engine;
+mb::Scene* scene;
 
 void renderFunc(float dt);
 
-MB::PostProcessMaterial* ppm;
+mb::PostProcessMaterial* ppm;
 
 int main(void)
 {
-	MB::GLContext context(3, 3, 1024, 768, "Manga demo");
+	mb::GLContext context(3, 3, 1024, 768, "Manga demo");
 
-	engine = new MB::Engine(&context, false);
-	scene = new MB::Scene(engine);
+	engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine);
 
 	std::ifstream file(MB_SHADER_FILES_MANGA_FRAG);
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 
-	ppm = new MB::PostProcessMaterial(buffer.str().c_str());
+	ppm = new mb::PostProcessMaterial(buffer.str().c_str());
 	
-	ppm->addUniform("iGlobalTime", new MB::Uniform(MB::Float, 0.0f));
+	ppm->addUniform("iGlobalTime", new mb::Uniform(mb::Float, 0.0f));
 
 	engine->run(renderFunc);
 

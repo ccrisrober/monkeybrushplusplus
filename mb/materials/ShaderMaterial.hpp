@@ -27,7 +27,7 @@
 
 #include "Material.hpp"
 
-namespace MB
+namespace mb
 {
 	typedef enum
 	{
