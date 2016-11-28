@@ -8,24 +8,24 @@ BOOST_AUTO_TEST_CASE( test_example )
 
 BOOST_AUTO_TEST_CASE ( test_cube_indices_len )
 {
-    // MB::GLContext context(3, 3, 1024, 768, "Hello MB");
-	// MB::Cube* cube = new MB::Cube(1.0f);
+    // mb::GLContext context(3, 3, 1024, 768, "Hello mb");
+	// mb::Cube* cube = new mb::Cube(1.0f);
 	// BOOST_CHECK(cube->indicesLen( ) == (6 * 6));
 }
 
 BOOST_AUTO_TEST_CASE ( test_lights_repeated )
 {
-	MB::GLContext context(4, 3, 1024, 768, "Hello MB");
+	mb::GLContext context(4, 3, 1024, 768, "Hello MB");
 
-	auto engine = new MB::Engine(&context);
-	auto scene = new MB::Scene(engine);
+	auto engine = new mb::Engine(&context);
+	auto scene = new mb::Scene(engine);
 
-	MB::Light* l1 = new MB::PointLight();
+	mb::Light* l1 = new mb::PointLight();
 	scene->addLight(l1);
 	BOOST_CHECK(scene->lights().size() == 1);
 	scene->addLight(l1);
 	BOOST_CHECK(scene->lights().size() == 1);
-	MB::Light* l2 = new MB::PointLight();
+	mb::Light* l2 = new mb::PointLight();
 	scene->addLight(l2);
 	BOOST_CHECK(scene->lights().size() == 2);
 	scene->addLight(l1);

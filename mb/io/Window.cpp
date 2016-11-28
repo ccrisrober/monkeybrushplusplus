@@ -31,8 +31,8 @@ namespace mb
 		{
 			throw "Failed to initialise GLFW";
 		}
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, _params.minVersion);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, _params.maxVersion);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, _params.minVersion);
 		glfwWindowHint(GLFW_SAMPLES, 4);
 		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		// TODO: glfwWindowHint(GLFW_RESIZABLE, _params.resizable);
@@ -47,7 +47,7 @@ namespace mb
 
 		glfwWindowHint(GLFW_RESIZABLE, false);
 
-		std::cout << "OpenGL context version: (" << _params.minVersion << ", " << _params.maxVersion << ")" << std::endl;
+		std::cout << "OpenGL context version: (" << _params.maxVersion << ", " << _params.minVersion << ")" << std::endl;
 
 		this->_handle = glfwCreateWindow(_params.width, _params.height, _params.title, nullptr, nullptr);
 

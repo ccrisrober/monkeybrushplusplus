@@ -30,7 +30,7 @@
 
 namespace mb
 {
-	template<typename T>
+	/*template<typename T>
 	inline std::shared_ptr<T> make_shared()
 	{
 		struct Derived : public T { };
@@ -40,7 +40,7 @@ namespace mb
 	inline std::shared_ptr<T> make_shared(Args&& ... args)
 	{
 		return std::make_shared<Derived<T>>(std::move(args)...);
-	}
+	}*/
 
 	class Light
 	{

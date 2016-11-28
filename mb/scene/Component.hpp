@@ -29,6 +29,11 @@
 #include <typeinfo>
 #include <memory>
 
+#ifdef MB_USE_RAPIDJSON
+	#include <rapidjson/document.h>
+	using namespace rapidjson;
+#endif
+
 namespace mb
 {
 	class Node;
@@ -58,6 +63,13 @@ namespace mb
 		MB_API
 		virtual ~Component() {}
 	protected:
+	#ifdef MB_USE_RAPIDJSON
+		Component(const Value& /*config*/)
+		{
+
+		}
+	#endif
+		Component() { }
 		Node* _node;
 		bool _enabled = true;
 	};

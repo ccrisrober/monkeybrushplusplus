@@ -37,15 +37,15 @@ common_find_package( Eigen3 REQUIRED SYSTEM )
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
 common_find_package( Boost COMPONENTS unit_test_framework )
-#common_find_package( rapidjson )
+common_find_package( rapidjson REQUIRED )
 common_find_package( GLFW )
-common_find_package(FreeImage REQUIRED SYSTEM)
+common_find_package( FreeImage REQUIRED SYSTEM )
 
-#set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_DOCS OFF)
 set(GLFW_BUILD_TESTS OFF)
-#set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF)
 
-list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW FreeImage Eigen3)
+list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW FreeImage Eigen3 rapidjson)
 
 common_find_package_post()
 

@@ -1,3 +1,3 @@
 # -*- mode: cmake -*-
 git_subproject(GLFW https://github.com/glfw/glfw.git 5b80515)
-git_subproject(rapidjson https://github.com/miloyip/rapidjson.git 0024592)
+#git_subproject(rapidjson https://github.com/miloyip/rapidjson.git 0024592)

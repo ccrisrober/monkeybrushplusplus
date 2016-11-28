@@ -57,10 +57,10 @@ namespace mb
 	}
 	RotateComponent::RotateComponent(Axis axis)
 		: mb::Component()
-		, _delta(0.01f)
-		, _velocity(1.0f)
 		, _rotate(false)
 		, _axis(axis)
+		, _delta(0.01f)
+		, _velocity(1.0f)
 	{
 	}
 	/*void RotateComponent::setAxis(Axis axis)

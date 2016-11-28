@@ -4,7 +4,7 @@ include_directories( ${PROJECT_SOURCE_DIR} )
 if(${Boost_FOUND})
 	set(TEST_LIBRARIES
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	    MB
+	    mb
 	)
 	include(CommonCTest)
 endif()

@@ -49,6 +49,33 @@ namespace mb
 	class RotateComponent : public mb::Component
 	{
 	public:
+	#ifdef MB_USE_RAPIDJSON
+		MB_API
+        RotateComponent(const rapidjson::Value& config)
+        : RotateComponent(_axisFromString(config["axis"].GetString( )))
+        {
+        	if (config.HasMember("rotate"))
+        	{
+        		bool rotate = config["rotate"].GetBool();
+        		setRotate(rotate);
+        	}
+		}
+		Axis _axisFromString(const std::string& _axis_)
+		{
+			if (_axis_ == "X")
+			{
+				return mb::Axis::x;
+			} else if (_axis_ == "Y")
+			{
+				return mb::Axis::y;
+			} else if (_axis_ == "Z")
+			{
+				return mb::Axis::z;
+			}
+			throw;
+		}
+	#endif
+
 		MB_API
 		RotateComponent(Axis axis);
 		//MB_API

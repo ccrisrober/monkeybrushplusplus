@@ -28,8 +28,6 @@ mb::Scene* scene;
 
 void renderFunc(float dt);
 
-typedef mb::RotateComponent* RC;
-
 mb::Node* mbModel;
 
 int main(void)

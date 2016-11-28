@@ -20,3 +20,4 @@
 - (27/11) Added traverseAscentors(callback) in Node. Added FindById in Scene.
 - (27/11) Added ArgumentParser and IniReader to utils.
 - (27/11) Renamed Input2 to Input
+- (28/11) Loaded Components with Json configuration

@@ -6,20 +6,46 @@
 				"position": [0.0, 3.15, -8.98],
 				"scale": [2.0, 2.0, 1.0]
 			},
-			"childs": [
+			"components": [
+				{
+					"name": "RotateComponent",
+					"data": {
+						"axis": "Z",
+						"rotate": true
+					}
+				}
+			],
+			"children": [
 				{
 					"name": "prism",
 					"transform": {
 						"position": [-0.44, -2.0, 2.35],
 						"scale": [0.5, 0.5, 0.5]
 					},
+					"components": [
+						{
+							"name": "RotateComponent",
+							"data": {
+								"axis": "X",
+								"rotate": true
+							}
+						}
+					],
 					"layer": 2,
 					"children": [
 						{
 							"name": "capsule",
 							"transform": {
 								"position": [-1.44, -2.5, 0.87]
-							}
+							},
+							"components": [
+								{
+									"name": "RotateComponent",
+									"data": {
+										"axis": "Z"
+									}
+								}
+							]
 						}
 					]
 				},
@@ -29,6 +55,15 @@
 						"position": [1.1, -1.91, -1.08],
 						"scale": [1.0, 0.5, 1.0]
 					},
+					"components": [
+						{
+							"name": "RotateComponent",
+							"data": {
+								"axis": "Y",
+								"rotate": true
+							}
+						}
+					],
 					"layer": 2,
 					"children": [
 						{
@@ -36,7 +71,15 @@
 							"transform": {
 								"position": [1.44, -2.5, 0.8],
 								"scale": [0.5, 1.0, 2.0]
-							}
+							},
+							"components": [
+								{
+									"name": "RotateComponent",
+									"data": {
+										"axis": "Y"
+									}
+								}
+							]
 						}
 					]
 				}

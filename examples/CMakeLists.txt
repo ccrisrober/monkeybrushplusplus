@@ -262,3 +262,27 @@ set( MBRANDOMCUBE_LINK_LIBRARIES
 
 common_application( mbRandomCube )
 
+
+
+
+set( MBEXTRUDE_HEADERS )
+set( MBEXTRUDE_SOURCES extrude.cpp )
+set( MBEXTRUDE_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbExtrude )
+
+
+
+
+
+set( MBJSONSCENE_HEADERS )
+set( MBJSONSCENE_SOURCES jsonScene.cpp )
+set( MBJSONSCENE_LINK_LIBRARIES
+	mb
+    ${RAPIDJSON_LIBRARIES}
+)
+
+common_application( mbJsonScene )
+
