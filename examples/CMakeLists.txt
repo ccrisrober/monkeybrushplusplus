@@ -251,3 +251,14 @@ set( MBTRIANGLETESSELATION_LINK_LIBRARIES
 
 common_application( mbTriangleTesselation )
 
+
+
+
+set( MBRANDOMCUBE_HEADERS )
+set( MBRANDOMCUBE_SOURCES randomCube.cpp )
+set( MBRANDOMCUBE_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbRandomCube )
+

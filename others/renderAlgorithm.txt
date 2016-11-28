@@ -1,0 +1,25 @@
+- Obtenemos matrices de projección y de vista de la cámara
+- Por cada objeto, comprobamos si la esfera contenedora se encuentra dentro o interseca con el frustrum.
+- 
+
+
+- Ponemos calls, vertices, faces, ... a 0
+- Limpiamos la pantalla:
+	* Autoclear || forceClear => Limpiar con color de fondo
+	* Si es cuboTexture => Pintamos skybox
+	* Si es textura => Pintamos textura a pantalla completa
+
+- Pintamos todos los objetos
+	* Opacos:
+		+ Ponemos el blending a false
+		+ Pintamos cada objeto
+			- Obtenemos matriz modelView y normalMatrix (inversa de transpuesta de modelView)
+			- Cargamos el material (side, depth, ...)
+				* Asignamos matriz de projectionMatrix al programa
+					* Si tenemos logBuffer => logDepthBuffer = 2.0f / std::log(camera->far + 1.0f) / Mathf::LN2))
+				
+
+
+- Activamos el test de profundidad, así como la escritura en depth y color
+
+			
