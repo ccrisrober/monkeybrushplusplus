@@ -276,13 +276,24 @@ common_application( mbExtrude )
 
 
 
-
-set( MBJSONSCENE_HEADERS )
-set( MBJSONSCENE_SOURCES jsonScene.cpp )
-set( MBJSONSCENE_LINK_LIBRARIES
+set( MBCOMPUTETEST_HEADERS )
+set( MBCOMPUTETEST_SOURCES computeTest.cpp )
+set( MBCOMPUTETEST_LINK_LIBRARIES
 	mb
-    ${RAPIDJSON_LIBRARIES}
 )
 
-common_application( mbJsonScene )
+common_application( mbComputeTest )
 
+
+
+
+if(${Rapidjson_FOUND})
+	set( MBJSONSCENE_HEADERS )
+	set( MBJSONSCENE_SOURCES jsonScene.cpp )
+	set( MBJSONSCENE_LINK_LIBRARIES
+		mb
+	    ${RAPIDJSON_LIBRARIES}
+	)
+
+	common_application( mbJsonScene )
+endif()

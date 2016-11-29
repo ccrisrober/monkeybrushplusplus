@@ -55,6 +55,69 @@ namespace mb
         // TODO: Check parent in p node (addChild or removeChild in p.parent)
 		this->_parent = p;
 	}
+	Node* Node::findByName(const std::string& name)
+	{
+		Node* toRet = this->_searchName(name, this);
+		return toRet;
+	}
+	Node* Node::findByTag(const std::string& tag)
+	{
+		Node* toRet = this->_searchTag(tag, this);
+		return toRet;
+	}
+	Node* Node::findById(const std::string uuid)
+	{
+		Node* toRet = this->_searchUUID(uuid, this);
+		return toRet;
+	}
+	Node* Node::_searchName(const std::string& name, Node* elem)
+	{
+		if (elem->hasParent() && elem->name() == name) {
+			return elem;
+		}
+		// Search in childrens
+		for (auto& c : elem->children())
+		{
+			auto child = this->_searchName(name, c);
+			if (child)
+			{
+				return child;
+			}
+		}
+		return nullptr;
+	}
+	Node* Node::_searchTag(const std::string& tag, Node* elem)
+	{
+		if (elem->hasParent() && elem->tag() == tag) {
+			return elem;
+		}
+		// Search in childrens
+		for (auto& c : elem->children())
+		{
+			auto child = this->_searchTag(tag, c);
+			if (child)
+			{
+				return child;
+			}
+		}
+		return nullptr;
+	}
+	Node* Node::_searchUUID(const std::string& uuid, Node* elem)
+	{
+		if (elem->hasParent() && elem->uuid() == uuid) {
+			return elem;
+		}
+		// Search in childrens
+		for (auto& c : elem->children())
+		{
+			auto child = this->_searchUUID(uuid, c);
+			if (child)
+			{
+				return child;
+			}
+		}
+		return nullptr;
+	}
 	void Node::addChild(Node* child)
 	{
 		if (child == this)

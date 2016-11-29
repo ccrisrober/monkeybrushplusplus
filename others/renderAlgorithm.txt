@@ -1,8 +1,6 @@
 - Obtenemos matrices de projección y de vista de la cámara
 - Por cada objeto, comprobamos si la esfera contenedora se encuentra dentro o interseca con el frustrum.
-- 
-
-
+- Ordenamos los objetos opacos según el material
 - Ponemos calls, vertices, faces, ... a 0
 - Limpiamos la pantalla:
 	* Autoclear || forceClear => Limpiar con color de fondo

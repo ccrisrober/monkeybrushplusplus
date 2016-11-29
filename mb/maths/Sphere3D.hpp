@@ -33,7 +33,7 @@ namespace mb
 	{
 	public:
 		MB_API
-		Sphere3D(const Vect3& center, const float& radius);
+		Sphere3D(const Vect3& center = Vect3(), const float& radius = 1.0f);
 		MB_API
 		bool containtsPoint(const Vect3& p);
 		MB_API

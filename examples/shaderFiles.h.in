@@ -59,4 +59,7 @@
 #define MB_SHADER_FILES_RENDER2TEXTURE_COMPUTESHADER \
 	"@PROJECT_SOURCE_DIR@/examples/renderToTexture.cs"
 
+#define MB_SHADER_FILES_TEST_COMPUTESHADER \
+	"@PROJECT_SOURCE_DIR@/examples/computeTest.cs"
+
 #endif /* __MB_SHADER_FILES__ */

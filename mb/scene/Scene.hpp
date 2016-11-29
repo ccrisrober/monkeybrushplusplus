@@ -29,6 +29,8 @@
 #include "Node.hpp"
 #include "../lights/Light.hpp"
 
+#include <vector>
+
 namespace mb
 {
 	class Engine;
@@ -42,15 +44,6 @@ namespace mb
 		MB_API
 		Node* root() const;
 		MB_API
-		// TODO: Move to Node
-		Node* findByName(const std::string& name);
-		MB_API
-			// TODO: Move to Node
-		Node* findByTag(const std::string& tag);
-		MB_API
-		// TODO: Move to Node
-		Node* findById(const std::string uuid);
-		MB_API
 		void registerBeforeRender(const std::function<void()>& cb, bool recyclable = false);
 		MB_API
 		void registerAfterRender(const std::function<void()>& cb, bool recyclable = false);
@@ -61,9 +54,6 @@ namespace mb
 		std::vector<mb::Light*> lights() const;
 	private:
 		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue);
-		Node* _searchName(const std::string& name, Node* elem);
-		Node* _searchTag(const std::string& tag, Node* elem);
-		Node* _searchUUID(const std::string& uuid, Node* elem);
 	protected:
 		std::vector<std::pair<std::function<void()>, bool>> _beforeRender;
 		std::vector<std::pair<std::function<void()>, bool>> _afterRender;
@@ -75,13 +65,17 @@ namespace mb
 		std::vector<mb::Light*> _lights;
 
 		unsigned int _totalMeshes;
-		//unsigned int _totalVertices;
-		//unsigned int _drawCalls;
-		//unsigned int _totalIndices;
+		unsigned int _totalVertices;
+		unsigned int _drawCalls;
+		unsigned int _totalIndices;
 		Engine* _engine;
 
 		Mat4 _projection;
 		Mat4 _view;
+
+		std::vector<Node*> _batch;
+
+	protected:
 	};
 }
 

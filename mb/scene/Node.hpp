@@ -37,12 +37,19 @@
 #include "Component.hpp"
 #include "MeshRenderer.hpp"
 #include "../utils/utils.hpp"
+#include "../maths/Sphere3D.hpp"
 
 namespace mb
 {
 	class Node
 	{
 	public:
+		Sphere3D sphere;
+		MB_API
+		void createSphere()
+		{
+
+		}
 		// Creates GameObject from prefab and adds it to the scene.
 		MB_API
 		static Node* createFromPrefab(const Node& /*prefab*/)
@@ -58,6 +65,12 @@ namespace mb
 		{
 			// TODO
 		}
+		MB_API
+		Node* findByName(const std::string& name);
+		MB_API
+		Node* findByTag(const std::string& tag);
+		MB_API
+		Node* findById(const std::string uuid);
 
 
 		MB_API
@@ -202,6 +215,11 @@ namespace mb
 		Transform _transform;
 
 		Layer _layer;
+
+	private:
+		Node* _searchName(const std::string& name, Node* elem);
+		Node* _searchTag(const std::string& tag, Node* elem);
+		Node* _searchUUID(const std::string& uuid, Node* elem);
 	};
 }
 

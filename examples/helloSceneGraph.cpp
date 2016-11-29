@@ -134,7 +134,7 @@ int main(void)
 	mbTorus->addChild(mbCylinder);
 
 	std::function<void()> f0([&]() {
-		std::cout << "SCENE HAS " << scene->root()->children().size() << " CHILDREN" << std::endl;
+		std::cout << "SCENE HAS " << scene->root()->children().size() << " CHILDREN";
 	});
 
 	std::function<void()> f1([&]() {

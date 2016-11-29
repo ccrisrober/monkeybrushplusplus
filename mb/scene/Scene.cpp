@@ -38,21 +38,6 @@ namespace mb
 	{
 		return this->_sceneGraph;
 	}
-	Node* Scene::findByName(const std::string& name)
-	{
-		Node* toRet = this->_searchName(name, root());
-		return toRet;
-	}
-	Node* Scene::findByTag(const std::string& tag)
-	{
-		Node* toRet = this->_searchTag(tag, root());
-		return toRet;
-	}
-	Node* Scene::findById(const std::string uuid)
-	{
-		Node* toRet = this->_searchUUID(uuid, root());
-		return toRet;
-	}
 	void Scene::registerBeforeRender(const std::function<void()>& cb, bool recyclable)
 	{
 		this->_beforeRender.push_back(std::make_pair(cb, recyclable));
@@ -77,63 +62,50 @@ namespace mb
 			}
 		}
 	}
-	Node* Scene::_searchName(const std::string& name, Node* elem)
-	{
-		if (elem->hasParent() && elem->name() == name) {
-			return elem;
-		}
-		// Search in childrens
-		for (auto& c : elem->children())
-		{
-			auto child = this->_searchName(name, c);
-			if (child)
-			{
-				return child;
-			}
-		}
-		return nullptr;
-	}
-	Node* Scene::_searchTag(const std::string& tag, Node* elem)
-	{
-		if (elem->hasParent() && elem->tag() == tag) {
-			return elem;
-		}
-		// Search in childrens
-		for (auto& c : elem->children())
-		{
-			auto child = this->_searchTag(tag, c);
-			if (child)
-			{
-				return child;
-			}
-		}
-		return nullptr;
-	}
-	Node* Scene::_searchUUID(const std::string& uuid, Node* elem)
-	{
-		if (elem->hasParent() && elem->uuid() == uuid) {
-			return elem;
-		}
-		// Search in childrens
-		for (auto& c : elem->children())
-		{
-			auto child = this->_searchUUID(uuid, c);
-			if (child)
-			{
-				return child;
-			}
-		}
-		return nullptr;
-	}
 	void Scene::render(float dt)
 	{
 		_totalMeshes = 0;
+		_totalVertices = 0;
+		_drawCalls = 0;
+		_totalIndices = 0;
+
+
+		_batch.clear();
+
 		// Before render functions
 		applyQueue(_beforeRender);
 		_subUpdate(root(), dt);
-		_subrender(root());
+
+		auto sortCB = ([](Node* i, Node* j)
+		{
+			if (i->getMesh()->getMaterial() != j->getMesh()->getMaterial())
+				return true;
+			return false;
+			//return i->name().compare(j->name()) < 0;
+		});
+
+		std::sort(_batch.begin(), _batch.end());// , sortCB);
+
+		for (const auto& node : _batch)
+		{
+			auto mr = node->getMesh();
+			//if ((camera->layer().check(n->layer())) && (mr != nullptr))
+			//{
+			mr->getMaterial()->uniforms()["projection"]->value(_projection);
+			mr->getMaterial()->uniforms()["view"]->value(_view);
+			if (mr->getMaterial()->hasUniform("viewPos"))
+				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
+			mr->render(node->transform().matrixWorld());
+			++this->_totalMeshes;
+			//}
+		}
+
+		//_subrender(root());
 		// After render functions
 		applyQueue(_afterRender);
+
+		this->_engine->state()->depth.setStatus(true);
+		// TODO: DepthWrite = true;
 	}
 	void Scene::_subUpdate(Node* n, float dt)
 	{
@@ -147,6 +119,12 @@ namespace mb
 			{
 				comp->update(dt);
 			}
+		}
+		n->_updateMatrixWorld();
+
+		if ((camera->layer().check(n->layer())) && (n->getMesh() != nullptr))
+		{
+			_batch.push_back(n);
 		}
 		updateCamera();
 		for (const auto& child : n->children())
@@ -172,9 +150,7 @@ namespace mb
 			mr->getMaterial()->uniforms()["view"]->value(_view);
 			if (mr->getMaterial()->hasUniform("viewPos"))
 				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
-			n->_updateMatrixWorld();
-			auto model = n->transform().matrixWorld();
-			mr->render(model);
+			mr->render(n->transform().matrixWorld());
 			++this->_totalMeshes;
 		}
 		for (const auto& child : n->children())
