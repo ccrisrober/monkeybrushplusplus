@@ -30,8 +30,6 @@ namespace mb
         _uniforms["projection"] = new Uniform(Matrix4);
         _uniforms["view"] = new Uniform(Matrix4);
         _uniforms["model"] = new Uniform(Matrix4);
-		_uniforms["color"] = new Uniform(Vector3, Vect3(1.0f, 1.0f, 1.0f));		// TODO: UNUSED (REMOVE!)
-		_uniforms["viewPos"] = new Uniform(Vector3);							// TODO: UNUSED (REMOVE!)
 
 		const char* vsShader = "#version 330\n"
 			"layout(location = 0) in vec3 position;"

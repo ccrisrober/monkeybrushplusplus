@@ -55,12 +55,12 @@ namespace mb
 		this->_delta += this->_velocity * this->_sign * dt;
 		this->_node->transform().position().x(this->_delta);
 	}
-	RotateComponent::RotateComponent(Axis axis)
+	RotateComponent::RotateComponent(Axis axis, float velocity, bool rotate)
 		: mb::Component()
-		, _rotate(false)
+		, _rotate(rotate)
 		, _axis(axis)
 		, _delta(0.01f)
-		, _velocity(1.0f)
+		, _velocity(velocity)
 	{
 	}
 	/*void RotateComponent::setAxis(Axis axis)

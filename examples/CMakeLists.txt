@@ -287,6 +287,30 @@ common_application( mbComputeTest )
 
 
 
+
+set( MBSPACE_HEADERS )
+set( MBSPACE_SOURCES space.cpp )
+set( MBSPACE_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbSpace )
+
+
+
+
+
+set( MBTEXSWAP_HEADERS )
+set( MBTEXSWAP_SOURCES texSwap.cpp )
+set( MBTEXSWAP_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbTexSwap )
+
+
+
+
 if(${Rapidjson_FOUND})
 	set( MBJSONSCENE_HEADERS )
 	set( MBJSONSCENE_SOURCES jsonScene.cpp )

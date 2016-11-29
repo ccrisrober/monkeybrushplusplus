@@ -76,15 +76,17 @@ namespace mb
 		applyQueue(_beforeRender);
 		_subUpdate(root(), dt);
 
-		auto sortCB = ([](Node* i, Node* j)
+		/*auto sortCB = ([](Node* i, Node* j)
 		{
 			if (i->getMesh()->getMaterial() != j->getMesh()->getMaterial())
 				return true;
 			return false;
 			//return i->name().compare(j->name()) < 0;
-		});
+		});*/
 
 		std::sort(_batch.begin(), _batch.end());// , sortCB);
+
+		// std::cout << _batch.size() << std::endl;
 
 		for (const auto& node : _batch)
 		{

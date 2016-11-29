@@ -117,15 +117,11 @@ int main(void)
 	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
 	mbPrism->addChild(mbCapsule);
 
-	mbPrism->layer().set(2);
-
 	mb::Node* mbTorus = new mb::Node(std::string("torus"));
 	mbTorus->setMesh(new mb::MeshRenderer("torus", &normalMat));
 	mbTorus->transform().position().set(1.1f, -1.91f, -1.08f);
 	mbTorus->transform().scale().set(1.0f, 0.5f, 1.0f);
 	mbCube->addChild(mbTorus);
-
-	mbTorus->layer().set(2);
 
 	mb::Node* mbCylinder = new mb::Node(std::string("cylinder"));
 	mbCylinder->setMesh(new mb::MeshRenderer(cylinder, &material));
@@ -134,7 +130,7 @@ int main(void)
 	mbTorus->addChild(mbCylinder);
 
 	std::function<void()> f0([&]() {
-		std::cout << "SCENE HAS " << scene->root()->children().size() << " CHILDREN";
+		std::cout << "SCENE HAS " << scene->root()->children().size() << " CHILDREN" << std::endl;
 	});
 
 	std::function<void()> f1([&]() {

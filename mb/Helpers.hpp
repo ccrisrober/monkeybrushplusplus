@@ -77,7 +77,7 @@ namespace mb
 	#endif
 
 		MB_API
-		RotateComponent(Axis axis);
+		RotateComponent(Axis axis, float velocity = 1.0f, bool rotate = false);
 		//MB_API
 		//void setAxis(Axis axis);
 		MB_API
