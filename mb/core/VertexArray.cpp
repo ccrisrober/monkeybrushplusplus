@@ -30,6 +30,11 @@ namespace mb
 		glCreateVertexArrays(1, &this->_handler);
 		this->bind();
 	}
+	VertexArray::VertexArray(unsigned int handler_)
+	: _handler(handler_)
+	{
+		this->bind();
+	}
 	VertexArray::~VertexArray()
 	{
 		glDeleteVertexArrays(1, &this->_handler);

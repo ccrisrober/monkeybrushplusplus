@@ -32,6 +32,7 @@ namespace mb
 	Scene::Scene(Engine* engine)
 	: _sceneGraph(new Node())
 	, _engine(engine)
+	, _update(true)
 	{
 	}
 	Node* Scene::root() const
@@ -69,6 +70,10 @@ namespace mb
 		_drawCalls = 0;
 		_totalIndices = 0;
 
+		if (!_update)
+		{
+			return;
+		}
 
 		_batch.clear();
 
@@ -154,6 +159,8 @@ namespace mb
 				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
 			mr->render(n->transform().matrixWorld());
 			++this->_totalMeshes;
+			this->_totalIndices += mr->getMesh()->indicesLen();
+			this->_totalVertices += mr->getMesh()->verticesLen();
 		}
 		for (const auto& child : n->children())
 		{
@@ -174,5 +181,13 @@ namespace mb
 	std::vector<mb::Light*> Scene::lights() const
 	{
 		return this->_lights;
+	}
+	bool Scene::update() const
+	{
+		return _update;
+	}
+	void Scene::update(const bool upd)
+	{
+		_update = upd;
 	}
 }

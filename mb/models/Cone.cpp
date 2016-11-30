@@ -118,6 +118,8 @@ namespace mb
 			}
 		}
 
+		_numVertices = verts.count();
+
         _vao = new VertexArray();
 		_vao->bind();
 

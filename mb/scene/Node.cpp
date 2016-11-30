@@ -249,7 +249,7 @@ namespace mb
 	{
 		this->_mesh = mesh;
 	}
-	MeshRenderer*Node::getMesh() const
+	MeshRenderer* Node::getMesh() const
 	{
 		return this->_mesh;
 	}

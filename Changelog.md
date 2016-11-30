@@ -1,23 +1,26 @@
-- (22/11) Node::setEnabled(bool flag) => Node::setVisible(bool flag, bool applyToChildren = false);
-- (22/11) Added std::string Node::uuid()
-- (23/11) Added addLights(Light* l) and std::vector<Light> lights()
+- (22/11) Node::setEnabled(bool flag) => Node::setVisible(bool flag, bool applyToChildren = false).
+- (22/11) Added std::string Node::uuid().
+- (23/11) Added addLights(Light* l) and std::vector<Light> lights()-
 - (23/11) Checked if parent has a child in children list.
-- (23/11) Added Node::traverse(std::function<void(Node*)>;
+- (23/11) Added Node::traverse(std::function<void(Node*)>.
 - (24/11) Added io directory with input2, keyboard, mouse and window.
-- (24/11) Added Macros file for automatic getter and setter. Added thirds-resources (iniReader)
+- (24/11) Added Macros file for automatic getter and setter. Added thirds-resources (iniReader)-
 - (24/11) Changed _components data structure in Node from map to vector for respect components order.
-- (24/11) Added ResourceManager for any type (using MB::any)
+- (24/11) Added ResourceManager for any type (using MB::any)-
 - (24/11) Reorganized scene rendering in update stage and render stage.
 - (24/11) Scene knows engine.
 - (25/11) Added mesh model.
 - (25/11) Added Polyhedron base code.
 - (25/11) Added layer and layer look up.
 - (26/11) Added Icosahedron, Octahedron and Tetrahedron.
-- (26/11) Added layer to SimpleCamera and Node
-- (26/11) Fixed GetComponent<K>()
+- (26/11) Added layer to SimpleCamera and Node-
+- (26/11) Fixed GetComponent<K>()-
 - (27/11) Added removeChildren, getChild(unsigned int), getNumChildren, getNumComponents, removeComponents to Node.
 - (27/11) Added enabled attribute and methods for update in Component class.
 - (27/11) Added traverseAscentors(callback) in Node. Added FindById in Scene.
 - (27/11) Added ArgumentParser and IniReader to utils.
-- (27/11) Renamed Input2 to Input
-- (28/11) Loaded Components with Json configuration
+- (27/11) Renamed Input2 to Input-
+- (28/11) Loaded Components with Json configuration-
+- (29/11) Added numVertices to Drawable.
+- (29/11) Added layer methods using std::string.
+- (30/11) Added layer methods using std::string.

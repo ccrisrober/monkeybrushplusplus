@@ -52,6 +52,11 @@ namespace mb
 		void addLight(mb::Light* light);
 		MB_API
 		std::vector<mb::Light*> lights() const;
+
+		MB_API
+		bool update() const;
+		MB_API
+		void update(const bool upd);
 	private:
 		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue);
 	protected:
@@ -76,6 +81,7 @@ namespace mb
 		std::vector<Node*> _batch;
 
 	protected:
+		bool _update;
 	};
 }
 

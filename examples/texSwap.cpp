@@ -22,6 +22,9 @@
 
 #include <iostream>
 #include <mb/mb.h>
+#include <assetsFiles.h>
+
+#include <thread>
 
 mb::Engine* engine;
 mb::Scene* scene;
@@ -29,6 +32,7 @@ mb::Scene* scene;
 void renderFunc(float dt);
 
 mb::Node* mbModel;
+mb::CustomPingPong<mb::Texture2D*>* customPP;
 
 int main(void)
 {
@@ -37,15 +41,53 @@ int main(void)
     engine = new mb::Engine(&context, false);
     scene = new mb::Scene(engine);
 
-    mb::CustomPingPong<mb::Texture2D> customPP(
-        mb::Texture2D({}, "tex1"),
-        mb::Texture2D({}, "tex2")
+    customPP = new mb::CustomPingPong<mb::Texture2D*>(
+		new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg")),
+		new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/matcap.jpg"))
     );
 
 	mb::Cube* model = new mb::Cube(1.0f);
 
-	mb::SimpleShadingMaterial material;
-	material.uniform("color")->value(mb::Vect3(mb::Color3::Blue));
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
+	const char* vertexShader =
+		"#version 330\n"
+		"layout(location = 0) in vec3 position;"
+		"layout(location = 1) in vec3 normal;"
+		"layout(location = 2) in vec2 uv;"
+		"out vec3 outNormal;"
+		"out vec2 outUV;"
+		"uniform mat4 projection;"
+		"uniform mat4 view;"
+		"uniform mat4 model;"
+		"void main() {"
+		"	vec3 outPosition = vec3(model * vec4(position, 1.0));"
+		"	gl_Position = projection * view * vec4(outPosition, 1.0);"
+		"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
+		"	outNormal = normalize(normalMatrix * normal);"
+		"	outUV = uv;"
+		"}";
+	const char* fragmentShader =
+		"#version 330\n"
+		"in vec3 outNormal;"
+		"in vec2 outUV;"
+		"out vec4 fragColor;"
+		"uniform vec3 viewPos;"
+		"uniform sampler2D tex;"
+		"void main() {"
+		"	fragColor = vec4(texture(tex, outUV).rgb, 1.0);"
+		"}";
+
+	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
+	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
+
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
+	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
+	uniforms.push_back(std::make_pair("viewPos", new mb::Uniform(mb::Vector3)));
+	uniforms.push_back(std::make_pair("tex", new mb::Uniform(mb::Integer, 0)));
+
+	mb::ShaderMaterial material("textureShader", shaders, uniforms);
 
 	mbModel = new mb::Node(std::string("cube"));
 	mbModel->setMesh(new mb::MeshRenderer(model, &material));
@@ -56,6 +98,8 @@ int main(void)
 
 	scene->root()->addChild(mbModel);
 
+	customPP->first()->bind(0);
+
 	engine->run(renderFunc);
     
 	delete(scene);
@@ -64,8 +108,16 @@ int main(void)
     return 0;
 }
 
+float ms = 0.0f;
 void renderFunc(float dt)
 {
+	ms += dt;
+	if (ms >= 1.0f)
+	{
+		customPP->swap();
+		customPP->first()->bind(0);
+		ms = 0.0f;
+	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->camera->update(dt);
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))

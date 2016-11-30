@@ -51,6 +51,12 @@ namespace mb
 		unsigned int getHeight() const;
 		MB_API
 		GlobalState* state();
+
+		MB_API
+		const char* getVersion() const
+		{
+			return (const char*)glGetString(GL_VERSION);
+		}
 	protected:
         unsigned int _minVersion;
         unsigned int _maxVersion;

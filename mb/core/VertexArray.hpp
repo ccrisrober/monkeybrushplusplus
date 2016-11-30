@@ -33,6 +33,8 @@ namespace mb
 	{
 	public:
 		MB_API
+		VertexArray(unsigned int handler_);
+		MB_API
 		VertexArray();
 		MB_API
 		virtual ~VertexArray();

@@ -83,6 +83,7 @@ namespace mb
 			idx += divisions + 1;
 		}
 
+		_numVertices = verts.count();
 
 		_vao = new VertexArray();
 		_vao->bind();

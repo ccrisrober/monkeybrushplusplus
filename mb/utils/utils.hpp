@@ -26,6 +26,9 @@
 #include <mb/api.h>
 
 #include <string>
+#include <functional>
+#include <thread>
+#include <future>
 
 namespace mb
 {
@@ -40,6 +43,21 @@ namespace mb
 			}
 		};
 		std::string generateUUID();
+		template <class F, class... Args>
+		void setInterval(std::atomic_bool& cancelToken, size_t interval, F&& f, Args&&... args)
+		{
+			cancelToken.store(true);
+			auto cb = std::bind(std::forward<F>(f), std::forward<Args>(args)...);
+			std::async(std::launch::async, [=, &cancelToken]()mutable {
+				while (cancelToken.load()) {
+					cb();
+					std::this_thread::sleep_for(std::chrono::milliseconds(interval));
+				}
+			});
+		}
+		/*std::atomic_bool b;
+		setInterval(b, 1000, printf, "hi there\n");
+		cancelToken.store(false);*/
 	}
 }
 

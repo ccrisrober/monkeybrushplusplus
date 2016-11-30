@@ -35,10 +35,14 @@ namespace mb
         glDrawElements(mode, _indicesLen, GL_UNSIGNED_INT, 0);
         this->_vao->unbind();
     }
-    unsigned int Drawable::indicesLen() const
-    {
-        return this->_indicesLen;
-    }
+	unsigned int Drawable::indicesLen() const
+	{
+		return this->_indicesLen;
+	}
+	unsigned int Drawable::verticesLen() const
+	{
+		return this->_numVertices;
+	}
     void Drawable::addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
         unsigned int numElems, unsigned int type)
     {

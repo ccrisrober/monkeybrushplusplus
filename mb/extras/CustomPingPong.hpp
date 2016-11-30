@@ -33,12 +33,16 @@ namespace mb
 	class CustomPingPong
 	{
 	public:
-		/* CustomPingPong<T>:: */CustomPingPong(const T & elem1, const T & elem2)
+		CustomPingPong(const T & elem1, const T & elem2)
 			: _elem1(std::move(elem1))
 			, _elem2(std::move(elem2))
 		{
 		}
-		void /* CustomPingPong<T>:: */swap(std::function<void()> cb)
+		void swap()
+		{
+			std::swap(_elem1, _elem2);
+		}
+		void swap(std::function<void()> cb)
 		{
 			std::swap(_elem1, _elem2);
 			if (cb)
@@ -46,11 +50,11 @@ namespace mb
 				cb();
 			}
 		}
-		T /* CustomPingPong<T>:: */first() const
+		T first() const
 		{
 			return _elem1;
 		}
-		T /* CustomPingPong<T>:: */last() const
+		T last() const
 		{
 			return _elem2;
 		}

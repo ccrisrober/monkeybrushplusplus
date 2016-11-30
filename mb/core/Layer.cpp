@@ -33,17 +33,33 @@ namespace mb
 	{
 		this->_mask = 1 << channel;
 	}
+	void Layer::set(const std::string& layer)
+	{
+		set(Layer::layerNameToID(layer));
+	}
 	void Layer::enable(const int& channel)
 	{
 		this->_mask |= 1 << channel;
+	}
+	void Layer::enable(const std::string& layer)
+	{
+		enable(Layer::layerNameToID(layer));
 	}
 	void Layer::toggle(const int& channel)
 	{
 		this->_mask ^= 1 << channel;
 	}
+	void Layer::toggle(const std::string& layer)
+	{
+		toggle(Layer::layerNameToID(layer));
+	}
 	void Layer::disable(const int& channel)
 	{
 		this->_mask &= ~(1 << channel);
+	}
+	void Layer::disable(const std::string& layer)
+	{
+		disable(Layer::layerNameToID(layer));
 	}
 	bool Layer::check(const Layer& layer2) const
 	{
@@ -53,7 +69,10 @@ namespace mb
 	{
 		return (this->_mask & (1 << channel)) != 0;
 	}
-
+	bool Layer::check(const std::string& layer) const
+	{
+		return check(Layer::layerNameToID(layer));
+	}
 	std::string LayerLookup::name(const int& channel)
 	{
 		if (!LayerLookup::_initialized)

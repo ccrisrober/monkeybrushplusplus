@@ -38,8 +38,11 @@ namespace mb
         void render(unsigned int mode);
         MB_API
         unsigned int indicesLen() const;
+		MB_API
+		unsigned int verticesLen() const;
     protected:
         Drawable();
+		unsigned int _numVertices;
 		unsigned int _indicesLen;
 		std::vector<VertexBuffer> _handle;
 		VertexArray* _vao;

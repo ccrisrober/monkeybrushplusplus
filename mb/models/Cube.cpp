@@ -137,6 +137,8 @@ namespace mb
             20, 21, 22, 20, 22, 23
         };
 
+		_numVertices = vertices.size() / 3;
+
         _vao = new VertexArray();
 		_vao->bind();
 

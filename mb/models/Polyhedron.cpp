@@ -119,6 +119,8 @@ namespace mb
             el = new_el;
         }
 
+		_numVertices = verts.size() / 3;
+
         _pointsCache.clear();
 
 		_vao = new VertexArray();
