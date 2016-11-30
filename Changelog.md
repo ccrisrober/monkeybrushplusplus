@@ -23,4 +23,4 @@
 - (28/11) Loaded Components with Json configuration-
 - (29/11) Added numVertices to Drawable.
 - (29/11) Added layer methods using std::string.
-- (30/11) Added layer methods using std::string.
+- (30/11) Added update getter and setter to pause or resume application.
