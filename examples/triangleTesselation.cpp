@@ -108,7 +108,7 @@ int main(void)
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->camera->update(dt);
+	scene->mainCamera->update(dt);
 	engine->state()->setPolygonMode(GL_LINE);
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
 	{

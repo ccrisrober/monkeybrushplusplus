@@ -24,7 +24,16 @@
 
 namespace mb
 {
-	OrthographicCamera::OrthographicCamera(float left_, 
+	OrthographicCamera::OrthographicCamera(const GLContext & ctx, 
+		float near_, float far_)
+		: OrthographicCamera(
+			ctx.getWidth() / -2.0f, 
+			ctx.getWidth() / 2.0f, 
+			ctx.getHeight() / 2.0f, 
+			ctx.getHeight() / -2.0f, near_, far_)
+	{
+	}
+	OrthographicCamera::OrthographicCamera(float left_,
 		float right_, float top_, float bottom_, float near_, 
 		float far_)
 	: Camera(near_, far_)

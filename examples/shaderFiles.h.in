@@ -31,6 +31,10 @@
 	"@PROJECT_SOURCE_DIR@/examples/kaleidoscope.frag"
 
 
+#define MB_SHADER_FILES_HDR_FRAG \
+	"@PROJECT_SOURCE_DIR@/examples/hdr.frag"
+
+
 #define MB_SHADER_FILES_MANGA_FRAG \
 	"@PROJECT_SOURCE_DIR@/examples/manga.frag"
 

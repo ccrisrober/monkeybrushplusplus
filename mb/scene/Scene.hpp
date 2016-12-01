@@ -47,7 +47,6 @@ namespace mb
 		void registerBeforeRender(const std::function<void()>& cb, bool recyclable = false);
 		MB_API
 		void registerAfterRender(const std::function<void()>& cb, bool recyclable = false);
-		SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
 		MB_API
 		void addLight(mb::Light* light);
 		MB_API
@@ -57,9 +56,12 @@ namespace mb
 		bool update() const;
 		MB_API
 		void update(const bool upd);
+
+		SimpleCamera* mainCamera;
 	private:
 		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue);
 	protected:
+		SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
 		std::vector<std::pair<std::function<void()>, bool>> _beforeRender;
 		std::vector<std::pair<std::function<void()>, bool>> _afterRender;
 		void _subUpdate(Node* n, float dt);

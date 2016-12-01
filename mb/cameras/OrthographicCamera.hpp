@@ -26,6 +26,7 @@
 #include <mb/api.h>
 
 #include "Camera.hpp"
+#include "../core/GLContext.hpp"
 #include <iostream>
 
 namespace mb
@@ -33,6 +34,9 @@ namespace mb
 	class OrthographicCamera : public Camera
 	{
 	public:
+		MB_API
+		OrthographicCamera(const GLContext& ctx, float near_ = 0.1f,
+			float far_ = 1000.0f);
 		MB_API
 		OrthographicCamera(float left_, float right_, 
 			float top_, float bottom_, float near_ = 0.1f, 

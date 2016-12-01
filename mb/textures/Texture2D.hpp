@@ -57,6 +57,11 @@ namespace mb
 		{
 			return _height;
 		}
+		MB_API
+		std::string src() const
+		{
+			return _src;
+		}
 	protected:
 		std::string _src;
 		unsigned int _width;

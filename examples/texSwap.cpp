@@ -26,6 +26,17 @@
 
 #include <thread>
 
+void setInterval(std::function<void(void)> function, int interval) {
+	std::thread([=]()
+	{
+		while (true) {
+			function();
+			std::this_thread::sleep_for(
+				std::chrono::milliseconds(interval));
+		}
+	}).detach();
+}
+
 mb::Engine* engine;
 mb::Scene* scene;
 
@@ -99,6 +110,9 @@ int main(void)
 	scene->root()->addChild(mbModel);
 
 	customPP->first()->bind(0);
+	setInterval([&]() {
+		customPP->swap();
+	}, 1000);
 
 	engine->run(renderFunc);
     
@@ -114,12 +128,13 @@ void renderFunc(float dt)
 	ms += dt;
 	if (ms >= 1.0f)
 	{
-		customPP->swap();
-		customPP->first()->bind(0);
+		/*customPP->swap();
+		customPP->first()->bind(0);*/
 		ms = 0.0f;
 	}
+	customPP->first()->bind(0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->camera->update(dt);
+	scene->mainCamera->update(dt);
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();

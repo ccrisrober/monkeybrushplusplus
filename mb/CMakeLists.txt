@@ -69,6 +69,7 @@ set( MB_PUBLIC_HEADERS
     models/Disc.hpp
     models/Drawable.hpp
     models/Icosahedron.hpp
+    models/Lathe.hpp
     models/Mesh.hpp
     models/Octahedron.hpp
     models/Polyhedron.hpp
@@ -86,6 +87,7 @@ set( MB_PUBLIC_HEADERS
 
     scene/Component.hpp
     scene/Engine.hpp
+    scene/Fog.hpp
     scene/Group.hpp
     scene/MeshRenderer.hpp
     scene/Node.hpp
@@ -182,6 +184,7 @@ set( MB_SOURCES
     models/Disc.cpp
     models/Drawable.cpp
     models/Icosahedron.cpp
+    models/Lathe.cpp
     models/Mesh.cpp
     models/Octahedron.cpp
     models/Polyhedron.cpp

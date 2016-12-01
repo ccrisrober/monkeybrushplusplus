@@ -100,7 +100,7 @@ float rotSpeed = 0.25f;
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->camera->update(dt);
+	scene->mainCamera->update(dt);
 
 	scene->root()->traverse([=](mb::Node* n)
 	{
