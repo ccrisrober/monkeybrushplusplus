@@ -24,7 +24,7 @@
 
 namespace mb
 {
-	Lathe::Lathe(const std::vector<mb::Vect3>& /*points*/, const float & /*segment*/s,
+	Lathe::Lathe(const std::vector<mb::Vect3>& /*points*/, const float & /*segments*/,
 		const float & /*phiInit*/, const float & /*phiRadius*/)
 		: Drawable()
 	{

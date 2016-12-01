@@ -32,7 +32,7 @@ void renderFunc(float dt);
 
 mb::PostProcessMaterial* ppm;
 
-float sides, angle;
+float exposure;
 
 int main(void)
 {
@@ -47,16 +47,13 @@ int main(void)
 
 	ppm = new mb::PostProcessMaterial(buffer.str().c_str());
 
-	sides = 5.0f;
-	angle = 121.0f;
+	exposure = 10.5f;
 
 	mb::TexOptions opts;
 	mb::Texture2D* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/memorial.png"));
 	tex->bind(0);
 
-	ppm->addUniform("iGlobalTime", new mb::Uniform(mb::Float, 0.0f));
-	ppm->addUniform("sides", new mb::Uniform(mb::Float, sides));
-	ppm->addUniform("angle", new mb::Uniform(mb::Float, angle));
+	ppm->addUniform("exposure", new mb::Uniform(mb::Float, exposure));
 	ppm->addUniform("tex", new mb::Uniform(mb::Integer, 0));
 
 	engine->run(renderFunc);
@@ -69,38 +66,24 @@ int main(void)
 
 bool play = true;
 
-float globalTime = 0.0f;
-void renderFunc(float dt)
+void renderFunc(float)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Space))
 	{
 		play = !play;
 	}
-	if (play)
+	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Z))
 	{
-		globalTime += dt * 0.33f;
+		exposure -= 0.1f;
+		ppm->uniform("exposure")->value(exposure);
+		std::cout << exposure << std::endl;
 	}
-	ppm->uniform("iGlobalTime")->value(globalTime);
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
+	else if (mb::Input::isKeyPressed(mb::Keyboard::Key::X))
 	{
-		sides -= 1.0f;
-		ppm->uniform("sides")->value(sides);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		sides += 1.0f;
-		ppm->uniform("sides")->value(sides);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::A))
-	{
-		angle -= 1.0f;
-		ppm->uniform("angle")->value(angle);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::S))
-	{
-		angle += 1.0f;
-		ppm->uniform("angle")->value(angle);
+		exposure += 0.1f;
+		ppm->uniform("exposure")->value(exposure);
+		std::cout << exposure << std::endl;
 	}
 	ppm->renderPP();
 }

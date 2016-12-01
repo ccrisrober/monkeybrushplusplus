@@ -3,19 +3,23 @@
 out vec4 fragColor;
 in vec2 uv;
 
-uniform float sides;
-uniform float angle;
-uniform float iGlobalTime;
 uniform sampler2D tex;
 
+uniform float exposure;
+
+vec3 decode_pnghdr(const in vec4 color){
+	// remove gamma correction
+	vec4 res = color * color;
+	// decoded RI
+	float ri = pow(2.0, res.w * 32.0 - 16.0);
+	// decoded HDR pixel
+	res.xyz = res.xyz * ri;
+	return res.xyz;
+}
+
 void main() {
-    vec2 p = uv - 0.5;
-    float r = length(p);
-    float a = atan(p.y, p.x) + angle;
-    float tau = 2. * 3.1416;
-    a = mod(a, tau/sides);
-    a = abs(a - tau/sides/2.);
-    p = r * vec2(cos(a), sin(a));
-    vec4 color = texture(tex, p - cos(iGlobalTime) + 0.5);
-    fragColor = color;
+	vec4 color = texture(tex, uv).xyzw;
+	color.xyz  = decode_pnghdr(color);
+	// apply gamma correction and exposure
+	fragColor = vec4(pow(exposure * color.xyz, vec3(0.474)), 1.0);
 }

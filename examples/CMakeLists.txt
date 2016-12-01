@@ -326,13 +326,13 @@ endif()
 
 
 
-set( MBREGISTRY_HEADERS )
-set( MBREGISTRY_SOURCES registry.cpp )
-set( MBREGISTRY_LINK_LIBRARIES
-	mb
-)
-
-common_application( mbRegistry )
+#set( MBREGISTRY_HEADERS )
+#set( MBREGISTRY_SOURCES registry.cpp )
+#set( MBREGISTRY_LINK_LIBRARIES
+#	mb
+#)
+#
+#common_application( mbRegistry )
 
 
 
