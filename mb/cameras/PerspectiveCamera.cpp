@@ -24,7 +24,14 @@
 
 namespace mb
 {
-	PerspectiveCamera::PerspectiveCamera(float fov_, float aspect_, float near_, float far_)
+	/*PerspectiveCamera::PerspectiveCamera(const GLContext & ctx, float fov_, 
+		float near_, float far_)
+		: PerspectiveCamera(fov_, 
+		(((float)ctx.getWidth()) / ((float)ctx.getWidth)), near_, far_)
+	{
+	}*/
+	PerspectiveCamera::PerspectiveCamera(float fov_, float aspect_, 
+		float near_, float far_)
 		: Camera(near_, far_)
 		, _fov(fov_)
 		, _aspect(aspect_)

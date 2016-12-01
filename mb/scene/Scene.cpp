@@ -34,6 +34,7 @@ namespace mb
 	, _engine(engine)
 	, _update(true)
 	{
+		mainCamera = camera;
 	}
 	Node* Scene::root() const
 	{

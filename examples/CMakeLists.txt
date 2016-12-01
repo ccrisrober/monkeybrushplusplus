@@ -321,3 +321,39 @@ if(${Rapidjson_FOUND})
 
 	common_application( mbJsonScene )
 endif()
+
+
+
+
+
+set( MBREGISTRY_HEADERS )
+set( MBREGISTRY_SOURCES registry.cpp )
+set( MBREGISTRY_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbRegistry )
+
+
+
+
+set( MBBATCH_HEADERS )
+set( MBBATCH_SOURCES batch.cpp )
+set( MBBATCH_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbBatch )
+
+
+
+
+
+set( MBHDR_HEADERS )
+set( MBHDR_SOURCES hdr.cpp )
+set( MBHDR_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbHDR )
+

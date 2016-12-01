@@ -32,6 +32,23 @@ mb::Prism* prism;
 
 void renderFunc(float dt);
 
+class ExplosionComponent : public mb::Component
+{
+public:
+	ExplosionComponent()
+		: mb::Component()
+		, _globalTime(0.0f)
+	{
+	}
+	virtual void update(float dt) override
+	{
+		_globalTime += dt;
+		this->_node->getMesh()->getMaterial()->uniform("time")->value(_globalTime);
+	}
+protected:
+	float _globalTime;
+};
+
 int main(void)
 {
     mb::GLContext context(3, 3, 1024, 768, "Hello SceneGraph");
@@ -90,19 +107,91 @@ int main(void)
 	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
 
 
-	scene->camera->layer().enable(1);
-	scene->camera->layer().enable(2);
-	scene->camera->layer().enable(3);
-
-
-	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3::createFromScalar(1.0f))));
-	uniforms.push_back(std::make_pair("viewPos", new mb::Uniform(mb::Vector3)));
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("model", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3::createFromScalar(1.0f))),
+		std::make_pair("viewPos", new mb::Uniform(mb::Vector3))
+	};
 
 	mb::ShaderMaterial shaderMat("shaderMat", shaders, uniforms);
+
+	
+	scene->mainCamera->layer().enable(1);
+	scene->mainCamera->layer().enable(2);
+	scene->mainCamera->layer().enable(3);
+
+
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders2;
+	const char* vertexShader2 =
+		"#version 330 core\n"
+		"layout(location = 0) in vec3 position;\n"
+		"layout(location = 2) in vec2 texCoords;\n"
+		"out VS_OUT {\n"
+		"	vec2 texCoords;\n"
+		"} vs_out;\n"
+		"uniform mat4 projection;\n"
+		"uniform mat4 view;\n"
+		"uniform mat4 model;\n"
+		"void main() {\n"
+		"	gl_Position = projection * view * model * vec4(position, 1.0f);\n"
+		"	vs_out.texCoords = texCoords;\n"
+		"}";
+	const char* geometryShader2 =
+		"#version 330 core\n"
+		"layout (triangles) in;\n"
+		"layout (triangle_strip, max_vertices = 3) out;\n"
+		"in VS_OUT {\n"
+		"    vec2 texCoords;\n"
+		"} gs_in[];\n"
+		"out vec2 TexCoords; \n"
+		"uniform float time;\n"
+		"vec4 explode(vec4 position, vec3 normal) {\n"
+		"    float magnitude = 2.0f;\n"
+		"    vec3 direction = normal * ((sin(time) + 1.0f) / 2.0f) * magnitude; \n"
+		"    return position + vec4(direction, 0.0f);\n"
+		"}\n"
+		"vec3 GetNormal() {\n"
+		"    vec3 a = vec3(gl_in[0].gl_Position) - vec3(gl_in[1].gl_Position);\n"
+		"    vec3 b = vec3(gl_in[2].gl_Position) - vec3(gl_in[1].gl_Position);\n"
+		"    return normalize(cross(a, b));\n"
+		"}\n"
+		"void main() {\n"
+		"    vec3 normal = GetNormal();\n"
+		"    gl_Position = explode(gl_in[0].gl_Position, normal);\n"
+		"    TexCoords = gs_in[0].texCoords;\n"
+		"    EmitVertex();\n"
+		"    gl_Position = explode(gl_in[1].gl_Position, normal);\n"
+		"    TexCoords = gs_in[1].texCoords;\n"
+		"    EmitVertex();\n"
+		"    gl_Position = explode(gl_in[2].gl_Position, normal);\n"
+		"    TexCoords = gs_in[2].texCoords;\n"
+		"    EmitVertex();\n"
+		"    EndPrimitive();\n"
+		"}";
+	const char* fragmentShader2 =
+		"#version 330\n"
+		"out vec4 fragColor;\n"
+		"uniform vec3 color;\n"
+		"void main() {\n"
+		"	fragColor = vec4(color, 1.0);\n"
+		"}";
+
+	shaders2.push_back(std::make_pair(mb::VertexShader, vertexShader2));
+	shaders2.push_back(std::make_pair(mb::GeometryShader, geometryShader2));
+	shaders2.push_back(std::make_pair(mb::FragmentShader, fragmentShader2));
+
+
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms2 = {
+		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("model", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3(mb::Color3::Yellow))),
+		std::make_pair("time", new mb::Uniform(mb::Float, 0.015f))
+	};
+
+	mb::ShaderMaterial material2("geomExplosion", shaders2, uniforms2);
 
 	mb::Node* mbCube = new mb::Node(std::string("cube"));
 	mbCube->setMesh(new mb::MeshRenderer(cube, mb::MaterialCache::get("shaderMat")));
@@ -126,7 +215,8 @@ int main(void)
 	mbCapsule->layer().set(3);
 
 	mb::Node* mbTorus = new mb::Node(std::string("torus"));
-	mbTorus->setMesh(new mb::MeshRenderer("torus", &normalMat));
+	mbTorus->setMesh(new mb::MeshRenderer("torus", &material2));
+	mbTorus->addComponent(new ExplosionComponent());
 	mbTorus->transform().position().set(1.1f, -1.91f, -1.08f);
 	mbTorus->transform().scale().set(1.0f, 0.5f, 1.0f);
 	mbCube->addChild(mbTorus);
@@ -165,7 +255,7 @@ int main(void)
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->camera->update(dt);
+	scene->mainCamera->update(dt);
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
@@ -173,19 +263,19 @@ void renderFunc(float dt)
 	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num1))
 	{
-		scene->camera->layer().toggle(1);
+		scene->mainCamera->layer().toggle(1);
 	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num2))
 	{
-		scene->camera->layer().toggle(2);
+		scene->mainCamera->layer().toggle(2);
 	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num3))
 	{
-		scene->camera->layer().toggle(3);
+		scene->mainCamera->layer().toggle(3);
 	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::N))
 	{
-		scene->root()->traverse([](mb::Node* n)
+		scene->root()->traverse([](const mb::Node* n)
 		{
 			std::cout << n->name() << std::endl;
 		});

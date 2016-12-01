@@ -27,12 +27,17 @@
 
 #include "Camera.hpp"
 #include <iostream>
+#include "../core/GLContext.hpp"
 
 namespace mb
 {
 	class PerspectiveCamera: public Camera
 	{
 	public:
+		/*MB_API
+		PerspectiveCamera(const GLContext& ctx, float fov_ = 45.0f,
+			float near_ = 0.1f,
+			float far_ = 1000.0f);*/
 		MB_API
 		PerspectiveCamera(float fov_ = 45.0f, 
 			float aspect_ = 1.0f, float near_ = 0.1f, 

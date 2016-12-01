@@ -24,3 +24,4 @@
 - (29/11) Added numVertices to Drawable.
 - (29/11) Added layer methods using std::string.
 - (30/11) Added update getter and setter to pause or resume application.
+- (30/11) Added Fog class. Trying Register component ...
