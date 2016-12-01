@@ -147,8 +147,15 @@ int main(void)
 		mb::LOG(mb::LOG::INFO) << "FIRST RENDER FINISHED";
 	});
 
+	std::function<void()> f2([&]() {
+		std::cout << "MESHES: " << scene->_totalMeshes << ", ";
+		std::cout << "VERTICES: " << scene->_totalVertices << ", ";
+		std::cout << "INDICES: " << scene->_totalIndices << std::endl;
+	});
+
 	scene->registerBeforeRender(f0);
 	scene->registerAfterRender(f1);
+	scene->registerAfterRender(f2, true);
 
 	std::cout << context.getVersion() << std::endl;
 

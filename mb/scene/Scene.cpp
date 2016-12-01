@@ -104,6 +104,8 @@ namespace mb
 				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
 			mr->render(node->transform().matrixWorld());
 			++this->_totalMeshes;
+			this->_totalIndices += mr->getMesh()->indicesLen();
+			this->_totalVertices += mr->getMesh()->verticesLen();
 			//}
 		}
 

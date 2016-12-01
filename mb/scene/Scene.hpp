@@ -69,10 +69,12 @@ namespace mb
 
 		std::vector<mb::Light*> _lights;
 
+	public:
 		unsigned int _totalMeshes;
 		unsigned int _totalVertices;
 		unsigned int _drawCalls;
 		unsigned int _totalIndices;
+	protected:
 		Engine* _engine;
 
 		Mat4 _projection;
