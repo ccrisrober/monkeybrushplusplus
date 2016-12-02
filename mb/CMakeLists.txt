@@ -76,6 +76,7 @@ set( MB_PUBLIC_HEADERS
     models/Prism.hpp
     models/Tetrahedron.hpp
     models/Torus.hpp
+    models/ParametricGeom.hpp
 
     others/Exception.hpp
 
@@ -93,6 +94,7 @@ set( MB_PUBLIC_HEADERS
     scene/Node.hpp
     scene/Scene.hpp
     scene/Transform.hpp
+    scene/NodeData.hpp
 
     textures/RenderBuffer.hpp
     textures/RenderBufferMultisampleTexture.hpp

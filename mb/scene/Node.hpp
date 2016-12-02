@@ -46,7 +46,7 @@ namespace mb
 	public:
 		// Creates GameObject from prefab and adds it to the scene.
 		MB_API
-			static Node* createFromPrefab(const Node& /*prefab*/)
+		static Node* createFromPrefab(const Node& /*prefab*/)
 		{
 			// TODO
 			/**
@@ -60,69 +60,69 @@ namespace mb
 			// TODO
 		}
 		MB_API
-			Node* findByName(const std::string& name);
+		Node* findByName(const std::string& name);
 		MB_API
-			Node* findByTag(const std::string& tag);
+		Node* findByTag(const std::string& tag);
 		MB_API
-			Node* findById(const std::string uuid);
+		Node* findById(const std::string uuid);
 
 
 		MB_API
-			Node(const std::string& name = "Node", const std::string& tag = "Untagged");
+		Node(const std::string& name = "Node", const std::string& tag = "Untagged");
 		MB_API
-			virtual ~Node();
+		virtual ~Node();
 		MB_API
-			bool isVisible() const;
+		bool isVisible() const;
 		MB_API
-			bool hasParent() const;
+		bool hasParent() const;
 		MB_API
-			Node* parent() const;
+		Node* parent() const;
 		MB_API
-			void setParent(Node* p);
+		void setParent(Node* p);
 		MB_API
-			void addChild(Node* child);
+		void addChild(Node* child);
 		MB_API
-			void removeChild(Node* child);
+		void removeChild(Node* child);
 		MB_API
-			void removeChild(unsigned int index);
+		void removeChild(unsigned int index);
 		MB_API
-			unsigned int getNumChildren() const;
+		unsigned int getNumChildren() const;
 		MB_API
-			unsigned int getNumComponents() const;
+		unsigned int getNumComponents() const;
 		MB_API
-			Node* getChild(unsigned int index);
+		Node* getChild(unsigned int index);
 		MB_API
-			void removeChildren();
+		void removeChildren();
 		MB_API
-			void removeComponents();
+		void removeComponents();
 		MB_API
-			void addComponent(Component* c);
+		void addComponent(Component* c);
 		MB_API
-			void setVisible(const bool flag, const bool applyToChildren = false);
+		void setVisible(const bool flag, const bool applyToChildren = false);
 		MB_API
-			std::vector<Node*> children() const;
+		std::vector<Node*> children() const;
 		MB_API
-			Transform& transform();
+		Transform& transform();
 		MB_API
-			void _updateMatrixWorld(bool force = false);
+		void _updateMatrixWorld(bool force = false);
 		MB_API
-			std::string name() const;
+		std::string name() const;
 		MB_API
-			std::string tag() const;
+		std::string tag() const;
 		MB_API
-			void name(const std::string& n);
+		void name(const std::string& n);
 		MB_API
-			void tag(const std::string& t);
+		void tag(const std::string& t);
 		MB_API
-			std::vector<mb::Component*> getComponents() const;
+		std::vector<mb::Component*> getComponents() const;
 		MB_API
-			void setMesh(MeshRenderer* mesh);
+		void setMesh(MeshRenderer* mesh);
 		MB_API
-			MeshRenderer* getMesh() const;
+		MeshRenderer* getMesh() const;
 		MB_API
-			void traverse(const std::function<void(mb::Node* n)>& f);
+		void traverse(const std::function<void(mb::Node* n)>& f);
 		MB_API
-			void traverseAncestors(const std::function<void(mb::Node* n)>& f);
+		void traverseAncestors(const std::function<void(mb::Node* n)>& f);
 
 
 
@@ -189,13 +189,13 @@ namespace mb
 
 
 		MB_API
-			Component* getComponentByIndex(unsigned int index);
+		Component* getComponentByIndex(unsigned int index);
 		MB_API
-			friend std::ostream& operator<<(std::ostream & str, const Node& n);
+		friend std::ostream& operator<<(std::ostream & str, const Node& n);
 		MB_API
-			std::string uuid() const;
+		std::string uuid() const;
 		MB_API
-			Layer& layer();
+		Layer& layer();
 	protected:
 		MeshRenderer* _mesh = nullptr;
 		std::vector<Node*> _children;

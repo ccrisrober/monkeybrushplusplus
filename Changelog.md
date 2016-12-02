@@ -26,3 +26,4 @@
 - (30/11) Added update getter and setter to pause or resume application.
 - (30/11) Added Fog class. Trying Register component ...
 - (02/11) Added computeBoundingSphere in Drawable class.
+- (02/11) Added NodeData.
