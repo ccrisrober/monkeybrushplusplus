@@ -357,3 +357,14 @@ set( MBHDR_LINK_LIBRARIES
 
 common_application( mbHDR )
 
+
+
+
+set( MBFBOEXAMPLE_HEADERS )
+set( MBFBOEXAMPLE_SOURCES fboExample.cpp )
+set( MBFBOEXAMPLE_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbFBOExample )
+

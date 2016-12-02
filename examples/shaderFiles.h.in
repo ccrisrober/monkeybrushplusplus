@@ -52,6 +52,15 @@
 
 
 
+#define MB_SHADER_FILES_FLAT_WAVE_FIRST_FRAG \
+	"@PROJECT_SOURCE_DIR@/examples/flatWave1.frag"
+
+
+#define MB_SHADER_FILES_FLAT_WAVE_SECOND_FRAG \
+	"@PROJECT_SOURCE_DIR@/examples/flatWave2.frag"
+
+
+
 #define MB_SHADER_FILES_RAYTRACING_COMPUTESHADER \
 	"@PROJECT_SOURCE_DIR@/examples/rayTracing.cs"
 
@@ -65,5 +74,8 @@
 
 #define MB_SHADER_FILES_TEST_COMPUTESHADER \
 	"@PROJECT_SOURCE_DIR@/examples/computeTest.cs"
+
+#define MB_SHADER_FILES \
+	"@PROJECT_SOURCE_DIR@/examples"
 
 #endif /* __MB_SHADER_FILES__ */

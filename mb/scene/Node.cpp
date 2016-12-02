@@ -1,36 +1,36 @@
 /*
- * Copyright (c) 2016 maldicion069
- *
- * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
- *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License version 3.0 as published
- * by the Free Software Foundation.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
- * details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- */
+* Copyright (c) 2016 maldicion069
+*
+* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+*
+* This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+*
+* This library is free software; you can redistribute it and/or modify it under
+* the terms of the GNU Lesser General Public License version 3.0 as published
+* by the Free Software Foundation.
+*
+* This library is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+* details.
+*
+* You should have received a copy of the GNU Lesser General Public License
+* along with this library; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+*/
 
 #include "Node.hpp"
 
 namespace mb
 {
 	Node::Node(const std::string& name, const std::string& tag)
-	: _name(name)
-	, _id(mb::utils::generateUUID())
-	, _parent(nullptr)
-	, _tag(tag)
-    , _visible(true)
-	, _transform(Transform())
+		: _name(name)
+		, _id(mb::utils::generateUUID())
+		, _parent(nullptr)
+		, _tag(tag)
+		, _visible(true)
+		, _transform(Transform())
 	{
 	}
 	Node::~Node()
@@ -52,7 +52,7 @@ namespace mb
 	}
 	void Node::setParent(Node* p)
 	{
-        // TODO: Check parent in p node (addChild or removeChild in p.parent)
+		// TODO: Check parent in p node (addChild or removeChild in p.parent)
 		this->_parent = p;
 	}
 	Node* Node::findByName(const std::string& name)
@@ -130,7 +130,7 @@ namespace mb
 			this->_children.push_back(child);
 		}
 	}
-    void Node::removeChild(Node* child) {
+	void Node::removeChild(Node* child) {
 		auto it = std::find(_children.begin(), _children.end(), child);
 		if (it != _children.end())
 		{
@@ -168,7 +168,7 @@ namespace mb
 		std::for_each(_components.begin(), _components.end(), mb::utils::deleter<Component>());
 		_components.clear();
 	}
-    void Node::addComponent(Component* c)
+	void Node::addComponent(Component* c)
 	{
 		// TODO: http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
 		//this->_components[&typeid(*c)] = c;
@@ -208,7 +208,7 @@ namespace mb
 		{
 			if (!hasParent())
 			{
-                this->transform()._matrixWorld = this->transform().matrix();
+				this->transform()._matrixWorld = this->transform().matrix();
 			}
 			else
 			{

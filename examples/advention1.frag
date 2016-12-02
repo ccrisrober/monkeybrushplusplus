@@ -1,8 +1,8 @@
 #version 330
 
-out vec4 fragColor;
-uniform float iGlobalTime;
 in vec2 uv;
+
+out vec4 fragColor;
 
 uniform sampler2D tex;
 

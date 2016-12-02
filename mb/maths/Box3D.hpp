@@ -83,6 +83,32 @@ namespace mb
 		bool intersectsBox(const Box3D& b);
 		MB_API
 		bool isEqual(const Box3D& b);
+
+
+		MB_API
+		static Box3D createFromValues(const std::vector<float>& arr)
+		{
+			Vect3 min(std::numeric_limits<float>::infinity());
+			Vect3 max(-std::numeric_limits<float>::infinity());
+
+			float x, y, z;
+			for (unsigned int i = 0, l = arr.size(); i < l; i += 3)
+			{
+				x = arr[i];
+				y = arr[i + 1];
+				z = arr[i + 2];
+
+				if (x < min.x()) min.x(x);
+				if (y < min.y()) min.y(y);
+				if (z < min.z()) min.z(z);
+
+				if (x > max.x()) max.x(x);
+				if (y > max.y()) max.y(y);
+				if (z > max.z()) max.z(z);
+			}
+			
+			return Box3D(min, max);
+		}
 	protected:
 		/**
 		* Min corner.

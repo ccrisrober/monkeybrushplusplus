@@ -52,6 +52,16 @@ namespace mb
         {
         }
 		MB_API
+		float distanceToSquared(const Vect3& v)
+		{
+			float
+				dx = x() - v.x(),
+				dy = y() - v.y(),
+				dz = z() - v.z();
+
+			return (dx * dx) + (dy * dy) + (dz * dz);
+		}
+		MB_API
 		float x() const;
 		MB_API
 		void x(const float& v);

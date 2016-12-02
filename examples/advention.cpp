@@ -33,14 +33,8 @@ mb::PostProcessMaterial *ppm1, *ppm2;
 
 mb::Framebuffer* fbo;
 
-mb::Texture *currentTex, *oldTex;
-
 mb::CustomPingPong<mb::Texture*>* customPP;
-
-std::function<void()> cppCallback([]() {
-
-});
-
+mb::Texture2D *tex1;
 int main(void)
 {
 	mb::GLContext context(3, 3, 512, 512, "Advention demo");
@@ -73,7 +67,7 @@ int main(void)
 		}
 	}
 
-	mb::Texture2D *tex1 = new mb::Texture2D(opts, pixels.data(),
+	tex1 = new mb::Texture2D(opts, pixels.data(),
 		context.getWidth(), context.getHeight());
 	mb::Texture2D *tex2 = new mb::Texture2D(opts, pixels.data(),
 		context.getWidth(), context.getHeight());
@@ -86,29 +80,23 @@ int main(void)
 	engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
-	{
-		std::ifstream file(MB_SHADER_FILES_ADVENTION_FIRST_FRAG);
-		std::stringstream buffer;
-		buffer << file.rdbuf();
+	std::ifstream file1(MB_SHADER_FILES_ADVENTION_FIRST_FRAG);
+	std::stringstream buffer1;
+	buffer1 << file1.rdbuf();
 
-		ppm1 = new mb::PostProcessMaterial(buffer.str().c_str());
+	ppm1 = new mb::PostProcessMaterial(buffer1.str().c_str());
 
-		ppm1->addUniform("tex", new mb::Uniform(mb::Integer, 0));
-	}
+	ppm1->addUniform("tex", new mb::Uniform(mb::Integer, 0));
 
 
-	{
-		std::ifstream file(MB_SHADER_FILES_ADVENTION_SECOND_FRAG);
-		std::stringstream buffer;
-		buffer << file.rdbuf();
+	std::ifstream file2(MB_SHADER_FILES_ADVENTION_SECOND_FRAG);
+	std::stringstream buffer2;
+	buffer2 << file2.rdbuf();
 
-		ppm2 = new mb::PostProcessMaterial(buffer.str().c_str());
+	ppm2 = new mb::PostProcessMaterial(buffer2.str().c_str());
 
-		ppm2->addUniform("tex", new mb::Uniform(mb::Integer, 0));
-	}
+	ppm2->addUniform("tex", new mb::Uniform(mb::Integer, 0));
 
-	currentTex = tex1;
-	oldTex = tex2;
 
 	engine->run(renderFunc);
 
@@ -118,20 +106,22 @@ int main(void)
 	return 0;
 }
 
+void swap()
+{
+	customPP->first()->bind(0);
+	fbo->bind();
+	fbo->replaceTexture(customPP->last(), 0);
+}
+
 float globalTime = 0.0f;
 void renderFunc(float /*dt*/)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//globalTime += dt;
-
-	currentTex->bind(0);
-	fbo->bind();
-	fbo->replaceTexture(oldTex, 0);
+	swap();
 	ppm1->renderPP();
 	fbo->unbind();
 
-	std::swap(currentTex, oldTex);
-
-	currentTex->bind(0);
+	tex1->bind(0);
 	ppm2->renderPP();
 }

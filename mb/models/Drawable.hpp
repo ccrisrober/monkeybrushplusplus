@@ -29,6 +29,11 @@
 #include "../core/VertexArray.hpp"
 #include "../core/VertexBuffer.hpp"
 
+#include "../maths/Box3D.hpp"
+#include "../maths/Sphere3D.hpp"
+
+#include <algorithm>
+
 namespace mb
 {
     class Drawable
@@ -40,6 +45,26 @@ namespace mb
         unsigned int indicesLen() const;
 		MB_API
 		unsigned int verticesLen() const;
+
+		MB_API
+		void computeBoundingSphere(const std::vector<float>& arr)
+		{
+			auto box = Box3D::createFromValues(arr);
+			auto center = box.center();
+
+			auto maxRadiusSquared = 0.0f;
+			Vect3 v;
+			// Trying to find a boundingSphere with a radius smaller that the boundingSphere of the box
+			for (unsigned int i = 0, il = arr.size(); i < il; i+=3)
+			{
+				v.set(arr[i], arr[i + 1], arr[i + 2]);
+				maxRadiusSquared = std::max(maxRadiusSquared, center.distanceToSquared(v));
+			}
+
+			boundingSphere = Sphere3D(center, maxRadiusSquared);
+		}
+
+		Sphere3D boundingSphere;
     protected:
         Drawable();
 		unsigned int _numVertices;

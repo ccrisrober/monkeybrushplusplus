@@ -30,6 +30,7 @@ namespace mb
 	, _size(size)
 	{
 		glCreateFramebuffers(1, &_handler);
+		this->bind();
 		unsigned int numColors = textures.size();
 		if (numColors < 1) {
 			throw ("must specify >= 0 color attachments");
