@@ -27,3 +27,4 @@
 - (30/11) Added Fog class. Trying Register component ...
 - (02/11) Added computeBoundingSphere in Drawable class.
 - (02/11) Added NodeData.
+- (02/11) Added ParametricGeom and Plane.

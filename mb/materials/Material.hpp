@@ -71,6 +71,7 @@ namespace mb
 	protected:
 		TUniforms _uniforms;
         Program _program;
+		unsigned int texID;
 	};
 }
 

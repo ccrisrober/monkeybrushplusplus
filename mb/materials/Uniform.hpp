@@ -32,7 +32,7 @@ namespace mb
     MB_API
     typedef enum
     {
-        Invalid, Float, Integer, Unsigned, Boolean, Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4
+        Invalid, Float, Integer, Unsigned, Boolean, Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4, TextureSampler
     } UniformType;
     class Uniform
 	{

@@ -368,3 +368,46 @@ set( MBFBOEXAMPLE_LINK_LIBRARIES
 
 common_application( mbFBOExample )
 
+
+
+
+set( MBHELLOPARAMETRIC_HEADERS )
+set( MBHELLOPARAMETRIC_SOURCES helloParametric.cpp )
+set( MBHELLOPARAMETRIC_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbHelloParametric )
+
+
+
+set( MBHEIGHTMAP_HEADERS )
+set( MBHEIGHTMAP_SOURCES heightmap.cpp )
+set( MBHEIGHTMAP_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbHeightmap )
+
+
+
+
+set( MBHEIGHTMAPEARTH_HEADERS )
+set( MBHEIGHTMAPEARTH_SOURCES heightmapEarth.cpp )
+set( MBHEIGHTMAPEARTH_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbHeightmapEarth )
+
+
+
+
+set( MBORBITPIVOT_HEADERS )
+set( MBORBITPIVOT_SOURCES orbitPivot.cpp )
+set( MBORBITPIVOT_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbOrbitPivot )
+

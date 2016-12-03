@@ -27,9 +27,16 @@
 #include "utils/macros.hpp"
 
 #include "scene/Component.hpp"
+#include "materials/Material.hpp"
 
 namespace mb
 {
+	class PointMaterial : public mb::Material
+	{
+		MB_API
+		PointMaterial();
+	};
+
 	class MoveComponent : public mb::Component
 	{
 	public:

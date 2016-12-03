@@ -20,23 +20,22 @@
  *
  */
 
-#ifndef __MB_PARAMETRIC_GEOM__
-#define __MB_PARAMETRIC_GEOM__
+#ifndef __MB_PLANE__
+#define __MB_PLANE__
 
 #include <mb/api.h>
 
 #include "Drawable.hpp"
-#include <functional>
 
 namespace mb
 {
-    class ParametricGeom: public Drawable
+    class Plane: public Drawable
     {
     public:
-		MB_API
-		ParametricGeom(const std::function<mb::Vect3(float, float)>& func, 
-			const unsigned int& slices, const unsigned int& stacks);
+        MB_API
+        Plane(const float& xsize, const float& zsize, const float& xdivs, const float& zdivs,
+			const float& smax = 1.0f, const float& tmax = 1.0f);
     };
 }
 
-#endif /* __MB_PARAMETRIC_GEOM__ */
+#endif /* __MB_PLANE__ */

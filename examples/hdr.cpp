@@ -50,11 +50,10 @@ int main(void)
 	exposure = 10.5f;
 
 	mb::TexOptions opts;
-	mb::Texture2D* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/memorial.png"));
-	tex->bind(0);
+	mb::Texture* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/memorial.png"));
 
 	ppm->addUniform("exposure", new mb::Uniform(mb::Float, exposure));
-	ppm->addUniform("tex", new mb::Uniform(mb::Integer, 0));
+	ppm->addUniform("tex", new mb::Uniform(mb::TextureSampler, tex));
 
 	engine->run(renderFunc);
 

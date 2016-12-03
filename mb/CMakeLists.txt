@@ -76,6 +76,7 @@ set( MB_PUBLIC_HEADERS
     models/Prism.hpp
     models/Tetrahedron.hpp
     models/Torus.hpp
+    models/Plane.hpp
     models/ParametricGeom.hpp
 
     others/Exception.hpp
@@ -193,6 +194,8 @@ set( MB_SOURCES
     models/Prism.cpp
     models/Tetrahedron.cpp
     models/Torus.cpp
+    models/Plane.cpp
+    models/ParametricGeom.cpp
 
     others/Exception.cpp
     

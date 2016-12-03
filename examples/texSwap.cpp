@@ -43,7 +43,8 @@ mb::Scene* scene;
 void renderFunc(float dt);
 
 mb::Node* mbModel;
-mb::CustomPingPong<mb::Texture2D*>* customPP;
+mb::CustomPingPong<mb::Texture*>* customPP;
+mb::ShaderMaterial* material;
 
 int main(void)
 {
@@ -52,7 +53,7 @@ int main(void)
     engine = new mb::Engine(&context, false);
     scene = new mb::Scene(engine);
 
-    customPP = new mb::CustomPingPong<mb::Texture2D*>(
+    customPP = new mb::CustomPingPong<mb::Texture*>(
 		new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg")),
 		new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/matcap.jpg"))
     );
@@ -96,12 +97,13 @@ int main(void)
 	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
 	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
 	uniforms.push_back(std::make_pair("viewPos", new mb::Uniform(mb::Vector3)));
-	uniforms.push_back(std::make_pair("tex", new mb::Uniform(mb::Integer, 0)));
+	//uniforms.push_back(std::make_pair("tex", new mb::Uniform(mb::Integer, 0)));
+	uniforms.push_back(std::make_pair("tex", new mb::Uniform(mb::TextureSampler, customPP->first())));
 
-	mb::ShaderMaterial material("textureShader", shaders, uniforms);
+	material = new mb::ShaderMaterial("textureShader", shaders, uniforms);
 
 	mbModel = new mb::Node(std::string("cube"));
-	mbModel->setMesh(new mb::MeshRenderer(model, &material));
+	mbModel->setMesh(new mb::MeshRenderer(model, material));
 	mbModel->addComponent(new mb::MoveComponent());
 	mbModel->addComponent(new mb::RotateComponent(mb::Axis::x));
 
@@ -112,6 +114,7 @@ int main(void)
 	customPP->first()->bind(0);
 	setInterval([&]() {
 		customPP->swap();
+		material->uniform("tex")->value(customPP->first());
 	}, 1000);
 
 	engine->run(renderFunc);
@@ -122,17 +125,8 @@ int main(void)
     return 0;
 }
 
-float ms = 0.0f;
-void renderFunc(float dt)
+void renderFunc(float)
 {
-	ms += dt;
-	if (ms >= 1.0f)
-	{
-		/*customPP->swap();
-		customPP->first()->bind(0);*/
-		ms = 0.0f;
-	}
-	customPP->first()->bind(0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))

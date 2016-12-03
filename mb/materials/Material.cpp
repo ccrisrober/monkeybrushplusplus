@@ -21,6 +21,7 @@
  */
 
 #include "Material.hpp"
+#include "../textures/Texture.hpp"
 
 namespace mb
 {
@@ -51,6 +52,7 @@ namespace mb
 	void Material::use()
 	{
 		this->_program.use();
+		texID = 0;
 		for (const auto& uniform : _uniforms)
 		{
 			if (!uniform.second->isDirty())
@@ -88,10 +90,17 @@ namespace mb
             {
                 this->_program.sendUniform3m(uniform.first, uniform.second->value().cast<Mat3>()._values.data());
             }
-            else if (type == Matrix4)
-            {
+			else if (type == Matrix4)
+			{
 				this->_program.sendUniform4m(uniform.first, uniform.second->value().cast<Mat4>()._values.data());
-            }
+			}
+			else if (type == TextureSampler)
+			{
+				mb::Texture* tex = uniform.second->value().cast<mb::Texture*>();
+				tex->bind(texID);
+				this->_program.sendUniformi(uniform.first, texID);
+				++texID;
+			}
 			uniform.second->setDirty(false);
 		}
 	}

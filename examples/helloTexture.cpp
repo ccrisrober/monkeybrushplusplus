@@ -107,12 +107,15 @@ int main(void)
 	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
 	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
 
+	mb::TexOptions opts;
+	mb::Texture* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/matcap.jpg"));
+
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
 	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
 	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
 	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
 	uniforms.push_back(std::make_pair("viewPos", new mb::Uniform(mb::Vector3)));
-	uniforms.push_back(std::make_pair("tex", new mb::Uniform(mb::Integer, 0)));
+	uniforms.push_back(std::make_pair("tex", new mb::Uniform(mb::TextureSampler, tex)));
 
 	mb::ShaderMaterial material("textureShader", shaders, uniforms);
 
@@ -121,10 +124,6 @@ int main(void)
 	mbCube->addComponent(new SplineMovement());
 	r = new mb::RotateComponent(mb::Axis::x);
 	mbCube->addComponent(r);
-
-	mb::TexOptions opts;
-	mb::Texture2D* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/matcap.jpg"));
-	tex->bind(0);
 
 	scene->root()->addChild(mbCube);
 
