@@ -62,6 +62,10 @@ namespace mb
 		{
 			return _src;
 		}
+		MB_API
+		virtual void resize(int w, int h);
+		MB_API
+		virtual void resize(int w, int h, void* data);
 	protected:
 		std::string _src;
 		unsigned int _width;

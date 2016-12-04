@@ -113,7 +113,9 @@ namespace mb
 		// Create and compile shader
 		unsigned int shader;
 		shader = glCreateShader(type);
-		const char* cStr = source.c_str();
+
+		std::string str = _processImports(std::string(source));
+		const char* cStr = str.c_str();
 		glShaderSource(shader, 1, &cStr, nullptr);
 
 		int status;

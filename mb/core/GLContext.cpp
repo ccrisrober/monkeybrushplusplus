@@ -25,6 +25,7 @@
 #include "../Includes.hpp"
 
 #include <functional>
+#include "../resources/ResourceShader.hpp"
 
 namespace mb
 {
@@ -43,7 +44,7 @@ namespace mb
 		wp.maxVersion = maxVersion;
 		_window = new mb::GLFWWindow2(wp);
 		_window->init();
-
+		
 		_state = new GlobalState();
 	}
 	Window* GLContext::getWindow() const

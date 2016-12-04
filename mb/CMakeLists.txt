@@ -101,6 +101,7 @@ set( MB_PUBLIC_HEADERS
     textures/RenderBufferMultisampleTexture.hpp
     textures/RenderBufferTexture.hpp
     textures/Texture.hpp
+    textures/Texture1D.hpp
     textures/Texture2D.hpp
     textures/Texture2DArray.hpp
     textures/Texture3D.hpp
@@ -122,9 +123,13 @@ set( MB_PUBLIC_HEADERS
     io/Keyboard.hpp
     io/Input.hpp
     io/Window.hpp
+
+    CameraComponent.hpp
+
 )
 
-set( MB_HEADERS )
+set( MB_HEADERS
+)
 
 set( MB_SOURCES
     cameras/Camera.cpp
@@ -215,6 +220,7 @@ set( MB_SOURCES
     textures/RenderBufferMultisampleTexture.cpp
     textures/RenderBufferTexture.cpp
     textures/Texture.cpp
+    textures/Texture1D.cpp
     textures/Texture2D.cpp
     textures/Texture2DArray.cpp
     textures/Texture3D.cpp

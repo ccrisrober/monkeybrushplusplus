@@ -42,11 +42,11 @@ namespace mb
 			);
 			++i;
 		}
-		glTexParameteri(this->_target, GL_TEXTURE_MIN_FILTER, this->_minFilter);
-		glTexParameteri(this->_target, GL_TEXTURE_MAG_FILTER, this->_magFilter);
-		glTexParameteri(this->_target, GL_TEXTURE_WRAP_S, this->_wrapS);
-		glTexParameteri(this->_target, GL_TEXTURE_WRAP_T, this->_wrapT);
-		glTexParameteri(this->_target, GL_TEXTURE_WRAP_R, this->_wrapR);
+		glTexParameteri(this->_target, GL_TEXTURE_MIN_FILTER, static_cast<int>(this->_minFilter));
+		glTexParameteri(this->_target, GL_TEXTURE_MAG_FILTER, static_cast<int>(this->_magFilter));
+		glTexParameteri(this->_target, GL_TEXTURE_WRAP_S, static_cast<int>(this->_wrapS));
+		glTexParameteri(this->_target, GL_TEXTURE_WRAP_T, static_cast<int>(this->_wrapT));
+		glTexParameteri(this->_target, GL_TEXTURE_WRAP_R, static_cast<int>(this->_wrapR));
 		this->unbind();
 	}
 	Texture2DArray::~Texture2DArray(void)

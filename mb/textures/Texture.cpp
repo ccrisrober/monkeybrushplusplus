@@ -18,6 +18,9 @@ namespace mb
 
         this->_minFilter = options.minFilter;
         this->_magFilter = options.magFilter;
+        
+        this->_packAlignment = options.packAlignment;
+        this->_unpackAlignment = options.unpackAlignment;
     }
     Texture::~Texture( )
     {

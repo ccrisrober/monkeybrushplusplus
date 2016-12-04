@@ -51,8 +51,8 @@ int main(void)
 	angle = 121.0f;
 
 	mb::TexOptions opts;
-	opts.wrapS = GL_MIRRORED_REPEAT;
-	opts.wrapT = GL_MIRRORED_REPEAT;
+	opts.wrapS = mb::ctes::WrapMode::MirroredRepeat;
+	opts.wrapT = mb::ctes::WrapMode::MirroredRepeat;
 	mb::Texture2D* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));
 	tex->bind(0);
 

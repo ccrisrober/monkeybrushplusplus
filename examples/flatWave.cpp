@@ -42,8 +42,8 @@ int main(void)
 	mb::GLContext context(3, 3, 512, 512, "Flat wave demo");
 
 	mb::TexOptions opts;
-	opts.minFilter = GL_NEAREST;
-	opts.magFilter = GL_NEAREST;
+	opts.minFilter = mb::ctes::TextureFilter::Nearest;
+	opts.magFilter = mb::ctes::TextureFilter::Nearest;
 	opts.internalFormat = GL_RG32I;
 	opts.format = GL_RG_INTEGER;
 	opts.type = GL_INT;

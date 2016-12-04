@@ -65,10 +65,10 @@ namespace mb
 			data
 		);
 
-		glTexParameteri( this->_target, GL_TEXTURE_MIN_FILTER, this->_minFilter );
-		glTexParameteri( this->_target, GL_TEXTURE_MAG_FILTER, this->_magFilter );
-		glTexParameteri( this->_target, GL_TEXTURE_WRAP_S, this->_wrapS );
-		glTexParameteri( this->_target, GL_TEXTURE_WRAP_T, this->_wrapT );
+		glTexParameteri( this->_target, GL_TEXTURE_MIN_FILTER, static_cast<int>(this->_minFilter ));
+		glTexParameteri( this->_target, GL_TEXTURE_MAG_FILTER, static_cast<int>(this->_magFilter ));
+		glTexParameteri(this->_target, GL_TEXTURE_WRAP_S, static_cast<int>(this->_wrapS));
+		glTexParameteri(this->_target, GL_TEXTURE_WRAP_T, static_cast<int>(this->_wrapT));
 
 		this->unbind( );
 	}
@@ -125,6 +125,17 @@ namespace mb
 		FreeImage_DeInitialise( );
 
 		return map;
+	}
+	void Texture2D::resize(int w, int h)
+	{
+		resize(w, h, nullptr);
+	}
+	void Texture2D::resize(int w, int h, void* data)
+	{
+		_width = w;
+		_height = h;
+		this->bind();
+		configTexture(data);
 	}
 }
 

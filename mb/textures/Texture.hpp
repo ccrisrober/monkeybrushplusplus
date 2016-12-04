@@ -32,6 +32,8 @@
 #include <iostream>
 #include <functional>
 
+#include "../constants/Constants.hpp"
+
 namespace mb
 {
     struct TexOptions
@@ -39,13 +41,16 @@ namespace mb
         unsigned int internalFormat = GL_RGBA;
         unsigned int format = GL_RGBA;
         unsigned int border = 0;
-        unsigned int minFilter = GL_LINEAR;
-        unsigned int magFilter = GL_LINEAR;
+		mb::ctes::TextureFilter minFilter = mb::ctes::TextureFilter::Linear;
+		mb::ctes::TextureFilter magFilter = mb::ctes::TextureFilter::Linear;
         unsigned int type = GL_UNSIGNED_BYTE;
         unsigned int level = 0;
-        unsigned int wrapS = GL_CLAMP_TO_EDGE;
-        unsigned int wrapT = GL_CLAMP_TO_EDGE;
-        unsigned int wrapR = GL_CLAMP_TO_EDGE;
+		mb::ctes::WrapMode wrapS = mb::ctes::WrapMode::Clamp2Edge;
+		mb::ctes::WrapMode wrapT = mb::ctes::WrapMode::Clamp2Edge;
+		mb::ctes::WrapMode wrapR = mb::ctes::WrapMode::Clamp2Edge;
+        unsigned int packAlignment = 0;
+        unsigned int unpackAlignment = 0;
+		bool autoMipmap = false;
     };
     class Texture
     {
@@ -90,13 +95,15 @@ namespace mb
         unsigned int _internalFormat;
         unsigned int _format;
         unsigned int _border;
-        unsigned int _minFilter;
-        unsigned int _magFilter;
+		mb::ctes::TextureFilter _minFilter;
+		mb::ctes::TextureFilter _magFilter;
         unsigned int _type;
         unsigned int _level;
-        unsigned int _wrapS;
-        unsigned int _wrapT;
-        unsigned int _wrapR;
+		mb::ctes::WrapMode _wrapS;
+		mb::ctes::WrapMode _wrapT;
+		mb::ctes::WrapMode _wrapR;
+        unsigned int _packAlignment;
+        unsigned int _unpackAlignment;
     };
 }
 

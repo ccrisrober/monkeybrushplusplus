@@ -42,67 +42,37 @@
 
 // TODO: Use const char* instead of std::string&
 
+#include "../resources/ResourceShader.hpp"
+
 namespace mb
 {
 	class Program
 	{
-	public:
-		//std::string _processImports(const std::string& src)
-		//{
-		//	std::string ret = "TODO";
-			/*if (std::regex_search(src, sm, regex))
+		std::string replace(std::string str, std::string& from, std::string& to)
+		{
+			size_t start_pos = str.find(from);
+			if (start_pos == std::string::npos)
+				return str;
+			str.replace(start_pos, from.length(), to);
+			return str;
+		}
+		std::string _processImports(const std::string& source)
+		{
+			std::regex rgx("#import<(.+)>");
+			std::smatch match;
+			std::string str = source;
+			while (std::regex_search(str, match, rgx))
 			{
-
-			}
-			bool match = std::regex_match(src, regex);*/
-			/*
-			let match = regex.exec(src);
-			let ret = src.slice(0);
-			while (match != null) {
-				let includeFile = match[1];
-				if (MB.ResourceShader.exist(includeFile)) {
-					let content = MB.ResourceShader.get(includeFile);
-					if (match[4]) {
-						let splits = match[5].split(",");
-						let sp;
-						for (let idx = 0, size = splits.length; idx < size; ++idx) {
-							sp = splits[idx].split("=");
-							content = content.replace(new RegExp(sp[0], "g"), sp[1]);
-						}
-					}
-					if (match[2]) {
-						let idxStr = match[3];
-						if (idxStr.indexOf("..") != = -1) {
-							let idxSplits = idxStr.split("..");
-							let min = parseInt(idxSplits[0]);
-							let max = parseInt(idxSplits[1]);
-							let srcContent = content.slice(0);
-							content = "";
-							if (isNaN(max)) {
-								max = min;
-							}
-							for (let i = min; i <= max; i++) {
-								content += srcContent.replace(/ \{N\} / g, i + "") + "\n";
-							}
-						}
-						else {
-							content = content.replace(/ \{N\} / g, idxStr);
-						}
-					}
-					ret = ret.replace(match[0], this._processImports(content));
+				std::string includeFile = match[1];
+				if (mb::ResourceShader::exist(includeFile))
+				{
+					std::string content = mb::ResourceShader::get(includeFile);
+					str = replace(str, match[0].str(), _processImports(content));
 				}
-				else {
-					// ...
-					ret = ret.replace(match[0], "FAIL");
-				}
-				match = regex.exec(src);
 			}
-			*/
-		//	return ret;
-		//}
-
-
-
+			return str;
+		}
+	public:
 		MB_API
 		void autocatching(bool attributes = true, bool uniforms = true);
 

@@ -411,3 +411,51 @@ set( MBORBITPIVOT_LINK_LIBRARIES
 
 common_application( mbOrbitPivot )
 
+
+
+set( MBALIENTEXTURE_HEADERS )
+set( MBALIENTEXTURE_SOURCES alienTexture.cpp )
+set( MBALIENTEXTURE_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbAlienTexture )
+
+
+set( MBTURBULENCETEXTURE_HEADERS )
+set( MBTURBULENCETEXTURE_SOURCES turbulenceTexture.cpp )
+set( MBTURBULENCETEXTURE_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbTurbulenceTexture )
+
+
+set( MBHATCHING3D_HEADERS )
+set( MBHATCHING3D_SOURCES hatching3D.cpp )
+set( MBHATCHING3D_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbHatching3D )
+
+
+set( MBNORMALINTERPOLATION_HEADERS )
+set( MBNORMALINTERPOLATION_SOURCES normalInterpolation.cpp )
+set( MBNORMALINTERPOLATION_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbNormalInterpolation )
+
+
+
+
+set( MBTEXTURE2DARRAY_HEADERS )
+set( MBTEXTURE2DARRAY_SOURCES texture2DArray.cpp )
+set( MBTEXTURE2DARRAY_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbTexture2DArray )
+

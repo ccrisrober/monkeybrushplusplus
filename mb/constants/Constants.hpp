@@ -96,8 +96,22 @@ namespace mb
 
 
 
-
-
+		enum class TextureTarget
+		{
+			Texture1D = GL_TEXTURE_1D,
+			Texture2D = GL_TEXTURE_2D,
+			Texture3D = GL_TEXTURE_3D,
+			Texture2DArray = GL_TEXTURE_2D_ARRAY,
+		};
+		enum class TextureFilter
+		{
+			Nearest = GL_NEAREST,
+			Linear = GL_LINEAR,
+			NearestMMNearest = GL_NEAREST_MIPMAP_NEAREST,
+			LinearMMNearest = GL_LINEAR_MIPMAP_NEAREST,
+			NearestMMLinear = GL_NEAREST_MIPMAP_LINEAR,
+			LinearMMLinear = GL_LINEAR_MIPMAP_LINEAR
+		};
 		enum class TFMode
 		{
 			Interleaved = GL_INTERLEAVED_ATTRIBS,
@@ -113,7 +127,13 @@ namespace mb
 		{
 			TransformFeedback = GL_TRANSFORM_FEEDBACK
 		};
-
+		enum class WrapMode
+		{
+			Clamp2Edge = GL_CLAMP_TO_EDGE,
+			Repeat = GL_REPEAT,
+			MirroredRepeat = GL_MIRRORED_REPEAT,
+			Clamp2Border = GL_CLAMP_TO_BORDER
+		};
 
         enum class MouseButton
 		{

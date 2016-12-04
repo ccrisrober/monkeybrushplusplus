@@ -41,8 +41,8 @@ int main(void)
 	mb::GLContext context(3, 3, 512, 512, "Advention demo");
 
 	mb::TexOptions opts;
-	opts.minFilter = GL_NEAREST;
-	opts.magFilter = GL_NEAREST;
+	opts.minFilter = mb::ctes::TextureFilter::Nearest;
+	opts.magFilter = mb::ctes::TextureFilter::Nearest;
 	opts.type = GL_FLOAT;
 	opts.format = GL_RGB;
 	opts.internalFormat = GL_RGB;

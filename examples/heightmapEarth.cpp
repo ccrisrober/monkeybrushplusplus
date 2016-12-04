@@ -103,10 +103,10 @@ int main()
 	scene->root()->addChild(mbModel);
 
 	mb::TexOptions opts;
-	opts.minFilter = GL_NEAREST;
-	opts.magFilter = GL_NEAREST;
-	opts.wrapS = GL_CLAMP_TO_EDGE;
-	opts.wrapT = GL_CLAMP_TO_EDGE;
+	opts.minFilter = mb::ctes::TextureFilter::Nearest;
+	opts.magFilter = mb::ctes::TextureFilter::Nearest;
+	opts.wrapS = mb::ctes::WrapMode::Clamp2Edge;
+	opts.wrapT = mb::ctes::WrapMode::Clamp2Edge;
 	mb::Texture* tex = new mb::Texture2D(opts,
 		MB_TEXTURE_ASSETS + std::string("/Srtm_ramp2.world.21600x10800.jpg"));
 	mbModel->getMesh()->getMaterial()->uniform("texHeightmap")->value(tex);

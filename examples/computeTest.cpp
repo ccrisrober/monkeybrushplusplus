@@ -61,10 +61,10 @@ int main(void)
 	}
 
 	mb::TexOptions options;
-	options.wrapS = GL_CLAMP_TO_EDGE;
-	options.wrapT = GL_CLAMP_TO_EDGE;
-	options.minFilter = GL_NEAREST;
-	options.magFilter = GL_NEAREST;
+	options.wrapS = mb::ctes::WrapMode::Clamp2Edge;
+	options.wrapT = mb::ctes::WrapMode::Clamp2Edge;
+	options.minFilter = mb::ctes::TextureFilter::Nearest;
+	options.magFilter = mb::ctes::TextureFilter::Nearest;
 	options.internalFormat = GL_R32F;
 	options.format = GL_RED;
 	options.type = GL_FLOAT;

@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian Rodríguez Bernal
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -20,34 +20,28 @@
 *
 */
 
-#ifndef __MB_RESOURCE_SHADER__
-#define __MB_RESOURCE_SHADER__
+#ifndef __MB_TEXTURE1D__
+#define __MB_TEXTURE1D__
 
 #include <mb/api.h>
 
-#include <unordered_map>
-#include <fstream>
-#include <sstream>
+#include "Texture.hpp"
 
 namespace mb
 {
-	class ResourceShader
+	class Texture1D : public Texture
 	{
 	public:
-		static const std::string& get(const std::string& key);
-		static bool exist(const std::string& key);
-	public:
 		MB_API
-		static void loadShader(const std::string& alias, const std::string& filePath);
+		Texture1D( const TexOptions& options, void* data, unsigned int width );
 		MB_API
-		static void loadShaderFromText(const std::string& alias, const std::string& shaderSource);
-	protected:
-		static void add(const std::string& key, const std::string& value);
-		static void remove(const std::string& key);
-		static void clear();
-
-		static std::unordered_map<std::string, std::string> _files;
+		virtual ~Texture1D( void );
+		//virtual void resize( int w, int h);
+    protected:
+		unsigned int _width;
+		void configTexture( void* data = nullptr );
+		virtual void load( void );
 	};
 }
 
-#endif /* __MB_RESOURCE_SHADER__ */
+#endif /* __MB_TEXTURE1D__ */

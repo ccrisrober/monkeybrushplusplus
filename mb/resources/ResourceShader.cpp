@@ -36,7 +36,7 @@ namespace mb
 	}
 	bool ResourceShader::exist(const std::string& key)
 	{
-		return ResourceShader::_files.find(key) == ResourceShader::_files.end();
+		return ResourceShader::_files.find(key) != ResourceShader::_files.end();
 	}
 	void ResourceShader::remove(const std::string& key)
 	{

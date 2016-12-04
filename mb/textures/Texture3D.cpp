@@ -41,17 +41,20 @@ namespace mb
 			this->_type,
 			data
 		);
-		glTexParameteri(this->_target, GL_TEXTURE_MIN_FILTER, this->_minFilter);
-		glTexParameteri(this->_target, GL_TEXTURE_MAG_FILTER, this->_magFilter);
+		glTexParameteri(this->_target, GL_TEXTURE_MIN_FILTER, static_cast<int>(this->_minFilter));
+		glTexParameteri(this->_target, GL_TEXTURE_MAG_FILTER, static_cast<int>(this->_magFilter));
+		glTexParameteri(this->_target, GL_TEXTURE_WRAP_S, static_cast<int>(this->_wrapS));
+		glTexParameteri(this->_target, GL_TEXTURE_WRAP_T, static_cast<int>(this->_wrapT));
+		glTexParameteri(this->_target, GL_TEXTURE_WRAP_R, static_cast<int>(this->_wrapR));
 
 		// Set the mipmap levels (base and max)
 		glTexParameteri(this->_target, GL_TEXTURE_BASE_LEVEL, 0);
 		glTexParameteri(this->_target, GL_TEXTURE_MAX_LEVEL, 4);
 
-		// TODO?
-		//if (options.autoMipMap) {
-		//    glGenerateMipmap( this->_target );
-		//}
+		if (options.autoMipmap)
+		{
+		    glGenerateMipmap( this->_target );
+		}
 
 		this->unbind();
 	}
