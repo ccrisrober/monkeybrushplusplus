@@ -459,3 +459,14 @@ set( MBTEXTURE2DARRAY_LINK_LIBRARIES
 
 common_application( mbTexture2DArray )
 
+
+
+
+set( MBIMAGEPROCESSING_HEADERS )
+set( MBIMAGEPROCESSING_SOURCES imageProcessing.cpp )
+set( MBIMAGEPROCESSING_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbImageProcessing )
+

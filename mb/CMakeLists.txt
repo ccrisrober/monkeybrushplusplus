@@ -20,6 +20,7 @@ set( MB_PUBLIC_HEADERS
     core/PostProcess.hpp
     core/Program.hpp
     core/Query.hpp
+    core/TransformFeedback.hpp
     core/VertexArray.hpp
     core/VertexBuffer.hpp
     core/VertexUBO.hpp
@@ -146,6 +147,7 @@ set( MB_SOURCES
     core/Log.cpp
     core/PostProcess.cpp
     core/Program.cpp
+    core/TransformFeedback.cpp
     core/VertexArray.cpp
     core/VertexBuffer.cpp
     core/VertexUBO.cpp
