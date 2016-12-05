@@ -94,7 +94,11 @@ namespace mb
 			LShift,
 			RShift,
 			LAlt,
-			RAlt
+			RAlt,
+			Plus,
+			Minus,
+			Multiply,
+			Divide
 		};
 
 		virtual ~Keyboard();

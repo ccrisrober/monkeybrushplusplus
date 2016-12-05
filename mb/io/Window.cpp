@@ -22,11 +22,13 @@
 
 #include "Window.hpp"
 #include "Input.hpp"
+#include <string>
 
 namespace mb
 {
 	bool GLFWWindow2::init()
 	{
+		mb::LOG(mb::LOG::INFO) << "Initializing GLFW";
 		if (!glfwInit())
 		{
 			throw "Failed to initialise GLFW";
@@ -37,17 +39,12 @@ namespace mb
 		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		// TODO: glfwWindowHint(GLFW_RESIZABLE, _params.resizable);
 
-
-
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
 
-
 		glfwWindowHint(GLFW_RESIZABLE, false);
-
-		std::cout << "OpenGL context version: (" << _params.maxVersion << ", " << _params.minVersion << ")" << std::endl;
 
 		this->_handle = glfwCreateWindow(_params.width, _params.height, _params.title, nullptr, nullptr);
 
@@ -55,17 +52,6 @@ namespace mb
 		{
 			glfwTerminate();
 			throw "Failed to create window with GLFW.";
-		}
-
-		glfwSetInputMode(_handle, GLFW_STICKY_KEYS, GL_TRUE);
-		glfwMakeContextCurrent(_handle);
-
-		// Initialize GLEW to setup the OpenGL Function pointers
-		glewExperimental = (GLboolean)true;
-		if (glewInit() != GLEW_OK)
-		{
-			glfwTerminate();
-			throw "Failed to initialise GLEW";
 		}
 
 		glfwSetKeyCallback(_handle, [](GLFWwindow*, int key, int, int action, int)
@@ -94,6 +80,28 @@ namespace mb
 		{
 			static_cast<GLFWMouse*>(Input::Mouse())->onMouseWheelEvent(static_cast<int>(xoffset), static_cast<int>(yoffset));
 		});
+
+		glfwSetInputMode(_handle, GLFW_STICKY_KEYS, GL_TRUE);
+		glfwMakeContextCurrent(_handle);
+
+		mb::LOG(mb::LOG::INFO) << "GLFW initialized";
+
+
+		mb::LOG(mb::LOG::INFO) << "Initializing GLEW";
+		// Initialize GLEW to setup the OpenGL Function pointers
+		glewExperimental = (GLboolean)true;
+		if (glewInit() != GLEW_OK)
+		{
+			glfwTerminate();
+			throw "Failed to initialise GLEW";
+		}
+
+		mb::LOG(mb::LOG::INFO) << "OpenGL functions succesfully loaded.";
+		mb::LOG(mb::LOG::INFO) << "Version - Major: " << std::to_string(_params.maxVersion)
+			<< " Minor: " << std::to_string(_params.minVersion);
+		mb::LOG(mb::LOG::INFO) << "Driver: " << (char*)glGetString(GL_VENDOR) << " Renderer: " << (char*)glGetString(GL_RENDERER);
+
+		mb::LOG(mb::LOG::INFO) << "GLEW initialized";
 
 		return true;
 	}

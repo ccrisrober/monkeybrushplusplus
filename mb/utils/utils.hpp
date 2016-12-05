@@ -29,11 +29,65 @@
 #include <functional>
 #include <thread>
 #include <future>
+#include <sstream>
+#include <cctype>
 
 namespace mb
 {
 	namespace utils
 	{
+		/*MB_API
+		std::vector<std::string> splitStringIntoTokensOnDelimiter(const std::string& s, 
+			char delimiter, bool removeWhiteSpace = false)
+		{
+			std::vector<std::string> tokens;
+			std::istringstream iss(s);
+			std::string token;
+			//
+			while (std::getline(iss, token, delimiter)) {
+				if (token.size() > 0 && token[0] != delimiter) {
+					if (removeWhiteSpace) {
+						token = eraseStringFromString(token, " ");
+					}
+					tokens.push_back(token);
+				}
+			}
+
+			return tokens;
+		}
+		MB_API
+		std::string eraseStringFromString(std::string bigString, 
+			const std::string& smallString, bool onlyFirstOccurance = false)
+		{
+			if (bigString.find(smallString) == std::string::npos) {
+				return bigString;
+			}
+			do {
+				bigString.erase(bigString.find(smallString), smallString.size());
+			} while (!onlyFirstOccurance && bigString.find(smallString) != std::string::npos);
+
+			return bigString;
+		}
+		MB_API
+		std::string stringToLower(std::string s)
+		{
+			std::string result;
+			for (char c : s) {
+				result.push_back(std::tolower(c));
+			}
+			return result;
+		}
+		MB_API
+		std::string stringToUpper(std::string s)
+		{
+			std::string result;
+			for (char c : s) {
+				result.push_back(std::toupper(c));
+			}
+			return result;
+		}*/
+
+
 		template<typename T>
 		struct deleter : std::unary_function<const T*, void>
 		{

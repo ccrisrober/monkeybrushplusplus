@@ -56,16 +56,20 @@ namespace mb
 	, lastFrame(0.0f)
 	, _debugLayer(debugLayer)
 	{
+		mb::LOG(mb::LOG::INFO) << "Initializing Engine";
 		Input::initialize();
+
+		this->state()->color.setClear(mb::Color4(0.0f, 0.0f, 0.0f, 1.0f));
+		this->state()->setViewport(mb::Vect4(0, 0, this->_context->getWidth(), this->_context->getHeight()));
+
+		this->state()->depth.setStatus(true);
+		this->state()->culling.setStatus(true);
+
+		mb::LOG(mb::LOG::INFO) << "Engine initialized";
 	}
 	void Engine::run(std::function<void(float)> loop)
 	{
 		float currentFrame;
-		this->state()->color.setClear(mb::Color4(0.0f, 0.0f, 0.0f, 1.0f));
-		this->state()->setViewport(mb::Vect4(0, 0, this->_context->getWidth(), this->_context->getHeight()));
-		
-		this->state()->depth.setStatus(true);
-		this->state()->culling.setStatus(true);
 		
 		while (this->_context->getWindow()->isRunning())
         {

@@ -59,16 +59,34 @@ namespace mb
 		virtual void use();
 		MB_API
 		virtual void unuse();
-		std::string id;
-		bool backFaceCull = true;
+
+		// Depth state
+		bool DepthTest;
+		bool DepthWrite;
+		unsigned int DepthCompare;
+
+		// Face culling state
+		bool Cull;
+		unsigned int CullFace;
+		unsigned CullWindingOrder;
+
+		// Blending state
+		bool Blend;
+		unsigned int BlendSrc;
+		unsigned int BlendDst;
+		unsigned int BlendEquation;
+
+
+		/*bool backFaceCull = true;
 		unsigned int sizeOrientation; // InvClockWise
 		bool depthTest = true;
 		bool visible = true;
 
 		bool blending;
 		unsigned int blendSrc;
-		unsigned int blendDst;
+		unsigned int blendDst;*/
 	protected:
+		std::string id;
 		TUniforms _uniforms;
         Program _program;
 		unsigned int texID;

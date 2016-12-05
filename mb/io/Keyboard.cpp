@@ -186,6 +186,14 @@ namespace mb
 			return GLFW_KEY_LEFT_ALT;
 		case Keyboard::Key::RAlt:
 			return GLFW_KEY_RIGHT_ALT;
+		case Keyboard::Key::Plus:
+			return GLFW_KEY_KP_ADD;
+		case Keyboard::Key::Minus:
+			return GLFW_KEY_KP_SUBTRACT;
+		case Keyboard::Key::Multiply:
+			return GLFW_KEY_KP_MULTIPLY;
+		case Keyboard::Key::Divide:
+			return GLFW_KEY_KP_DIVIDE;
 		default:
 			return GLFW_KEY_0;
 			break;

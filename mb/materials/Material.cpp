@@ -26,6 +26,16 @@
 namespace mb
 {
 	Material::Material()
+		: DepthTest ( true )
+		, DepthWrite ( true )
+		, DepthCompare( GL_LESS )
+		, Cull ( false )
+		, CullFace ( GL_BACK )
+		, CullWindingOrder ( GL_CCW )
+		, Blend ( false )
+		, BlendSrc ( GL_SRC_ALPHA )
+		, BlendDst ( GL_ONE_MINUS_SRC_ALPHA )
+		, BlendEquation ( GL_FUNC_ADD )
 	{
 	}
     Material::~Material() {}
