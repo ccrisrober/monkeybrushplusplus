@@ -26,6 +26,7 @@
 #include <mb/api.h>
 
 #include "../models/Drawable.hpp"
+#include "../models/IDrawable.hpp"
 #include "../materials/Material.hpp"
 //#include "Component.hpp"
 //#include "Node.hpp"
@@ -42,7 +43,7 @@ namespace mb
 		MB_API
 		Material* getMaterial() const;
 		MB_API
-		Drawable* getMesh() const;
+			Drawable* getMesh() const;
 		MB_API
 		void setMaterial(Material* m);
 		MB_API

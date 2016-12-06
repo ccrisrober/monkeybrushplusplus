@@ -84,11 +84,12 @@ namespace mb
 		std::string id;
 		TUniforms _uniforms;
         Program _program;
-		unsigned int texID;
 		mb::UniformType type;
 
 	private:
 		static int CurrentProgram;
+		unsigned int texID;
+		bool setDirty;
 	};
 }
 

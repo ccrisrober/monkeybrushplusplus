@@ -128,7 +128,7 @@ set( MB_PUBLIC_HEADERS
 
     CameraComponent.hpp
     Transform2.hpp
-
+    models/IDrawable.hpp
 )
 
 set( MB_HEADERS

@@ -24,12 +24,9 @@
 #define __MB_ASSETS_FILES__
 
 #define MB_TEXTURE_ASSETS \
-	"@PROJECT_SOURCE_DIR@/examples"
+	"@PROJECT_SOURCE_DIR@/examples/textures"
 	
 #define MB_MODEL_ASSETS \
-	"@PROJECT_SOURCE_DIR@/examples"
-	
-#define MB_FILES_ASSETS \
-	"@PROJECT_SOURCE_DIR@/examples"
+	"@PROJECT_SOURCE_DIR@/examples/models"
 
 #endif /* __MB_ASSETS_FILES__ */

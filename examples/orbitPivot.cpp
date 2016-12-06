@@ -53,16 +53,20 @@ mb::Node* mbModel;
 
 int main(void)
 {
-	mb::GLContext context(3, 3, 1024, 768, "Hello mb");
+	mb::GLContext context(3, 3, 1024, 768, "Orbit Pivot");
 
     engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
 	mb::SimpleShadingMaterial material;
 	material.uniform("color")->value(mb::Vect3(mb::Color3::Blue));
+	material.Cull = false;
+	material.PolygonMode = GL_LINE;
 
 	mb::SimpleShadingMaterial material2;
 	material2.uniform("color")->value(mb::Vect3(mb::Color3::Red));
+	material2.Cull = false;
+	material2.PolygonMode = GL_LINE;
 
 	mb::Drawable* model = new mb::Cube(13.0f);
 	mb::Drawable* model2 = new mb::Cube(4.0f);
@@ -75,8 +79,6 @@ int main(void)
 	innerNode->addChild(pivot);
 	mb::Node* outerNode = new mb::Node("outerNode");
 	outerNode->transform().position().set(14.0f, 4.0f, 6.0f);
-
-	//outerNode->transform().position().set(4.0f, 4.0f, 4.0f);
 
 	outerNode->setMesh(new mb::MeshRenderer(model2, &material2));
 	pivot->addChild(outerNode);
@@ -94,12 +96,5 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	engine->state()->culling.setStatus(false);
-	engine->state()->setPolygonMode(GL_LINE);
 	scene->render(dt);
 }

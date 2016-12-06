@@ -42,7 +42,7 @@ int main(void)
 	scene = new mb::Scene(engine);
 
 	{
-		std::ifstream file(MB_SHADER_FILES_PASSTHROUGHT);
+		std::ifstream file(MB_SHADER_FILES + std::string("/passthrought.frag"));
 		std::stringstream buffer;
 		buffer << file.rdbuf();
 
@@ -52,7 +52,7 @@ int main(void)
 	}
 	{
 		computeProg = new mb::Program();
-		std::ifstream file(MB_SHADER_FILES_RAYTRACING_COMPUTESHADER);
+		std::ifstream file(MB_SHADER_FILES + std::string("/rayTracing.cs"));
 		std::stringstream buffer;
 		buffer << file.rdbuf();
 		computeProg->loadComputeShaderFromText(buffer.str());

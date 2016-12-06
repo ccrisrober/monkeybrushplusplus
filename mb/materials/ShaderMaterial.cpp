@@ -60,5 +60,11 @@ namespace mb
 		_program.autocatching();
 
 		MaterialCache::add(name, this);
+
+		auto unifs = _program.uniforms();
+		for (const auto& uni : unifs)
+		{
+			std::cout << uni.first << " => " << uni.second << std::endl;
+		}
 	}
 }

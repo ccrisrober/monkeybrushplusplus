@@ -38,7 +38,7 @@ float amount = 0.5f;
 
 int main(void)
 {
-	mb::GLContext context(3, 3, 512, 512, "Advention demo");
+	mb::GLContext context(3, 3, 512, 512, "FBO Nightdream");
 
 	mb::TexOptions opts;
 	opts.minFilter = mb::ctes::TextureFilter::Nearest;

@@ -38,7 +38,7 @@ int main(void)
 	engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
-	std::ifstream file(MB_SHADER_FILES_FRACTALWORLD_FRAG);
+	std::ifstream file(MB_SHADER_FILES + std::string("/fractalWorld.frag"));
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 

@@ -39,7 +39,7 @@ int main(void)
 	engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
-	std::ifstream file(MB_SHADER_FILES_COLOR_BLIND_FRAG);
+	std::ifstream file(MB_SHADER_FILES + std::string("/colorBlind.frag"));
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 

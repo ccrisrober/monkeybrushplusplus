@@ -56,14 +56,14 @@ protected:
 
 int main(void)
 {
-    mb::GLContext context(3, 3, 1024, 768, "Hello mb");
+    mb::GLContext context(3, 3, 1024, 768, "Cubes2");
 
     engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
 	mb::Cube* cube = new mb::Cube(2.0f);
 
-	unsigned int MAX = 10;
+	unsigned int MAX = 5;
     for (unsigned int zz = 0; zz < MAX; ++zz)
     {
 	    for (unsigned int yy = 0; yy < MAX; ++yy)
@@ -82,7 +82,6 @@ int main(void)
 	                zz * 6.0);
 				mbCube->transform().rotation().y(xx * 0.21f + yy + 0.37f);
 	        	scene->root()->addChild(mbCube);
-	                    //.rotate(this.angle + xx * 0.21 + yy * 0.37, mb.Vect3.zAxis);
 	        }
     	}
     }
@@ -99,42 +98,5 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-	{
-		engine->state()->depth.setStatus(false);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		engine->state()->depth.setStatus(true);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::K))
-	{
-		engine->state()->culling.setStatus(false);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::L))
-	{
-		engine->state()->culling.setStatus(true);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::M))
-	{
-		engine->state()->setPolygonMode(GL_FILL);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::N))
-	{
-		engine->state()->setPolygonMode(GL_LINE);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num1))
-	{
-		engine->state()->culling.setFlipSided(GL_CCW);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num2))
-	{
-		engine->state()->culling.setFlipSided(GL_CW);
-	}
 	scene->render(dt);
 }

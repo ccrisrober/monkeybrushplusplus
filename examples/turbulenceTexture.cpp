@@ -42,8 +42,7 @@ int main(void)
 
 	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
-	mb::ResourceShader::loadShader(std::string("SimpleNoise3D"), MB_SHADER_FILES + std::string("/../shaders/SimpleNoise3D.glsl"));
-
+	mb::ResourceShader::loadShader(std::string("SimpleNoise3D"), MB_SHADERBACKUP_FILES + std::string("/SimpleNoise3D.glsl"));
 
 	std::ifstream file1(MB_SHADER_FILES + std::string("/alienVertex.glsl"));
 	std::stringstream buffer1;

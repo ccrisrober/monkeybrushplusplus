@@ -86,12 +86,12 @@ void renderFunc(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	globalTime += dt;
 	ppm->uniform("iGlobalTime")->value(globalTime * 2.5f);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Z))
+	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
 	{
 		ratio -= 0.1f;
 		ppm->uniform("ratio")->value(ratio);
 	}
-	else if (mb::Input::isKeyPressed(mb::Keyboard::Key::X))
+	else if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
 	{
 		ratio += 0.1f;
 		ppm->uniform("ratio")->value(ratio);

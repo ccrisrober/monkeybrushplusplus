@@ -36,12 +36,12 @@ float exposure;
 
 int main(void)
 {
-	mb::GLContext context(3, 3, 1024, 768, "Kaleidoscope demo");
+	mb::GLContext context(3, 3, 1024, 768, "HDR");
 
 	engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
-	std::ifstream file(MB_SHADER_FILES_HDR_FRAG);
+	std::ifstream file(MB_SHADER_FILES + std::string("/hdr.frag"));
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 

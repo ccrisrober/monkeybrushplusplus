@@ -36,7 +36,7 @@ mb::ShaderMaterial* material;
 
 int main(void)
 {
-	mb::GLContext context(3, 3, 1024, 768, "Hello mb");
+	mb::GLContext context(3, 3, 1024, 768, "Extrude");
 
     engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);

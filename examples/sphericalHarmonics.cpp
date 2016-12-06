@@ -30,7 +30,6 @@ mb::Scene* scene;
 void renderFunc(float dt);
 
 mb::Node* mbMesh;
-mb::RotateComponent* r;
 
 int main(void)
 {
@@ -41,73 +40,66 @@ int main(void)
 
 	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
-	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
-	const char* vertexShader =
-		"#version 430\n"
-		"layout(location = 0) in vec3 position;"
-		"layout(location = 1) in vec3 normal;"
-		"out vec3 outPosition;"
-		"out vec3 outNormal;"
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
+		{
+			mb::VertexShader,
+			"#version 430\n"
+			"layout(location = 0) in vec3 position;"
+			"layout(location = 1) in vec3 normal;"
+			"out vec3 outPosition;"
+			"out vec3 outNormal;"
 
-		"uniform mat4 projection;"
-		"uniform mat4 view;"
-		"uniform mat4 model;"
+			"uniform mat4 projection;"
+			"uniform mat4 view;"
+			"uniform mat4 model;"
 
-		"void main() {"
-		"	outPosition = vec3(model * vec4(position, 1.0));"
-		"	gl_Position = projection * view * vec4(outPosition, 1.0);"
-		"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
-		"	outNormal = normalize(normalMatrix * normal);"
-		"}";
-	const char* fragmentShader =
-		"#version 430\n"
-		"in vec3 outPosition;"
-		"in vec3 outNormal;"
-        "out vec4 fragColor;"
-        "const float invGamma = 1.0/2.2;"
-        "const mat4 mSH_R =mat4( 0.0151426, 0.0441249, -0.0200723, "
-    	"0.040842, 0.0441249, -0.0151426, 0.0147908, 0.161876, -0.0200723, "
-    	"0.0147908, 0.0476559, 0.016715, 0.040842, 0.161876, 0.016715, 0.394388);"
-        "const mat4 mSH_G =mat4( 0.0158047, -0.0553513, -0.0183098, -0.0649404, "
-    	"-0.0553513, -0.0158047, 0.0294534, 0.147578, -0.0183098, 0.0294534, -0.0211293, "
-    	"0.030445, -0.0649404, 0.147578, 0.030445, 0.381122);"
-        "const mat4 mSH_B =mat4( -0.00060538, -0.143711, -0.0279153, -0.15276, -0.143711, "
-        "0.00060538, 0.0364631, 0.183909, -0.0279153, 0.0364631, -0.0566425, 0.0386598, -0.15276, "
-        "0.183909, 0.0386598, 0.419227);"
-        "void main()"
-        "{"
-        "    vec4 nor = vec4(normalize(outNormal),1.0);"
-        "    vec3 col;"
-        "    col.x = dot(nor, (mSH_R * nor));"
-        "    col.y = dot(nor, (mSH_G * nor));"
-        "    col.z = dot(nor, (mSH_B * nor));"
-        "    //Gamma correction\n"
-        "    fragColor = vec4(pow(col.xyz, vec3(invGamma)),1.0);"
-        "}";
+			"void main() {"
+			"	outPosition = vec3(model * vec4(position, 1.0));"
+			"	gl_Position = projection * view * vec4(outPosition, 1.0);"
+			"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
+			"	outNormal = normalize(normalMatrix * normal);"
+			"}"
+		}, {
+			mb::FragmentShader,
+			"#version 430\n"
+			"in vec3 outPosition;"
+			"in vec3 outNormal;"
+	        "out vec4 fragColor;"
+	        "const float invGamma = 1.0/2.2;"
+	        "const mat4 mSH_R =mat4( 0.0151426, 0.0441249, -0.0200723, "
+	    	"0.040842, 0.0441249, -0.0151426, 0.0147908, 0.161876, -0.0200723, "
+	    	"0.0147908, 0.0476559, 0.016715, 0.040842, 0.161876, 0.016715, 0.394388);"
+	        "const mat4 mSH_G =mat4( 0.0158047, -0.0553513, -0.0183098, -0.0649404, "
+	    	"-0.0553513, -0.0158047, 0.0294534, 0.147578, -0.0183098, 0.0294534, -0.0211293, "
+	    	"0.030445, -0.0649404, 0.147578, 0.030445, 0.381122);"
+	        "const mat4 mSH_B =mat4( -0.00060538, -0.143711, -0.0279153, -0.15276, -0.143711, "
+	        "0.00060538, 0.0364631, 0.183909, -0.0279153, 0.0364631, -0.0566425, 0.0386598, -0.15276, "
+	        "0.183909, 0.0386598, 0.419227);"
+	        "void main()"
+	        "{"
+	        "    vec4 nor = vec4(normalize(outNormal),1.0);"
+	        "    vec3 col;"
+	        "    col.x = dot(nor, (mSH_R * nor));"
+	        "    col.y = dot(nor, (mSH_G * nor));"
+	        "    col.z = dot(nor, (mSH_B * nor));"
+	        "    //Gamma correction\n"
+	        "    fragColor = vec4(pow(col.xyz, vec3(invGamma)),1.0);"
+	        "}"
+	    }
+	};
 
-	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
-	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
-
-
-	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("model", new mb::Uniform(mb::Matrix4))
+	};
 
 	mb::ShaderMaterial material("shMaterial", shaders, uniforms);
 
 	mbMesh = new mb::Node(std::string("mesh"));
 	mbMesh->setMesh(new mb::MeshRenderer(mesh, &material));
 	mbMesh->addComponent(new mb::MoveComponent());
-	r = new mb::RotateComponent(mb::Axis::x);
-	mbMesh->addComponent(r);
-
-
-	mb::Light* l1 = new mb::PointLight();
-	scene->addLight(l1);
-	mb::Light* l2 = new mb::PointLight();
-	scene->addLight(l2);
-	scene->addLight(l1);
+	mbMesh->addComponent(new mb::RotateComponent(mb::Axis::x));
 
 	scene->root()->addChild(mbMesh);
 	engine->run(renderFunc);
@@ -122,25 +114,17 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
 	{
-		r->setAxis(mb::Axis::x);
-		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
+		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
 	}
 	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
 	{
-		r->setAxis(mb::Axis::y);
-		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
+		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
 	}
 	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
 	{
-		r->setAxis(mb::Axis::z);
-		//mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
+		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
 	}
 	scene->render(dt);
 }

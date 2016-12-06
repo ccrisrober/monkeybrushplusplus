@@ -464,29 +464,53 @@ namespace mb
 		glBindAttribLocation(_program, index, attr.c_str());
 	}
 
-	unsigned int Program::attribute(const std::string& attr)
+	int Program::attribute(const std::string& attr)
 	{
-		return _attrsList[attr];
+		auto it = _attrsList.find(attr);
+		if (it != _attrsList.end())
+		{
+			return it->second;
+		}
+		else
+		{
+			return -1;
+		}
 	}
 
-	unsigned int Program::operator( )(const std::string& attr)
+	int Program::operator( )(const std::string& attr)
 	{
 		return  attribute(attr);
 	}
 
-	unsigned int Program::uniform(const std::string& uniformName)
+	int Program::uniform(const std::string& uniformName)
 	{
-		return _uniformList[uniformName];
+		auto it = _uniformList.find(uniformName);
+		if (it != _uniformList.end())
+		{
+			return it->second;
+		}
+		else
+		{
+			return -1;
+		}
 	}
 
-	unsigned int Program::operator[ ](const std::string& attr)
+	int Program::operator[ ](const std::string& attr)
 	{
 		return  uniform(attr);
 	}
 
-	unsigned int Program::ubo(const std::string& _ubo)
+	int Program::ubo(const std::string& _ubo)
 	{
-		return _uboList[_ubo];
+		auto it = _uboList.find(_ubo);
+		if (it != _uboList.end())
+		{
+			return it->second;
+		}
+		else
+		{
+			return -1;
+		}
 	}
 
 #ifdef MB_SUBPROGRAMS

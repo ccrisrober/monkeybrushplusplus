@@ -54,14 +54,14 @@ protected:
 
 int main(void)
 {
-	mb::GLContext context(3, 3, 1024, 768, "Hello mb");
+	mb::GLContext context(3, 3, 1024, 768, "Cubes");
 
 	engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
 	mb::Cube* cube = new mb::Cube(2.0f);
 
-	unsigned int MAX = 25;
+	unsigned int MAX = 15;
 	for (unsigned int yy = 0; yy < MAX; ++yy)
 	{
 		for (unsigned int xx = 0; xx < MAX; ++xx)
@@ -79,7 +79,6 @@ int main(void)
 				0.0f);
 			mbCube->transform().rotation().z(xx * 0.21f + yy + 0.37f);
 			scene->root()->addChild(mbCube);
-			//.rotate(this.angle + xx * 0.21 + yy * 0.37, mb.Vect3.zAxis);
 		}
 	}
 

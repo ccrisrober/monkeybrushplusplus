@@ -33,12 +33,12 @@ mb::Node* mbMesh;
 
 int main(void)
 {
-    mb::GLContext context(3, 3, 1024, 768, "Hello mb");
+    mb::GLContext context(3, 3, 1024, 768, "Hello Mesh");
 
     engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
-	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/cube.obj_"));
+	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
 	mb::SimpleShadingMaterial material;
 	material.uniform("color")->value(mb::Vect3(mb::Color3::Green));
@@ -62,11 +62,6 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);

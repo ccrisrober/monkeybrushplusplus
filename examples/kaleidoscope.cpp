@@ -41,7 +41,7 @@ int main(void)
 	engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
-	std::ifstream file(MB_SHADER_FILES_KALEIDOSCOPE_FRAG);
+	std::ifstream file(MB_SHADER_FILES + std::string("/kaleidoscope.frag"));
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 

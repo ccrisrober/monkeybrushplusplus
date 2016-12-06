@@ -80,10 +80,15 @@ namespace mb
 			Material::CurrentProgram = this->_program.program();
 		}
 		texID = 0;
+		setDirty = true;
 		for (const auto& uniform : _uniforms)
 		{
 			if (!uniform.second->isDirty())
 				continue;
+			if (_program.uniform(uniform.first) < 0)
+			{
+				continue;
+			}
             type = uniform.second->type();
 			if (type == Float)
 			{
@@ -127,8 +132,10 @@ namespace mb
 				tex->bind(texID);
 				this->_program.sendUniformi(uniform.first, texID);
 				++texID;
+				setDirty = false;
 			}
-			uniform.second->setDirty(false);
+			if(setDirty) uniform.second->setDirty(false);
+			setDirty = true;
 		}
 	}
 	void Material::unuse()

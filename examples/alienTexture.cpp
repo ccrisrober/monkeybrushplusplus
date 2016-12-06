@@ -43,8 +43,7 @@ int main(void)
 
 	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
-	mb::ResourceShader::loadShader(std::string("SimpleNoise3D"), MB_SHADER_FILES + std::string("/../shaders/SimpleNoise3D.glsl"));
-
+	mb::ResourceShader::loadShader(std::string("SimpleNoise3D"), MB_SHADERBACKUP_FILES + std::string("/SimpleNoise3D.glsl"));
 
 	std::ifstream file1(MB_SHADER_FILES + std::string("/alienVertex.glsl"));
 	std::stringstream buffer1;
@@ -56,16 +55,22 @@ int main(void)
 	buffer2 << file2.rdbuf();
 	std::string fragmentShader = buffer2.str();
 
-	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
-	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader.c_str()));
-	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader.c_str()));
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
+		{
+			mb::VertexShader, vertexShader.c_str()
+		},
+		{
+			mb::FragmentShader, fragmentShader.c_str()
+		}
+	};
 
-	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("viewPos", new mb::Uniform(mb::Vector3)));
-	uniforms.push_back(std::make_pair("base_freq", new mb::Uniform(mb::Float, base_freq)));
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("model", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("viewPos", new mb::Uniform(mb::Vector3)),
+		std::make_pair("base_freq", new mb::Uniform(mb::Float, base_freq))
+	};
 
 	mb::ShaderMaterial material("alienMaterial", shaders, uniforms);
 
@@ -88,11 +93,6 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);

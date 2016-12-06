@@ -51,33 +51,19 @@ void randomCube()
 	// Add cube
 	mb::Node* mbModel = new mb::Node(std::string("cube-" + std::to_string(scene->root()->getNumChildren())));
 	mbModel->setMesh(new mb::MeshRenderer(model, material));
-	/*switch ((rand() % 3 + 1))
-	{
-	case 1:
-		mbModel->addComponent(new mb::RotateComponent(mb::Axis::x));
-		break;
-	case 2:
-		mbModel->addComponent(new mb::RotateComponent(mb::Axis::y));
-		break;
-	case 3:
-		mbModel->addComponent(new mb::RotateComponent(mb::Axis::z));
-		break;
-	}
-	mbModel->getComponent<mb::RotateComponent>()->setRotate(true);*/
 
 	mbModel->transform().position().x(-15.0f + std::round((mathRandom() * 50.0f)));
 	mbModel->transform().position().y(std::round(mathRandom() * 5.0f));
 	mbModel->transform().position().z(-10.0f + std::round(mathRandom() * 50.0f));
 
 	scene->root()->addChild(mbModel);
-	//return mbModel;
 }
 
 int main(void)
 {
 	srand((unsigned int)time(NULL));
 
-	mb::GLContext context(4, 4, 1024, 768, "Hello mb");
+	mb::GLContext context(4, 4, 1024, 768, "Random cubes");
 
     engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);

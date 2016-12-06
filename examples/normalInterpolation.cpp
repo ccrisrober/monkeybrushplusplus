@@ -113,11 +113,6 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);

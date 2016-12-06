@@ -38,7 +38,7 @@ float offsetY = 0.0f;
 
 int main(void)
 {
-    mb::GLContext context(3, 3, 1024, 768, "Quasicrystal demo");
+    mb::GLContext context(3, 3, 1024, 768, "Newton Fractal");
 
     engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);

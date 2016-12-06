@@ -23,59 +23,10 @@
 #ifndef __MB_SHADER_FILES__
 #define __MB_SHADER_FILES__
 
-#define MB_SHADER_FILES_FRACTALWORLD_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/fractalWorld.frag"
-
-
-#define MB_SHADER_FILES_KALEIDOSCOPE_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/kaleidoscope.frag"
-
-
-#define MB_SHADER_FILES_HDR_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/hdr.frag"
-
-
-#define MB_SHADER_FILES_MANGA_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/manga.frag"
-
-
-#define MB_SHADER_FILES_COLOR_BLIND_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/colorBlind.frag"
-
-
-#define MB_SHADER_FILES_ADVENTION_FIRST_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/advention1.frag"
-
-
-#define MB_SHADER_FILES_ADVENTION_SECOND_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/advention2.frag"
-
-
-
-#define MB_SHADER_FILES_FLAT_WAVE_FIRST_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/flatWave1.frag"
-
-
-#define MB_SHADER_FILES_FLAT_WAVE_SECOND_FRAG \
-	"@PROJECT_SOURCE_DIR@/examples/flatWave2.frag"
-
-
-
-#define MB_SHADER_FILES_RAYTRACING_COMPUTESHADER \
-	"@PROJECT_SOURCE_DIR@/examples/rayTracing.cs"
-
-
-
-#define MB_SHADER_FILES_PASSTHROUGHT \
-	"@PROJECT_SOURCE_DIR@/examples/passthrought.frag"
-
-#define MB_SHADER_FILES_RENDER2TEXTURE_COMPUTESHADER \
-	"@PROJECT_SOURCE_DIR@/examples/renderToTexture.cs"
-
-#define MB_SHADER_FILES_TEST_COMPUTESHADER \
-	"@PROJECT_SOURCE_DIR@/examples/computeTest.cs"
-
 #define MB_SHADER_FILES \
-	"@PROJECT_SOURCE_DIR@/examples"
+	"@PROJECT_SOURCE_DIR@/examples/shaders"
+
+#define MB_SHADERBACKUP_FILES \
+	"@PROJECT_SOURCE_DIR@/shaders"
 
 #endif /* __MB_SHADER_FILES__ */

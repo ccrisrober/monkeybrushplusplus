@@ -59,7 +59,7 @@ namespace mb
 
 		this->_material->use();
 
-        this->_mesh->render(_mode);
+		this->_mesh->render(_mode);
 	}
 	unsigned int MeshRenderer::mode()
 	{

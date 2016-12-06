@@ -49,6 +49,10 @@ namespace mb
 	void ResourceShader::loadShader(const std::string& alias, const std::string& filePath)
 	{
 		std::ifstream file(filePath);
+		if (!file.is_open())
+		{
+			throw "File " + std::string(filePath) + " undefined";
+		}
 		std::stringstream buffer;
 		buffer << file.rdbuf();
 		const std::string& src = buffer.str();

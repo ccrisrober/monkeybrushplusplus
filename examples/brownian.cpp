@@ -53,6 +53,8 @@ protected:
 	float _yPos;
 };
 
+mb::Node* mbCube;
+
 int main(void)
 {
     mb::GLContext context(3, 3, 1024, 768, "Brownian Motion");
@@ -65,7 +67,7 @@ int main(void)
 	mb::SimpleShadingMaterial material;
 	material.uniform("color")->value(mb::Vect3(mb::Color3::Blue));
 
-	mb::Node* mbCube = new mb::Node(std::string("cube"));
+	mbCube = new mb::Node(std::string("cube"));
 	mbCube->setMesh(new mb::MeshRenderer(cube, &material));
 	mbCube->addComponent(new mb::MoveComponent());
 	mbCube->addComponent(new mb::RotateComponent(mb::Axis::z));
@@ -86,42 +88,37 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Z))
 	{
-		engine->state()->depth.setStatus(false);
+		mbCube->getMesh()->getMaterial()->DepthTest = false;
 	}
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::X))
 	{
-		engine->state()->depth.setStatus(true);
+		mbCube->getMesh()->getMaterial()->DepthTest = true;
 	}
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::K))
 	{
-		engine->state()->culling.setStatus(false);
+		mbCube->getMesh()->getMaterial()->Cull = false;
 	}
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::L))
 	{
-		engine->state()->culling.setStatus(true);
+		mbCube->getMesh()->getMaterial()->Cull = true;
 	}
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::M))
 	{
-		engine->state()->setPolygonMode(GL_FILL);
+		mbCube->getMesh()->getMaterial()->PolygonMode = GL_FILL;
 	}
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::N))
 	{
-		engine->state()->setPolygonMode(GL_LINE);
+		mbCube->getMesh()->getMaterial()->PolygonMode = GL_LINE;
 	}
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Num1))
 	{
-		engine->state()->culling.setFlipSided(GL_CCW);
+		mbCube->getMesh()->getMaterial()->CullWindingOrder = GL_CCW;
 	}
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Num2))
 	{
-		engine->state()->culling.setFlipSided(GL_CW);
+		mbCube->getMesh()->getMaterial()->CullWindingOrder = GL_CW;
 	}
 	scene->render(dt);
 }

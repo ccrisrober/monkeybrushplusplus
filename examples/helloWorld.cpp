@@ -32,27 +32,23 @@ mb::Node* mbModel;
 
 int main(void)
 {
-	mb::GLContext context(3, 3, 1024, 768, "Hello mb");
+	mb::GLContext context(3, 3, 1024, 768, "Hello MonkeyBrush");
 
     engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
-	mb::Polyhedron* model = new mb::Tetrahedron(1.0f, 2);
+	mb::Drawable* model = new mb::Tetrahedron(1.0f, 2);
 
 	mb::SimpleShadingMaterial material;
 	material.uniform("color")->value(mb::Vect3(mb::Color3::Blue));
+	material.Cull = false;
+	material.PolygonMode = GL_LINE;
 
 	mbModel = new mb::Node(std::string("model"));
 	mbModel->setMesh(new mb::MeshRenderer(model, &material));
 	mbModel->addComponent(new mb::MoveComponent());
-	mbModel->addComponent(new mb::RotateComponent(mb::Axis::x));
+	mbModel->addComponent(new mb::RotateComponent(mb::Axis::x, 0.25f, true));
 
-	mbModel->getComponent<mb::RotateComponent>()->setRotate(true);
-
-	//mbModel->disableComponent<mb::RotateComponent>();
-	//mbModel->enableComponent<mb::RotateComponent>();
-	//mbModel->hasComponent<mb::RotateComponent>();
-	
 	scene->root()->addChild(mbModel);
 
 	engine->run(renderFunc);
@@ -67,11 +63,6 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
 	{
 		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
@@ -88,7 +79,5 @@ void renderFunc(float dt)
 	{
 		mbModel->toggleComponent<mb::MoveComponent>();
 	}
-	engine->state()->culling.setStatus(false);
-	engine->state()->setPolygonMode(GL_LINE);
 	scene->render(dt);
 }

@@ -27,6 +27,7 @@ namespace mb
     Uniform::Uniform()
         : _type(Invalid)
         , _value()
+		, _isDirty(true)
     {
     }
     Uniform::Uniform(UniformType type_, any value_)
@@ -36,7 +37,7 @@ namespace mb
     {
     }
     Uniform::Uniform(const Uniform& other)
-        : _type(other._type), _value(other._value)
+        : _type(other._type), _value(other._value), _isDirty(true)
     {
     }
 	any Uniform::value() const
