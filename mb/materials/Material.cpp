@@ -25,17 +25,20 @@
 
 namespace mb
 {
+	int Material::CurrentProgram = -1;
+	GLContext* Material::_context = nullptr;
 	Material::Material()
 		: DepthTest ( true )
 		, DepthWrite ( true )
 		, DepthCompare( GL_LESS )
-		, Cull ( false )
+		, Cull ( true )
 		, CullFace ( GL_BACK )
 		, CullWindingOrder ( GL_CCW )
 		, Blend ( false )
 		, BlendSrc ( GL_SRC_ALPHA )
 		, BlendDst ( GL_ONE_MINUS_SRC_ALPHA )
 		, BlendEquation ( GL_FUNC_ADD )
+		, PolygonMode( GL_FILL )
 	{
 	}
     Material::~Material() {}
@@ -61,13 +64,27 @@ namespace mb
 	}
 	void Material::use()
 	{
-		this->_program.use();
+		auto state = Material::_context->state();
+
+		state->culling.setStatus(this->Cull);
+
+		state->depth.setFunc(this->DepthCompare);
+		state->depth.setStatus(this->DepthTest);
+		state->depth.setMask(this->DepthWrite);
+
+		state->setPolygonMode(this->PolygonMode);
+
+		if (Material::CurrentProgram != this->_program.program())
+		{
+			this->_program.use();
+			Material::CurrentProgram = this->_program.program();
+		}
 		texID = 0;
 		for (const auto& uniform : _uniforms)
 		{
 			if (!uniform.second->isDirty())
 				continue;
-            auto type = uniform.second->type();
+            type = uniform.second->type();
 			if (type == Float)
 			{
 				this->_program.sendUniformf(uniform.first, uniform.second->value().cast<float>());

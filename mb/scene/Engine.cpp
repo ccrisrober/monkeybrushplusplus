@@ -23,6 +23,7 @@
 #include "Engine.hpp"
 #include "../io/Input.hpp"
 #include <string>
+#include "../materials/Material.hpp"
 
 #define check_gl_error() _check_gl_error(__FILE__,__LINE__)
 
@@ -58,6 +59,8 @@ namespace mb
 	{
 		mb::LOG(mb::LOG::INFO) << "Initializing Engine";
 		Input::initialize();
+
+		Material::_context = context;
 
 		this->state()->color.setClear(mb::Color4(0.0f, 0.0f, 0.0f, 1.0f));
 		this->state()->setViewport(mb::Vect4(0, 0, this->_context->getWidth(), this->_context->getHeight()));

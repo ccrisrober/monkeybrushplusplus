@@ -35,12 +35,15 @@
 #include "../maths/Mat3.hpp"
 #include "../maths/Mat4.hpp"
 
+#include "../core/GLContext.hpp"
+
 namespace mb
 {
     typedef std::unordered_map<std::string, Uniform*> TUniforms;
 	class Material
 	{
 	public:
+		static GLContext* _context;
 		MB_API
 		Material();
 		MB_API
@@ -56,7 +59,7 @@ namespace mb
 		MB_API
 		Uniform* operator[](std::string& name);
 		MB_API
-		virtual void use();
+		virtual void use() final;
 		MB_API
 		virtual void unuse();
 
@@ -76,20 +79,16 @@ namespace mb
 		unsigned int BlendDst;
 		unsigned int BlendEquation;
 
-
-		/*bool backFaceCull = true;
-		unsigned int sizeOrientation; // InvClockWise
-		bool depthTest = true;
-		bool visible = true;
-
-		bool blending;
-		unsigned int blendSrc;
-		unsigned int blendDst;*/
+		unsigned int PolygonMode;
 	protected:
 		std::string id;
 		TUniforms _uniforms;
         Program _program;
 		unsigned int texID;
+		mb::UniformType type;
+
+	private:
+		static int CurrentProgram;
 	};
 }
 

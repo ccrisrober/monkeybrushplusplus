@@ -31,16 +31,16 @@ configure_file(
 ##common_application( mbHelloTexture )
 ##
 ##
-##set( MBHELLOSCENEGRAPH_HEADERS )
-##set( MBHELLOSCENEGRAPH_SOURCES helloSceneGraph.cpp )
-##set( MBHELLOSCENEGRAPH_LINK_LIBRARIES
-##	mb
-##)
-##
-##common_application( mbHelloSceneGraph )
-##
-##
-##
+set( MBHELLOSCENEGRAPH_HEADERS )
+set( MBHELLOSCENEGRAPH_SOURCES helloSceneGraph.cpp )
+set( MBHELLOSCENEGRAPH_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbHelloSceneGraph )
+
+
+
 ##set( MBCUBES_HEADERS )
 ##set( MBCUBES_SOURCES cubes.cpp )
 ##set( MBCUBES_LINK_LIBRARIES
@@ -489,3 +489,13 @@ set( MBKUWAHARAFILTER_LINK_LIBRARIES
 )
 
 common_application( mbKuwaharaFilter )
+
+
+
+set( MBTRIANGLETESSELATION_HEADERS )
+set( MBTRIANGLETESSELATION_SOURCES triangleTesselation.cpp )
+set( MBTRIANGLETESSELATION_LINK_LIBRARIES
+	mb
+)
+
+common_application( mbTriangleTesselation )

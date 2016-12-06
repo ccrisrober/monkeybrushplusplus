@@ -65,47 +65,49 @@ int main(void)
 
 	mb::SimpleShadingMaterial material;
 	material.uniform("color")->value(mb::Vect3(mb::Color3::Red));
+	material.DepthTest = true;
+
 	mb::NormalMaterial normalMat;
 
-	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
-	const char* vertexShader =
-		"#version 330\n"
-		"layout(location = 0) in vec3 position;"
-		"layout(location = 1) in vec3 normal;"
-		"layout(location = 2) in vec2 texCoord;"
-		"out vec3 outPosition;"
-		"out vec3 outNormal;"
-		"out vec2 outTexCoord;"
-		"uniform mat4 projection;"
-		"uniform mat4 view;"
-		"uniform mat4 model;"
-		"void main() {"
-		"	outPosition = vec3(model * vec4(position, 1.0));"
-		"	gl_Position = projection * view * vec4(outPosition, 1.0);"
-		"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
-		"	outNormal = normalize(normalMatrix * normal);"
-		"	outTexCoord = texCoord;"
-		"}";
-	const char* fragmentShader =
-		"#version 330\n"
-		"in vec3 outPosition;"
-		"in vec3 outNormal;"
-		"in vec2 outTexCoord;"
-		"out vec4 fragColor;"
-		"uniform vec3 viewPos;"
-		"uniform vec3 color;"
-		"void main() {"
-		"	vec3 N = normalize(outNormal);"
-		"	vec3 L = normalize(viewPos - outPosition);"
-		"	float dif = dot(N, L);"
-		"	dif = clamp(dif, 0.0, 1.0);"
-		"	fragColor = vec4(color * dif, 1.0) + vec4(color * 0.1, 1.0);"
-		"	fragColor.rgb -= vec3(outTexCoord, 0.0);"
-		"}";
-
-	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
-	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
-
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
+		{
+			mb::VertexShader,
+			"#version 330\n"
+			"layout(location = 0) in vec3 position;"
+			"layout(location = 1) in vec3 normal;"
+			"layout(location = 2) in vec2 texCoord;"
+			"out vec3 outPosition;"
+			"out vec3 outNormal;"
+			"out vec2 outTexCoord;"
+			"uniform mat4 projection;"
+			"uniform mat4 view;"
+			"uniform mat4 model;"
+			"void main() {"
+			"	outPosition = vec3(model * vec4(position, 1.0));"
+			"	gl_Position = projection * view * vec4(outPosition, 1.0);"
+			"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
+			"	outNormal = normalize(normalMatrix * normal);"
+			"	outTexCoord = texCoord;"
+			"}"
+		}, {
+			mb::FragmentShader, 
+			"#version 330\n"
+			"in vec3 outPosition;"
+			"in vec3 outNormal;"
+			"in vec2 outTexCoord;"
+			"out vec4 fragColor;"
+			"uniform vec3 viewPos;"
+			"uniform vec3 color;"
+			"void main() {"
+			"	vec3 N = normalize(outNormal);"
+			"	vec3 L = normalize(viewPos - outPosition);"
+			"	float dif = dot(N, L);"
+			"	dif = clamp(dif, 0.0, 1.0);"
+			"	fragColor = vec4(color * dif, 1.0) + vec4(color * 0.1, 1.0);"
+			"	fragColor.rgb += vec3(outTexCoord, 0.0);"
+			"}"
+		}
+	};
 
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
 		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
@@ -116,6 +118,7 @@ int main(void)
 	};
 
 	mb::ShaderMaterial shaderMat("shaderMat", shaders, uniforms);
+	shaderMat.Cull = false;
 
 	
 	scene->mainCamera->layer().enable(1);
@@ -123,64 +126,66 @@ int main(void)
 	scene->mainCamera->layer().enable(3);
 
 
-	std::vector<std::pair<mb::ShaderType, const char*> > shaders2;
-	const char* vertexShader2 =
-		"#version 330 core\n"
-		"layout(location = 0) in vec3 position;\n"
-		"layout(location = 2) in vec2 texCoords;\n"
-		"out VS_OUT {\n"
-		"	vec2 texCoords;\n"
-		"} vs_out;\n"
-		"uniform mat4 projection;\n"
-		"uniform mat4 view;\n"
-		"uniform mat4 model;\n"
-		"void main() {\n"
-		"	gl_Position = projection * view * model * vec4(position, 1.0f);\n"
-		"	vs_out.texCoords = texCoords;\n"
-		"}";
-	const char* geometryShader2 =
-		"#version 330 core\n"
-		"layout (triangles) in;\n"
-		"layout (triangle_strip, max_vertices = 3) out;\n"
-		"in VS_OUT {\n"
-		"    vec2 texCoords;\n"
-		"} gs_in[];\n"
-		"out vec2 TexCoords; \n"
-		"uniform float time;\n"
-		"vec4 explode(vec4 position, vec3 normal) {\n"
-		"    float magnitude = 2.0f;\n"
-		"    vec3 direction = normal * ((sin(time) + 1.0f) / 2.0f) * magnitude; \n"
-		"    return position + vec4(direction, 0.0f);\n"
-		"}\n"
-		"vec3 GetNormal() {\n"
-		"    vec3 a = vec3(gl_in[0].gl_Position) - vec3(gl_in[1].gl_Position);\n"
-		"    vec3 b = vec3(gl_in[2].gl_Position) - vec3(gl_in[1].gl_Position);\n"
-		"    return normalize(cross(a, b));\n"
-		"}\n"
-		"void main() {\n"
-		"    vec3 normal = GetNormal();\n"
-		"    gl_Position = explode(gl_in[0].gl_Position, normal);\n"
-		"    TexCoords = gs_in[0].texCoords;\n"
-		"    EmitVertex();\n"
-		"    gl_Position = explode(gl_in[1].gl_Position, normal);\n"
-		"    TexCoords = gs_in[1].texCoords;\n"
-		"    EmitVertex();\n"
-		"    gl_Position = explode(gl_in[2].gl_Position, normal);\n"
-		"    TexCoords = gs_in[2].texCoords;\n"
-		"    EmitVertex();\n"
-		"    EndPrimitive();\n"
-		"}";
-	const char* fragmentShader2 =
-		"#version 330\n"
-		"out vec4 fragColor;\n"
-		"uniform vec3 color;\n"
-		"void main() {\n"
-		"	fragColor = vec4(color, 1.0);\n"
-		"}";
-
-	shaders2.push_back(std::make_pair(mb::VertexShader, vertexShader2));
-	shaders2.push_back(std::make_pair(mb::GeometryShader, geometryShader2));
-	shaders2.push_back(std::make_pair(mb::FragmentShader, fragmentShader2));
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders2 = {
+		{
+			mb::VertexShader,
+			"#version 330 core\n"
+			"layout(location = 0) in vec3 position;\n"
+				"layout(location = 2) in vec2 texCoords;\n"
+				"out VS_OUT {\n"
+				"	vec2 texCoords;\n"
+				"} vs_out;\n"
+				"uniform mat4 projection;\n"
+				"uniform mat4 view;\n"
+				"uniform mat4 model;\n"
+				"void main() {\n"
+				"	gl_Position = projection * view * model * vec4(position, 1.0f);\n"
+				"	vs_out.texCoords = texCoords;\n"
+				"}"
+		}, {
+			mb::GeometryShader,
+			"#version 330 core\n"
+			"layout (triangles) in;\n"
+			"layout (triangle_strip, max_vertices = 3) out;\n"
+			"in VS_OUT {\n"
+			"    vec2 texCoords;\n"
+			"} gs_in[];\n"
+			"out vec2 TexCoords; \n"
+			"uniform float time;\n"
+			"vec4 explode(vec4 position, vec3 normal) {\n"
+			"    float magnitude = 1.0;\n"
+			"    vec3 direction = normal * ((sin(time) + 1.0) / 2.0) * magnitude; \n"
+			"    return position + vec4(direction, 0.0);\n"
+			"}\n"
+			"vec3 GetNormal() {\n"
+			"    vec3 a = vec3(gl_in[0].gl_Position) - vec3(gl_in[1].gl_Position);\n"
+			"    vec3 b = vec3(gl_in[2].gl_Position) - vec3(gl_in[1].gl_Position);\n"
+			"    return normalize(cross(a, b));\n"
+			"}\n"
+			"void main() {\n"
+			"    vec3 normal = GetNormal();\n"
+			"    gl_Position = explode(gl_in[0].gl_Position, normal);\n"
+			"    TexCoords = gs_in[0].texCoords;\n"
+			"    EmitVertex();\n"
+			"    gl_Position = explode(gl_in[1].gl_Position, normal);\n"
+			"    TexCoords = gs_in[1].texCoords;\n"
+			"    EmitVertex();\n"
+			"    gl_Position = explode(gl_in[2].gl_Position, normal);\n"
+			"    TexCoords = gs_in[2].texCoords;\n"
+			"    EmitVertex();\n"
+			"    EndPrimitive();\n"
+			"}"
+		}, {
+			mb::FragmentShader,
+			"#version 330\n"
+			"out vec4 fragColor;\n"
+			"uniform vec3 color;\n"
+			"void main() {\n"
+			"	fragColor = vec4(color, 1.0);\n"
+			"}"
+		}
+	};
+	
 
 
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms2 = {

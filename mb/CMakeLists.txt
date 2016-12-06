@@ -93,6 +93,7 @@ set( MB_PUBLIC_HEADERS
     scene/Fog.hpp
     scene/Group.hpp
     scene/MeshRenderer.hpp
+    scene/MeshRendererTesselation.hpp
     scene/Node.hpp
     scene/Scene.hpp
     scene/Transform.hpp
@@ -126,6 +127,7 @@ set( MB_PUBLIC_HEADERS
     io/Window.hpp
 
     CameraComponent.hpp
+    Transform2.hpp
 
 )
 
@@ -214,6 +216,7 @@ set( MB_SOURCES
     scene/Component.cpp
     scene/Engine.cpp
     scene/MeshRenderer.cpp
+    scene/MeshRendererTesselation.cpp
     scene/Node.cpp
     scene/Scene.cpp
     scene/Transform.cpp

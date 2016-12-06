@@ -20,37 +20,21 @@
  *
  */
 
-#include "Drawable.hpp"
+#ifndef __MB_MESH_RENDERER_TESSELATION__
+#define __MB_MESH_RENDERER_TESSELATION__
+
+#include <mb/api.h>
+
+#include "MeshRenderer.hpp"
 
 namespace mb
 {
-    Drawable::Drawable()
-    {
-    }
-    void Drawable::render(unsigned int mode)
-    {
-        this->configure();
-        
-        this->_vao->bind();
-        // glPatchParameteri(GL_PATCH_VERTICES, 3);
-        // glDrawElements( GL_PATCHES, _indicesLen, GL_UNSIGNED_INT, 0 );
-        glDrawElements(mode, _indicesLen, GL_UNSIGNED_INT, 0);
-        //this->_vao->unbind();
-    }
-	unsigned int Drawable::indicesLen() const
+	class MeshRendererTesselation: public MeshRenderer
 	{
-		return this->_indicesLen;
-	}
-	unsigned int Drawable::verticesLen() const
-	{
-		return this->_numVertices;
-	}
-    void Drawable::addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
-        unsigned int numElems, unsigned int type)
-    {
-        VertexBuffer vb(GL_ARRAY_BUFFER);
-		vb.data(data, type);
-		vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
-        this->_handle.push_back(vb);
-    }
+	public:
+		MB_API
+		MeshRendererTesselation(Drawable* mesh, Material* material);
+	};
 }
+
+#endif /* __MB_MESH_RENDERER_TESSELATION__ */

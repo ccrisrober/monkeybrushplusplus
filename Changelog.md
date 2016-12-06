@@ -30,3 +30,4 @@
 - (02/11) Added ParametricGeom and Plane.
 - (03/11) Added TextureSampler to Material and PointMaterial.
 - (04/11) Added TransformFeedback.
+- (06/11) Added MeshRendererTesselation.

@@ -22,80 +22,87 @@
 
 #include <iostream>
 #include <mb/mb.h>
-#include <assetsFiles.h>
 
 mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
 
-mb::Node* mbMesh;
+mb::Node* mbModel;
+
+float tesslevel = 2.0f;
 
 int main(void)
 {
-    mb::GLContext context(4, 4, 1024, 768, "Triangle Tesselation");
+	mb::GLContext context(4, 4, 1024, 768, "Triangle tesselation");
 
     engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
-	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
+	mb::Drawable* model = new mb::Icosahedron(1.0f);
 
-	const char *vertexShader, *tessEvalShader, *tessControlShader, *fragmentShader;
+	std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
+		{
+			mb::VertexShader,
+			"#version 440																		\n"
+			"layout(location = 0) in vec3 position;												\n"
+			"uniform mat4 projection;															\n"
+			"uniform mat4 view;																	\n"
+			"uniform mat4 model;																\n"
+			"void main() {																		\n"
+			"	gl_Position = projection * view * model * vec4(position, 1.0f);					\n"
+			"}                                                                                 	\n"
+		},{
+			mb::TesselationControlShader,
+			"#version 440																		\n"
+			"layout (vertices = 3) out;															\n"
+			"uniform float tess_level;															\n"
+			"void main(void) {                                                                  \n"
+			"    if (gl_InvocationID == 0) {                                                  	\n"
+			"        gl_TessLevelInner[0] = tess_level;                                        	\n"
+			"        gl_TessLevelOuter[0] = tess_level;                                        	\n"
+			"        gl_TessLevelOuter[1] = tess_level;                                        	\n"
+			"        gl_TessLevelOuter[2] = tess_level;                                        	\n"
+			"    }                                                                             	\n"
+			"    gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position;     	\n"
+			"}                                                                                 	\n"
+		}, {
+			mb::TesselationEvaluationShader,
+			"#version 440																		\n"
+			"layout (triangles) in;                                                            	\n"
+			"void main(void) {                                                                	\n"
+			"    gl_Position = (gl_TessCoord.x * gl_in[0].gl_Position) +                       	\n"
+			"                  (gl_TessCoord.y * gl_in[1].gl_Position) +                       	\n"
+			"                  (gl_TessCoord.z * gl_in[2].gl_Position);                        	\n"
+			"}                                                                                 	\n"
+		}, {
+			mb::FragmentShader,
+			"#version 440																		\n"
+			"out vec4 fragColor;																\n"
+			"uniform vec3 color;																\n"
+			"void main() {																		\n"
+			"	fragColor = vec4(color, 1.0);													\n"
+			"}                                                                                 	\n"
+		}
+	};
 
-	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
-	//{
-		std::ifstream file1(MB_FILES_ASSETS + std::string("/tess/vertex.glsl"));
-		std::stringstream buffer1;
-		buffer1 << file1.rdbuf();
-		std::string src1 = buffer1.str();
-		vertexShader = src1.c_str();
-	//}
-	//{
-		std::ifstream file2(MB_FILES_ASSETS + std::string("/tess/eval.glsl"));
-		std::stringstream buffer2;
-		buffer2 << file2.rdbuf();
-		std::string src2 = buffer2.str();
-		tessEvalShader = src2.c_str();
-	//}
-	//{
-		std::ifstream file3(MB_FILES_ASSETS + std::string("/tess/control.glsl"));
-		std::stringstream buffer3;
-		buffer3 << file3.rdbuf();
-		std::string src3 = buffer3.str();
-		tessControlShader = src3.c_str();
-	//}
-	//{
-		std::ifstream file4(MB_FILES_ASSETS + std::string("/tess/fragment.glsl"));
-		std::stringstream buffer4;
-		buffer4 << file4.rdbuf();
-		std::string src4 = buffer4.str();
-		fragmentShader = src4.c_str();
-	//}
-
-	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
-	shaders.push_back(std::make_pair(mb::TesselationControlShader, tessControlShader));
-	shaders.push_back(std::make_pair(mb::TesselationEvaluationShader, tessEvalShader));
-	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
-
-
-	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
+	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("model", new mb::Uniform(mb::Matrix4)),
+		std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3(mb::Color3::Pink))),
+		std::make_pair("tess_level", new mb::Uniform(mb::Float, tesslevel))
+	};
 
 	mb::ShaderMaterial material("triangleTesselation", shaders, uniforms);
+	material.Cull = false;
+	material.PolygonMode = GL_LINE;
 
+	mbModel = new mb::Node(std::string("model"));
+	mbModel->setMesh(new mb::MeshRendererTesselation(model, &material));	// Same as MeshRenderer(model, &material, GL_PATCHES)
+	mbModel->addComponent(new mb::MoveComponent());
 
-	mbMesh = new mb::Node(std::string("mesh"));
-	mbMesh->setMesh(new mb::MeshRenderer(mesh, &material, GL_PATCHES));
-	mbMesh->addComponent(new mb::MoveComponent());
-	mbMesh->addComponent(new mb::RotateComponent(mb::Axis::x));
-
-	GLint MaxPatchVertices = 0;
-	glGetIntegerv(GL_MAX_PATCH_VERTICES, &MaxPatchVertices);
-	printf("Max supported patch vertices %d\n", MaxPatchVertices);
-
-	scene->root()->addChild(mbMesh);
+	scene->root()->addChild(mbModel);
 
 	engine->run(renderFunc);
     
@@ -109,31 +116,19 @@ void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	scene->mainCamera->update(dt);
-	engine->state()->setPolygonMode(GL_LINE);
 	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
 	{
 		engine->close();
 		return;
 	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::C))
+	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
 	{
-		engine->state()->culling.setStatus(true);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::V))
+		tesslevel += 0.1f;
+		mbModel->getMesh()->getMaterial()->uniform("tess_level")->value(tesslevel);
+	} else if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
 	{
-		engine->state()->culling.setStatus(false);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
+		tesslevel -= 0.1f;
+		mbModel->getMesh()->getMaterial()->uniform("tess_level")->value(tesslevel);
 	}
 	scene->render(dt);
 }

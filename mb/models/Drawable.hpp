@@ -46,6 +46,8 @@ namespace mb
 		MB_API
 		unsigned int verticesLen() const;
 
+		virtual void configure() {};
+
 		MB_API
 		void computeBoundingSphere(const std::vector<float>& arr)
 		{
