@@ -127,7 +127,7 @@ set( MB_PUBLIC_HEADERS
     io/Window.hpp
 
     CameraComponent.hpp
-    Transform2.hpp
+    #Transform2.hpp
     models/IDrawable.hpp
 )
 

@@ -39,6 +39,8 @@ namespace mb
     class Drawable
     {
     public:
+    	MB_API
+    	virtual ~Drawable() {}
         MB_API
         void render(unsigned int mode);
         MB_API

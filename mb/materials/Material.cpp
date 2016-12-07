@@ -74,7 +74,7 @@ namespace mb
 
 		state->setPolygonMode(this->PolygonMode);
 
-		if (Material::CurrentProgram != this->_program.program())
+		if (Material::CurrentProgram != (int)this->_program.program())
 		{
 			this->_program.use();
 			Material::CurrentProgram = this->_program.program();

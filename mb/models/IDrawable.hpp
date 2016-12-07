@@ -1,5 +1,5 @@
-#ifndef _IDRAW_
-#define _IDRAW_
+#ifndef __MB_IDRAW__
+#define __MB_IDRAW__
 
 #include <mb/api.h>
 
@@ -13,6 +13,7 @@ namespace mb
 	class IDraw
 	{
 	public:
+		virtual ~IDraw() {}
 		MB_API
 		virtual void render() = 0;
 		MB_API
@@ -319,4 +320,4 @@ namespace mb
 	};
 }
 
-#endif _IDRAW_
+#endif /* __MB_IDRAW__ */

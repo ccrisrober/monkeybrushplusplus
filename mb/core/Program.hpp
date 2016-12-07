@@ -67,7 +67,9 @@ namespace mb
 				if (mb::ResourceShader::exist(includeFile))
 				{
 					std::string content = mb::ResourceShader::get(includeFile);
-					str = replace(str, match[0].str(), _processImports(content));
+					std::string matchStr = match[0].str();
+					std::string impStr = _processImports(content);
+					str = replace(str, matchStr, impStr);
 				}
 			}
 			return str;
