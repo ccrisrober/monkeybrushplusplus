@@ -42,6 +42,10 @@ namespace mb
 		void bind();
 		MB_API
 		void unbind();
+		unsigned int handler() const
+		{
+			return _handler;
+		}
 	protected:
 		unsigned int _handler;
 	};

@@ -30,6 +30,7 @@ namespace mb
 		const std::vector<std::pair<ShaderType, const char*> >& shaders,
 		const std::vector<std::pair<const char*, Uniform*> >& uniforms)
 	: Material()
+	, _name(name)
 	{
 		for (const auto& pair : uniforms)
 		{

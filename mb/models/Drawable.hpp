@@ -66,6 +66,10 @@ namespace mb
 			boundingSphere = Sphere3D(center, maxRadiusSquared);
 		}
 
+		VertexArray* vertexArray() const
+		{
+			return _vao;
+		}
 		Sphere3D boundingSphere;
     protected:
         Drawable();

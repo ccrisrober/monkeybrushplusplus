@@ -31,3 +31,4 @@
 - (03/11) Added TextureSampler to Material and PointMaterial.
 - (04/11) Added TransformFeedback.
 - (06/11) Added MeshRendererTesselation.
+- (07/11) Fixed batching sort.

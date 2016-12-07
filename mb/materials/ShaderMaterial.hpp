@@ -41,6 +41,14 @@ namespace mb
 			const std::string& name,
 			const std::vector<std::pair<ShaderType, const char*> >& shaders,
 			const std::vector<std::pair<const char*, Uniform*> >& uniforms);
+
+		MB_API
+		std::string name() const
+		{
+			return _name;
+		}
+	protected:
+		std::string _name;
 	};
 }
 

@@ -224,14 +224,6 @@ configure_file(
 ##common_application( mbExtrude )
 ##
 ##
-##set( MBHELLOSCENEGRAPH_HEADERS )
-##set( MBHELLOSCENEGRAPH_SOURCES helloSceneGraph.cpp )
-##set( MBHELLOSCENEGRAPH_LINK_LIBRARIES
-##	mb
-##)
-##common_application( mbHelloSceneGraph )
-##
-##
 ##if(${Rapidjson_FOUND})
 ##	set( MBJSONSCENE_HEADERS )
 ##	set( MBJSONSCENE_SOURCES jsonScene.cpp )
@@ -282,3 +274,11 @@ set( MBORBITPIVOT_LINK_LIBRARIES
 	mb
 )
 common_application( mbOrbitPivot )
+
+
+set( MBHELLOSCENEGRAPH_HEADERS )
+set( MBHELLOSCENEGRAPH_SOURCES helloSceneGraph.cpp )
+set( MBHELLOSCENEGRAPH_LINK_LIBRARIES
+	mb
+)
+common_application( mbHelloSceneGraph )

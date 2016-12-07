@@ -27,6 +27,14 @@
 #include "MeshRenderer.hpp"
 #include "Engine.hpp"
 
+
+#include "../materials/ShaderMaterial.hpp"
+#include <typeindex>
+#include <typeinfo>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
 namespace mb
 {
 	Scene::Scene(Engine* engine)
@@ -64,6 +72,8 @@ namespace mb
 			}
 		}
 	}
+
+
 	void Scene::render(float dt)
 	{
 		_totalMeshes = 0;
@@ -82,15 +92,39 @@ namespace mb
 		applyQueue(_beforeRender);
 		_subUpdate(root(), dt);
 
-		/*auto sortCB = ([](Node* i, Node* j)
+		std::sort(_batch.begin(), _batch.end(), [](Node* mm1, Node* mm2)
 		{
-			if (i->getMesh()->getMaterial() != j->getMesh()->getMaterial())
-				return true;
-			return false;
-			//return i->name().compare(j->name()) < 0;
-		});*/
+			Material *m1 = mm1->getMesh()->getMaterial();
+			Material *m2 = mm2->getMesh()->getMaterial();
+			static auto smType = std::type_index(typeid(mb::ShaderMaterial));
 
-		std::sort(_batch.begin(), _batch.end());// , sortCB);
+			auto type1 = std::type_index(typeid(*m1));
+			auto type2 = std::type_index(typeid(*m2));
+
+			if (type1 == type2)
+			{
+				if (
+					(type1 == smType)
+					&&
+					(type2 == smType)
+					)
+				{
+					mb::ShaderMaterial* sm1 = dynamic_cast<mb::ShaderMaterial*>(m1);
+					mb::ShaderMaterial* sm2 = dynamic_cast<mb::ShaderMaterial*>(m2);
+
+					if (sm1->name() != sm2->name())
+					{
+						return sm1->name() < sm2->name();
+					}
+				}
+
+				VertexArray* v1 = mm1->getMesh()->getMesh()->vertexArray();
+				VertexArray* v2 = mm2->getMesh()->getMesh()->vertexArray();
+
+				return v1->handler() < v2->handler();
+			}
+			return type1 < type2;
+		});
 
 		// std::cout << _batch.size() << std::endl;
 
