@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -37,7 +38,7 @@ namespace mb
 	namespace utils
 	{
 		/*MB_API
-		std::vector<std::string> splitStringIntoTokensOnDelimiter(const std::string& s, 
+		std::vector<std::string> splitStringIntoTokensOnDelimiter(const std::string& s,
 			char delimiter, bool removeWhiteSpace = false)
 		{
 			std::vector<std::string> tokens;
@@ -56,7 +57,7 @@ namespace mb
 			return tokens;
 		}
 		MB_API
-		std::string eraseStringFromString(std::string bigString, 
+		std::string eraseStringFromString(std::string bigString,
 			const std::string& smallString, bool onlyFirstOccurance = false)
 		{
 			if (bigString.find(smallString) == std::string::npos) {

@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -44,7 +45,8 @@ namespace mb
         MB_API
         void addEventListener(const std::string& type, EventDispatcher* ev)
         {
-            if(std::find(_callbacks[type].begin(), _callbacks[type].end(), ev) == _callbacks[type].end())
+            if(std::find(_callbacks[type].begin(),
+              _callbacks[type].end(), ev) == _callbacks[type].end())
                 _callbacks[type].push_back(ev);
         }
         MB_API
@@ -68,7 +70,8 @@ namespace mb
             if(_callbacks.count(type) == 0)
                 return false;
 
-            return std::find(_callbacks[type].begin(), _callbacks[type].end(), ev) != _callbacks[type].end();
+            return std::find(_callbacks[type].begin(), _callbacks[type].end(),
+              ev) != _callbacks[type].end();
         }
 
         /*void addEventListener(std::string eventType, cb: MBX.EventListener) {
@@ -112,8 +115,10 @@ namespace mb
             return false;
         }*/
     protected:
-        std::function<void(EventDispatcher&, const Event&)> handler = [](EventDispatcher&, const Event&){};
-        std::unordered_map<std::string, std::vector<EventDispatcher*> > _callbacks;
+        std::function<void(EventDispatcher&, const Event&)> handler =
+        [](EventDispatcher&, const Event&){};
+        std::unordered_map<std::string, std::vector<EventDispatcher*> >
+        _callbacks;
     };
 }
 

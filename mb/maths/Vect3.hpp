@@ -118,6 +118,23 @@ namespace mb
 		bool operator==(const Vect3& v);
 		MB_API
 		friend std::ostream& operator<<(std::ostream& str, const Vect3& v);
+
+		/*MB_API
+		Vect3& applyMat4(const Mat4& mat)
+		{
+			auto x = this->x(),
+				y = this->y(),
+				z = this->z();
+
+			this->x(mat._values[0] * x + mat._values[4] * y +
+				mat._values[8] * z + mat._values[12]);
+			this->y(mat._values[1] * x + mat._values[5] * y +
+				mat._values[9] * z + mat._values[13]);
+			this->z(mat._values[2] * x + mat._values[6] * y +
+				mat._values[10] * z + mat._values[14]);
+
+			return *this;
+		}*/
 	public:
 		std::vector<float> _values;
 	};

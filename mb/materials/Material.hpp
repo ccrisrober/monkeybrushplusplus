@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -39,7 +40,7 @@
 
 namespace mb
 {
-    typedef std::unordered_map<std::string, Uniform*> TUniforms;
+  typedef std::unordered_map<std::string, Uniform*> TUniforms;
 	class Material
 	{
 	public:
@@ -47,11 +48,11 @@ namespace mb
 		MB_API
 		Material();
 		MB_API
-        virtual ~Material();
+    virtual ~Material();
 		MB_API
-        TUniforms& uniforms();
+    TUniforms& uniforms();
 		MB_API
-        Uniform*& uniform(const std::string& name);
+    Uniform*& uniform(const std::string& name);
 		MB_API
 		void addUniform(const std::string& name, Uniform* u);
 		MB_API
@@ -83,7 +84,7 @@ namespace mb
 	protected:
 		std::string id;
 		TUniforms _uniforms;
-        Program _program;
+        Program* _program;
 		mb::UniformType type;
 
 	private:

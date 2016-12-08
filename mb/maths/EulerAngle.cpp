@@ -39,49 +39,62 @@ namespace mb
 	{
 		this->_onChange = f;
 	}
-    float EulerAngle::x() const
+  float EulerAngle::x() const
+  {
+  	return this->_values[0];
+  }
+  float EulerAngle::y() const
+  {
+  	return this->_values[1];
+  }
+  float EulerAngle::z() const
+  {
+  	return this->_values[2];
+  }
+  void EulerAngle::x(const float& v)
+  {
+    this->_values[0] = v;
+    if (this->_onChange)
     {
-    	return this->_values[0];
+      this->_onChange();
     }
-    float EulerAngle::y() const
+  }
+  void EulerAngle::y(const float& v)
+  {
+    this->_values[1] = v;
+    if (this->_onChange)
     {
-    	return this->_values[1];
+      this->_onChange();
     }
-    float EulerAngle::z() const
+  }
+  void EulerAngle::z(const float& v)
+  {
+    this->_values[2] = v;
+    if (this->_onChange)
     {
-    	return this->_values[2];
+      this->_onChange();
     }
-    void EulerAngle::x(const float& v)
+  }
+  void EulerAngle::set(const float& vx, const float& vy, const float& vz)
+  {
+  	this->_values[0] = vx;
+  	this->_values[1] = vy;
+  	this->_values[2] = vz;
+    if (this->_onChange)
     {
-        this->_values[0] = v;
-		if (this->_onChange)	this->_onChange();
+      this->_onChange();
     }
-    void EulerAngle::y(const float& v)
-    {
-        this->_values[1] = v;
-		if (this->_onChange)	this->_onChange();
-    }
-    void EulerAngle::z(const float& v)
-    {
-        this->_values[2] = v;
-		if (this->_onChange)	this->_onChange();
-    }
-    void EulerAngle::set(const float& vx, const float& vy, const float& vz)
-    {
-    	this->_values[0] = vx;
-    	this->_values[1] = vy;
-    	this->_values[2] = vz;
-		if(_onChange)
-			_onChange();
-    }
+  }
 	void EulerAngle::reset()
 	{
 		this->_values[0] = 0.0f;
 		this->_values[1] = 0.0f;
 		this->_values[2] = 0.0f;
 
-		if (_onChange)
-			_onChange();
+    if (this->_onChange)
+    {
+      this->_onChange();
+    }
 	}
     EulerAngle EulerAngle::createFromVec3(const Vect3& v, RotSeq order)
 	{
@@ -91,7 +104,7 @@ namespace mb
 	{
 		return setFromRotationMatrix(mat, this->_order);
 	}
-	EulerAngle& EulerAngle::setFromRotationMatrix(const Mat4& mat, RotSeq order, 
+	EulerAngle& EulerAngle::setFromRotationMatrix(const Mat4& mat, RotSeq order,
 		bool update)
 	{
 		this->_order = order;
@@ -218,23 +231,23 @@ namespace mb
     }
     const char* EulerAngle::orderToString() const
     {
-        switch (_order)
-        {
-            case xyx:   return "xyx";
-            case zyx:   return "zyx";
-            case zyz:   return "zyz";
-            case zxy:   return "xyx";
-            case zxz:   return "zxz";
+      switch (_order)
+      {
+        case xyx:   return "xyx";
+        case zyx:   return "zyx";
+        case zyz:   return "zyz";
+        case zxy:   return "xyx";
+        case zxz:   return "zxz";
 
-            case yxz:   return "yxz";
-            case yxy:   return "yxy";
-            case yzx:   return "yzx";
+        case yxz:   return "yxz";
+        case yxy:   return "yxy";
+        case yzx:   return "yzx";
 
-            case yzy:   return "yzy";
-            case xyz:   return "xyz";
-            case xzy:   return "xzy";
-            case xzx:   return "xzx";
-        }
-        throw;
+        case yzy:   return "yzy";
+        case xyz:   return "xyz";
+        case xzy:   return "xzy";
+        case xzx:   return "xzx";
+      }
+      throw;
     }
 }

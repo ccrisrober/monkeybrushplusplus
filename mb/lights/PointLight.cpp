@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -24,17 +25,17 @@
 
 namespace mb
 {
-    PointLight::PointLight(const Vect3& pos)
+  PointLight::PointLight(const Vect3& pos)
     :Light()
     , _position(pos)
-    {
-    }
-	Vect3 PointLight::position() const
-    {
-        return this->_position;
-    }
-    void PointLight::position(const Vect3& pos)
-    {
-        this->_position = pos;
-    }
+  {
+  }
+  Vect3 PointLight::position() const
+  {
+    return this->_position;
+  }
+  void PointLight::position(const Vect3& pos)
+  {
+    this->_position = pos;
+  }
 }

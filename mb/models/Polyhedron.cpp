@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,7 +30,7 @@ namespace mb
 {
 	Polyhedron::Polyhedron()
 	: Drawable() {}
-    void Polyhedron::create(std::vector<float>& verts, std::vector<unsigned int>& el, 
+    void Polyhedron::create(std::vector<float>& verts, std::vector<unsigned int>& el,
 		const float& radius, const unsigned int& subdivisions)
     {
 		std::vector<float> norms;
@@ -58,8 +59,8 @@ namespace mb
 
         auto midPoint([&](unsigned int a, unsigned int b)
         {
-    		std::string key = el[a] < el[b] ? 
-    			std::to_string(el[a]) + ":" + std::to_string(el[b]) : 
+    		std::string key = el[a] < el[b] ?
+    			std::to_string(el[a]) + ":" + std::to_string(el[b]) :
     			std::to_string(el[b]) + ":" + std::to_string(el[a]);
 
 			std::map<std::string, unsigned int>::iterator r = _pointsCache.find(key);

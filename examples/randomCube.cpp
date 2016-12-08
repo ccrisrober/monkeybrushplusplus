@@ -22,20 +22,16 @@
 
 #include <iostream>
 #include <mb/mb.h>
-
-mb::Engine* engine;
-mb::Scene* scene;
+#include <ctime>
 
 void renderFunc(float dt);
-
-#include <ctime>
 
 float mathRandom()
 {
 	return ((float)rand() / (RAND_MAX));
 }
 
-void randomCube()
+void randomCube(mb::Scene* scene)
 {
 	mb::SimpleShadingMaterial* material;
 	mb::Cube* model;
@@ -49,28 +45,30 @@ void randomCube()
 		mb::Color3::createFromHex(mathRandom() * 0xffffff)));
 
 	// Add cube
-	mb::Node* mbModel = new mb::Node(std::string("cube-" + std::to_string(scene->root()->getNumChildren())));
-	mbModel->setMesh(new mb::MeshRenderer(model, material));
+	mb::Node* mbNode = new mb::Node(std::string("cube-" + std::to_string(scene->root()->getNumChildren())));
+	mbNode->addComponent(new mb::MeshRenderer(model, material));
 
-	mbModel->transform().position().x(-15.0f + std::round((mathRandom() * 50.0f)));
-	mbModel->transform().position().y(std::round(mathRandom() * 5.0f));
-	mbModel->transform().position().z(-10.0f + std::round(mathRandom() * 50.0f));
+	mbNode->transform().position().x(-15.0f + std::round((mathRandom() * 50.0f)));
+	mbNode->transform().position().y(std::round(mathRandom() * 5.0f));
+	mbNode->transform().position().z(-10.0f + std::round(mathRandom() * 50.0f));
 
-	scene->root()->addChild(mbModel);
+	scene->root()->addChild(mbNode);
 }
+
+mb::Scene* scene;
 
 int main(void)
 {
-	srand((unsigned int)time(NULL));
+  srand((unsigned int)time(nullptr));
 
 	mb::GLContext context(4, 4, 1024, 768, "Random cubes");
 
-    engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+  auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	for (unsigned int i = 0; i < 150; ++i)
 	{
-		randomCube();
+	  randomCube(scene);
 	}
 
 	engine->run(renderFunc);
@@ -78,7 +76,7 @@ int main(void)
 	delete(scene);
 	delete(engine);
 
-    return 0;
+  return 0;
 }
 
 float rotSpeed = 0.25f;
@@ -98,12 +96,7 @@ void renderFunc(float dt)
 		}
 	});
 
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::O))
+	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
 	{
 		// Rem cube
 		unsigned int maxCubes = scene->root()->getNumChildren();
@@ -113,16 +106,9 @@ void renderFunc(float dt)
 			scene->root()->removeChild(0u);
 		}
 	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::P))
+	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
 	{
-		randomCube();
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::M))
-	{
-		scene->root()->traverse([](mb::Node* n)
-		{
-			std::cout << n->name() << std::endl;
-		});
+		randomCube(scene);
 	}
 	scene->render(dt);
 }

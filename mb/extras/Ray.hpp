@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,28 +30,25 @@
 
 namespace mb
 {
-	class Ray
+  class Ray
     {
-	public:
-		MB_API
-		Ray(const Vect3& origin = Vect3::createFromScalar(0.0f),
-			const Vect3& direction = Vect3::createFromScalar(0.0f));
-		MB_API
-		Vect3 origin() const;
-		MB_API
-		Vect3 direction() const;
-		MB_API
-		void origin(const Vect3& ori);
-		MB_API
-		void direction(const Vect3& dir);
-		MB_API
-		Vect3 at(const float t);
-        // public lookAt(v: MB.Vect3) {
-        //     this._direction = MB.Vect3.sub(v, this._origin).normalize();
-        // };
+  public:
+    MB_API
+    Ray(const Vect3& origin = Vect3::createFromScalar(0.0f),
+      const Vect3& direction = Vect3::createFromScalar(0.0f));
+    MB_API
+    Vect3 origin() const;
+    MB_API
+    Vect3 direction() const;
+    MB_API
+    void origin(const Vect3& ori);
+    MB_API
+    void direction(const Vect3& dir);
+    MB_API
+    Vect3 at(const float t);
     protected:
-    	Vect3 _origin;
-    	Vect3 _direction;
+      Vect3 _origin;
+      Vect3 _direction;
     };
 }
 

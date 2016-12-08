@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,19 +30,19 @@
 
 namespace mb
 {
-	class PointLight: public Light
+  class PointLight: public Light
     {
-	public:
-		MB_API
-        PointLight(const Vect3& pos = Vect3::createFromScalar(0.0f));
-		MB_API
-		Vect3 position() const;
-		MB_API
-        void position(const Vect3& pos);
+  public:
+    MB_API
+    PointLight(const Vect3& pos = Vect3::createFromScalar(0.0f));
+    MB_API
+    Vect3 position() const;
+    MB_API
+    void position(const Vect3& pos);
     protected:
-        Vect3 _position;
-    };
-	typedef std::shared_ptr<PointLight> PointLightPtr;
+      Vect3 _position;
+  };
+  typedef std::shared_ptr<PointLight> PointLightPtr;
 }
 
 #endif /* __MB_POINT_LIGHT__ */

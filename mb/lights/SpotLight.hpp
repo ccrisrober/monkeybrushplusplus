@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,30 +30,30 @@
 
 namespace mb
 {
-	class SpotLight: public Light
-	{
-	public:
-		MB_API
-		SpotLight(const Vect3 pos = Vect3::createFromScalar(0.0f),
-			const Vect3 dir = Vect3::createFromScalar(0.0f), float coff = 1.0f);
-		MB_API
-		Vect3 position() const;
-		MB_API
-		Vect3 direction() const;
-		MB_API
-		float cutOff() const;
-		MB_API
-		void position(const Vect3 pos);
-		MB_API
-		void direction(const Vect3 dir);
-		MB_API
-		void cutOff(const float coff);
-	protected:
-		Vect3 _position;
-		Vect3 _direction;
-		float _cutOff;
-    };
-	typedef std::shared_ptr<SpotLight> SpotLightPtr;
+  class SpotLight: public Light
+  {
+  public:
+    MB_API
+    SpotLight(const Vect3 pos = Vect3::createFromScalar(0.0f),
+      const Vect3 dir = Vect3::createFromScalar(0.0f), float coff = 1.0f);
+    MB_API
+    Vect3 position() const;
+    MB_API
+    Vect3 direction() const;
+    MB_API
+    float cutOff() const;
+    MB_API
+    void position(const Vect3 pos);
+    MB_API
+    void direction(const Vect3 dir);
+    MB_API
+    void cutOff(const float coff);
+  protected:
+    Vect3 _position;
+    Vect3 _direction;
+    float _cutOff;
+  };
+  typedef std::shared_ptr<SpotLight> SpotLightPtr;
 }
 
 #endif /* __MB_SPOT_LIGHT__ */

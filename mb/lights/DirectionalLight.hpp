@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,19 +30,19 @@
 
 namespace mb
 {
-	class DirectionalLight: public Light
-	{
+  class DirectionalLight: public Light
+  {
     public:
-		MB_API
-        DirectionalLight(const Vect3 dir = Vect3::createFromScalar(0.0f));
-		MB_API
-        Vect3 direction() const;
-		MB_API
-        void direction(const Vect3& pos);
+    MB_API
+    DirectionalLight(const Vect3 dir = Vect3::createFromScalar(0.0f));
+    MB_API
+    Vect3 direction() const;
+    MB_API
+    void direction(const Vect3& pos);
     protected:
-        Vect3 _direction;
-    };
-    typedef std::shared_ptr<DirectionalLight> DirectionalLightPtr;
+      Vect3 _direction;
+  };
+  typedef std::shared_ptr<DirectionalLight> DirectionalLightPtr;
 }
 
 #endif /* __MB_DIRECTIONAL_LIGHT__ */

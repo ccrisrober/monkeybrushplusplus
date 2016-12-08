@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -31,62 +31,62 @@
 
 namespace mb
 {
-	enum class InterpolationMode
-	{
-		catmullRom, linear, bezier
-	};
-	/**
-	* Spline2D class
-	* Create a smooth 2D spline curve from a points list.
-	*
-	* @class Spline2D
-	*/
-	class Spline2D
-	{
-	public:
-		MB_API
-		Spline2D(InterpolationMode intpMode = InterpolationMode::catmullRom, 
-			const std::vector<Vect2>& points = std::vector<Vect2>());
-		MB_API
-		virtual ~Spline2D() {}
-		/**
-		* Return interpolate point at t.
-		* @param  {number} t Interpolation value [0, 1].
-		* @return {Vect2}     Interpolated position.
-		*/
-		virtual Vect2 evaluate(const float t);
-	protected:
-		InterpolationMode _intpMode;
-		std::vector<Vect2> controlPoints;
-	};
-	/**
-	* Spline3D class
-	* Create a smooth 3D spline curve from a points list.
-	*
-	* @class Spline3D
-	*/
-	class Spline3D
-	{
-	public:
-		MB_API
-		Spline3D(InterpolationMode intpMode = InterpolationMode::catmullRom,
-			const std::vector<Vect3>& points = std::vector<Vect3>());
-		virtual ~Spline3D() {}
-		/**
-		* Return interpolate point at t.
-		* @param  {number} t Interpolation value [0, 1].
-		* @return {Vect3}     Interpolated position.
-		*/
-		MB_API
-		virtual Vect3 evaluate(const float t);
-		MB_API
-		Vect3 getTangent(const float oldDT, const float currentDT);
-		MB_API
-		float angleBetweenPoints(const float oldDT, const float currentDT);
-	protected:
-		InterpolationMode _intpMode;
-		std::vector<Vect3> controlPoints;
-	};
+  enum class InterpolationMode
+  {
+    catmullRom, linear, bezier
+  };
+  /**
+  * Spline2D class
+  * Create a smooth 2D spline curve from a points list.
+  *
+  * @class Spline2D
+  */
+  class Spline2D
+  {
+  public:
+    MB_API
+    Spline2D(InterpolationMode intpMode = InterpolationMode::catmullRom,
+      const std::vector<Vect2>& points = std::vector<Vect2>());
+    MB_API
+    virtual ~Spline2D() {}
+    /**
+    * Return interpolate point at t.
+    * @param  {number} t Interpolation value [0, 1].
+    * @return {Vect2}     Interpolated position.
+    */
+    virtual Vect2 evaluate(const float t);
+  protected:
+    InterpolationMode _intpMode;
+    std::vector<Vect2> controlPoints;
+  };
+  /**
+  * Spline3D class
+  * Create a smooth 3D spline curve from a points list.
+  *
+  * @class Spline3D
+  */
+  class Spline3D
+  {
+  public:
+    MB_API
+    Spline3D(InterpolationMode intpMode = InterpolationMode::catmullRom,
+      const std::vector<Vect3>& points = std::vector<Vect3>());
+    virtual ~Spline3D() {}
+    /**
+    * Return interpolate point at t.
+    * @param  {number} t Interpolation value [0, 1].
+    * @return {Vect3}     Interpolated position.
+    */
+    MB_API
+    virtual Vect3 evaluate(const float t);
+    MB_API
+    Vect3 getTangent(const float oldDT, const float currentDT);
+    MB_API
+    float angleBetweenPoints(const float oldDT, const float currentDT);
+  protected:
+    InterpolationMode _intpMode;
+    std::vector<Vect3> controlPoints;
+  };
 }
 
 #endif /* __MB_SPLINE__ */

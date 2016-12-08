@@ -37,7 +37,7 @@ namespace mb
     MB_API
 	typedef enum
 	{
-         xyx, zyx, zyz, zxy, zxz, yxz, yxy, yzx, yzy, xyz, xzy, xzx
+   xyx, zyx, zyz, zxy, zxz, yxz, yxy, yzx, yzy, xyz, xzy, xzx
 	} RotSeq;
 	class EulerAngle {
 	public:
@@ -61,7 +61,7 @@ namespace mb
         void y(const float& v);
         MB_API
         void z(const float& v);
-        
+
         MB_API
         void set(const float& vx, const float& vy, const float& vz);
         MB_API

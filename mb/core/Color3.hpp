@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -30,17 +31,17 @@
 
 namespace mb
 {
-	class Color3
+  class Color3
     {
-	public:
+  public:
         MB_API
-		Color3(float r = 1.0f, float g = 1.0f, float b = 1.0f);
+    Color3(float r = 1.0f, float g = 1.0f, float b = 1.0f);
         MB_API
-		Color3(const Color3& c);
+    Color3(const Color3& c);
         MB_API
-		Color3& operator=(const Color3& c);
+    Color3& operator=(const Color3& c);
         MB_API
-		Color3& copy(const Color3& c);
+    Color3& copy(const Color3& c);
 
         MB_API
         float r() const;
@@ -57,26 +58,26 @@ namespace mb
         void b(const float v);
 
         MB_API
-		static Color3 createFromHSV(float h, float s, float v);
+    static Color3 createFromHSV(float h, float s, float v);
         MB_API
         static Color3 createFromHex(int hex);
         MB_API
-		static Color3 lerp(const Color3& minColor, const Color3& maxColor, float alpha);
+    static Color3 lerp(const Color3& minColor, const Color3& maxColor, float alpha);
         /**
          * Convert current color from gamma to linear range.
          * @param  {number = 2.2} gammaFactor Gamma factor value
          * @return {Color3}          New color generated.
          */
         MB_API
-		Color3& gammaToLinear(const float& gammaFactor = 2.2f);
+    Color3& gammaToLinear(const float& gammaFactor = 2.2f);
         /**
          * Convert current color from linear to gamma range.
          * @param  {number = 2.2}         gammaFactor Gamma factor value
          * @return {Color3}          New color generated.
          */
         MB_API
-		Color3& linearToGamma(const float& gammaFactor = 2.2f);
-        
+    Color3& linearToGamma(const float& gammaFactor = 2.2f);
+
         MB_API
         static Color3 Aqua;
         MB_API
@@ -110,7 +111,7 @@ namespace mb
         MB_API
         static Color3 White;
     protected:
-		Vect3 _color;
+    Vect3 _color;
     };
 }
 

@@ -68,7 +68,6 @@ namespace mb
 			aspectRatio = (float)width / (float)height;
 		
 			updateMatrices();
-
 		}
 
 		Mat4 GetViewMatrix() const

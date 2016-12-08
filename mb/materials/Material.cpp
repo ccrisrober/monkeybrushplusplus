@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -28,7 +29,8 @@ namespace mb
 	int Material::CurrentProgram = -1;
 	GLContext* Material::_context = nullptr;
 	Material::Material()
-		: DepthTest ( true )
+		: _program( new Program() )
+		, DepthTest ( true )
 		, DepthWrite ( true )
 		, DepthCompare( GL_LESS )
 		, Cull ( true )
@@ -41,15 +43,17 @@ namespace mb
 		, PolygonMode( GL_FILL )
 	{
 	}
-    Material::~Material() {}
-    TUniforms& Material::uniforms()
-    {
-        return this->_uniforms;
-    }
-    Uniform*& Material::uniform(const std::string& name)
-    {
-        return this->_uniforms[name];
-    }
+    Material::~Material() {
+		delete _program;
+	}
+  TUniforms& Material::uniforms()
+  {
+    return this->_uniforms;
+  }
+  Uniform*& Material::uniform(const std::string& name)
+  {
+    return this->_uniforms[name];
+  }
 	void Material::addUniform(const std::string& name, Uniform* u)
 	{
 		this->_uniforms[name] = u;
@@ -74,63 +78,65 @@ namespace mb
 
 		state->setPolygonMode(this->PolygonMode);
 
-		if (Material::CurrentProgram != (int)this->_program.program())
+		if (Material::CurrentProgram != (int)this->_program->program())
 		{
-			this->_program.use();
-			Material::CurrentProgram = this->_program.program();
+			this->_program->use();
+			Material::CurrentProgram = this->_program->program();
 		}
 		texID = 0;
 		setDirty = true;
 		for (const auto& uniform : _uniforms)
 		{
 			if (!uniform.second->isDirty())
+      {
 				continue;
-			if (_program.uniform(uniform.first) < 0)
+      }
+			if (_program->uniform(uniform.first) < 0)
 			{
 				continue;
 			}
-            type = uniform.second->type();
+      type = uniform.second->type();
 			if (type == Float)
 			{
-				this->_program.sendUniformf(uniform.first, uniform.second->value().cast<float>());
+				this->_program->sendUniformf(uniform.first, uniform.second->value().cast<float>());
 			}
-            else if (type == Integer)
-            {
-                this->_program.sendUniformi(uniform.first, uniform.second->value().cast<int>());
-            }
-            else if (type == Boolean)
-            {
-                this->_program.sendUniformb(uniform.first, uniform.second->value().cast<bool>());
-            }
+      else if (type == Integer)
+      {
+        this->_program->sendUniformi(uniform.first, uniform.second->value().cast<int>());
+      }
+      else if (type == Boolean)
+      {
+        this->_program->sendUniformb(uniform.first, uniform.second->value().cast<bool>());
+      }
 			else if (type == Vector2)
-            {
-                this->_program.sendUniform2v(uniform.first, uniform.second->value().cast<Vect2>()._values.data());
-            }
-            else if (type == Vector3)
-            {
-                this->_program.sendUniform3v(uniform.first, uniform.second->value().cast<Vect3>()._values);
-            }
-            else if (type == Vector4)
-            {
-                this->_program.sendUniform4v(uniform.first, uniform.second->value().cast<Vect4>()._values.data());
-            }
-            else if (type == Matrix2)
-            {
-                this->_program.sendUniform2m(uniform.first, uniform.second->value().cast<Mat2>()._values.data());
-            }
-            else if (type == Matrix3)
-            {
-                this->_program.sendUniform3m(uniform.first, uniform.second->value().cast<Mat3>()._values.data());
-            }
+      {
+        this->_program->sendUniform2v(uniform.first, uniform.second->value().cast<Vect2>()._values.data());
+      }
+      else if (type == Vector3)
+      {
+        this->_program->sendUniform3v(uniform.first, uniform.second->value().cast<Vect3>()._values);
+      }
+      else if (type == Vector4)
+      {
+        this->_program->sendUniform4v(uniform.first, uniform.second->value().cast<Vect4>()._values.data());
+      }
+      else if (type == Matrix2)
+      {
+        this->_program->sendUniform2m(uniform.first, uniform.second->value().cast<Mat2>()._values.data());
+      }
+      else if (type == Matrix3)
+      {
+        this->_program->sendUniform3m(uniform.first, uniform.second->value().cast<Mat3>()._values.data());
+      }
 			else if (type == Matrix4)
 			{
-				this->_program.sendUniform4m(uniform.first, uniform.second->value().cast<Mat4>()._values.data());
+				this->_program->sendUniform4m(uniform.first, uniform.second->value().cast<Mat4>()._values.data());
 			}
 			else if (type == TextureSampler)
 			{
 				mb::Texture* tex = uniform.second->value().cast<mb::Texture*>();
 				tex->bind(texID);
-				this->_program.sendUniformi(uniform.first, texID);
+				this->_program->sendUniformi(uniform.first, texID);
 				++texID;
 				setDirty = false;
 			}
@@ -140,6 +146,6 @@ namespace mb
 	}
 	void Material::unuse()
 	{
-		this->_program.unuse();
+		this->_program->unuse();
 	}
 }

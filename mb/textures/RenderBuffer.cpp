@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -24,24 +25,25 @@
 
 namespace mb
 {
-	RenderBuffer::RenderBuffer(const Vect2& size, unsigned int format, unsigned int attachment, unsigned int samples)
-	: _size(size)
-	, _format(format)
-	, _attachment(attachment)
-	, _samples(samples)
-	{
-		glCreateRenderbuffers(1, &_handler);
-	}
-	RenderBuffer::~RenderBuffer()
-	{
-		// TODO
-	}
-	void RenderBuffer::bind()
-	{
-		glBindRenderbuffer(GL_RENDERBUFFER, _handler);
-	}
-	void RenderBuffer::unbind()
-	{
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-	}
+  RenderBuffer::RenderBuffer(const Vect2& size, unsigned int format,
+    unsigned int attachment, unsigned int samples)
+  : _size(size)
+  , _format(format)
+  , _attachment(attachment)
+  , _samples(samples)
+  {
+    glCreateRenderbuffers(1, &_handler);
+  }
+  RenderBuffer::~RenderBuffer()
+  {
+    // TODO
+  }
+  void RenderBuffer::bind()
+  {
+    glBindRenderbuffer(GL_RENDERBUFFER, _handler);
+  }
+  void RenderBuffer::unbind()
+  {
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+  }
 }

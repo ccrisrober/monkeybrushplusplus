@@ -23,12 +23,7 @@
 #include <iostream>
 #include <mb/mb.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
-
-mb::Cube* cube;
-mb::Cylinder* cylinder;
-mb::Prism* prism;
 
 void renderFunc(float dt);
 
@@ -40,7 +35,7 @@ public:
 		, _globalTime(0.0f)
 	{
 	}
-	virtual void update(float dt) override
+	virtual void update(const float dt) override
 	{
 		_globalTime += dt;
 		this->_node->getMesh()->getMaterial()->uniform("time")->value(_globalTime);
@@ -51,16 +46,16 @@ protected:
 
 int main(void)
 {
-    mb::GLContext context(3, 3, 1024, 768, "Hello SceneGraph");
+  mb::GLContext context(3, 3, 1024, 768, "SceneGraph");
 
-    engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+  auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 11.44f)));
 
 	mb::ResourceDrawable::add("capsule", new mb::Capsule(0.5f, 1.0f));
 
-	cube = new mb::Cube(1.0f);
-	cylinder = new mb::Cylinder(1.0f, 1.5f, 25, 15);
-	prism = new mb::Prism(1.0f, 1.5f, 5);
+	auto cube = new mb::Cube(1.0f);
+  auto cylinder = new mb::Cylinder(1.0f, 1.5f, 25, 15);
+  auto prism = new mb::Prism(1.0f, 1.5f, 5);
 	mb::ResourceDrawable::add("torus", new mb::Torus(0.5f, 0.25f, 25, 40));
 
 	mb::SimpleShadingMaterial material;
@@ -119,12 +114,10 @@ int main(void)
 
 	mb::ShaderMaterial shaderMat("shaderMat", shaders, uniforms);
 	shaderMat.Cull = false;
-
 	
 	scene->mainCamera->layer().enable(1);
 	scene->mainCamera->layer().enable(2);
 	scene->mainCamera->layer().enable(3);
-
 
 	std::vector<std::pair<mb::ShaderType, const char*> > shaders2 = {
 		{
@@ -186,8 +179,6 @@ int main(void)
 		}
 	};
 	
-
-
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms2 = {
 		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
 		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
@@ -199,7 +190,7 @@ int main(void)
 	mb::ShaderMaterial material2("geomExplosion", shaders2, uniforms2);
 
 	mb::Node* mbCube = new mb::Node(std::string("cube"));
-	mbCube->setMesh(new mb::MeshRenderer(cube, mb::MaterialCache::get("shaderMat")));
+	mbCube->addComponent(new mb::MeshRenderer(cube, mb::MaterialCache::get("shaderMat")));
 	mbCube->addComponent(new mb::MoveComponent());
 	mbCube->addComponent(new mb::RotateComponent(mb::Axis::x));
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
@@ -207,20 +198,20 @@ int main(void)
 	mbCube->layer().set(1);
 
 	mb::Node* mbPrism = new mb::Node(std::string("prism"));
-	mbPrism->setMesh(new mb::MeshRenderer(prism, &normalMat));
+	mbPrism->addComponent(new mb::MeshRenderer(prism, &normalMat));
 	mbPrism->transform().position().set(-0.44f, -2.0f, 2.35f);
 	mbPrism->transform().scale().set(0.5f, 0.5f, 1.0f);
 	mbCube->addChild(mbPrism);
 	mbPrism->layer().set(2);
 
 	mb::Node* mbCapsule = new mb::Node(std::string("capsule"));
-	mbCapsule->setMesh(new mb::MeshRenderer(mb::ResourceDrawable::get("capsule"), &normalMat));
+	mbCapsule->addComponent(new mb::MeshRenderer(mb::ResourceDrawable::get("capsule"), &normalMat));
 	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
 	mbPrism->addChild(mbCapsule);
 	mbCapsule->layer().set(3);
 
 	mb::Node* mbTorus = new mb::Node(std::string("torus"));
-	mbTorus->setMesh(new mb::MeshRenderer("torus", &material2));
+	mbTorus->addComponent(new mb::MeshRenderer("torus", &material2));
 	mbTorus->addComponent(new ExplosionComponent());
 	mbTorus->transform().position().set(1.1f, -1.91f, -1.08f);
 	mbTorus->transform().scale().set(1.0f, 0.5f, 1.0f);
@@ -228,7 +219,7 @@ int main(void)
 	mbTorus->layer().set(2);
 
 	mb::Node* mbCylinder = new mb::Node(std::string("cylinder"));
-	mbCylinder->setMesh(new mb::MeshRenderer(cylinder, &material));
+	mbCylinder->addComponent(new mb::MeshRenderer(cylinder, &material));
 	mbCylinder->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCylinder->transform().scale().set(0.5f, 1.0f, 2.0f);
 	mbTorus->addChild(mbCylinder);
@@ -243,18 +234,21 @@ int main(void)
 	});
 
 	std::function<void()> f2([&]() {
-		std::cout << "MESHES: " << scene->_totalMeshes << ", ";
-		std::cout << "VERTICES: " << scene->_totalVertices << ", ";
-		std::cout << "INDICES: " << scene->_totalIndices << std::endl;
+		std::cout << "MESHES: " << scene->profiler.totalMeshes << ", ";
+		std::cout << "VERTICES: " << scene->profiler.totalVertices << ", ";
+		std::cout << "INDICES: " << scene->profiler.totalIndices << std::endl;
 	});
 
 	scene->registerBeforeRender(f0);
 	scene->registerAfterRender(f1);
 	scene->registerAfterRender(f2, true);
 
-	std::cout << context.getVersion() << std::endl;
-
 	scene->root()->addChild(mbCube);
+
+  scene->root()->traverse([](const mb::Node* n)
+  {
+    std::cout << n->name() << std::endl;
+  });
 
 	engine->run(renderFunc);
     
@@ -267,12 +261,6 @@ int main(void)
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num1))
 	{
 		scene->mainCamera->layer().toggle(1);
@@ -284,13 +272,6 @@ void renderFunc(float dt)
 	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num3))
 	{
 		scene->mainCamera->layer().toggle(3);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::N))
-	{
-		scene->root()->traverse([](const mb::Node* n)
-		{
-			std::cout << n->name() << std::endl;
-		});
 	}
 	scene->render(dt);
 }

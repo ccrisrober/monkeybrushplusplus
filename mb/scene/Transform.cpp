@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -90,17 +91,14 @@ namespace mb
 		this->_matrix.compose(this->_position, this->_quaternion, this->_scale);
 		this->_matrixWorldNeedUpdate = true;
     }
-    Vect3 Transform::localWorld(const Vect3 /*v*/)
+    /*Vect3 Transform::localWorld(Vect3 v)
 	{
-		return Vect3();
-		//return v.applyMat4(this._matrixWorld);
+		return v.applyMat4(this->_matrixWorld);
     }
-    Vect3 Transform::worldToLocal(const Vect3 /*v*/)
+    Vect3 Transform::worldToLocal(Vect3 v)
 	{
-		return Vect3();
-		//Mat4 mat;
-		//return v.applyMat4(mat.inverse(this._matrixWorld));
-    }
+		return v.applyMat4(matrixWorld().inverse());
+    }*/
     void Transform::_translateOnAxis(const Vect3& /*axis*/, float dist)
 	{
 		Vect3 v;

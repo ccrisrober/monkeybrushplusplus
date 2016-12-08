@@ -1,24 +1,25 @@
 /*
-* Copyright (c) 2016 maldicion069
-*
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
-*
-* This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
-*
-* This library is free software; you can redistribute it and/or modify it under
-* the terms of the GNU Lesser General Public License version 3.0 as published
-* by the Free Software Foundation.
-*
-* This library is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
-* details.
-*
-* You should have received a copy of the GNU Lesser General Public License
-* along with this library; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*
-*/
+ * Copyright (c) 2016 maldicion069
+ *
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+ *
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License version 3.0 as published
+ * by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ */
 
 #ifndef __MB_NODE__
 #define __MB_NODE__
@@ -116,15 +117,11 @@ namespace mb
 		MB_API
 		std::vector<mb::Component*> getComponents() const;
 		MB_API
-		void setMesh(MeshRenderer* mesh);
-		MB_API
-		MeshRenderer* getMesh() const;
+		MeshRenderer* getMesh(); // const;
 		MB_API
 		void traverse(const std::function<void(mb::Node* n)>& f);
 		MB_API
 		void traverseAncestors(const std::function<void(mb::Node* n)>& f);
-
-
 
 		template <typename T>
 		void toggleComponent()
@@ -172,19 +169,7 @@ namespace mb
 			return false;
 		}
 		template <class T>
-		T* getComponent()
-		{
-			for (auto comp : _components)
-			{
-				// std::cout << typeid(*comp).name() << std::endl;
-				// std::cout << typeid(T).name() << std::endl;
-				if (typeid(*comp) == typeid(T))
-				{
-					return static_cast<T*>(comp);
-				}
-			}
-			return nullptr;
-		}
+    T* getComponent();
 
 
 
@@ -197,7 +182,6 @@ namespace mb
 		MB_API
 		Layer& layer();
 	protected:
-		MeshRenderer* _mesh = nullptr;
 		std::vector<Node*> _children;
 		std::vector<mb::Component*> _components;
 
@@ -215,6 +199,22 @@ namespace mb
 		Node* _searchTag(const std::string& tag, Node* elem);
 		Node* _searchUUID(const std::string& uuid, Node* elem);
 	};
+  template<class T>
+  T * Node::getComponent()
+  {
+    {
+      for (auto comp : _components)
+      {
+        // std::cout << typeid(*comp).name() << std::endl;
+        // std::cout << typeid(T).name() << std::endl;
+        if (typeid(*comp) == typeid(T))
+        {
+          return static_cast<T*>(comp);
+        }
+      }
+      return nullptr;
+    }
+  }
 }
 
 #endif /* __MB_NODE__ */

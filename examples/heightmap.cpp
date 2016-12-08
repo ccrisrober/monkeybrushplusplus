@@ -24,8 +24,30 @@
 #include <mb/mb.h>
 #include <assetsFiles.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
+
+class HeightMapController : public mb::Component
+{
+public:
+  HeightMapController(const float& amount)
+    : mb::Component()
+    , _amount(amount) {}
+  virtual void update(const float) override
+  {
+    if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
+    {
+      _amount -= 0.1f;
+      getNode()->getMesh()->getMaterial()->uniform("amount")->value(_amount);
+    }
+    if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
+    {
+      _amount += 0.1f;
+      getNode()->getMesh()->getMaterial()->uniform("amount")->value(_amount);
+    }
+  }
+protected:
+  float _amount;
+};
 
 class HeightmapMaterial : public mb::Material
 {
@@ -78,29 +100,31 @@ public:
 			"void main() {\n"
 			"	fragColor = texture(tex, outUV);\n"
 			"};\n";
-		_program.loadFromText(vsShader, fsShader);
-		_program.compileAndLink();
-		_program.autocatching();
+		_program->loadFromText(vsShader, fsShader);
+		_program->compileAndLink();
+		_program->autocatching();
+
+    Cull = false;
 	}
 };
 
 void renderFunc(float dt);
-mb::Node *mbModel;
-float amount = 5.0f;
 
 int main()
 {
-    mb::GLContext context(3, 3, 1024, 768, "Heightmap");
+  mb::GLContext context(3, 3, 1024, 768, "Heightmap");
 
-    engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+  auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(-0.6f, 5.0f, 14.8f)));
 
-
-	mbModel = new mb::Node("plane");
+  float amount = 5.0f;
+	auto mbNode = new mb::Node("plane");
 	mb::Drawable* plane = new mb::Plane(26.0f, 20.0f, 200, 200);
-	mbModel->setMesh(new mb::MeshRenderer(plane, new HeightmapMaterial(amount)));
+	mbNode->addComponent(new mb::MeshRenderer(plane, 
+    new HeightmapMaterial(amount)));
+  mbNode->addComponent(new HeightMapController(amount));
 
-	scene->root()->addChild(mbModel);
+	scene->root()->addChild(mbNode);
 
 	mb::TexOptions opts;
 	opts.minFilter = mb::ctes::TextureFilter::Nearest;
@@ -110,35 +134,18 @@ int main()
 	mb::Texture* tex = new mb::Texture2D(opts, 
 		MB_TEXTURE_ASSETS + std::string("/heightmap.jpg"));
 	
-	mbModel->getMesh()->getMaterial()->uniform("tex")->value(tex);
+	mbNode->getMesh()->getMaterial()->uniform("tex")->value(tex);
 
 	engine->run(renderFunc);
     
 	delete(scene);
 	delete(engine);
 
-    return 0;
+  return 0;
 }
 
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::N))
-	{
-		amount -= 0.1f;
-		mbModel->getMesh()->getMaterial()->uniform("amount")->value(amount);
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::M))
-	{
-		amount += 0.1f;
-		mbModel->getMesh()->getMaterial()->uniform("amount")->value(amount);
-	}
-	engine->state()->culling.setStatus(false);
 	scene->render(dt);
 }

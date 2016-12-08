@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -30,50 +31,50 @@
 
 namespace mb
 {
-	/*template<typename T>
-	inline std::shared_ptr<T> make_shared()
-	{
-		struct Derived : public T { };
-		return std::make_shared<Derived>();
-	}
-	template <typename T, typename... Args>
-	inline std::shared_ptr<T> make_shared(Args&& ... args)
-	{
-		return std::make_shared<Derived<T>>(std::move(args)...);
-	}*/
+  /*template<typename T>
+  inline std::shared_ptr<T> make_shared()
+  {
+    struct Derived : public T { };
+    return std::make_shared<Derived>();
+  }
+  template <typename T, typename... Args>
+  inline std::shared_ptr<T> make_shared(Args&& ... args)
+  {
+    return std::make_shared<Derived<T>>(std::move(args)...);
+  }*/
 
-	class Light
-	{
-	public:
-		MB_API
-		float intensity() const;
-		MB_API
-		Vect3 attenuation() const;
-		MB_API
-        bool isEnable() const;
-		MB_API
-        Color3 color() const;
-		MB_API
-        Color3 specColor() const;
-		MB_API
-        void intensity(const float i);
-		MB_API
-        void attenuation(const Vect3 att);
-		MB_API
-        void enabled(const bool e);
-		MB_API
-        void color(const Color3& c);
-		MB_API
-        void specColor(const Color3& sc);
-	protected:
-		Light();
-		float _intensity;
-		bool _enable;
-		Vect3 _attenuation;
-        Color3 _color;
-        Color3 _specColor;
-	};
-	typedef std::shared_ptr<Light> LightPtr;
+  class Light
+  {
+  public:
+    MB_API
+    float intensity() const;
+    MB_API
+    Vect3 attenuation() const;
+    MB_API
+    bool isEnable() const;
+    MB_API
+    Color3 color() const;
+    MB_API
+    Color3 specColor() const;
+    MB_API
+    void intensity(const float i);
+    MB_API
+    void attenuation(const Vect3 att);
+    MB_API
+    void enabled(const bool e);
+    MB_API
+    void color(const Color3& c);
+    MB_API
+    void specColor(const Color3& sc);
+  protected:
+    Light();
+    float _intensity;
+    bool _enable;
+    Vect3 _attenuation;
+    Color3 _color;
+    Color3 _specColor;
+  };
+  typedef std::shared_ptr<Light> LightPtr;
 }
 
 #endif /* __MB_LIGHT__ */

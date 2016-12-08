@@ -25,35 +25,29 @@
 #include <assetsFiles.h>
 #include <shaderFiles.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
 
-mb::Node* mbMesh;
-
-
 mb::Material* createMaterial(const std::string sourceName)
 {
-	std::ifstream file1(MB_SHADER_FILES + std::string("/" + sourceName + ".vert"));
-	std::stringstream buffer1;
-	buffer1 << file1.rdbuf();
-	std::string vertexShader = buffer1.str();
+	std::string vertexShader = mb::os::readFile(MB_SHADER_FILES + std::string("/" + sourceName + ".vert"));
+  std::string fragmentShader = mb::os::readFile(MB_SHADER_FILES + std::string("/" + sourceName + ".frag"));
 
-	std::ifstream file2(MB_SHADER_FILES + std::string("/" + sourceName + ".frag"));
-	std::stringstream buffer2;
-	buffer2 << file2.rdbuf();
-	std::string fragmentShader = buffer2.str();
+  std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
+    {
+      mb::VertexShader, vertexShader.c_str()
+    }, {
+      mb::FragmentShader, fragmentShader.c_str()
+    }
+  };
 
-	std::vector<std::pair<mb::ShaderType, const char*> > shaders;
-	shaders.push_back(std::make_pair(mb::VertexShader, vertexShader.c_str()));
-	shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader.c_str()));
-
-	std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
-	uniforms.push_back(std::make_pair("projection", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("view", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("model", new mb::Uniform(mb::Matrix4)));
-	uniforms.push_back(std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3(mb::Color3::Green))));
+  std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+    std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
+    std::make_pair("view", new mb::Uniform(mb::Matrix4)),
+    std::make_pair("model", new mb::Uniform(mb::Matrix4)),
+    std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3(mb::Color3::Green)))
+  };
 
 	return new mb::ShaderMaterial(sourceName, shaders, uniforms);
 }
@@ -63,17 +57,17 @@ mb::Material *flatMaterial, *smootMaterial, *noperspectiveMaterial;
 class NormalInterpolationComponent : public mb::Component
 {
 public:
-	virtual void update(float)
+	virtual void update(const float) override
 	{
-		if (mb::Input::isKeyClicked(mb::Keyboard::Key::I))
+		if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num1))
 		{
 			this->_node->getMesh()->setMaterial(mb::MaterialCache::get(std::string("flatNormal")));
 		}
-		else if (mb::Input::isKeyClicked(mb::Keyboard::Key::O))
+		else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num2))
 		{
 			this->_node->getMesh()->setMaterial(mb::MaterialCache::get(std::string("smoothNormal")));
 		}
-		else if (mb::Input::isKeyClicked(mb::Keyboard::Key::P))
+		else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num3))
 		{
 			this->_node->getMesh()->setMaterial(mb::MaterialCache::get(std::string("noPerspectiveNormal")));
 		}
@@ -84,8 +78,8 @@ int main(void)
 {
 	mb::GLContext context(3, 3, 1024, 768, "Normal interpolation");
 
-	engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+	auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
@@ -93,13 +87,14 @@ int main(void)
 	smootMaterial = createMaterial("smoothNormal");
 	noperspectiveMaterial = createMaterial("noPerspectiveNormal");
 
-	mbMesh = new mb::Node(std::string("mesh"));
-	mbMesh->setMesh(new mb::MeshRenderer(mesh, flatMaterial));
-	mbMesh->addComponent(new mb::MoveComponent());
-	mbMesh->addComponent(new mb::RotateComponent(mb::Axis::x));
-	mbMesh->addComponent(new NormalInterpolationComponent());
+	auto mbNode = new mb::Node(std::string("mesh"));
+	mbNode->addComponent(new mb::MeshRenderer(mesh, flatMaterial));
+	mbNode->addComponent(new mb::MoveComponent());
+	mbNode->addComponent(new mb::RotateComponent(mb::Axis::x));
+	mbNode->addComponent(new NormalInterpolationComponent());
+  mbNode->addComponent(new mb::ChangeTransformationComponent());
 
-	scene->root()->addChild(mbMesh);
+	scene->root()->addChild(mbNode);
 
 	engine->run(renderFunc);
 
@@ -112,18 +107,5 @@ int main(void)
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
-	}
 	scene->render(dt);
 }

@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -42,10 +43,10 @@ namespace mb
 
 				switch (szTemp[t])
 				{
-				case 'x': { c = szHex[r]; } break;
-				case 'y': { c = szHex[(r & 0x03) | 0x08]; } break;
-				case '-': { c = '-'; } break;
-				case '4': { c = '4'; } break;
+  				case 'x': { c = szHex[r]; } break;
+  				case 'y': { c = szHex[(r & 0x03) | 0x08]; } break;
+  				case '-': { c = '-'; } break;
+  				case '4': { c = '4'; } break;
 				}
 
 				GUID[t] = (t < nLen) ? c : 0x00;

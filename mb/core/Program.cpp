@@ -1,24 +1,25 @@
 /*
-* Copyright (c) 2016 maldicion069
-*
-* Authors: Cristian Rodríguez Bernal
-*
-* This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
-*
-* This library is free software; you can redistribute it and/or modify it under
-* the terms of the GNU Lesser General Public License version 3.0 as published
-* by the Free Software Foundation.
-*
-* This library is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
-* details.
-*
-* You should have received a copy of the GNU Lesser General Public License
-* along with this library; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*
-*/
+ * Copyright (c) 2016 maldicion069
+ *
+ * Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
+ *
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License version 3.0 as published
+ * by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ */
 
 #include "Program.hpp"
 #include <fstream>
@@ -28,7 +29,8 @@
 
 #include <limits>       // std::numeric_limits
 
-#define MACRO_SP_WARNING(name, type) std::cerr << "WARNING: '" << name << "' " << type << " doesn't exist or appears unused." << std::endl;
+#define MACRO_SP_WARNING(name, type) std::cerr << "WARNING: '" << name << \
+  "' " << type << " doesn't exist or appears unused." << std::endl;
 
 
 namespace mb
@@ -273,7 +275,8 @@ namespace mb
 	{
 		return _load(file, GL_COMPUTE_SHADER);
 	}
-	void Program::getMaximumGlobalWorkGroup(unsigned int& maxX, unsigned int& maxY, unsigned int& maxZ)
+	void Program::getMaximumGlobalWorkGroup(unsigned int& maxX,
+    unsigned int& maxY, unsigned int& maxZ)
 	{
 		int work_grp_size[3];
 		// maximum global work group (total work in a dispatch)
@@ -287,7 +290,8 @@ namespace mb
 		printf("max global (total) work group size x:%i y:%i z:%i\n",
 			work_grp_size[0], work_grp_size[1], work_grp_size[2]);
 	}
-	void Program::getMaximumLocalWorkGroup(unsigned int& maxX, unsigned int& maxY, unsigned int& maxZ)
+	void Program::getMaximumLocalWorkGroup(unsigned int& maxX,
+    unsigned int& maxY, unsigned int& maxZ)
 	{
 		int work_grp_size[3];
 		// maximum global work group (total work in a dispatch)

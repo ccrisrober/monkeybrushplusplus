@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -30,7 +31,7 @@ namespace mb
     void Drawable::render(unsigned int mode)
     {
         this->configure();
-        
+
         this->_vao->bind();
         // glPatchParameteri(GL_PATCH_VERTICES, 3);
         // glDrawElements( GL_PATCHES, _indicesLen, GL_UNSIGNED_INT, 0 );

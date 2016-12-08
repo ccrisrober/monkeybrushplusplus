@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -45,8 +46,9 @@ namespace mb
 		unsigned int NVIDX = 0;
 		unsigned int NNIDX = 0;
 		unsigned int NTIDX = 0;
-	
-		std::function<void(unsigned int, float, float, float)> calcNewRing([&](unsigned int segments, float r_, float y, float dy)
+
+		std::function<void(unsigned int, float, float, float)> calcNewRing([&](
+      unsigned int segments, float r_, float y, float dy)
 		{
 			float segIncr = 1.0f / (segments - 1);
 

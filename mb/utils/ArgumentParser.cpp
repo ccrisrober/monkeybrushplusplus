@@ -1,24 +1,25 @@
 /*
-* Copyright (c) 2016 maldicion069
-*
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
-*
-* This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
-*
-* This library is free software; you can redistribute it and/or modify it under
-* the terms of the GNU Lesser General Public License version 3.0 as published
-* by the Free Software Foundation.
-*
-* This library is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
-* details.
-*
-* You should have received a copy of the GNU Lesser General Public License
-* along with this library; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*
-*/
+ * Copyright (c) 2016 maldicion069
+ *
+ * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+ *
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License version 3.0 as published
+ * by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ */
 
 #include "ArgumentParser.hpp"
 
@@ -46,7 +47,8 @@ namespace mb
 		const std::string lwrap, rwrap;
 	};
 	template<typename InputIterator, typename UnaryOperator>
-	static std::string str_join_trans(const std::string& sep, InputIterator begin, InputIterator end, UnaryOperator op)
+	static std::string str_join_trans(const std::string& sep,
+    InputIterator begin, InputIterator end, UnaryOperator op)
 	{
 		std::string buf;
 		for (InputIterator it = begin; it != end; ++it) {
@@ -57,11 +59,13 @@ namespace mb
 		return buf;
 	}
 	template<class InputIterator>
-	static std::string str_join(const std::string& sep, InputIterator begin, InputIterator end)
+	static std::string str_join(const std::string& sep, InputIterator begin,
+    InputIterator end)
 	{
 		return str_join_trans(sep, begin, end, str_wrap(""));
 	}
-	static std::string& str_replace(std::string& s, const std::string& patt, const std::string& repl)
+	static std::string& str_replace(std::string& s, const std::string& patt,
+    const std::string& repl)
 	{
 		size_t pos = 0, n = patt.length();
 		while (true) {
@@ -73,13 +77,15 @@ namespace mb
 		}
 		return s;
 	}
-	static std::string str_replace(const std::string& s, const std::string& patt, const std::string& repl)
+	static std::string str_replace(const std::string& s, const std::string& patt,
+    const std::string& repl)
 	{
 		std::string tmp = s;
 		str_replace(tmp, patt, repl);
 		return tmp;
 	}
-	static std::string str_format(const std::string& str, size_t pre, size_t len, bool running_text = true, bool indent_first = true)
+	static std::string str_format(const std::string& str, size_t pre, size_t len,
+    bool running_text = true, bool indent_first = true)
 	{
 		std::string s = str;
 		std::stringstream ss;
@@ -158,12 +164,14 @@ namespace mb
 		const std::string tmp[1] = { opt };
 		return add_option(std::vector<std::string>(&tmp[0], &tmp[1]));
 	}
-	Option& OptionContainer::add_option(const std::string& opt1, const std::string& opt2)
+	Option& OptionContainer::add_option(const std::string& opt1,
+    const std::string& opt2)
 	{
 		const std::string tmp[2] = { opt1, opt2 };
 		return add_option(std::vector<std::string>(&tmp[0], &tmp[2]));
 	}
-	Option& OptionContainer::add_option(const std::string& opt1, const std::string& opt2, const std::string& opt3)
+	Option& OptionContainer::add_option(const std::string& opt1,
+    const std::string& opt2, const std::string& opt3)
 	{
 		const std::string tmp[3] = { opt1, opt2, opt3 };
 		return add_option(std::vector<std::string>(&tmp[0], &tmp[3]));
@@ -173,7 +181,8 @@ namespace mb
 		_opts.resize(_opts.size() + 1, Option(get_parser()));
 		Option& option = _opts.back();
 		std::string dest_fallback;
-		for (std::vector<std::string>::const_iterator it = v.begin(); it != v.end(); ++it) {
+		for (std::vector<std::string>::const_iterator it = v.begin();
+      it != v.end(); ++it) {
 			if (it->substr(0, 2) == "--") {
 				const std::string s = it->substr(2);
 				if (option.dest() == "")

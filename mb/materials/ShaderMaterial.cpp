@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -41,28 +42,28 @@ namespace mb
 			switch (pair.first)
 			{
 			case VertexShader:
-				_program.loadVertexShaderFromText(pair.second);
+				_program->loadVertexShaderFromText(pair.second);
 				break;
 			case FragmentShader:
-				_program.loadFragmentShaderFromText(pair.second);
+				_program->loadFragmentShaderFromText(pair.second);
 				break;
 			case GeometryShader:
-				_program.loadGeometryShaderFromText(pair.second);
+				_program->loadGeometryShaderFromText(pair.second);
 				break;
 			case TesselationEvaluationShader:
-				_program.loadTesselationEvaluationShaderFromText(pair.second);
+				_program->loadTesselationEvaluationShaderFromText(pair.second);
 				break;
 			case TesselationControlShader:
-				_program.loadTesselationControlShaderFromText(pair.second);
+				_program->loadTesselationControlShaderFromText(pair.second);
 				break;
 			}
 		}
-		_program.compileAndLink();
-		_program.autocatching();
+		_program->compileAndLink();
+		_program->autocatching();
 
 		MaterialCache::add(name, this);
 
-		auto unifs = _program.uniforms();
+		auto unifs = _program->uniforms();
 		for (const auto& uni : unifs)
 		{
 			std::cout << uni.first << " => " << uni.second << std::endl;

@@ -25,35 +25,46 @@
 #include <assetsFiles.h>
 #include <shaderFiles.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
 
-mb::Node* mbMesh;
-
-float base_freq = 6.9f;
+class UpdateBaseFreq : public mb::Component
+{
+public:
+  UpdateBaseFreq(const float& baseFreq)
+    : mb::Component()
+    , _baseFreq(baseFreq) {}
+  virtual void update(const float) override
+  {
+    if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
+    {
+      _baseFreq -= 0.1f;
+      getNode()->getMesh()->getMaterial()->uniform("base_freq")->value(_baseFreq);
+    }
+    if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
+    {
+      _baseFreq += 0.1f;
+      getNode()->getMesh()->getMaterial()->uniform("base_freq")->value(_baseFreq);
+    }
+  }
+protected:
+  float _baseFreq;
+};
 
 int main(void)
 {
 	mb::GLContext context(3, 3, 1024, 768, "Alien Texture");
 
-	engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+	auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
-	mb::ResourceShader::loadShader(std::string("SimpleNoise3D"), MB_SHADERBACKUP_FILES + std::string("/SimpleNoise3D.glsl"));
+	//mb::ResourceShader::loadShader(std::string("SimpleNoise3D"), MB_SHADERBACKUP_FILES + std::string("/SimpleNoise3D.glsl"));
 
-	std::ifstream file1(MB_SHADER_FILES + std::string("/alienVertex.glsl"));
-	std::stringstream buffer1;
-	buffer1 << file1.rdbuf();
-	std::string vertexShader = buffer1.str();
-
-	std::ifstream file2(MB_SHADER_FILES + std::string("/alienFrag.glsl"));
-	std::stringstream buffer2;
-	buffer2 << file2.rdbuf();
-	std::string fragmentShader = buffer2.str();
+  std::string vertexShader = mb::os::readFile(MB_SHADER_FILES + std::string("/alienVertex.glsl"));
+  std::string fragmentShader = mb::os::readFile(MB_SHADER_FILES + std::string("/alienFrag.glsl"));
 
 	std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
 		{
@@ -63,6 +74,8 @@ int main(void)
 			mb::FragmentShader, fragmentShader.c_str()
 		}
 	};
+
+  float base_freq = 6.9f;
 
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
 		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
@@ -74,12 +87,14 @@ int main(void)
 
 	mb::ShaderMaterial material("alienMaterial", shaders, uniforms);
 
-	mbMesh = new mb::Node(std::string("mesh"));
-	mbMesh->setMesh(new mb::MeshRenderer(mesh, &material));
-	mbMesh->addComponent(new mb::MoveComponent());
-	mbMesh->addComponent(new mb::RotateComponent(mb::Axis::x));
+	auto mbNode = new mb::Node(std::string("mesh"));
+	mbNode->addComponent(new mb::MeshRenderer(mesh, &material));
+	mbNode->addComponent(new mb::MoveComponent());
+	mbNode->addComponent(new mb::RotateComponent(mb::Axis::x));
+  mbNode->addComponent(new mb::ChangeTransformationComponent());
+  mbNode->addComponent(new UpdateBaseFreq(base_freq));
 
-	scene->root()->addChild(mbMesh);
+	scene->root()->addChild(mbNode);
 
 	engine->run(renderFunc);
 
@@ -92,28 +107,5 @@ int main(void)
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-	{
-		mbMesh->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::O))
-	{
-		base_freq -= 0.01f;
-		mbMesh->getMesh()->getMaterial()->uniform("base_freq")->value(base_freq);
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::P))
-	{
-		base_freq += 0.01f;
-		mbMesh->getMesh()->getMaterial()->uniform("base_freq")->value(base_freq);
-	}
 	scene->render(dt);
 }

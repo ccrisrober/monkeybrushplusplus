@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -30,38 +31,36 @@
 
 namespace mb
 {
-	class Input
-	{
-	public:
-        MB_API
-		static bool isKeyPressed(int keycode);
-        MB_API
-		static bool isKeyClicked(int keycode);
-        MB_API
-		static bool isButtonPressed(int button);
-        MB_API
-		static bool isButtonClicked(int button);
+  class Input
+  {
+  public:
+    MB_API
+    static bool isKeyPressed(int keycode);
+    MB_API
+    static bool isKeyClicked(int keycode);
+    MB_API
+    static bool isButtonPressed(int button);
+    MB_API
+    static bool isButtonClicked(int button);
+    MB_API
+    static void update();
+    MB_API
+    static void init();
 
-        MB_API
-		static void update();
+    MB_API
+    static void _onKeyUp(unsigned int keycode);
+    MB_API
+    static void _onKeyDown(unsigned int keycode);
 
-        MB_API
-		static void init();
-
-        MB_API
-		static void _onKeyUp(unsigned int keycode);
-        MB_API
-		static void _onKeyDown(unsigned int keycode);
-
-	protected:
-		static bool _initializated;
-		static std::vector<bool> _buttonPreviousState;
-		static std::vector<bool> _isButtonPressed;
-		static std::vector<bool> _isButtonClicked;
-		static std::vector<bool> _keyPreviusState;
-		static std::vector<bool> _isKeyPressed;
-		static std::vector<bool> _isKeyClicked;
-	};
+  protected:
+    static bool _initializated;
+    static std::vector<bool> _buttonPreviousState;
+    static std::vector<bool> _isButtonPressed;
+    static std::vector<bool> _isButtonClicked;
+    static std::vector<bool> _keyPreviusState;
+    static std::vector<bool> _isKeyPressed;
+    static std::vector<bool> _isKeyClicked;
+  };
 }
 
 #endif /* __MB_INPUT__ */

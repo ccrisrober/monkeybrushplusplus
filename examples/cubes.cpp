@@ -23,7 +23,6 @@
 #include <iostream>
 #include <mb/mb.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
@@ -36,7 +35,7 @@ public:
 		, _rotate(false)
 	{
 	}
-	virtual void update(float dt)
+	virtual void update(const float dt) override
 	{
 		if (mb::Input::isKeyClicked(mb::Keyboard::Key::Space))
 		{
@@ -44,8 +43,10 @@ public:
 		}
 		if (this->_rotate)
 		{
-			auto zRot = _node->transform().rotation().z();
-			_node->transform().rotation().z(zRot + dt);
+			auto xRot = _node->transform().rotation().y();
+			auto yRot = _node->transform().rotation().y();
+			_node->transform().rotation().x(xRot + dt);
+			_node->transform().rotation().y(yRot + dt);
 		}
 	}
 protected:
@@ -54,82 +55,46 @@ protected:
 
 int main(void)
 {
-	mb::GLContext context(3, 3, 1024, 768, "Cubes");
+  mb::GLContext context(3, 3, 1024, 768, "Cubes");
 
-	engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+  auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	mb::Cube* cube = new mb::Cube(2.0f);
 
-	unsigned int MAX = 15;
-	for (unsigned int yy = 0; yy < MAX; ++yy)
-	{
-		for (unsigned int xx = 0; xx < MAX; ++xx)
-		{
-			mb::Node* mbCube = new mb::Node(std::string("cube"));
+	unsigned int MAX = 5;
+  for (unsigned int zz = 0; zz < MAX; ++zz)
+  {
+	  for (unsigned int yy = 0; yy < MAX; ++yy)
+	  {
+      for (unsigned int xx = 0; xx < MAX; ++xx)
+      {
+        mb::Node* mbCube = new mb::Node(std::string("cube"));
 
-			mb::SimpleShadingMaterial* material = new mb::SimpleShadingMaterial();
-			material->uniform("color")->value(mb::Vect3(mb::Color3((float)xx / MAX, (float)yy / MAX, 0.1f)));
-
-			mbCube->setMesh(new mb::MeshRenderer(cube, material));
-			mbCube->addComponent(new Rotate());
-			mbCube->transform().position().set(
-				-15.0f + xx * 3.0f,
-				-15.0f + yy * 3.0f,
-				0.0f);
-			mbCube->transform().rotation().z(xx * 0.21f + yy + 0.37f);
-			scene->root()->addChild(mbCube);
-		}
-	}
+  			mb::SimpleShadingMaterial* material = new mb::SimpleShadingMaterial();
+  			material->uniform("color")->value(mb::Vect3(mb::Color3((float)xx/MAX, (float)yy/MAX, (float)zz/MAX)));
+  			mbCube->addComponent(new mb::MeshRenderer(cube, material));
+  			mbCube->addComponent(new Rotate());
+  			mbCube->transform().position().set(
+        	-15.0f + xx * + 6.0f,
+          -15.0f + yy * + 6.0f,
+          zz * 6.0);
+			  mbCube->transform().rotation().y(xx * 0.21f + yy + 0.37f);
+        scene->root()->addChild(mbCube);
+      }
+    }
+  }
 
 	engine->run(renderFunc);
 
 	delete(scene);
 	delete(engine);
 
-	return 0;
+  return 0;
 }
 
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-	{
-		engine->state()->depth.setStatus(false);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		engine->state()->depth.setStatus(true);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::K))
-	{
-		engine->state()->culling.setStatus(false);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::L))
-	{
-		engine->state()->culling.setStatus(true);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::M))
-	{
-		engine->state()->setPolygonMode(GL_FILL);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::N))
-	{
-		engine->state()->setPolygonMode(GL_LINE);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num1))
-	{
-		engine->state()->culling.setFlipSided(GL_CCW);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Num2))
-	{
-		engine->state()->culling.setFlipSided(GL_CW);
-	}
 	scene->render(dt);
 }

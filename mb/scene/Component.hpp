@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -30,50 +31,49 @@
 #include <memory>
 
 #ifdef MB_USE_RAPIDJSON
-	#include <rapidjson/document.h>
-	using namespace rapidjson;
+  #include <rapidjson/document.h>
+  using namespace rapidjson;
 #endif
 
 namespace mb
 {
-	class Node;
-	class Component
-	{
-	public:
-		MB_API
-		virtual void start();
-		MB_API
-			// TODO: USE const float& dt
-		virtual void update(float dt);
-		MB_API
-		Node* getNode() const;
-		MB_API
-		void setNode(Node* n);
-		MB_API
-		friend std::ostream& operator<<(std::ostream & str, const Component& n);
-		MB_API
-		bool isEnabled() const;
-		MB_API
-		void enable();
-		MB_API
-		void disable();
-		MB_API
-		void setEnabled(const bool v);
-		MB_API
-		void toggle();
-		MB_API
-		virtual ~Component() {}
-	protected:
-	#ifdef MB_USE_RAPIDJSON
-		Component(const Value& /*config*/)
-		{
+  class Node;
+  class Component
+  {
+  public:
+    MB_API
+    virtual void start();
+    MB_API
+    virtual void update(const float dt);
+    MB_API
+    Node* getNode() const;
+    MB_API
+    void setNode(Node* n);
+    MB_API
+    friend std::ostream& operator<<(std::ostream & str, const Component& n);
+    MB_API
+    bool isEnabled() const;
+    MB_API
+    void enable();
+    MB_API
+    void disable();
+    MB_API
+    void setEnabled(const bool v);
+    MB_API
+    void toggle();
+    MB_API
+    virtual ~Component() {}
+  protected:
+  #ifdef MB_USE_RAPIDJSON
+    Component(const Value& /*config*/)
+    {
 
-		}
-	#endif
-		Component() { }
-		Node* _node;
-		bool _enabled = true;
-	};
+    }
+  #endif
+    Component() { }
+    Node* _node;
+    bool _enabled = true;
+  };
     // TODO: UNUSED typedef std::shared_ptr<Component> ComponentPtr;
 }
 

@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -59,13 +60,13 @@ namespace mb
 		void rotateZ(float angle);
 		MB_API
 		void updateMatrix();
+		/*MB_API
+    Vect3 localWorld(const Vect3 v);
 		MB_API
-        Vect3 localWorld(const Vect3 v);
-		MB_API
-        Vect3 worldToLocal(const Vect3 v);
+    Vect3 worldToLocal(const Vect3 v);*/
 	protected:
-        void _translateOnAxis(const Vect3& axis, float dist);
-        void _rotateOnAxis(const Vect3 axis, float angle);
+    void _translateOnAxis(const Vect3& axis, float dist);
+    void _rotateOnAxis(const Vect3 axis, float angle);
 		Vect3 _position;
 		EulerAngle _rotation;
 		Quat _quaternion;
@@ -74,10 +75,12 @@ namespace mb
 	public:
 		Mat4 _matrix;
 		Mat4 _matrixWorld;
-		Mat4 matrix() const {
+		Mat4 matrix() const
+    {
 			return this->_matrix;
 		}
-		Mat4 matrixWorld() const {
+		Mat4 matrixWorld() const
+    {
 			return this->_matrixWorld;
 		}
 		bool _autoUpdate;

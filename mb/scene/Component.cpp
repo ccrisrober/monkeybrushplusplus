@@ -1,10 +1,10 @@
-#include "Component.hpp"
 /*
  * Copyright (c) 2016 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -25,39 +25,43 @@
 
 namespace mb
 {
-	void Component::start() {}
-    void Component::update(float) { }
-	Node* Component::getNode() const
-	{
-		return this->_node;
-	}
-	void Component::setNode(Node* n)
-	{
-		this->_node = n;
-	}
-	std::ostream& operator<<(std::ostream & str, const Component& n)
-	{
-		str << typeid(n).name();
-		return str;
-	}
-	bool Component::isEnabled() const
-	{
-		return _enabled;
-	}
-	void Component::enable()
-	{
-		setEnabled(true);
-	}
-	void Component::disable()
-	{
-		setEnabled(false);
-	}
-	void Component::setEnabled(const bool v)
-	{
-		_enabled = v;
-	}
-	void Component::toggle()
-	{
-		setEnabled(!isEnabled());
-	}
+  void Component::start()
+  {
+  }
+  void Component::update(float)
+  {
+  }
+  Node* Component::getNode() const
+  {
+    return this->_node;
+  }
+  void Component::setNode(Node* n)
+  {
+    this->_node = n;
+  }
+  std::ostream& operator<<(std::ostream & str, const Component& n)
+  {
+    str << typeid(n).name();
+    return str;
+  }
+  bool Component::isEnabled() const
+  {
+    return _enabled;
+  }
+  void Component::enable()
+  {
+    setEnabled(true);
+  }
+  void Component::disable()
+  {
+    setEnabled(false);
+  }
+  void Component::setEnabled(const bool v)
+  {
+    _enabled = v;
+  }
+  void Component::toggle()
+  {
+    setEnabled(!isEnabled());
+  }
 }

@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -33,60 +34,72 @@
 
 namespace mb
 {
-	class Engine;
-	class Scene
-	{
-	public:
-		MB_API
-		Scene(Engine* engine);
-		MB_API
-		void render(float dt);
-		MB_API
-		Node* root() const;
-		MB_API
-		void registerBeforeRender(const std::function<void()>& cb, bool recyclable = false);
-		MB_API
-		void registerAfterRender(const std::function<void()>& cb, bool recyclable = false);
-		MB_API
-		void addLight(mb::Light* light);
-		MB_API
-		std::vector<mb::Light*> lights() const;
+  struct Profiler
+  {
+    unsigned int totalMeshes;
+    unsigned int totalVertices;
+    unsigned int drawCalls;
+    unsigned int totalIndices;
+    void reset()
+    {
+      totalMeshes = totalVertices = drawCalls = totalIndices = 0u;
+    }
+  };
+  class Engine;
+  class Scene
+  {
+  public:
+    MB_API
+    Scene(Engine* engine, SimpleCamera* camera);
+    MB_API
+    ~Scene();
+    MB_API
+    void render(float dt);
+    MB_API
+    Node* root() const;
+    MB_API
+    void registerBeforeRender(const std::function<void()>& cb,
+      bool recyclable = false);
+    MB_API
+    void registerAfterRender(const std::function<void()>& cb,
+      bool recyclable = false);
+    MB_API
+    void addLight(mb::Light* light);
+    MB_API
+    std::vector<mb::Light*> lights() const;
+    MB_API
+    bool update() const;
+    MB_API
+    void update(const bool upd);
 
-		MB_API
-		bool update() const;
-		MB_API
-		void update(const bool upd);
+    SimpleCamera* mainCamera;
+  private:
+    void applyQueue(std::vector<std::pair<std::function<void()>,
+      bool> >& queue);
+  protected:
+    //SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
+    std::vector<std::pair<std::function<void()>, bool>> _beforeRender;
+    std::vector<std::pair<std::function<void()>, bool>> _afterRender;
+    void _subUpdate(Node* n, float dt);
+    void updateCamera();
+    Node* _sceneGraph;
 
-		SimpleCamera* mainCamera;
-	private:
-		void applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue);
-	protected:
-		SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
-		std::vector<std::pair<std::function<void()>, bool>> _beforeRender;
-		std::vector<std::pair<std::function<void()>, bool>> _afterRender;
-		void _subUpdate(Node* n, float dt);
-		void _subrender(Node* n);
-		void updateCamera();
-		Node* _sceneGraph;
+    std::vector<mb::Light*> _lights;
 
-		std::vector<mb::Light*> _lights;
+  public:
+    Profiler profiler;
+    bool sort = true;
+  protected:
+    Engine* _engine;
 
-	public:
-		unsigned int _totalMeshes;
-		unsigned int _totalVertices;
-		unsigned int _drawCalls;
-		unsigned int _totalIndices;
-	protected:
-		Engine* _engine;
+    Mat4 _projection;
+    Mat4 _view;
 
-		Mat4 _projection;
-		Mat4 _view;
+    std::vector<Node*> _batch;
 
-		std::vector<Node*> _batch;
-
-	protected:
-		bool _update;
-	};
+  protected:
+    bool _update;
+  };
 }
 
 #endif /* __MB_SCENE__ */

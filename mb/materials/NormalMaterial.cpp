@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -24,12 +25,12 @@
 
 namespace mb
 {
-    NormalMaterial::NormalMaterial()
-    : Material()
-    {
-        _uniforms["projection"] = new Uniform(Matrix4);
-        _uniforms["view"] = new Uniform(Matrix4);
-        _uniforms["model"] = new Uniform(Matrix4);
+  NormalMaterial::NormalMaterial()
+  : Material()
+  {
+    _uniforms["projection"] = new Uniform(Matrix4);
+    _uniforms["view"] = new Uniform(Matrix4);
+    _uniforms["model"] = new Uniform(Matrix4);
 
 		const char* vsShader = "#version 330\n"
 			"layout(location = 0) in vec3 position;"
@@ -39,18 +40,18 @@ namespace mb
 			"uniform mat4 view;"
 			"uniform mat4 model;"
 			"void main() {"
-            "    mat3 normalMatrix = mat3(inverse(transpose(view * model)));"
-            "    outNormal = normalize(normalMatrix * normal);"
-            "    gl_Position = projection * view * model * vec4(position, 1.0);"
+      "   mat3 normalMatrix = mat3(inverse(transpose(view * model)));"
+      "   outNormal = normalize(normalMatrix * normal);"
+      "   gl_Position = projection * view * model * vec4(position, 1.0);"
 			"}";
 		const char* fsShader = "#version 330\n"
 			"in vec3 outNormal;"
 			"out vec4 fragColor;"
 			"void main() {"
-			"	fragColor = vec4(normalize(outNormal), 1.0);"
+			"  fragColor = vec4(normalize(outNormal), 1.0);"
 			"}";
-        _program.loadFromText(vsShader, fsShader);
-		_program.compileAndLink();
-		_program.autocatching();
-    }
+    _program->loadFromText(vsShader, fsShader);
+		_program->compileAndLink();
+		_program->autocatching();
+  }
 }

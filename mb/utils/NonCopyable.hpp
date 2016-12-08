@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -32,13 +33,13 @@ namespace mb
 {
 	class NonCopyable
 	{
-		protected:
-			NonCopyable() {}
-			~NonCopyable() {}
-		private:
-			NonCopyable( const NonCopyable& ) = delete;
-			const NonCopyable& operator=( const NonCopyable& ) = delete;
-		};
+	protected:
+		NonCopyable() {}
+		~NonCopyable() {}
+	private:
+		NonCopyable( const NonCopyable& ) = delete;
+		const NonCopyable& operator=( const NonCopyable& ) = delete;
+	};
 }
 
 #endif /* __MB_NONCOPYABLE__ */

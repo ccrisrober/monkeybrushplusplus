@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -19,37 +20,38 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
+
 #include "Ray.hpp"
 
 namespace mb
 {
-	Ray::Ray(const Vect3& origin, const Vect3& direction)
-	: _origin(origin)
-	, _direction(direction)
-	{
-	}
-	Vect3 Ray::origin() const
-	{
-		return this->_origin;
-	}
-	Vect3 Ray::direction() const
-	{
-		return this->_direction;
-	}
-	void Ray::origin(const Vect3& ori)
-	{
-		this->_origin = ori;
-	}
-	void Ray::direction(const Vect3& dir)
-	{
-		this->_direction = dir;
-	}
-	Vect3 Ray::at(const float t)
-	{
-		return Vect3(
-			this->_origin.x() + t * this->_direction.x(),
-			this->_origin.y() + t * this->_direction.y(),
-			this->_origin.z() + t * this->_direction.z()
-		);
-	}
+  Ray::Ray(const Vect3& origin, const Vect3& direction)
+  : _origin(origin)
+  , _direction(direction)
+  {
+  }
+  Vect3 Ray::origin() const
+  {
+    return this->_origin;
+  }
+  Vect3 Ray::direction() const
+  {
+    return this->_direction;
+  }
+  void Ray::origin(const Vect3& ori)
+  {
+    this->_origin = ori;
+  }
+  void Ray::direction(const Vect3& dir)
+  {
+    this->_direction = dir;
+  }
+  Vect3 Ray::at(const float t)
+  {
+    return Vect3(
+      this->_origin.x() + t * this->_direction.x(),
+      this->_origin.y() + t * this->_direction.y(),
+      this->_origin.z() + t * this->_direction.z()
+    );
+  }
 }

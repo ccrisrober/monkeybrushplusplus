@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -71,6 +72,13 @@ namespace mb
 					std::string impStr = _processImports(content);
 					str = replace(str, matchStr, impStr);
 				}
+        else
+        {
+          mb::ResourceShader::loadShader(std::string(includeFile), 
+            // TODO
+            "C:/Users/maldicion069/Desktop/projects/monkeybrushplusplus/shaders" + 
+            std::string("/" + includeFile + ".glsl"));
+        }
 			}
 			return str;
 		}
@@ -446,7 +454,7 @@ namespace mb
 		*    the matrix as the values are loaded into the uniform variable
 		*/
 		MB_API
-		void sendUniform4m(const std::string& uniform, 
+		void sendUniform4m(const std::string& uniform,
 			const std::vector< float > & m, bool inverse = false);
 		/**
 		* Method to send a mat4
@@ -456,7 +464,7 @@ namespace mb
 		*    the matrix as the values are loaded into the uniform variable
 		*/
 		MB_API
-		void sendUniform4m(const std::string& uniform, 
+		void sendUniform4m(const std::string& uniform,
 			const float* m, bool inverse = false);
 
 #ifdef MB_SUBPROGRAMS

@@ -7,7 +7,7 @@ if( "${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}" )
 	message( FATAL "no in source building allowed." )
 endif()
 
-list(APPEND CMAKE_MODULE_PATH 
+list(APPEND CMAKE_MODULE_PATH
 	${PROJECT_SOURCE_DIR}/CMake
 	${CMAKE_SOURCE_DIR}/CMake/common)
 
@@ -32,6 +32,7 @@ include(Common)
 # Allow warnings
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 
+option( MB_WITH_EXAMPLES "Reto examples" ON)
 
 common_find_package( Eigen3 REQUIRED SYSTEM )
 common_find_package( OpenGL REQUIRED SYSTEM )
@@ -40,6 +41,8 @@ common_find_package( Boost COMPONENTS unit_test_framework )
 common_find_package( rapidjson )
 common_find_package( GLFW )
 common_find_package( FreeImage REQUIRED SYSTEM )
+
+
 
 set(GLFW_BUILD_DOCS OFF)
 set(GLFW_BUILD_TESTS OFF)
@@ -51,7 +54,6 @@ if(${Rapidjson_FOUND})
 	list (APPEND MB_DEPENDENT_LIBRARIES rapidjson)
 endif()
 
-
 common_find_package_post()
 
 # add_subdirectory(tr)
@@ -62,5 +64,7 @@ if(${Boost_FOUND})
 	add_subdirectory(tests)
 endif()
 
-# include(CPackConfig)
+set(DOXYGEN_MAINPAGE_MD ${PROJECT_SOURCE_DIR}/README.md)
+set(DOXYGEN_EXTRA_INPUT ${DOXYGEN_MAINPAGE_MD})
+include(CPackConfig)
 include(DoxygenRule)

@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -37,26 +38,33 @@
 
 namespace mb
 {
-	Scene::Scene(Engine* engine)
+	Scene::Scene(Engine* engine, SimpleCamera* camera)
 	: _sceneGraph(new Node())
 	, _engine(engine)
 	, _update(true)
 	{
 		mainCamera = camera;
 	}
+  Scene::~Scene()
+  {
+    delete _sceneGraph;
+  }
 	Node* Scene::root() const
 	{
 		return this->_sceneGraph;
 	}
-	void Scene::registerBeforeRender(const std::function<void()>& cb, bool recyclable)
+	void Scene::registerBeforeRender(const std::function<void()>& cb,
+    bool recyclable)
 	{
 		this->_beforeRender.push_back(std::make_pair(cb, recyclable));
 	}
-	void Scene::registerAfterRender(const std::function<void()>& cb, bool recyclable)
+	void Scene::registerAfterRender(const std::function<void()>& cb,
+    bool recyclable)
 	{
 		this->_afterRender.push_back(std::make_pair(cb, recyclable));
 	}
-	void Scene::applyQueue(std::vector<std::pair<std::function<void()>, bool> >& queue)
+	void Scene::applyQueue(std::vector<std::pair<std::function<void()>,
+    bool> >& queue)
 	{
 		auto i = std::begin(queue);
 		while (i != std::end(queue))
@@ -72,14 +80,9 @@ namespace mb
 			}
 		}
 	}
-
-
 	void Scene::render(float dt)
 	{
-		_totalMeshes = 0;
-		_totalVertices = 0;
-		_drawCalls = 0;
-		_totalIndices = 0;
+		profiler.reset();
 
 		if (!_update)
 		{
@@ -92,64 +95,62 @@ namespace mb
 		applyQueue(_beforeRender);
 		_subUpdate(root(), dt);
 
-		std::sort(_batch.begin(), _batch.end(), [](Node* mm1, Node* mm2)
-		{
-			Material *m1 = mm1->getMesh()->getMaterial();
-			Material *m2 = mm2->getMesh()->getMaterial();
-			static auto smType = std::type_index(typeid(mb::ShaderMaterial));
+    mainCamera->update(dt);
 
-			auto type1 = std::type_index(typeid(*m1));
-			auto type2 = std::type_index(typeid(*m2));
-
-			if (type1 == type2)
+    if (sort) {
+			std::sort(_batch.begin(), _batch.end(), [](Node* mm1, Node* mm2)
 			{
-				if (
-					(type1 == smType)
-					&&
-					(type2 == smType)
-					)
+				Material *m1 = mm1->getMesh()->getMaterial();
+				Material *m2 = mm2->getMesh()->getMaterial();
+				static auto smType = std::type_index(typeid(mb::ShaderMaterial));
+
+				auto type1 = std::type_index(typeid(*m1));
+				auto type2 = std::type_index(typeid(*m2));
+
+				if (type1 == type2)
 				{
-					mb::ShaderMaterial* sm1 = dynamic_cast<mb::ShaderMaterial*>(m1);
-					mb::ShaderMaterial* sm2 = dynamic_cast<mb::ShaderMaterial*>(m2);
-
-					if (sm1->name() != sm2->name())
+					if (
+						(type1 == smType)
+						&&
+						(type2 == smType)
+						)
 					{
-						return sm1->name() < sm2->name();
+						mb::ShaderMaterial* sm1 = dynamic_cast<mb::ShaderMaterial*>(m1);
+						mb::ShaderMaterial* sm2 = dynamic_cast<mb::ShaderMaterial*>(m2);
+
+						if (sm1->name() != sm2->name())
+						{
+							return sm1->name() < sm2->name();
+						}
 					}
+
+					VertexArray* v1 = mm1->getMesh()->getMesh()->vertexArray();
+					VertexArray* v2 = mm2->getMesh()->getMesh()->vertexArray();
+
+					return v1->handler() < v2->handler();
 				}
-
-				VertexArray* v1 = mm1->getMesh()->getMesh()->vertexArray();
-				VertexArray* v2 = mm2->getMesh()->getMesh()->vertexArray();
-
-				return v1->handler() < v2->handler();
-			}
-			return type1 < type2;
-		});
-
-		// std::cout << _batch.size() << std::endl;
-
+				return type1 < type2;
+			});
+		}
 		for (const auto& node : _batch)
 		{
 			auto mr = node->getMesh();
-			//if ((camera->layer().check(n->layer())) && (mr != nullptr))
-			//{
 			mr->getMaterial()->uniforms()["projection"]->value(_projection);
 			mr->getMaterial()->uniforms()["view"]->value(_view);
 			if (mr->getMaterial()->hasUniform("viewPos"))
-				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
-			mr->render(node->transform().matrixWorld());
-			++this->_totalMeshes;
-			this->_totalIndices += mr->getMesh()->indicesLen();
-			this->_totalVertices += mr->getMesh()->verticesLen();
-			//}
+				mr->getMaterial()->uniform("viewPos")->value(this->mainCamera->GetPos());
+			mr->render();
+			++profiler.totalMeshes;
+			profiler.totalIndices += mr->getMesh()->indicesLen();
+			profiler.totalVertices += mr->getMesh()->verticesLen();
 		}
 
-		//_subrender(root());
 		// After render functions
 		applyQueue(_afterRender);
 
+		// Restore state
 		this->_engine->state()->depth.setStatus(true);
-		// TODO: DepthWrite = true;
+		this->_engine->state()->depth.setMask(true);
 	}
 	void Scene::_subUpdate(Node* n, float dt)
 	{
@@ -166,7 +167,7 @@ namespace mb
 		}
 		n->_updateMatrixWorld();
 
-		if ((camera->layer().check(n->layer())) && (n->getMesh() != nullptr))
+		if ((mainCamera->layer().check(n->layer())) && (n->getMesh() != nullptr))
 		{
 			_batch.push_back(n);
 		}
@@ -178,31 +179,10 @@ namespace mb
 	}
 	void Scene::updateCamera()
 	{
-		_projection = this->camera->projectionMatrix(this->_engine->context()->getWidth(), this->_engine->context()->getHeight());
-		_view = this->camera->viewMatrix();
-	}
-	void Scene::_subrender(Node* n)
-	{
-		if (!n->isVisible())
-		{
-			return;
-		}
-		auto mr = n->getMesh();
-		if ( (camera->layer().check(n->layer())) && (mr != nullptr))
-		{
-			mr->getMaterial()->uniforms()["projection"]->value(_projection);
-			mr->getMaterial()->uniforms()["view"]->value(_view);
-			if (mr->getMaterial()->hasUniform("viewPos"))
-				mr->getMaterial()->uniforms()["viewPos"]->value(this->camera->GetPos());
-			mr->render(n->transform().matrixWorld());
-			++this->_totalMeshes;
-			this->_totalIndices += mr->getMesh()->indicesLen();
-			this->_totalVertices += mr->getMesh()->verticesLen();
-		}
-		for (const auto& child : n->children())
-		{
-			this->_subrender(child);
-		}
+		_projection = this->mainCamera->projectionMatrix(
+      this->_engine->context()->getWidth(),
+      this->_engine->context()->getHeight());
+		_view = this->mainCamera->viewMatrix();
 	}
 	void Scene::addLight(mb::Light* light)
 	{

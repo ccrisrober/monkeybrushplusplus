@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,15 +30,15 @@ namespace mb
 	{
 		std::vector<float> verts = {
 			 1.0f,  1.0f,  1.0f,
-            -1.0f, -1.0f,  1.0f,
-            -1.0f,  1.0f, -1.0f,
-             1.0f, -1.0f, -1.0f
+      -1.0f, -1.0f,  1.0f,
+      -1.0f,  1.0f, -1.0f,
+       1.0f, -1.0f, -1.0f
 		};
 		std::vector<unsigned int> el = {
-             2,  1,  0,
-             0,  3,  2,
-             1,  3,  0,
-             2,  3,  1
+      2,  1,  0,
+      0,  3,  2,
+      1,  3,  0,
+      2,  3,  1
 		};
 		this->create(verts, el, radius, subdivisions);
 	}

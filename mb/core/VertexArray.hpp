@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,26 +30,24 @@
 
 namespace mb
 {
-	class VertexArray
-	{
-	public:
-		MB_API
-		VertexArray(unsigned int handler_);
-		MB_API
-		VertexArray();
-		MB_API
-		virtual ~VertexArray();
-		MB_API
-		void bind();
-		MB_API
-		void unbind();
-		unsigned int handler() const
-		{
-			return _handler;
-		}
-	protected:
-		unsigned int _handler;
-	};
+  class VertexArray
+  {
+  public:
+    MB_API
+    VertexArray(unsigned int handler_);
+    MB_API
+    VertexArray();
+    MB_API
+    virtual ~VertexArray();
+    MB_API
+    void bind();
+    MB_API
+    void unbind();
+    MB_API
+    unsigned int handler() const;
+  protected:
+    unsigned int _handler;
+  };
 }
 
 #endif /* __MB_VERTEX_ARRAY__ */

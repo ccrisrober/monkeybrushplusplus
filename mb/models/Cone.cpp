@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -25,42 +26,44 @@
 namespace mb
 {
     Cone::Cone(float bottomRadius, float topRadius,
-		float height, unsigned int radialSubDiv, int heightSubDiv,
-		bool createTopBase, bool createBottomBase)
+    float height, unsigned int radialSubDiv, int heightSubDiv,
+    bool createTopBase, bool createBottomBase)
     : Drawable()
     {
-		if (radialSubDiv < 3) {
-			throw ("radialSubDiv must be 3 or greater");
-		}
+		    if (radialSubDiv < 3)
+        {
+			  throw ("radialSubDiv must be 3 or greater");
+		  }
 
-		if (heightSubDiv < 1) {
-			throw ("heightSubDiv must be 1 or greater");
-		}
-        unsigned int extra = (createTopBase ? 2 : 0) + (createBottomBase ? 2 : 0);
+		  if (heightSubDiv < 1)
+      {
+			  throw ("heightSubDiv must be 1 or greater");
+		  }
+      unsigned int extra = (createTopBase ? 2 : 0) + (createBottomBase ? 2 : 0);
 
-		unsigned int nv = (radialSubDiv + 1) * (heightSubDiv + 1 + extra);
+		  unsigned int nv = (radialSubDiv + 1) * (heightSubDiv + 1 + extra);
 
-		BufferAttribute verts(std::vector<float>(3 * nv), 3);
-		BufferAttribute norms(std::vector<float>(3 * nv), 3);
-		BufferAttribute texCoords(std::vector<float>(2 * nv), 2);
+		  BufferAttribute verts(std::vector<float>(3 * nv), 3);
+		  BufferAttribute norms(std::vector<float>(3 * nv), 3);
+		  BufferAttribute texCoords(std::vector<float>(2 * nv), 2);
 
-		std::vector<unsigned int> cells(3 * radialSubDiv * (heightSubDiv + extra) * 2);
+		  std::vector<unsigned int> cells(3 * radialSubDiv * (heightSubDiv + extra) * 2);
 
-		unsigned int vertsAroundEdge = radialSubDiv + 1;
+		  unsigned int vertsAroundEdge = radialSubDiv + 1;
 
-		// Slant: Distance from the top of a Cone, down the side to a point on the edge of the base.
-		float slantH = std::atan2(bottomRadius - topRadius, height);
-		float cSlantH = std::cos(slantH);
-		float sSlantH = std::sin(slantH);
+		  // Slant: Distance from the top of a Cone, down the side to a point on the edge of the base.
+		  float slantH = std::atan2(bottomRadius - topRadius, height);
+		  float cSlantH = std::cos(slantH);
+		  float sSlantH = std::sin(slantH);
 
-		int start = createTopBase ? -2 : 0;
-		int end = heightSubDiv + (createBottomBase ? 2 : 0);
+		  int start = createTopBase ? -2 : 0;
+		  int end = heightSubDiv + (createBottomBase ? 2 : 0);
 
-		unsigned int NVIDX = 0;
-		unsigned int NNIDX = 0;
-		unsigned int NTIDX = 0;
-		for (int yy = start; yy <= end; ++yy)
-		{
+		  unsigned int NVIDX = 0;
+		  unsigned int NNIDX = 0;
+		  unsigned int NTIDX = 0;
+		  for (int yy = start; yy <= end; ++yy)
+		  {
 			float v = yy / heightSubDiv;
 			float y = height * v;
 			float ringRadius;
@@ -120,21 +123,21 @@ namespace mb
 
 		_numVertices = verts.count();
 
-        _vao = new VertexArray();
+    _vao = new VertexArray();
 		_vao->bind();
 
-			addBufferArray(0, verts.array(), 3, GL_STATIC_DRAW);
-			addBufferArray(1, norms.array(), 3, GL_STATIC_DRAW);
-			addBufferArray(2, texCoords.array(), 2, GL_STATIC_DRAW);
+		addBufferArray(0, verts.array(), 3, GL_STATIC_DRAW);
+		addBufferArray(1, norms.array(), 3, GL_STATIC_DRAW);
+		addBufferArray(2, texCoords.array(), 2, GL_STATIC_DRAW);
 
-			std::vector<unsigned int> data = cells;
-			unsigned int type = GL_STATIC_DRAW;
+		std::vector<unsigned int> data = cells;
+		unsigned int type = GL_STATIC_DRAW;
 
-			VertexBuffer vbIndices(GL_ELEMENT_ARRAY_BUFFER);
-			vbIndices.data(data, type);
-			_indicesLen = data.size();
-			this->_handle.push_back(vbIndices);
+		VertexBuffer vbIndices(GL_ELEMENT_ARRAY_BUFFER);
+		vbIndices.data(data, type);
+		_indicesLen = data.size();
+		this->_handle.push_back(vbIndices);
 
-        _vao->unbind();
-    }
+    _vao->unbind();
+  }
 }

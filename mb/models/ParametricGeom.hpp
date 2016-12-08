@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -34,7 +35,7 @@ namespace mb
     {
     public:
 		MB_API
-		ParametricGeom(const std::function<mb::Vect3(float, float)>& func, 
+		ParametricGeom(const std::function<mb::Vect3(float, float)>& func,
 			const unsigned int& slices, const unsigned int& stacks);
     };
 }

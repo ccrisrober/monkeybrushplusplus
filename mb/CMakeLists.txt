@@ -120,7 +120,7 @@ set( MB_PUBLIC_HEADERS
     SimpleCamera.hpp
 
 
-    #core/os.hpp
+    core/os.hpp
     io/Mouse.hpp
     io/Keyboard.hpp
     io/Input.hpp
@@ -154,7 +154,6 @@ set( MB_SOURCES
     core/VertexBuffer.cpp
     core/VertexUBO.cpp
 
-    extras/CustomPingPong.cpp
     extras/Easing.cpp
     extras/Ray.cpp
 
@@ -207,7 +206,7 @@ set( MB_SOURCES
     models/ParametricGeom.cpp
 
     others/Exception.cpp
-    
+
     resources/MaterialCache.cpp
     resources/ObjParser.cpp
     resources/ResourceShader.cpp

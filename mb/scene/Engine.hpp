@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -30,36 +31,35 @@
 #include "../core/GLContext.hpp"
 #include "../maths/Vect4.hpp"
 
-
 #include "../io/Window.hpp"
 
 namespace mb
 {
-	class Engine
-	{
-	public:
-		MB_API
-		Engine(GLContext* context, bool debugLayer = true);
-		MB_API
-		void run(std::function<void(float)> loop);
-		MB_API
-		void close();
-		MB_API
-		void setViewport(const Vect4& vp);
-		MB_API
-		GlobalState * state();
-		MB_API
-		GLContext* context();
+  class Engine
+  {
+  public:
+    MB_API
+    Engine(GLContext* context, bool debugLayer = true);
+    MB_API
+    void run(std::function<void(float)> loop);
+    MB_API
+    void close();
+    MB_API
+    void setViewport(const Vect4& vp);
+    MB_API
+    GlobalState * state();
+    MB_API
+    GLContext* context();
     private:
-		double calcFPS(double theTimeInterval = 1.0f);
-	protected:
+    double calcFPS(double theTimeInterval = 1.0f);
+  protected:
         GLContext* _context;
         float deltaTime;
         float lastFrame;
-		bool _debugLayer;
+    bool _debugLayer;
 
         double currentTime;
-	};
+  };
 }
 
 #endif /* __MB_ENGINE__ */

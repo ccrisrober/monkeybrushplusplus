@@ -32,3 +32,6 @@
 - (04/11) Added TransformFeedback.
 - (06/11) Added MeshRendererTesselation.
 - (07/11) Fixed batching sort.
+- (08/11) MeshRenderer as Component (again)
+- (08/11) Scene required a default camera in constructor. Fixed demos
+- (08/11) Removed unnecesary files (any.cpp and CustomPingPong.cpp).

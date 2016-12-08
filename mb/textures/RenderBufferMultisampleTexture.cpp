@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -24,19 +25,23 @@
 
 namespace mb
 {
-	RenderBufferMultisampleTexture::RenderBufferMultisampleTexture(const Vect2& size, unsigned int format, 
-		unsigned int attachment, unsigned int samples)
-		: RenderBuffer(size, format, attachment, samples)
-	{
-		this->bind();
-		glRenderbufferStorageMultisample(GL_RENDERBUFFER, _samples, _format, (unsigned int)_size.x(), (unsigned int)size.y());
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, _attachment, GL_RENDERBUFFER, _handler);
-		this->unbind();
-	}
-	void RenderBufferMultisampleTexture::resize(const Vect2& size)
-	{
-		this->bind();
-		glRenderbufferStorageMultisample(GL_RENDERBUFFER, _samples, _format, (unsigned int)_size.x(), (unsigned int)size.y());
-		this->unbind();
-	}
+  RenderBufferMultisampleTexture::RenderBufferMultisampleTexture(
+    const Vect2& size, unsigned int format,
+    unsigned int attachment, unsigned int samples)
+    : RenderBuffer(size, format, attachment, samples)
+  {
+    this->bind();
+    glRenderbufferStorageMultisample(GL_RENDERBUFFER, _samples, _format,
+      (unsigned int)_size.x(), (unsigned int)size.y());
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, _attachment,
+      GL_RENDERBUFFER, _handler);
+    this->unbind();
+  }
+  void RenderBufferMultisampleTexture::resize(const Vect2& size)
+  {
+    this->bind();
+    glRenderbufferStorageMultisample(GL_RENDERBUFFER, _samples,
+      _format, (unsigned int)_size.x(), (unsigned int)size.y());
+    this->unbind();
+  }
 }

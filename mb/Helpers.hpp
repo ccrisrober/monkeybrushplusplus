@@ -28,6 +28,7 @@
 
 #include "scene/Component.hpp"
 #include "materials/Material.hpp"
+#include <thread>
 
 namespace mb
 {
@@ -37,13 +38,34 @@ namespace mb
 		PointMaterial();
 	};
 
+  void setInterval(std::function<void(void)> function, int interval)
+  {
+    std::thread([=]()
+    {
+      while (true) {
+        function();
+        std::this_thread::sleep_for(
+          std::chrono::milliseconds(interval));
+      }
+    }).detach();
+  }
+
+  class ChangeTransformationComponent : public mb::Component
+  {
+  public:
+    MB_API
+    ChangeTransformationComponent();
+    MB_API
+    virtual void update(const float) override;
+  };
+
 	class MoveComponent : public mb::Component
 	{
 	public:
 		MB_API
 		MoveComponent();
 		MB_API
-		virtual void update(float dt);
+    virtual void update(const float dt) override;
 	protected:
 		float _delta;
 		int _sign;
@@ -85,10 +107,8 @@ namespace mb
 
 		MB_API
 		RotateComponent(Axis axis, float velocity = 1.0f, bool rotate = false);
-		//MB_API
-		//void setAxis(Axis axis);
 		MB_API
-		virtual void update(float dt);
+    virtual void update(const float dt) override;
 		MB_SYNTHESIZE_WRITEONLY(bool, _rotate, Rotate);
 		MB_SYNTHESIZE_WRITEONLY(Axis, _axis, Axis);
 	protected:
@@ -101,7 +121,7 @@ namespace mb
 		MB_API
 		ScaleComponent();
 		MB_API
-		virtual void update(float /*dt*/);
+		virtual void update(const float dt) override;
 	protected:
 		float _inc;
 	};
@@ -111,7 +131,7 @@ namespace mb
 		MB_API
 		PrintPosition();
 		MB_API
-		virtual void update(float);
+		virtual void update(const float dt) override;
 	};
 };
 

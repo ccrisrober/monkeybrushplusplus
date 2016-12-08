@@ -24,39 +24,21 @@
 #include <mb/mb.h>
 #include <assetsFiles.h>
 
-#include <thread>
-
-void setInterval(std::function<void(void)> function, int interval) {
-	std::thread([=]()
-	{
-		while (true) {
-			function();
-			std::this_thread::sleep_for(
-				std::chrono::milliseconds(interval));
-		}
-	}).detach();
-}
-
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
 
-mb::Node* mbModel;
-mb::CustomPingPong<mb::Texture*>* customPP;
-mb::ShaderMaterial* material;
-
 int main(void)
 {
-	mb::GLContext context(4, 3, 1024, 768, "Texture Swap");
+  mb::GLContext context(4, 3, 1024, 768, "Texture Swap");
 
-    engine = new mb::Engine(&context, false);
-    scene = new mb::Scene(engine);
+  auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
-    customPP = new mb::CustomPingPong<mb::Texture*>(
-		new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg")),
-		new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/matcap.jpg"))
-    );
+  auto customPP = new mb::CustomPingPong<mb::Texture*>(
+	  new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg")),
+	  new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/matcap.jpg"))
+  );
 
 	mb::Cube* model = new mb::Cube(1.0f);
 
@@ -73,11 +55,11 @@ int main(void)
 			"uniform mat4 view;"
 			"uniform mat4 model;"
 			"void main() {"
-			"	vec3 outPosition = vec3(model * vec4(position, 1.0));"
-			"	gl_Position = projection * view * vec4(outPosition, 1.0);"
-			"	mat3 normalMatrix = mat3(inverse(transpose(model)));"
-			"	outNormal = normalize(normalMatrix * normal);"
-			"	outUV = uv;"
+			"   vec3 outPosition = vec3(model * vec4(position, 1.0));"
+			"   gl_Position = projection * view * vec4(outPosition, 1.0);"
+			"   mat3 normalMatrix = mat3(inverse(transpose(model)));"
+			"   outNormal = normalize(normalMatrix * normal);"
+			"   outUV = uv;"
 			"}"
 		}, {
 			mb::FragmentShader,
@@ -88,68 +70,48 @@ int main(void)
 			"uniform vec3 viewPos;"
 			"uniform sampler2D tex;"
 			"void main() {"
-			"	fragColor = vec4(texture(tex, outUV).rgb, 1.0);"
+			"   fragColor = vec4(texture(tex, outUV).rgb, 1.0);"
 			"}"
 		}
 	};
 
-	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
-		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
-		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
-		std::make_pair("model", new mb::Uniform(mb::Matrix4)),
-		std::make_pair("viewPos", new mb::Uniform(mb::Vector3)),
-		std::make_pair("tex", new mb::Uniform(mb::TextureSampler, customPP->first()))
-	};
+  std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+    std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
+    std::make_pair("view", new mb::Uniform(mb::Matrix4)),
+    std::make_pair("model", new mb::Uniform(mb::Matrix4)),
+    std::make_pair("viewPos", new mb::Uniform(mb::Vector3)),
+    std::make_pair("tex", new mb::Uniform(mb::TextureSampler, customPP->first()))
+  };
 
-	material = new mb::ShaderMaterial("textureShader", shaders, uniforms);
+  auto material = new mb::ShaderMaterial("textureShader", shaders, uniforms);
 
-	mbModel = new mb::Node(std::string("cube"));
-	mbModel->setMesh(new mb::MeshRenderer(model, material));
-	mbModel->addComponent(new mb::MoveComponent());
-	mbModel->addComponent(new mb::RotateComponent(mb::Axis::x));
+  auto mbNode = new mb::Node(std::string("cube"));
+  mbNode->addComponent(new mb::MeshRenderer(model, material));
+  mbNode->addComponent(new mb::ChangeTransformationComponent());
+  mbNode->addComponent(new mb::MoveComponent());
+  mbNode->addComponent(new mb::RotateComponent(mb::Axis::x));
 
-	mbModel->getComponent<mb::RotateComponent>()->setRotate(true);
+  mbNode->getComponent<mb::RotateComponent>()->setRotate(true);
 
-	scene->root()->addChild(mbModel);
+  scene->root()->addChild(mbNode);
 
-	customPP->first()->bind(0);
-	setInterval([&]() {
-		customPP->swap();
-		material->uniform("tex")->value(customPP->first());
-	}, 1000);
+  customPP->first()->bind(0);
+  mb::setInterval([&]()
+  {
+    customPP->swap();
+    material->uniform("tex")->value(customPP->first());
+  }, 1000);
 
-	engine->run(renderFunc);
+  engine->run(renderFunc);
     
-	delete(scene);
-	delete(engine);
+  delete(scene);
+  delete(engine);
 
-    return 0;
+  return 0;
 }
 
 void renderFunc(float dt)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::P))
-	{
-		mbModel->toggleComponent<mb::MoveComponent>();
-	}
-	scene->render(dt);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  scene->render(dt);
 }

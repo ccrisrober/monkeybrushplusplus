@@ -3,10 +3,11 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License version 3.0f as published
+ * the terms of the GNU Lesser General Public License version 3.0 as published
  * by the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but WITHOUT
@@ -31,12 +32,12 @@
 
 namespace mb
 {
-	class ParticleSystem
+  class ParticleSystem
     {
     public:
         ParticleSystem(mb::Drawable* mesh, mb::Material* material)
-			: _mesh(mesh)
-			, _material(material)
+      : _mesh(mesh)
+      , _material(material)
         {
 
         }
@@ -46,8 +47,8 @@ namespace mb
             {
                 /*std::sort(positions.begin(), position.end(), [&](Vect3& a, Vect3& b)
                 {
-					Vect3& aa = Vect3::sub(camera.transform().position(), a);
-					Vect3& bb = Vect3::sub(camera.transform().position(), b);
+          Vect3& aa = Vect3::sub(camera.transform().position(), a);
+          Vect3& bb = Vect3::sub(camera.transform().position(), b);
                     return aa.length() > bb.length();
                 });*/
             }
@@ -59,8 +60,8 @@ namespace mb
 
     protected:
         bool _sortParticles;
-		mb::Drawable* _mesh;
-		mb::Material* _material;
+    mb::Drawable* _mesh;
+    mb::Material* _material;
     };
 }
 

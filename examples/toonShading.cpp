@@ -24,23 +24,44 @@
 #include <mb/mb.h>
 #include <assetsFiles.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
 
-mb::Node* mbModel;
-
-mb::ShaderMaterial* material;
-
-float levels = 5.0f;
+class ChangeToonLevel : public mb::Component
+{
+public:
+  ChangeToonLevel(const float& level)
+    : mb::Component()
+    , _level(level)
+  {}
+  virtual void update(const float) override
+  {
+    if (mb::Input::isKeyClicked(mb::Keyboard::Key::Plus))
+    {
+      _level += 1.0f;
+      getNode()->getMesh()->getMaterial()->uniform("levels")->value(_level);
+    }
+    if (mb::Input::isKeyClicked(mb::Keyboard::Key::Minus))
+    {
+      _level -= 1.0f;
+      if (_level < 1.0f)
+      {
+        _level = 1.0f;
+      }
+      getNode()->getMesh()->getMaterial()->uniform("levels")->value(_level);
+    }
+  }
+protected:
+  float _level;
+};
 
 int main(void)
 {
 	mb::GLContext context(3, 3, 1024, 768, "Toon shading");
 
-	engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+	auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	mb::Mesh* model = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
@@ -50,47 +71,40 @@ int main(void)
 			"#version 330\n"
 			"layout(location = 0) in vec3 position;\n"
 			"layout(location = 1) in vec3 normal;\n"
-
 			"out vec3 outPosition;\n"
 			"out vec3 outNormal;\n"
-
 			"uniform mat4 projection;\n"
 			"uniform mat4 view;\n"
 			"uniform mat4 model;\n"
-
 			"void main() {\n"
-			"	outPosition = vec3(model * vec4(position, 1.0));\n"
-			"	gl_Position = projection * view * vec4(outPosition, 1.0);\n"
-			"	mat3 normalMatrix = mat3(inverse(transpose(model)));\n"
-			"	outNormal = normalize(normalMatrix * normal);\n"
+			"   outPosition = vec3(model * vec4(position, 1.0));\n"
+			"	  gl_Position = projection * view * vec4(outPosition, 1.0);\n"
+			"	  mat3 normalMatrix = mat3(inverse(transpose(model)));\n"
+			"	  outNormal = normalize(normalMatrix * normal);\n"
 			"}\n"
 		},{
 			mb::FragmentShader,
 			"#version 330\n"
 			"in vec3 outPosition;\n"
 			"in vec3 outNormal; \n"
-
 			"out vec4 fragColor; \n"
-
 			"uniform sampler2D tex; \n"
-
 			"uniform vec3 viewPos; \n"
 			"uniform vec3 color; \n"
-
-			"uniform float levels; // = 5.0;\n"
-
+			"uniform float levels; \n"
 			"void main() {\n"
-			"	float scaleFactor = 1.0 / levels; \n"
-			"	vec3 n = normalize(outNormal); \n"
-			"	vec3 s = normalize(viewPos.xyz - outPosition.xyz); \n"
-			"	vec3 ambient = color * vec3(0.135, 0.2225, 0.1575); \n"
-			"	float cosine = dot(s, n); \n"
-			"	vec3 diffuse = color * floor(cosine * levels) * scaleFactor; \n"
-
-			"	fragColor = vec4(vec3(ambient + diffuse), 1.0); \n"
+			"	  float scaleFactor = 1.0 / levels; \n"
+			"	  vec3 n = normalize(outNormal); \n"
+			" 	vec3 s = normalize(viewPos.xyz - outPosition.xyz); \n"
+			"	  vec3 ambient = color * vec3(0.135, 0.2225, 0.1575); \n"
+			"	  float cosine = dot(s, n); \n"
+			"	  vec3 diffuse = color * floor(cosine * levels) * scaleFactor; \n"
+			"	  fragColor = vec4(vec3(ambient + diffuse), 1.0); \n"
 			"}\n"
 		}
 	};
+
+  float levels = 5.0f;
 
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
 		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
@@ -101,15 +115,17 @@ int main(void)
 		std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3(0.54f, 0.89f, 0.63f)))
 	};
 
-	material = new mb::ShaderMaterial("material", shaders, uniforms);
+  mb::ShaderMaterial material("material", shaders, uniforms);
 
-	mbModel = new mb::Node(std::string("model"));
-	mbModel->setMesh(new mb::MeshRenderer(model, material));
-	mbModel->addComponent(new mb::RotateComponent(mb::Axis::y, 0.15f));
+	auto mbNode = new mb::Node(std::string("model"));
+	mbNode->addComponent(new mb::MeshRenderer(model, &material));
+	mbNode->addComponent(new mb::RotateComponent(mb::Axis::y, 0.15f));
+  mbNode->addComponent(new mb::ChangeTransformationComponent());
+  mbNode->addComponent(new ChangeToonLevel(levels));
 
-	mbModel->getComponent<mb::RotateComponent>()->setRotate(true);
+	mbNode->getComponent<mb::RotateComponent>()->setRotate(true);
 
-	scene->root()->addChild(mbModel);
+	scene->root()->addChild(mbNode);
 
 	engine->run(renderFunc);
 
@@ -122,34 +138,5 @@ int main(void)
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Plus))
-	{
-		levels += 1.0f;
-		material->uniform("levels")->value(levels);
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::Minus))
-	{
-		levels -= 1.0f;
-		if (levels < 1.0f) levels = 1.0f;
-		material->uniform("levels")->value(levels);
-	}
 	scene->render(dt);
 }

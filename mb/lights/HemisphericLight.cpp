@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -24,25 +25,25 @@
 
 namespace mb
 {
-    HemisphericLight::HemisphericLight(const Vect3 dir)
+  HemisphericLight::HemisphericLight(const Vect3 dir)
     :Light()
     , _direction(dir)
-    {
-    }
-    Vect3 HemisphericLight::direction() const
-    {
-        return this->_direction;
-    }
-    void HemisphericLight::direction(const Vect3& pos)
-    {
-        this->_direction = pos;
-    }
-    Color3 HemisphericLight::groundColor() const
-    {
-        return this->_groundColor;
-    }
-    void HemisphericLight::groundColor(const Color3& c)
-    {
-        this->_groundColor = c;
-    }
+  {
+  }
+  Vect3 HemisphericLight::direction() const
+  {
+    return this->_direction;
+  }
+  void HemisphericLight::direction(const Vect3& pos)
+  {
+    this->_direction = pos;
+  }
+  Color3 HemisphericLight::groundColor() const
+  {
+    return this->_groundColor;
+  }
+  void HemisphericLight::groundColor(const Color3& c)
+  {
+    this->_groundColor = c;
+  }
 }

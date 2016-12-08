@@ -24,7 +24,6 @@
 #include <mb/mb.h>
 #include <random>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
@@ -40,85 +39,61 @@ public:
 	}
 	virtual void start()
 	{
-		_yPos = _node->transform().position().y();
+    _xPos = _node->transform().position().x();
+    _yPos = _node->transform().position().y();
 	}
-	virtual void update(float dt)
+	virtual void update(const float dt) override
 	{
-		_node->transform().position().y(_yPos + _distribution(_generator) * dt);
+    float i = _xPos + (_distribution(_generator) * 5.0f * dt);
+    float j = _yPos + (_distribution(_generator) * 5.0f * dt);
+    float k = (_distribution(_generator) * 5.0f * dt);
+		
+    _node->transform().position().set(i, j, k);
 	}
 protected:
 	std::default_random_engine _generator;
 	std::normal_distribution<float> _distribution;
 
-	float _yPos;
+  float _xPos;
+  float _yPos;
 };
 
-mb::Node* mbCube;
+void addModel(const float& px, const float& py, mb::Drawable* cube, mb::Material& material)
+{
+  auto mbCube = new mb::Node(std::string("cube"));
+  mbCube->transform().position().set(px, py, 0.0f);
+  mbCube->addComponent(new mb::MeshRenderer(cube, &material));
+  mbCube->addComponent(new BrownianMovement());
+
+  scene->root()->addChild(mbCube);
+}
 
 int main(void)
 {
-    mb::GLContext context(3, 3, 1024, 768, "Brownian Motion");
+  mb::GLContext context(3, 3, 1024, 768, "Brownian Motion");
 
-    engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+  auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.0f, -2.16f, 20.25f)));
 
-	mb::Cube* cube = new mb::Cube(1.0f);
+	mb::Drawable* cube = new mb::Tetrahedron(1.0f, 2);
 
-	mb::SimpleShadingMaterial material;
-	material.uniform("color")->value(mb::Vect3(mb::Color3::Blue));
+	mb::NormalMaterial material;
 
-	mbCube = new mb::Node(std::string("cube"));
-	mbCube->setMesh(new mb::MeshRenderer(cube, &material));
-	mbCube->addComponent(new mb::MoveComponent());
-	mbCube->addComponent(new mb::RotateComponent(mb::Axis::z));
-	mbCube->addComponent(new BrownianMovement());
-	mbCube->transform().position().set(0.0f, 3.0f, 0.0f);
-
-	scene->root()->addChild(mbCube);
+  addModel(-7.5f, -3.5f, cube, material);
+  addModel(0.0f, 3.0f, cube, material);
+  addModel(7.5f, -3.5f, cube, material);
+  addModel(0.0f, -7.5f, cube, material);
 
 	engine->run(renderFunc);
     
 	delete(scene);
 	delete(engine);
 
-    return 0;
+  return 0;
 }
 
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Z))
-	{
-		mbCube->getMesh()->getMaterial()->DepthTest = false;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::X))
-	{
-		mbCube->getMesh()->getMaterial()->DepthTest = true;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::K))
-	{
-		mbCube->getMesh()->getMaterial()->Cull = false;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::L))
-	{
-		mbCube->getMesh()->getMaterial()->Cull = true;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::M))
-	{
-		mbCube->getMesh()->getMaterial()->PolygonMode = GL_FILL;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::N))
-	{
-		mbCube->getMesh()->getMaterial()->PolygonMode = GL_LINE;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Num1))
-	{
-		mbCube->getMesh()->getMaterial()->CullWindingOrder = GL_CCW;
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Num2))
-	{
-		mbCube->getMesh()->getMaterial()->CullWindingOrder = GL_CW;
-	}
 	scene->render(dt);
 }

@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,12 +30,12 @@
 
 namespace mb
 {
-	class MeshRendererTesselation: public MeshRenderer
-	{
-	public:
-		MB_API
-		MeshRendererTesselation(Drawable* mesh, Material* material);
-	};
+  class MeshRendererTesselation: public MeshRenderer
+  {
+  public:
+    MB_API
+    MeshRendererTesselation(Drawable* mesh, Material* material);
+  };
 }
 
 #endif /* __MB_MESH_RENDERER_TESSELATION__ */

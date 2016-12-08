@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -28,37 +29,38 @@
 #include "../models/Drawable.hpp"
 #include "../models/IDrawable.hpp"
 #include "../materials/Material.hpp"
-//#include "Component.hpp"
-//#include "Node.hpp"
+#include "Component.hpp"
 
 namespace mb
 {
-	class MeshRenderer//: public Component
-	{
-	public:
-		MB_API
-		MeshRenderer(Drawable* mesh, Material* material, unsigned int mode_ = GL_TRIANGLES);
-		MB_API
-		MeshRenderer(const std::string& name, Material* material, unsigned int mode_ = GL_TRIANGLES);
-		MB_API
-		Material* getMaterial() const;
-		MB_API
-			Drawable* getMesh() const;
-		MB_API
-		void setMaterial(Material* m);
-		MB_API
-		void setMesh(Drawable* m);
-		MB_API
-		void render(const Mat4& model);
-		MB_API
-		unsigned int mode();
-		MB_API
-		void mode(unsigned int m);
-	protected:
-		Drawable* _mesh;
-		Material* _material;
-		unsigned int _mode;
-	};
+  class MeshRenderer: public Component
+  {
+  public:
+    MB_API
+    MeshRenderer(Drawable* mesh, Material* material,
+      unsigned int mode_ = GL_TRIANGLES);
+    MB_API
+    MeshRenderer(const std::string& name, Material* material,
+      unsigned int mode_ = GL_TRIANGLES);
+    MB_API
+    Material* getMaterial() const;
+    MB_API
+    Drawable* getMesh() const;
+    MB_API
+    void setMaterial(Material* m);
+    MB_API
+    void setMesh(Drawable* m);
+    //MB_API
+    void render();
+    MB_API
+    unsigned int mode();
+    MB_API
+    void setMode(unsigned int m);
+  protected:
+    Drawable* _mesh;
+    Material* _material;
+    unsigned int _mode;
+  };
 }
 
 #endif /* __MB_MESH_RENDERER__ */

@@ -23,7 +23,6 @@
 #include <iostream>
 #include <mb/mb.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 class AllRotationComponent : public mb::Component
@@ -32,7 +31,7 @@ public:
 	AllRotationComponent() : mb::Component()
 	{
 	}
-	virtual void update(float dt)
+	virtual void update(const float dt) override
 	{
 		auto transform = this->_node->transform();
 		float rotX = transform.rotation().x() + (speed * dt);
@@ -49,38 +48,37 @@ public:
 
 void renderFunc(float dt);
 
-mb::Node* mbModel;
-
 int main(void)
 {
 	mb::GLContext context(3, 3, 1024, 768, "Orbit Pivot");
 
-    engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+  auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(2.8f, 1.44f, 43.15f)));
 
 	mb::SimpleShadingMaterial material;
 	material.uniform("color")->value(mb::Vect3(mb::Color3::Blue));
-	material.Cull = false;
-	material.PolygonMode = GL_LINE;
+	//material.Cull = false;
+	//material.PolygonMode = GL_LINE;
 
 	mb::SimpleShadingMaterial material2;
 	material2.uniform("color")->value(mb::Vect3(mb::Color3::Red));
-	material2.Cull = false;
-	material2.PolygonMode = GL_LINE;
+	//material2.Cull = false;
+	//material2.PolygonMode = GL_LINE;
 
-	mb::Drawable* model = new mb::Cube(13.0f);
-	mb::Drawable* model2 = new mb::Cube(4.0f);
+	mb::Drawable* model = new mb::Octahedron(7.5f, 1);
+	mb::Drawable* model2 = new mb::Torus(4.0f);
 
 	mb::Node* innerNode = new mb::Node("innerNode");
 	innerNode->transform().position().set(0.0f, 1.0f, 0.0f);
-	innerNode->setMesh(new mb::MeshRenderer(model, &material));
+	innerNode->addComponent(new mb::MeshRenderer(model, &material));
 	scene->root()->addChild(innerNode);
+
 	mb::Node* pivot = new mb::Node("pivot");
 	innerNode->addChild(pivot);
 	mb::Node* outerNode = new mb::Node("outerNode");
 	outerNode->transform().position().set(14.0f, 4.0f, 6.0f);
 
-	outerNode->setMesh(new mb::MeshRenderer(model2, &material2));
+	outerNode->addComponent(new mb::MeshRenderer(model2, &material2));
 	pivot->addChild(outerNode);
 	pivot->addComponent(new AllRotationComponent());
 
@@ -89,12 +87,11 @@ int main(void)
 	delete(scene);
 	delete(engine);
 
-    return 0;
+  return 0;
 }
 
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
 	scene->render(dt);
 }

@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -29,24 +30,24 @@
 
 namespace mb
 {
-	class HemisphericLight: public Light
-    {
-	public:
-        MB_API
-        HemisphericLight(const Vect3 dir = Vect3::createFromScalar(0.0f));
-        MB_API
-		Vect3 direction() const;
-        MB_API
-        void direction (const Vect3& pos);
-        MB_API
-        Color3 groundColor() const;
-        MB_API
-        void groundColor(const Color3& c);
+  class HemisphericLight: public Light
+  {
+  public:
+    MB_API
+    HemisphericLight(const Vect3 dir = Vect3::createFromScalar(0.0f));
+    MB_API
+    Vect3 direction() const;
+    MB_API
+    void direction (const Vect3& pos);
+    MB_API
+    Color3 groundColor() const;
+    MB_API
+    void groundColor(const Color3& c);
     protected:
-        Vect3 _direction;
-        Color3 _groundColor;
-    };
-    typedef std::shared_ptr<HemisphericLight> HemisphericLightPtr;
+      Vect3 _direction;
+      Color3 _groundColor;
+  };
+  typedef std::shared_ptr<HemisphericLight> HemisphericLightPtr;
 }
 
 #endif /* __MB_HEMISPHERIC_LIGHT__ */
