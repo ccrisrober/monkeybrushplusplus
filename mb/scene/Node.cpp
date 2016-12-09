@@ -22,9 +22,22 @@
  */
 
 #include "Node.hpp"
+#include "MeshRendererTesselation.hpp"
 
 namespace mb
 {
+  /*void Node::setMesh(MeshRenderer* mesh)
+  {
+  mesh->setNode(this);
+  this->_mesh = mesh;
+  }*/
+  MeshRenderer* Node::getMesh() /*const*/
+  {
+    auto comp = getComponent<MeshRenderer>();
+    if (comp != nullptr) comp;
+    comp = getComponent<MeshRendererTesselation>();
+    return comp;
+  }
   Node::Node(const std::string& name, const std::string& tag)
     : _name(name)
     , _id(mb::utils::generateUUID())
@@ -247,15 +260,6 @@ namespace mb
   std::vector<mb::Component*> Node::getComponents() const
   {
     return _components;
-  }
-  /*void Node::setMesh(MeshRenderer* mesh)
-  {
-    mesh->setNode(this);
-    this->_mesh = mesh;
-  }*/
-  MeshRenderer* Node::getMesh() /*const*/
-  {
-    return getComponent<MeshRenderer>();
   }
   void Node::traverse(const std::function<void(mb::Node* n)>& f)
   {

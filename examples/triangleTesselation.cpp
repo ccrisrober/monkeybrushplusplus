@@ -60,7 +60,7 @@ int main(void)
   auto engine = new mb::Engine(&context, false);
   scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
-	mb::Drawable* model = new mb::Icosahedron(1.0f);
+	mb::Drawable* model = new mb::Tetrahedron(1.0f);
 
 	std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
 		{
@@ -73,7 +73,7 @@ int main(void)
 			"void main() {																		                    \n"
 			"	gl_Position = projection * view * model * vec4(position, 1.0f);		  \n"
 			"}"
-		},{
+		}, {
 			mb::TesselationControlShader,
 			"#version 440																		                      \n"
 			"layout (vertices = 3) out;															              \n"
@@ -108,12 +108,14 @@ int main(void)
 		}
 	};
 
+  float tess_level = 2.0f;
+
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
 		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
 		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
 		std::make_pair("model", new mb::Uniform(mb::Matrix4)),
 		std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3(mb::Color3::Pink))),
-		std::make_pair("tess_level", new mb::Uniform(mb::Float, 1.0f))
+		std::make_pair("tess_level", new mb::Uniform(mb::Float, tess_level))
 	};
 
 	mb::ShaderMaterial material("triangleTesselation", shaders, uniforms);
@@ -122,11 +124,12 @@ int main(void)
 
 	auto mbModel = new mb::Node(std::string("model"));
   // Same as MeshRenderer(model, &material, GL_PATCHES)
-	mbModel->addComponent(new mb::MeshRendererTesselation(model, &material));
+  mbModel->addComponent(new mb::MeshRendererTesselation(model, &material));
+  //mbModel->addComponent(new mb::MeshRenderer(model, &material, GL_PATCHES));
   mbModel->addComponent(new mb::ChangeTransformationComponent());
 	mbModel->addComponent(new mb::MoveComponent());
   mbModel->addComponent(new mb::ChangeTransformationComponent());
-  mbModel->addComponent(new ChangeTessLevelComponent(2.0f));
+  mbModel->addComponent(new ChangeTessLevelComponent(tess_level));
 
 	scene->root()->addChild(mbModel);
 
