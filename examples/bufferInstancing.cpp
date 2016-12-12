@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -39,6 +39,9 @@ public:
 };
 
 BufferGeometry geometry;
+GLuint VertexArrayID;
+GLuint vertexbuffer;
+GLuint colorbuffer;
 
 int main(void)
 {
@@ -47,69 +50,112 @@ int main(void)
 	auto engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
-	model = new mb::Cube(1.0f);
+  glGenVertexArrays(1, &VertexArrayID);
+  glBindVertexArray(VertexArrayID);
 
-	float side = 1.0f;
-	float side2 = side / 2.0f;
-	geometry.buffers["position"] = new mb::VertexBuffer(GL_ARRAY_BUFFER);
-	geometry.data["position"] = new mb::BufferAttribute(
-		// Vertices
-	{
-		// Front
-		-side2, -side2, side2,
-		side2, -side2, side2,
-		side2,  side2, side2,
-		-side2,  side2, side2,
-		// Right
-		side2, -side2, side2,
-		side2, -side2, -side2,
-		side2,  side2, -side2,
-		side2,  side2, side2,
-		// Back
-		-side2, -side2, -side2,
-		-side2,  side2, -side2,
-		side2,  side2, -side2,
-		side2, -side2, -side2,
-		// Left
-		-side2, -side2, side2,
-		-side2,  side2, side2,
-		-side2,  side2, -side2,
-		-side2, -side2, -side2,
-		// Bottom
-		-side2, -side2, side2,
-		-side2, -side2, -side2,
-		side2, -side2, -side2,
-		side2, -side2, side2,
-		// Top
-		-side2,  side2, side2,
-		side2,  side2, side2,
-		side2,  side2, -side2,
-		-side2,  side2, -side2
-	}, 3);
-	geometry.indices = {
-		0, 1, 2, 0, 2, 3,
-		4, 5, 6, 4, 6, 7,
-		8, 9, 10, 8, 10, 11,
-		12, 13, 14, 12, 14, 15,
-		16, 17, 18, 16, 18, 19,
-		20, 21, 22, 20, 22, 23
-	};
-	mb::VertexBuffer vb = *geometry.buffers["position"];
-	vb.data(geometry.data["position"]->array(), GL_STATIC_DRAW);
+  static const GLfloat g_vertex_buffer_data[] = {
+    -1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f, 1.0f,
+    -1.0f, 1.0f, 1.0f,
+     1.0f, 1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f,-1.0f,
+     1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f,-1.0f,
+     1.0f,-1.0f,-1.0f,
+     1.0f, 1.0f,-1.0f,
+     1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f,-1.0f,
+     1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+    -1.0f,-1.0f, 1.0f,
+     1.0f,-1.0f, 1.0f,
+     1.0f, 1.0f, 1.0f,
+     1.0f,-1.0f,-1.0f,
+     1.0f, 1.0f,-1.0f,
+     1.0f,-1.0f,-1.0f,
+     1.0f, 1.0f, 1.0f,
+     1.0f,-1.0f, 1.0f,
+     1.0f, 1.0f, 1.0f,
+     1.0f, 1.0f,-1.0f,
+    -1.0f, 1.0f,-1.0f,
+     1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+     1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f, 1.0f,
+     1.0f,-1.0f, 1.0f
+  };
+
+  static const GLfloat g_color_buffer_data[] = {
+    0.583f,  0.771f,  0.014f,
+    0.609f,  0.115f,  0.436f,
+    0.327f,  0.483f,  0.844f,
+    0.822f,  0.569f,  0.201f,
+    0.435f,  0.602f,  0.223f,
+    0.310f,  0.747f,  0.185f,
+    0.597f,  0.770f,  0.761f,
+    0.559f,  0.436f,  0.730f,
+    0.359f,  0.583f,  0.152f,
+    0.483f,  0.596f,  0.789f,
+    0.559f,  0.861f,  0.639f,
+    0.195f,  0.548f,  0.859f,
+    0.014f,  0.184f,  0.576f,
+    0.771f,  0.328f,  0.970f,
+    0.406f,  0.615f,  0.116f,
+    0.676f,  0.977f,  0.133f,
+    0.971f,  0.572f,  0.833f,
+    0.140f,  0.616f,  0.489f,
+    0.997f,  0.513f,  0.064f,
+    0.945f,  0.719f,  0.592f,
+    0.543f,  0.021f,  0.978f,
+    0.279f,  0.317f,  0.505f,
+    0.167f,  0.620f,  0.077f,
+    0.347f,  0.857f,  0.137f,
+    0.055f,  0.953f,  0.042f,
+    0.714f,  0.505f,  0.345f,
+    0.783f,  0.290f,  0.734f,
+    0.722f,  0.645f,  0.174f,
+    0.302f,  0.455f,  0.848f,
+    0.225f,  0.587f,  0.040f,
+    0.517f,  0.713f,  0.338f,
+    0.053f,  0.959f,  0.120f,
+    0.393f,  0.621f,  0.362f,
+    0.673f,  0.211f,  0.457f,
+    0.820f,  0.883f,  0.371f,
+    0.982f,  0.099f,  0.879f
+  };
+
+  glGenBuffers(1, &vertexbuffer);
+  glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
+  glGenBuffers(1, &colorbuffer);
+  glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 
 	program.loadVertexShaderFromText("#version 330\n"
-		"in vec3 position;\n"
+    "in vec3 position;\n"
+    "in vec3 vertexColor;\n"
+		"flat out vec3 fragmentColor;\n"
 		"uniform mat4 proj;\n"
 		"uniform mat4 view;\n"
 		"uniform mat4 model;\n"
 		"void main() {\n"
-		"	gl_Position = proj * view * model * vec4(position, 1.0);\n"
+    " gl_Position = proj * view * model * vec4(position, 1.0);\n"
+		"	fragmentColor = vertexColor;\n"
 		"}\n"
 	);
 	program.loadFragmentShaderFromText("#version 330\n"
-		"out vec4 fragColor;\n"
+    "out vec4 fragColor;\n"
+		"flat in vec3 fragmentColor;\n"
 		"void main() {\n"
-		"	fragColor = vec4(1.0);\n"
+		"	fragColor = vec4(fragmentColor, 1.0);\n"
 		"}\n");
 	program.compileAndLink();
 	program.autocatching(true, true);
@@ -137,12 +183,38 @@ void renderFunc(float dt)
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDisable(GL_CULL_FACE);
 
-	mb::VertexBuffer vb = *geometry.buffers["position"];
-	vb.vertexAttribPointer(0, 3, GL_FLOAT, false);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
 
-	model->vertexArray()->bind();
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	model->vertexArray()->unbind();
+  glBindVertexArray(VertexArrayID);
+  // 1rst attribute buffer : vertices
+  glEnableVertexAttribArray(0);
+  glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+  glVertexAttribPointer(
+    0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
+    3,                  // size
+    GL_FLOAT,           // type
+    GL_FALSE,           // normalized?
+    0,                  // stride
+    (void*)0            // array buffer offset
+  );
+
+  // 2nd attribute buffer : colors
+  glEnableVertexAttribArray(1);
+  glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+  glVertexAttribPointer(
+    1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+    3,                                // size
+    GL_FLOAT,                         // type
+    GL_FALSE,                         // normalized?
+    0,                                // stride
+    (void*)0                          // array buffer offset
+  );
+
+  // Draw the triangle !
+  glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+
+  glDisableVertexAttribArray(0);
+  glDisableVertexAttribArray(1);
+
+
 	program.unuse();
 }

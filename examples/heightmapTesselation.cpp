@@ -3,7 +3,7 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus 
+ * This file is part of MonkeyBrushPlusPlus
  * <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -62,7 +62,7 @@ int main(void)
 	mb::GLContext context(4, 4, 1024, 768, "Heightmap tesselation");
 
 	auto engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine, 
+	scene = new mb::Scene(engine,
 		new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	mb::Drawable* model = new mb::Plane(26.0f, 20.0f, 50, 50);
@@ -117,7 +117,7 @@ int main(void)
 			                  (gl_TessCoord.z * uv[2]);
 
 				const vec2 size = vec2(0.25, 0.0);
-				const ivec3 off = ivec3(-1, 0, 1);
+				const ivec3 off = ivec3(-0.15, 0.15, 0.15);
 				vec4 wave = texture(texHeightmap, outUV);
 				float s11 = wave.x;
 				float s01 = textureOffset(texHeightmap, outUV, off.xy).x;
@@ -171,17 +171,17 @@ int main(void)
 
 	mb::ShaderMaterial material("triangleTesselation", shaders, uniforms);
 	material.Cull = false;
-	material.PolygonMode = GL_LINE;
+	material.PolygonMode = GL_FILL; //GL_LINE;
 
 	auto mbModel = new mb::Node(std::string("model"));
-	mbModel->addComponent(new mb::MeshRendererTesselation(model, &material));
-	mbModel->addComponent(new ChangeTessLevelComponent(tess_level));
+	mbModel->addComponent(mb::ComponentPtr(new mb::MeshRendererTesselation(model, &material)));
+	mbModel->addComponent(mb::ComponentPtr(new ChangeTessLevelComponent(tess_level)));
 
-	scene->root()->addChild(mbModel);
+	scene->root()->addChild(mb::NodePtr(mbModel));
 
 	engine->run(renderFunc);
 
-	delete(scene);
+	//delete(scene);
 	delete(engine);
 
 	return 0;

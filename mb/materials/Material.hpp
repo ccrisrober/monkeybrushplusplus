@@ -86,7 +86,7 @@ namespace mb
 	protected:
 		std::string id;
 		TUniforms _uniforms;
-        Program* _program;
+    Program* _program;
 		mb::UniformType type;
 
 	private:

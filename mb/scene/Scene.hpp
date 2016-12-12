@@ -80,8 +80,8 @@ namespace mb
     //SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
     std::vector<std::pair<std::function<void()>, bool>> _beforeRender;
     std::vector<std::pair<std::function<void()>, bool>> _afterRender;
-	  void _subFixedUpdate(mb::NodePtr& n, float dt);
-    void _subUpdate(mb::NodePtr& n, float dt);
+	  void _subFixedUpdate(mb::NodePtr n, float dt);
+    void _subUpdate(mb::NodePtr n, float dt);
     void updateCamera();
     mb::NodePtr _sceneGraph;
 

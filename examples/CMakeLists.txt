@@ -25,20 +25,20 @@ if( MB_WITH_EXAMPLES )
 
 
 
-  set( MBCUBEHIERARCHY_HEADERS )
-  set( MBCUBEHIERARCHY_SOURCES cubeHierarchy.cpp )
-  set( MBCUBEHIERARCHY_LINK_LIBRARIES
-    mb
-  )
-  common_application( mbCubeHierarchy )
+  ##set( MBCUBEHIERARCHY_HEADERS )
+  ##set( MBCUBEHIERARCHY_SOURCES cubeHierarchy.cpp )
+  ##set( MBCUBEHIERARCHY_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbCubeHierarchy )
 
 
-  set( MBHELLOMESHARGS_HEADERS )
-  set( MBHELLOMESHARGS_SOURCES helloMeshArgs.cpp )
-  set( MBHELLOMESHARGS_LINK_LIBRARIES
-    mb
-  )
-  common_application( mbHelloMeshArgs )
+  ##set( MBHELLOMESHARGS_HEADERS )
+  ##set( MBHELLOMESHARGS_SOURCES helloMeshArgs.cpp )
+  ##set( MBHELLOMESHARGS_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbHelloMeshArgs )
 
 
   ##set( MBHEIGHTMAPTESSELATION_HEADERS )
@@ -49,20 +49,20 @@ if( MB_WITH_EXAMPLES )
   ##common_application( mbHeightmapTesselation )
 
 
-  ##set( MBBUFFERINSTANCING_HEADERS )
-  ##set( MBBUFFERINSTANCING_SOURCES bufferInstancing.cpp )
-  ##set( MBBUFFERINSTANCING_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbBufferInstancing )
-
-
-  set( MBHELLOWORLD_HEADERS )
-  set( MBHELLOWORLD_SOURCES helloWorld.cpp )
-  set( MBHELLOWORLD_LINK_LIBRARIES
-  	mb
+  set( MBBUFFERINSTANCING_HEADERS )
+  set( MBBUFFERINSTANCING_SOURCES bufferInstancing.cpp )
+  set( MBBUFFERINSTANCING_LINK_LIBRARIES
+    mb
   )
-  common_application( mbHelloWorld )
+  common_application( mbBufferInstancing )
+
+
+  ##set( MBHELLOWORLD_HEADERS )
+  ##set( MBHELLOWORLD_SOURCES helloWorld.cpp )
+  ##set( MBHELLOWORLD_LINK_LIBRARIES
+  ##	mb
+  ##)
+  ##common_application( mbHelloWorld )
 
 
   ##set( MBRANDOMCUBE_HEADERS )

@@ -87,13 +87,15 @@ namespace mb
   {
     float currentFrame;
 
-    while (this->_context->getWindow()->isRunning())
+    do
     {
+
+      if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
+      {
+        break;
+      }
+
       this->_context->setTitle(std::to_string(calcFPS()).c_str(), true);
-
-      this->_context->getWindow()->pollEvents();
-
-      mb::Input::update();
 
       currentFrame = glfwGetTime();
       deltaTime = currentFrame - lastFrame;
@@ -106,7 +108,11 @@ namespace mb
       }
 
       this->_context->getWindow()->swapBuffers();
-    }
+
+      this->_context->getWindow()->pollEvents();
+
+      mb::Input::update();
+    } while (this->_context->getWindow()->isRunning());
   }
   void Engine::close()
   {

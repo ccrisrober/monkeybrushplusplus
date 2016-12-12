@@ -46,16 +46,16 @@ int main(int argc, char** argv)
   std::string s = "0xfffefffe";
   if (opts.is_set("color"))
   {
-    s = opts.get("color");
+    s = (std::string)opts.get("color");
   }
   unsigned int hex = std::stoul(s, nullptr, 16);
-  
-  std::string filename = opts.get("filename");
+
+  std::string filename = (std::string)opts.get("filename");
 
   mb::GLContext context(3, 3, 1024, 768, "Hello Mesh for arguments");
 
   auto engine = new mb::Engine(&context, false);
-  scene = new mb::Scene(engine, 
+  scene = new mb::Scene(engine,
     new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
   mb::Mesh* mesh = new mb::Mesh(filename);

@@ -49,8 +49,8 @@ void addObjectToScene(const rapidjson::Value& children, mb::Node* node)
 		const Value& position = transform["position"];
 
 		mbModel->transform().position().set(
-			(float)position[0].GetDouble(), 
-			(float)position[1].GetDouble(), 
+			(float)position[0].GetDouble(),
+			(float)position[1].GetDouble(),
 			(float)position[2].GetDouble()
 		);
 
@@ -59,8 +59,8 @@ void addObjectToScene(const rapidjson::Value& children, mb::Node* node)
 			const Value& scale = transform["scale"];
 
 			mbModel->transform().scale().set(
-				(float)scale[0].GetDouble(), 
-				(float)scale[1].GetDouble(), 
+				(float)scale[0].GetDouble(),
+				(float)scale[1].GetDouble(),
 				(float)scale[2].GetDouble()
 			);
 		}
@@ -72,7 +72,7 @@ void addObjectToScene(const rapidjson::Value& children, mb::Node* node)
 			if (name == "RotateComponent")
 			{
 				mb::RotateComponent * rc = new mb::RotateComponent(comp["data"]);
-				if (rc) 
+				if (rc)
 				{
 					mbModel->addComponent(rc);
 				}
@@ -105,7 +105,7 @@ int main(void)
 
 	mb::GLContext context(4, 3, 512, 512, "Hello mb");
 
-    engine = new mb::Engine(&context, false);
+  engine = new mb::Engine(&context, false);
 	scene = new mb::Scene(engine);
 
 	model = new mb::Cube(1.0f);
@@ -116,23 +116,15 @@ int main(void)
 	addObjectToScene(document["objects"], scene->root());
 
 	engine->run(renderFunc);
-    
+
 	delete(scene);
 	delete(engine);
 
-    return 0;
+  return 0;
 }
 
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	// engine->state()->culling.setStatus(false);
-	// engine->state()->setPolygonMode(GL_LINE);
 	scene->render(dt);
 }

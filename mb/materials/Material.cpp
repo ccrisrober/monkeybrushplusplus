@@ -29,8 +29,7 @@ namespace mb
 	int Material::CurrentProgram = -1;
 	GLContext* Material::_context = nullptr;
 	Material::Material()
-		: _program( new Program() )
-		, DepthTest ( true )
+		: DepthTest ( true )
 		, DepthWrite ( true )
 		, DepthCompare( GL_LESS )
 		, Cull ( true )
@@ -41,6 +40,7 @@ namespace mb
 		, BlendDst ( GL_ONE_MINUS_SRC_ALPHA )
 		, BlendEquation ( GL_FUNC_ADD )
 		, PolygonMode( GL_FILL )
+    , _program( new Program() )
 	{
 	}
     Material::~Material() {

@@ -164,7 +164,7 @@ namespace mb
 		this->_engine->state()->depth.setStatus(true);
 		this->_engine->state()->depth.setMask(true);
 	}
-	void Scene::_subFixedUpdate(mb::NodePtr& n, float dt)
+	void Scene::_subFixedUpdate(mb::NodePtr n, float dt)
 	{
 		if (!n.get()->isVisible())
 		{
@@ -182,7 +182,7 @@ namespace mb
 			this->_subFixedUpdate(child, dt);
 		}
 	}
-	void Scene::_subUpdate(mb::NodePtr&  n, float dt)
+	void Scene::_subUpdate(mb::NodePtr n, float dt)
 	{
 		if (!n->isVisible())
 		{
