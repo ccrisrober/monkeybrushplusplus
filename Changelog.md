@@ -35,3 +35,4 @@
 - (08/11) MeshRenderer as Component (again)
 - (08/11) Scene required a default camera in constructor. Fixed demos
 - (08/11) Removed unnecesary files (any.cpp and CustomPingPong.cpp).
+- (09/11) Added fixedUpdate to Component. Fixed _subUpdate in Scene.

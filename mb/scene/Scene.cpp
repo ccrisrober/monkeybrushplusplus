@@ -45,11 +45,11 @@ namespace mb
 	{
 		mainCamera = camera;
 	}
-  Scene::~Scene()
-  {
-    delete _sceneGraph;
-  }
-	Node* Scene::root() const
+	Scene::~Scene()
+	{
+		//delete _sceneGraph;
+	}
+  mb::NodePtr Scene::root() const
 	{
 		return this->_sceneGraph;
 	}
@@ -93,15 +93,27 @@ namespace mb
 
 		// Before render functions
 		applyQueue(_beforeRender);
+
+
+		// http://www.mel-georgiou.co.uk/category/unity3d-tutorials/unity3d-optimization-techniques/
+		_fixedUpdateTime += dt;
+		if (_fixedUpdateTime > 0.02f)
+		{
+			_subFixedUpdate(root(), dt);
+			_fixedUpdateTime = 0.0f;
+		}
+
 		_subUpdate(root(), dt);
 
-    mainCamera->update(dt);
+		mainCamera->update(dt);
+		updateCamera();
 
-    if (sort) {
-			std::sort(_batch.begin(), _batch.end(), [](Node* mm1, Node* mm2)
+		if (sort)
+		{
+			std::sort(_batch.begin(), _batch.end(), [](NodePtr& mm1, NodePtr& mm2)
 			{
-				Material *m1 = mm1->getMesh()->getMaterial();
-				Material *m2 = mm2->getMesh()->getMaterial();
+				Material *m1 = mm1.get()->getMesh()->getMaterial();
+				Material *m2 = mm2.get()->getMesh()->getMaterial();
 				static auto smType = std::type_index(typeid(mb::ShaderMaterial));
 
 				auto type1 = std::type_index(typeid(*m1));
@@ -152,7 +164,25 @@ namespace mb
 		this->_engine->state()->depth.setStatus(true);
 		this->_engine->state()->depth.setMask(true);
 	}
-	void Scene::_subUpdate(Node* n, float dt)
+	void Scene::_subFixedUpdate(mb::NodePtr& n, float dt)
+	{
+		if (!n.get()->isVisible())
+		{
+			return;
+		}
+		for (const auto& comp : n.get()->getComponents())
+		{
+			if (comp.get()->isEnabled())
+			{
+				comp.get()->fixedUpdate(dt);
+			}
+		}
+		for (auto& child : n.get()->children())
+		{
+			this->_subFixedUpdate(child, dt);
+		}
+	}
+	void Scene::_subUpdate(mb::NodePtr&  n, float dt)
 	{
 		if (!n->isVisible())
 		{
@@ -160,9 +190,9 @@ namespace mb
 		}
 		for (const auto& comp : n->getComponents())
 		{
-			if (comp->isEnabled())
+			if (comp.get()->isEnabled())
 			{
-				comp->update(dt);
+				comp.get()->update(dt);
 			}
 		}
 		n->_updateMatrixWorld();
@@ -171,8 +201,7 @@ namespace mb
 		{
 			_batch.push_back(n);
 		}
-		updateCamera();
-		for (const auto& child : n->children())
+		for (auto& child : n->children())
 		{
 			this->_subUpdate(child, dt);
 		}
@@ -180,8 +209,8 @@ namespace mb
 	void Scene::updateCamera()
 	{
 		_projection = this->mainCamera->projectionMatrix(
-      this->_engine->context()->getWidth(),
-      this->_engine->context()->getHeight());
+		this->_engine->context()->getWidth(),
+		this->_engine->context()->getHeight());
 		_view = this->mainCamera->viewMatrix();
 	}
 	void Scene::addLight(mb::Light* light)

@@ -38,7 +38,7 @@ public:
   }
   virtual void update(const float) override
   {
-    if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
+	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
     {
       _tessLevel += 0.1f;
       getNode()->getMesh()->getMaterial()->uniform("tess_level")->value(_tessLevel);
@@ -123,13 +123,12 @@ int main(void)
 	material.PolygonMode = GL_LINE;
 
 	auto mbModel = new mb::Node(std::string("model"));
-  // Same as MeshRenderer(model, &material, GL_PATCHES)
-  mbModel->addComponent(new mb::MeshRendererTesselation(model, &material));
-  //mbModel->addComponent(new mb::MeshRenderer(model, &material, GL_PATCHES));
-  mbModel->addComponent(new mb::ChangeTransformationComponent());
+	// Same as MeshRenderer(model, &material, GL_PATCHES)
+	mbModel->addComponent(new mb::MeshRendererTesselation(model, &material));
+	//mbModel->addComponent(new mb::MeshRenderer(model, &material, GL_PATCHES));
+	mbModel->addComponent(new mb::ChangeTransformationComponent());
 	mbModel->addComponent(new mb::MoveComponent());
-  mbModel->addComponent(new mb::ChangeTransformationComponent());
-  mbModel->addComponent(new ChangeTessLevelComponent(tess_level));
+	mbModel->addComponent(new ChangeTessLevelComponent(tess_level));
 
 	scene->root()->addChild(mbModel);
 

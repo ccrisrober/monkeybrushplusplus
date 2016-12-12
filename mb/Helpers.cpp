@@ -31,23 +31,28 @@ namespace mb
      : mb::Component()
   {
   }
+  void ChangeTransformationComponent::start()
+  {
+	  _moveComp = getNode()->getComponent<mb::MoveComponent>();
+	  _rotateComp = getNode()->getComponent<mb::RotateComponent>();
+  }
   void ChangeTransformationComponent::update(const float)
   {
     if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
     {
-      getNode()->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
+		_rotateComp->setAxis(mb::Axis::x);
     }
     else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
     {
-      getNode()->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
+		_rotateComp->setAxis(mb::Axis::y);
     }
     else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
     {
-      getNode()->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
+		_rotateComp->setAxis(mb::Axis::z);
     }
     if (mb::Input::isKeyClicked(mb::Keyboard::Key::P))
     {
-      getNode()->toggleComponent<mb::MoveComponent>();
+		_moveComp->toggle();
     }
   }
   PointMaterial::PointMaterial()

@@ -64,6 +64,8 @@ namespace mb
 		MB_API
 		virtual void unuse();
 
+		virtual void configUse() {};
+
 		// Depth state
 		bool DepthTest;
 		bool DepthWrite;

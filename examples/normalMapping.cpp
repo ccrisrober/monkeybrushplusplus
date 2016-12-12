@@ -24,21 +24,42 @@
 #include <mb/mb.h>
 #include <assetsFiles.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
 
-mb::Node* mbModel;
+class NormalController : public mb::Component
+{
+public:
+	NormalController(const float& normalScale)
+		: mb::Component()
+		, _normScale(normalScale) 
+	{
+	}
+	virtual void update(const float) override
+	{
+		if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
+		{
+			_normScale += 0.1f;
+			getNode()->getMesh()->getMaterial()->uniform("normalScale")->value(_normScale);
+		}
+		if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
+		{
+			_normScale -= 0.1f;
+			getNode()->getMesh()->getMaterial()->uniform("normalScale")->value(_normScale);
+		}
+	}
+	MB_SYNTHESIZE_PASS_BY_REF(float, _normScale, normalScale)
+};
 
-float normalScale = 1.0f;
 mb::ShaderMaterial* material;
 int main(void)
 {
 	mb::GLContext context(3, 3, 1024, 768, "Normal mapping");
 
-    engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+    auto engine = new mb::Engine(&context, false);
+	scene = new mb::Scene(engine,
+		new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	mb::Drawable* model = new mb::Cube(2.0f);
 
@@ -104,14 +125,13 @@ int main(void)
 		"    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128.0);\n"
 		"    vec3 specular = vec3(spec);\n"
 		"    fragColor = vec4((ambient + diffuse + specular) * color, 1.0);\n"
-		//"fragColor = texture(texNormal, outUV);"
-		//"if (outUV.x < 0.5)"
-		//"fragColor = texture(texDiffuse, outUV);"
 			"}\n"
 		}
 	};
 	mb::Texture* texDiffuse = new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/chesterfieldDiffuseMap.png"));
 	mb::Texture* texNormal = new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/chesterfieldNormalMap.png"));
+
+	float normalScale = 1.0f;
 
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
 		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
@@ -124,11 +144,10 @@ int main(void)
 	};
 
 	material = new mb::ShaderMaterial("material", shaders, uniforms);
-	mbModel = new mb::Node(std::string("model"));
-	mbModel->setMesh(new mb::MeshRenderer(model, material));
-	//mbModel->addComponent(new mb::MoveComponent());
+	auto mbModel = new mb::Node(std::string("model"));
+	mbModel->addComponent(new mb::MeshRenderer(model, material));
 	mbModel->addComponent(new mb::RotateComponent(mb::Axis::y, 0.15f));
-
+	mbModel->addComponent(new NormalController(normalScale));
 	mbModel->getComponent<mb::RotateComponent>()->setRotate(true);
 
 	scene->root()->addChild(mbModel);
@@ -140,37 +159,13 @@ int main(void)
 
     return 0;
 }
+#include <FreeImage.h>
 
+#define WIDTH 1024
+#define HEIGHT 768
+BYTE pixels[3 * WIDTH*HEIGHT];
 void renderFunc(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->mainCamera->update(dt);
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
-	{
-		engine->close();
-		return;
-	}
-	if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::x);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Y))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::y);
-	}
-	else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-	{
-		mbModel->getComponent<mb::RotateComponent>()->setAxis(mb::Axis::z);
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
-	{
-		normalScale += 0.1f;
-		material->uniform("normalScale")->value(normalScale);
-	}
-	if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
-	{
-		normalScale -= 0.1f;
-		material->uniform("normalScale")->value(normalScale);
-	}
 	scene->render(dt);
 }

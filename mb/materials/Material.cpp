@@ -88,46 +88,46 @@ namespace mb
 		for (const auto& uniform : _uniforms)
 		{
 			if (!uniform.second->isDirty())
-      {
+			{
 				continue;
-      }
+			}
 			if (_program->uniform(uniform.first) < 0)
 			{
 				continue;
 			}
-      type = uniform.second->type();
+			type = uniform.second->type();
 			if (type == Float)
 			{
 				this->_program->sendUniformf(uniform.first, uniform.second->value().cast<float>());
 			}
-      else if (type == Integer)
-      {
-        this->_program->sendUniformi(uniform.first, uniform.second->value().cast<int>());
-      }
-      else if (type == Boolean)
-      {
-        this->_program->sendUniformb(uniform.first, uniform.second->value().cast<bool>());
-      }
+			else if (type == Integer)
+			{
+				this->_program->sendUniformi(uniform.first, uniform.second->value().cast<int>());
+			}
+			else if (type == Boolean)
+			{
+				this->_program->sendUniformb(uniform.first, uniform.second->value().cast<bool>());
+			}
 			else if (type == Vector2)
-      {
-        this->_program->sendUniform2v(uniform.first, uniform.second->value().cast<Vect2>()._values.data());
-      }
-      else if (type == Vector3)
-      {
-        this->_program->sendUniform3v(uniform.first, uniform.second->value().cast<Vect3>()._values);
-      }
-      else if (type == Vector4)
-      {
-        this->_program->sendUniform4v(uniform.first, uniform.second->value().cast<Vect4>()._values.data());
-      }
-      else if (type == Matrix2)
-      {
-        this->_program->sendUniform2m(uniform.first, uniform.second->value().cast<Mat2>()._values.data());
-      }
-      else if (type == Matrix3)
-      {
-        this->_program->sendUniform3m(uniform.first, uniform.second->value().cast<Mat3>()._values.data());
-      }
+			{
+			this->_program->sendUniform2v(uniform.first, uniform.second->value().cast<Vect2>()._values.data());
+			}
+			else if (type == Vector3)
+			{
+			this->_program->sendUniform3v(uniform.first, uniform.second->value().cast<Vect3>()._values);
+			}
+			else if (type == Vector4)
+			{
+			this->_program->sendUniform4v(uniform.first, uniform.second->value().cast<Vect4>()._values.data());
+			}
+			else if (type == Matrix2)
+			{
+			this->_program->sendUniform2m(uniform.first, uniform.second->value().cast<Mat2>()._values.data());
+			}
+			else if (type == Matrix3)
+			{
+			this->_program->sendUniform3m(uniform.first, uniform.second->value().cast<Mat3>()._values.data());
+			}
 			else if (type == Matrix4)
 			{
 				this->_program->sendUniform4m(uniform.first, uniform.second->value().cast<Mat4>()._values.data());
@@ -140,9 +140,13 @@ namespace mb
 				++texID;
 				setDirty = false;
 			}
-			if(setDirty) uniform.second->setDirty(false);
+			if (setDirty)
+			{
+				uniform.second->setDirty(false);
+			}
 			setDirty = true;
 		}
+		configUse();
 	}
 	void Material::unuse()
 	{

@@ -43,8 +43,10 @@ namespace mb
   public:
     MB_API
     virtual void start();
-    MB_API
-    virtual void update(const float dt);
+	MB_API
+	virtual void fixedUpdate(const float dt);
+	MB_API
+	virtual void update(const float dt);
     MB_API
     Node* getNode() const;
     MB_API
@@ -74,7 +76,7 @@ namespace mb
     Node* _node;
     bool _enabled = true;
   };
-    // TODO: UNUSED typedef std::shared_ptr<Component> ComponentPtr;
+  typedef std::shared_ptr<Component> ComponentPtr;
 }
 
 #endif /* __MB_COMPONENT__ */

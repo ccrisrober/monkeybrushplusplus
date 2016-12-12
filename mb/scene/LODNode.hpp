@@ -21,50 +21,21 @@
  *
  */
 
-#include "Component.hpp"
+#ifndef __MB_LOD_NODE__
+#define __MB_LOD_NODE__
+
+#include <mb/api.h>
+
+#include "Node.hpp"
 
 namespace mb
 {
-  void Component::start()
+  class LODNode: public Node
   {
-  }
-  void Component::fixedUpdate(const float)
-  {
-  }
-  void Component::update(float)
-  {
-  }
-  Node* Component::getNode() const
-  {
-    return this->_node;
-  }
-  void Component::setNode(Node* n)
-  {
-    this->_node = n;
-  }
-  std::ostream& operator<<(std::ostream & str, const Component& n)
-  {
-    str << typeid(n).name();
-    return str;
-  }
-  bool Component::isEnabled() const
-  {
-    return _enabled;
-  }
-  void Component::enable()
-  {
-    setEnabled(true);
-  }
-  void Component::disable()
-  {
-    setEnabled(false);
-  }
-  void Component::setEnabled(const bool v)
-  {
-    _enabled = v;
-  }
-  void Component::toggle()
-  {
-    setEnabled(!isEnabled());
-  }
+  public:
+    MB_API
+    virtual ~LODNode() {}
+  };
 }
+
+#endif /* __MB_LOD_NODE__ */

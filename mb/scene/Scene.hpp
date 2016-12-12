@@ -56,7 +56,7 @@ namespace mb
     MB_API
     void render(float dt);
     MB_API
-    Node* root() const;
+    mb::NodePtr root() const;
     MB_API
     void registerBeforeRender(const std::function<void()>& cb,
       bool recyclable = false);
@@ -80,9 +80,10 @@ namespace mb
     //SimpleCamera* camera = new SimpleCamera(Vect3(0.2f, 0.18f, 8.44f));
     std::vector<std::pair<std::function<void()>, bool>> _beforeRender;
     std::vector<std::pair<std::function<void()>, bool>> _afterRender;
-    void _subUpdate(Node* n, float dt);
+	  void _subFixedUpdate(mb::NodePtr& n, float dt);
+    void _subUpdate(mb::NodePtr& n, float dt);
     void updateCamera();
-    Node* _sceneGraph;
+    mb::NodePtr _sceneGraph;
 
     std::vector<mb::Light*> _lights;
 
@@ -95,10 +96,11 @@ namespace mb
     Mat4 _projection;
     Mat4 _view;
 
-    std::vector<Node*> _batch;
+    std::vector<mb::NodePtr> _batch;
 
   protected:
     bool _update;
+	float _fixedUpdateTime = 0.0f;
   };
 }
 

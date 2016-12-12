@@ -21,6 +21,8 @@
  *
  */
 
+// Code based on https://github.com/weisslj/cpp-optparse
+
 #ifndef __MB__ARGUMENT_PARSER__
 #define __MB__ARGUMENT_PARSER__
 

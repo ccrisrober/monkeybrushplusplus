@@ -42,12 +42,12 @@ int main(void)
 	material.PolygonMode = GL_LINE;
 
 	auto mbNode = new mb::Node(std::string("model"));
-	mbNode->addComponent(new mb::MeshRenderer(model, &material));
-  mbNode->addComponent(new mb::ChangeTransformationComponent());
-	mbNode->addComponent(new mb::MoveComponent());
-	mbNode->addComponent(new mb::RotateComponent(mb::Axis::x, 0.75f, true));
+	/*mbNode->addComponent(mb::ComponentPtr(new mb::MeshRenderer(model, &material)));
+  mbNode->addComponent(mb::ComponentPtr(new mb::ChangeTransformationComponent()));
+	mbNode->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
+	mbNode->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::x, 0.75f, true)));*/
 
-	scene->root()->addChild(mbNode);
+	scene->root()->addChild(mb::NodePtr(mbNode));
 
 	engine->run(renderFunc);
     

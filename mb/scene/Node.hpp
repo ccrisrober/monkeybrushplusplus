@@ -42,6 +42,7 @@
 
 namespace mb
 {
+  typedef std::shared_ptr<Node> NodePtr;
 	class Node
 	{
 	public:
@@ -61,11 +62,11 @@ namespace mb
 			// TODO
 		}
 		MB_API
-		Node* findByName(const std::string& name);
+    mb::NodePtr findByName(const std::string& name);
 		MB_API
-		Node* findByTag(const std::string& tag);
+    mb::NodePtr findByTag(const std::string& tag);
 		MB_API
-		Node* findById(const std::string uuid);
+    mb::NodePtr findById(const std::string uuid);
 
 
 		MB_API
@@ -77,13 +78,13 @@ namespace mb
 		MB_API
 		bool hasParent() const;
 		MB_API
-		Node* parent() const;
+    mb::NodePtr parent() const;
 		MB_API
-		void setParent(Node* p);
+		void setParent(mb::NodePtr p);
 		MB_API
-		void addChild(Node* child);
+		void addChild(mb::NodePtr child);
 		MB_API
-		void removeChild(Node* child);
+		void removeChild(mb::NodePtr child);
 		MB_API
 		void removeChild(unsigned int index);
 		MB_API
@@ -91,17 +92,17 @@ namespace mb
 		MB_API
 		unsigned int getNumComponents() const;
 		MB_API
-		Node* getChild(unsigned int index);
+		mb::NodePtr getChild(unsigned int index);
 		MB_API
 		void removeChildren();
 		MB_API
 		void removeComponents();
 		MB_API
-		void addComponent(Component* c);
+		void addComponent(const mb::ComponentPtr& c);
 		MB_API
 		void setVisible(const bool flag, const bool applyToChildren = false);
 		MB_API
-		std::vector<Node*> children() const;
+		std::vector<mb::NodePtr> children() const;
 		MB_API
 		Transform& transform();
 		MB_API
@@ -115,22 +116,22 @@ namespace mb
 		MB_API
 		void tag(const std::string& t);
 		MB_API
-		std::vector<mb::Component*> getComponents() const;
+		std::vector<mb::ComponentPtr> getComponents() const;
 		MB_API
 		MeshRenderer* getMesh(); // const;
 		MB_API
-		void traverse(const std::function<void(mb::Node* n)>& f);
+		void traverse(const std::function<void(const mb::Node* n)>& f);
 		MB_API
-		void traverseAncestors(const std::function<void(mb::Node* n)>& f);
+		void traverseAncestors(const std::function<void(const mb::Node* n)>& f);
 
 		template <typename T>
 		void toggleComponent()
 		{
 			for (auto comp : _components)
 			{
-				if (typeid(*comp) == typeid(T))
+				if (typeid(*comp.get()) == typeid(T))
 				{
-					comp->toggle();
+					comp.get()->toggle();
 				}
 			}
 		}
@@ -139,9 +140,9 @@ namespace mb
 		{
 			for (auto comp : _components)
 			{
-				if (typeid(*comp) == typeid(T))
+				if (typeid(*comp.get()) == typeid(T))
 				{
-					comp->enable();
+					comp.get()->enable();
 				}
 			}
 		}
@@ -150,9 +151,9 @@ namespace mb
 		{
 			for (auto comp : _components)
 			{
-				if (typeid(*comp) == typeid(T))
+				if (typeid(*comp.get()) == typeid(T))
 				{
-					comp->disable();
+					comp.get()->disable();
 				}
 			}
 		}
@@ -161,7 +162,7 @@ namespace mb
 		{
 			for (auto comp : _components)
 			{
-				if (typeid(*comp) == typeid(T))
+				if (typeid(*comp.get()) == typeid(T))
 				{
 					return true;
 				}
@@ -169,12 +170,12 @@ namespace mb
 			return false;
 		}
 		template <class T>
-    T* getComponent();
+		T* getComponent();
 
 
 
 		MB_API
-		Component* getComponentByIndex(unsigned int index);
+		mb::ComponentPtr getComponentByIndex(unsigned int index);
 		MB_API
 		friend std::ostream& operator<<(std::ostream & str, const Node& n);
 		MB_API
@@ -182,12 +183,12 @@ namespace mb
 		MB_API
 		Layer& layer();
 	protected:
-		std::vector<Node*> _children;
-		std::vector<mb::Component*> _components;
+		std::vector<mb::NodePtr> _children;
+		std::vector<mb::ComponentPtr> _components;
 
 		std::string _name;
 		std::string _id;
-		Node* _parent;
+    mb::NodePtr _parent;
 		std::string _tag;
 		bool _visible;
 		Transform _transform;
@@ -195,9 +196,9 @@ namespace mb
 		Layer _layer;
 
 	private:
-		Node* _searchName(const std::string& name, Node* elem);
-		Node* _searchTag(const std::string& tag, Node* elem);
-		Node* _searchUUID(const std::string& uuid, Node* elem);
+    mb::NodePtr _searchName(const std::string& name, const mb::NodePtr& elem);
+    mb::NodePtr _searchTag(const std::string& tag, const mb::NodePtr& elem);
+    mb::NodePtr _searchUUID(const std::string& uuid, const mb::NodePtr& elem);
 	};
   template<class T>
   T * Node::getComponent()
@@ -207,9 +208,9 @@ namespace mb
       {
         // std::cout << typeid(*comp).name() << std::endl;
         // std::cout << typeid(T).name() << std::endl;
-        if (typeid(*comp) == typeid(T))
+        if (typeid(*comp.get()) == typeid(T))
         {
-          return static_cast<T*>(comp);
+          return static_cast<T*>(comp.get());
         }
       }
       return nullptr;

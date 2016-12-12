@@ -38,6 +38,65 @@ namespace mb
 	namespace utils
 	{
 		/*MB_API
+		bool findFiles(const std::string& extension, const std::string&path,
+			std::vector<std::string>& results)
+		{
+			bool found = false;
+			//for (boost::filesystem::directory_iterator it(path); 
+			//it != boost::filesystem::directory_iterator(); ++it)
+			//{
+			//	if (_stricmp(it->path().extension().string().c_str(), extension.c_str()) == 0)
+			//	{
+			//		results.push_back(it->path().string());
+			//		found = true;
+			//	}
+			//}
+			return(found);
+		}
+		MB_API
+		bool findFiles(const std::string& extension,
+			const std::vector<std::string>& paths,
+			std::vector<std::string> & results)
+		{
+			for (std::vector<std::string>::const_iterator it = paths.begin(); 
+				it != paths.end(); ++it)
+			{
+				findFiles(extension, *it, results);
+			}
+			return(results.empty());
+		}
+		*/
+		/*MB_API
+		bool findFilesRecursive(const std::string& extension,
+			const std::string& path, std::vector<std::string> & results)
+		{
+			bool found = false;
+			//boost::filesystem::path searchPath(path);
+			//for (boost::filesystem::recursive_directory_iterator dirIt(searchPath); 
+			//dirIt != boost::filesystem::recursive_directory_iterator(); ++dirIt)
+			//{
+			//	if (_stricmp(dirIt->path().extension().string().c_str(), extension.c_str()) == 0)
+			//	{
+			//		results.push_back(dirIt->path().string());
+			//		found = true;
+			//	}
+			//}
+			return(found);
+		}
+
+		MB_API
+			bool findFilesRecursive(const std::string& extension,
+				const std::vector<std::string>& paths,
+				std::vector<std::string> & results)
+		{
+			for (std::vector<std::string>::const_iterator it = paths.begin(); 
+				it != paths.end(); ++it)
+			{
+				findFilesRecursive(extension, *it, results);
+			}
+			return(results.empty());
+		}*/
+		/*MB_API
 		std::vector<std::string> splitStringIntoTokensOnDelimiter(const std::string& s,
 			char delimiter, bool removeWhiteSpace = false)
 		{

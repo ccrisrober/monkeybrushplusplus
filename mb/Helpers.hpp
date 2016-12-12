@@ -50,15 +50,6 @@ namespace mb
     }).detach();
   }
 
-  class ChangeTransformationComponent : public mb::Component
-  {
-  public:
-    MB_API
-    ChangeTransformationComponent();
-    MB_API
-    virtual void update(const float) override;
-  };
-
 	class MoveComponent : public mb::Component
 	{
 	public:
@@ -132,6 +123,20 @@ namespace mb
 		PrintPosition();
 		MB_API
 		virtual void update(const float dt) override;
+	};
+
+	class ChangeTransformationComponent : public mb::Component
+	{
+	public:
+		MB_API
+		ChangeTransformationComponent();
+		MB_API
+		virtual void start() override;
+		MB_API
+		virtual void update(const float) override;
+	protected:
+		mb::MoveComponent* _moveComp;
+		mb::RotateComponent* _rotateComp;
 	};
 };
 

@@ -592,6 +592,12 @@ namespace mb
 		{
 			return this->_uniformList;
 		}
+
+		MB_API
+		std::map<std::string, unsigned int> attributes() const
+		{
+			return this->_attrsList;
+		}
 	protected:
 		void _destroy();
 		bool _load(const std::string& file, int type);

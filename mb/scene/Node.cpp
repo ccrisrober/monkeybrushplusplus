@@ -34,8 +34,10 @@ namespace mb
   MeshRenderer* Node::getMesh() /*const*/
   {
     auto comp = getComponent<MeshRenderer>();
-    if (comp != nullptr) comp;
-    comp = getComponent<MeshRendererTesselation>();
+	if (comp == nullptr)
+	{
+		comp = getComponent<MeshRendererTesselation>();
+	}
     return comp;
   }
   Node::Node(const std::string& name, const std::string& tag)
@@ -60,31 +62,31 @@ namespace mb
   {
     return this->_parent != nullptr;
   }
-  Node* Node::parent() const
+  mb::NodePtr Node::parent() const
   {
     return this->_parent;
   }
-  void Node::setParent(Node* p)
+  void Node::setParent(mb::NodePtr p)
   {
     // TODO: Check parent in p node (addChild or removeChild in p.parent)
     this->_parent = p;
   }
-  Node* Node::findByName(const std::string& name)
+  mb::NodePtr Node::findByName(const std::string& name)
   {
-    Node* toRet = this->_searchName(name, this);
+    mb::NodePtr toRet = this->_searchName(name, mb::NodePtr(this));
     return toRet;
   }
-  Node* Node::findByTag(const std::string& tag)
+  mb::NodePtr Node::findByTag(const std::string& tag)
   {
-    Node* toRet = this->_searchTag(tag, this);
+    mb::NodePtr toRet = this->_searchTag(tag, mb::NodePtr(this));
     return toRet;
   }
-  Node* Node::findById(const std::string uuid)
+  mb::NodePtr Node::findById(const std::string uuid)
   {
-    Node* toRet = this->_searchUUID(uuid, this);
+    mb::NodePtr toRet = this->_searchUUID(uuid, mb::NodePtr(this));
     return toRet;
   }
-  Node* Node::_searchName(const std::string& name, Node* elem)
+  mb::NodePtr Node::_searchName(const std::string& name, const mb::NodePtr& elem)
   {
     if (elem->hasParent() && elem->name() == name) {
       return elem;
@@ -100,7 +102,7 @@ namespace mb
     }
     return nullptr;
   }
-  Node* Node::_searchTag(const std::string& tag, Node* elem)
+  mb::NodePtr Node::_searchTag(const std::string& tag, const mb::NodePtr& elem)
   {
     if (elem->hasParent() && elem->tag() == tag)
     {
@@ -117,7 +119,7 @@ namespace mb
     }
     return nullptr;
   }
-  Node* Node::_searchUUID(const std::string& uuid, Node* elem)
+  mb::NodePtr Node::_searchUUID(const std::string& uuid, const mb::NodePtr& elem)
   {
     if (elem->hasParent() && elem->uuid() == uuid) {
       return elem;
@@ -133,19 +135,24 @@ namespace mb
     }
     return nullptr;
   }
-  void Node::addChild(Node* child)
+  void Node::addChild(mb::NodePtr child)
   {
-    if (child == this)
+    if (child.get() == this)
     {
       throw "TODO: ERROR";
     }
+    for (ComponentPtr comp : child.get()->_components)
+    {
+      comp.get()->start();
+    }
     if (std::find(_children.begin(), _children.end(), child) == _children.end())
     {
-      child->setParent(this);
+      child->setParent(mb::NodePtr(this));
       this->_children.push_back(child);
     }
   }
-  void Node::removeChild(Node* child) {
+  void Node::removeChild(mb::NodePtr child)
+  {
     auto it = std::find(_children.begin(), _children.end(), child);
     if (it != _children.end())
     {
@@ -165,7 +172,7 @@ namespace mb
   {
     return _components.size();
   }
-  Node* Node::getChild(unsigned int index)
+  mb::NodePtr Node::getChild(unsigned int index)
   {
     if (index >= _children.size())
     {
@@ -175,23 +182,26 @@ namespace mb
   }
   void Node::removeChildren()
   {
-    std::for_each(_children.begin(), _children.end(), mb::utils::deleter<Node>());
+    //std::for_each(_children.begin(), _children.end(), mb::utils::deleter<NodePtr>());
     _children.clear();
   }
   void Node::removeComponents()
   {
-    std::for_each(_components.begin(), _components.end(),
-      mb::utils::deleter<Component>());
+    //std::for_each(_components.begin(), _components.end(),
+    //	mb::utils::deleter<mb::ComponentPtr>());
     _components.clear();
   }
-  void Node::addComponent(Component* c)
+  void Node::addComponent(const mb::ComponentPtr& c)
   {
     // TODO: http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
     //this->_components[&typeid(*c)] = c;
     if (std::find(_components.begin(), _components.end(), c) == _components.end())
     {
-      c->setNode(this);
-      c->start();
+      c.get()->setNode(this);
+      if (this->hasParent())
+      {
+        c.get()->start();
+      }
       this->_components.push_back(c);
     }
   }
@@ -206,7 +216,7 @@ namespace mb
       }
     }
   }
-  std::vector<Node*> Node::children() const
+  std::vector<mb::NodePtr> Node::children() const
   {
     return this->_children;
   }
@@ -257,11 +267,11 @@ namespace mb
   {
     this->_tag = t;
   }
-  std::vector<mb::Component*> Node::getComponents() const
+  std::vector<mb::ComponentPtr> Node::getComponents() const
   {
     return _components;
   }
-  void Node::traverse(const std::function<void(mb::Node* n)>& f)
+  void Node::traverse(const std::function<void(const mb::Node* n)>& f)
   {
     f(this);
     for (auto& child : _children)
@@ -269,7 +279,7 @@ namespace mb
       child->traverse(f);
     }
   }
-  void Node::traverseAncestors(const std::function<void(mb::Node* n)>& f)
+  void Node::traverseAncestors(const std::function<void(const mb::Node* n)>& f)
   {
     if (this->_parent != nullptr)
     {
@@ -277,7 +287,7 @@ namespace mb
       this->_parent->traverseAncestors(f);
     }
   }
-  Component* Node::getComponentByIndex(unsigned int index)
+  mb::ComponentPtr Node::getComponentByIndex(unsigned int index)
   {
     if (index >= _components.size())
     {

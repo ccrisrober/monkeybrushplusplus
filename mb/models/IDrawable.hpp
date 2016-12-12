@@ -193,45 +193,45 @@ namespace mb
 			float side2 = 1.0f / 2.0f;
 	        // Vertices
 			std::vector<float> vertices = {
-	            // Front
-	            -side2, -side2, side2,
-	            side2, -side2, side2,
-	            side2,  side2, side2,
-	            -side2,  side2, side2,
-	            // Right
-	            side2, -side2, side2,
-	            side2, -side2, -side2,
-	            side2,  side2, -side2,
-	            side2,  side2, side2,
-	            // Back
-	            -side2, -side2, -side2,
-	            -side2,  side2, -side2,
-	            side2,  side2, -side2,
-	            side2, -side2, -side2,
-	            // Left
-	            -side2, -side2, side2,
-	            -side2,  side2, side2,
-	            -side2,  side2, -side2,
-	            -side2, -side2, -side2,
-	            // Bottom
-	            -side2, -side2, side2,
-	            -side2, -side2, -side2,
-	            side2, -side2, -side2,
-	            side2, -side2, side2,
-	            // Top
-	            -side2,  side2, side2,
-	            side2,  side2, side2,
-	            side2,  side2, -side2,
-	            -side2,  side2, -side2
-	        };
-	        std::vector<unsigned int> indices = {
-	            0, 1, 2, 0, 2, 3,
-	            4, 5, 6, 4, 6, 7,
-	            8, 9, 10, 8, 10, 11,
-	            12, 13, 14, 12, 14, 15,
-	            16, 17, 18, 16, 18, 19,
-	            20, 21, 22, 20, 22, 23
-	        };
+        // Front
+        -side2, -side2, side2,
+        side2, -side2, side2,
+        side2,  side2, side2,
+        -side2,  side2, side2,
+        // Right
+        side2, -side2, side2,
+        side2, -side2, -side2,
+        side2,  side2, -side2,
+        side2,  side2, side2,
+        // Back
+        -side2, -side2, -side2,
+        -side2,  side2, -side2,
+        side2,  side2, -side2,
+        side2, -side2, -side2,
+        // Left
+        -side2, -side2, side2,
+        -side2,  side2, side2,
+        -side2,  side2, -side2,
+        -side2, -side2, -side2,
+        // Bottom
+        -side2, -side2, side2,
+        -side2, -side2, -side2,
+        side2, -side2, -side2,
+        side2, -side2, side2,
+        // Top
+        -side2,  side2, side2,
+        side2,  side2, side2,
+        side2,  side2, -side2,
+        -side2,  side2, -side2
+      };
+      std::vector<unsigned int> indices = {
+        0, 1, 2, 0, 2, 3,
+        4, 5, 6, 4, 6, 7,
+        8, 9, 10, 8, 10, 11,
+        12, 13, 14, 12, 14, 15,
+        16, 17, 18, 16, 18, 19,
+        20, 21, 22, 20, 22, 23
+      };
 
 			_vao.bind();
 
@@ -243,14 +243,14 @@ namespace mb
 			_indicesLen = indices.size();
 			this->_handles.push_back(vbIndices);
 
-        	_vao.unbind();
+    	_vao.unbind();
 		}
 		MB_API
 		virtual void render() override
 		{
 			_vao.bind();
-	        glDrawElements(GL_TRIANGLES, _indicesLen, GL_UNSIGNED_INT, 0);
-	        _vao.unbind();
+      glDrawElements(GL_TRIANGLES, _indicesLen, GL_UNSIGNED_INT, 0);
+      _vao.unbind();
 		}
 	protected:
 	    void addBufferArray(unsigned int attribLocation, const std::vector<float>& data,

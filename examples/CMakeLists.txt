@@ -15,140 +15,190 @@ if( MB_WITH_EXAMPLES )
   	${CMAKE_CURRENT_BINARY_DIR}/assetsFiles.h )
 
 
-##set( MBHELLOWORLD_HEADERS )
-##set( MBHELLOWORLD_SOURCES helloWorld.cpp )
-##set( MBHELLOWORLD_LINK_LIBRARIES
-##	mb
-##)
-##common_application( mbHelloWorld )
+  ##set( MBNORMALMAPPING_HEADERS )
+  ##set( MBNORMALMAPPING_SOURCES normalMapping.cpp )
+  ##set( MBNORMALMAPPING_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbNormalMapping )
 
 
-##set( MBRANDOMCUBE_HEADERS )
-##set( MBRANDOMCUBE_SOURCES randomCube.cpp )
-##set( MBRANDOMCUBE_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbRandomCube )
 
 
-##set( MBTEXSWAP_HEADERS )
-##set( MBTEXSWAP_SOURCES texSwap.cpp )
-##set( MBTEXSWAP_LINK_LIBRARIES
-##	mb
-##)
-##common_application( mbTexSwap )
-
-
-##set( MBBROWNIAN_HEADERS )
-##set( MBBROWNIAN_SOURCES brownian.cpp )
-##set( MBBROWNIAN_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbBrownian )
-
-
-##set( MBSPHERICALHARMONICS_HEADERS )
-##set( MBSPHERICALHARMONICS_SOURCES sphericalHarmonics.cpp )
-##set( MBSPHERICALHARMONICS_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbSphericalHarmonics )
-
-
-##set( MBHELLOMESH_HEADERS )
-##set( MBHELLOMESH_SOURCES helloMesh.cpp )
-##set( MBHELLOMESH_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbHelloMesh )
-
-
-##set( MBALIENTEXTURE_HEADERS )
-##set( MBALIENTEXTURE_SOURCES alienTexture.cpp )
-##set( MBALIENTEXTURE_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbAlienTexture )
-
-
-##set( MBNORMALINTERPOLATION_HEADERS )
-##set( MBNORMALINTERPOLATION_SOURCES normalInterpolation.cpp )
-##set( MBNORMALINTERPOLATION_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbNormalInterpolation )
-
-
-##set( MBTOONSHADING_HEADERS )
-##set( MBTOONSHADING_SOURCES toonShading.cpp )
-##set( MBTOONSHADING_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbToonShading )
-
-
-##set( MBCUBES_HEADERS )
-##set( MBCUBES_SOURCES cubes.cpp )
-##set( MBCUBES_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbCubes )
-
-
-##set( MBHEIGHTMAP_HEADERS )
-##set( MBHEIGHTMAP_SOURCES heightmap.cpp )
-##set( MBHEIGHTMAP_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbHeightmap )
-
-
-##set( MBORBITPIVOT_HEADERS )
-##set( MBORBITPIVOT_SOURCES orbitPivot.cpp )
-##set( MBORBITPIVOT_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbOrbitPivot )
-
-
-##set( MBEXPLOSION_HEADERS )
-##set( MBEXPLOSION_SOURCES explosion.cpp )
-##set( MBEXPLOSION_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbExplosion )
-
-
-##set( MBSCENEGRAPH_HEADERS )
-##set( MBSCENEGRAPH_SOURCES sceneGraph.cpp )
-##set( MBSCENEGRAPH_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbSceneGraph )
-
-
-##set( MBALPHATEXTURES_HEADERS )
-##set( MBALPHATEXTURES_SOURCES alphaTextures.cpp )
-##set( MBALPHATEXTURES_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbAlphaTextures )
-
-
-  set( MBTRIANGLETESSELATION_HEADERS )
-  set( MBTRIANGLETESSELATION_SOURCES triangleTesselation.cpp )
-  set( MBTRIANGLETESSELATION_LINK_LIBRARIES
+  set( MBCUBEHIERARCHY_HEADERS )
+  set( MBCUBEHIERARCHY_SOURCES cubeHierarchy.cpp )
+  set( MBCUBEHIERARCHY_LINK_LIBRARIES
     mb
   )
-  common_application( mbTriangleTesselation )
+  common_application( mbCubeHierarchy )
 
 
-  set( MBPHONGTESSELATION_HEADERS )
-  set( MBPHONGTESSELATION_SOURCES phongTesselation.cpp )
-  set( MBPHONGTESSELATION_LINK_LIBRARIES
+  set( MBHELLOMESHARGS_HEADERS )
+  set( MBHELLOMESHARGS_SOURCES helloMeshArgs.cpp )
+  set( MBHELLOMESHARGS_LINK_LIBRARIES
     mb
   )
-  common_application( mbPhongTesselation )
+  common_application( mbHelloMeshArgs )
+
+
+  ##set( MBHEIGHTMAPTESSELATION_HEADERS )
+  ##set( MBHEIGHTMAPTESSELATION_SOURCES heightmapTesselation.cpp )
+  ##set( MBHEIGHTMAPTESSELATION_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbHeightmapTesselation )
+
+
+  ##set( MBBUFFERINSTANCING_HEADERS )
+  ##set( MBBUFFERINSTANCING_SOURCES bufferInstancing.cpp )
+  ##set( MBBUFFERINSTANCING_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbBufferInstancing )
+
+
+  set( MBHELLOWORLD_HEADERS )
+  set( MBHELLOWORLD_SOURCES helloWorld.cpp )
+  set( MBHELLOWORLD_LINK_LIBRARIES
+  	mb
+  )
+  common_application( mbHelloWorld )
+
+
+  ##set( MBRANDOMCUBE_HEADERS )
+  ##set( MBRANDOMCUBE_SOURCES randomCube.cpp )
+  ##set( MBRANDOMCUBE_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbRandomCube )
+
+
+  ##set( MBTEXSWAP_HEADERS )
+  ##set( MBTEXSWAP_SOURCES texSwap.cpp )
+  ##set( MBTEXSWAP_LINK_LIBRARIES
+  ##	mb
+  ##)
+  ##common_application( mbTexSwap )
+
+
+  ##set( MBBROWNIAN_HEADERS )
+  ##set( MBBROWNIAN_SOURCES brownian.cpp )
+  ##set( MBBROWNIAN_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbBrownian )
+
+
+  ##set( MBSPHERICALHARMONICS_HEADERS )
+  ##set( MBSPHERICALHARMONICS_SOURCES sphericalHarmonics.cpp )
+  ##set( MBSPHERICALHARMONICS_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbSphericalHarmonics )
+
+
+  ##set( MBHELLOMESH_HEADERS )
+  ##set( MBHELLOMESH_SOURCES helloMesh.cpp )
+  ##set( MBHELLOMESH_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbHelloMesh )
+
+
+  ##set( MBALIENTEXTURE_HEADERS )
+  ##set( MBALIENTEXTURE_SOURCES alienTexture.cpp )
+  ##set( MBALIENTEXTURE_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbAlienTexture )
+
+
+  ##set( MBNORMALINTERPOLATION_HEADERS )
+  ##set( MBNORMALINTERPOLATION_SOURCES normalInterpolation.cpp )
+  ##set( MBNORMALINTERPOLATION_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbNormalInterpolation )
+
+
+  ##set( MBTOONSHADING_HEADERS )
+  ##set( MBTOONSHADING_SOURCES toonShading.cpp )
+  ##set( MBTOONSHADING_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbToonShading )
+
+
+  ##set( MBCUBES_HEADERS )
+  ##set( MBCUBES_SOURCES cubes.cpp )
+  ##set( MBCUBES_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbCubes )
+
+
+  ##set( MBHEIGHTMAP_HEADERS )
+  ##set( MBHEIGHTMAP_SOURCES heightmap.cpp )
+  ##set( MBHEIGHTMAP_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbHeightmap )
+
+
+  ##set( MBORBITPIVOT_HEADERS )
+  ##set( MBORBITPIVOT_SOURCES orbitPivot.cpp )
+  ##set( MBORBITPIVOT_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbOrbitPivot )
+
+
+  ##set( MBEXPLOSION_HEADERS )
+  ##set( MBEXPLOSION_SOURCES explosion.cpp )
+  ##set( MBEXPLOSION_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbExplosion )
+
+
+  ##set( MBSCENEGRAPH_HEADERS )
+  ##set( MBSCENEGRAPH_SOURCES sceneGraph.cpp )
+  ##set( MBSCENEGRAPH_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbSceneGraph )
+
+
+  ##set( MBALPHATEXTURES_HEADERS )
+  ##set( MBALPHATEXTURES_SOURCES alphaTextures.cpp )
+  ##set( MBALPHATEXTURES_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbAlphaTextures )
+
+
+  ##set( MBTRIANGLETESSELATION_HEADERS )
+  ##set( MBTRIANGLETESSELATION_SOURCES triangleTesselation.cpp )
+  ##set( MBTRIANGLETESSELATION_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbTriangleTesselation )
+
+
+  ## DONT WORK set( MBPHONGTESSELATION_HEADERS )
+  ## DONT WORK set( MBPHONGTESSELATION_SOURCES phongTesselation.cpp )
+  ## DONT WORK set( MBPHONGTESSELATION_LINK_LIBRARIES
+  ## DONT WORK   mb
+  ## DONT WORK )
+  ## DONT WORK common_application( mbPhongTesselation )
+
+
+  ##set( MBSHADERSUBROUTINE_HEADERS )
+  ##set( MBSHADERSUBROUTINE_SOURCES shaderSubroutine.cpp )
+  ##set( MBSHADERSUBROUTINE_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbShaderSubroutine )
 endif()
 
 
@@ -235,14 +285,6 @@ endif()
 ##	mb
 ##)
 ##common_application( mbKuwaharaFilter )
-##
-##
-##set( MBNORMALMAPPING_HEADERS )
-##set( MBNORMALMAPPING_SOURCES normalMapping.cpp )
-##set( MBNORMALMAPPING_LINK_LIBRARIES
-##	mb
-##)
-##common_application( mbNormalMapping )
 ##
 ##
 ##set( MBNEWTONFRACTAL_HEADERS )
