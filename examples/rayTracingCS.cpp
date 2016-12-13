@@ -24,7 +24,6 @@
 #include <mb/mb.h>
 #include <shaderFiles.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
@@ -32,45 +31,39 @@ void renderFunc(float dt);
 mb::PostProcessMaterial* ppm;
 mb::Program* computeProg;
 
-mb::Texture2D * tex;
-
 int main(void)
 {
 	mb::GLContext context(4, 4, 720, 480, "Ray Tracing CS");
 
-	engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+	auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
-	{
-		std::ifstream file(MB_SHADER_FILES + std::string("/passthrought.frag"));
-		std::stringstream buffer;
-		buffer << file.rdbuf();
+  mb::TexOptions options;
+  options.wrapS = mb::ctes::WrapMode::Clamp2Edge;
+  options.wrapT = mb::ctes::WrapMode::Clamp2Edge;
+  options.minFilter = mb::ctes::TextureFilter::Linear;
+  options.magFilter = mb::ctes::TextureFilter::Linear;
+  options.internalFormat = GL_RGBA32F;
+  options.format = GL_RGBA;
+  options.type = GL_FLOAT;
 
-		ppm = new mb::PostProcessMaterial(buffer.str().c_str());
+  mb::Texture* tex = new mb::Texture2D(options, 512, 512);
 
-		ppm->addUniform("tex", new mb::Uniform(mb::Integer, 0));
-	}
-	{
-		computeProg = new mb::Program();
-		std::ifstream file(MB_SHADER_FILES + std::string("/rayTracing.cs"));
-		std::stringstream buffer;
-		buffer << file.rdbuf();
-		computeProg->loadComputeShaderFromText(buffer.str());
-		computeProg->compileAndLink();
-		computeProg->autocatching();
-	}
+  std::string passthrought = mb::os::readFile(MB_SHADER_FILES + std::string("/passthrought.frag"));
 
-	mb::TexOptions options;
-	options.wrapS = mb::ctes::WrapMode::Clamp2Edge;
-	options.wrapT = mb::ctes::WrapMode::Clamp2Edge;
-	options.minFilter = mb::ctes::TextureFilter::Linear;
-	options.magFilter = mb::ctes::TextureFilter::Linear;
-	options.internalFormat = GL_RGBA32F;
-	options.format = GL_RGBA;
-	options.type = GL_FLOAT;
+	ppm = new mb::PostProcessMaterial(passthrought.c_str());
 
-	tex = new mb::Texture2D(options, 512, 512);
-	tex->bindImageTexture(0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
+	ppm->addUniform("tex", new mb::Uniform(mb::TextureSampler, tex));
+
+
+	computeProg = new mb::Program();
+  std::string raytracingcs = mb::os::readFile(MB_SHADER_FILES + std::string("/rayTracing.cs"));
+	computeProg->loadComputeShaderFromText(raytracingcs);
+	computeProg->compileAndLink();
+	computeProg->autocatching();
+
+
+	((mb::Texture2D*)tex)->bindImageTexture(0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
 
 	engine->run(renderFunc);
 
@@ -91,6 +84,6 @@ void renderFunc(float dt)
 	computeProg->launchComputeWork(512, 512, 1);
 	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
 	ppm->renderPP();
 }

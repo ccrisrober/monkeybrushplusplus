@@ -171,7 +171,7 @@ int main(void)
 
 	mb::ShaderMaterial material("triangleTesselation", shaders, uniforms);
 	material.Cull = false;
-	material.PolygonMode = GL_FILL; //GL_LINE;
+	material.PolygonMode = GL_LINE;
 
 	auto mbModel = new mb::Node(std::string("model"));
 	mbModel->addComponent(mb::ComponentPtr(new mb::MeshRendererTesselation(model, &material)));

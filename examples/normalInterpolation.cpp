@@ -79,7 +79,8 @@ int main(void)
 	mb::GLContext context(3, 3, 1024, 768, "Normal interpolation");
 
 	auto engine = new mb::Engine(&context, false);
-  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
+  scene = new mb::Scene(engine,
+    new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
 
@@ -88,13 +89,13 @@ int main(void)
 	noperspectiveMaterial = createMaterial("noPerspectiveNormal");
 
 	auto mbNode = new mb::Node(std::string("mesh"));
-	mbNode->addComponent(new mb::MeshRenderer(mesh, flatMaterial));
-	mbNode->addComponent(new mb::MoveComponent());
-	mbNode->addComponent(new mb::RotateComponent(mb::Axis::x));
-	mbNode->addComponent(new NormalInterpolationComponent());
-  mbNode->addComponent(new mb::ChangeTransformationComponent());
+	mbNode->addComponent(mb::ComponentPtr(new mb::MeshRenderer(mesh, flatMaterial)));
+	mbNode->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
+	mbNode->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::x)));
+	mbNode->addComponent(mb::ComponentPtr(new NormalInterpolationComponent()));
+  mbNode->addComponent(mb::ComponentPtr(new mb::ChangeTransformationComponent()));
 
-	scene->root()->addChild(mbNode);
+	scene->root()->addChild(mb::NodePtr(mbNode));
 
 	engine->run(renderFunc);
 

@@ -9,25 +9,11 @@
 ##common_application( mbAdvention )
 ##
 ##
-set( MBRAYTRACINGCS_HEADERS )
-set( MBRAYTRACINGCS_SOURCES rayTracingCS.cpp )
-set( MBRAYTRACINGCS_LINK_LIBRARIES
-	mb
-)
-common_application( mbRayTracingCS )
 ##
 ##
 ##
 ##
 ##
-
-set( MBRENDERTOTEXTURECS_HEADERS )
-set( MBRENDERTOTEXTURECS_SOURCES renderToTextureCS.cpp )
-set( MBRENDERTOTEXTURECS_LINK_LIBRARIES
-	mb
-)
-
-common_application( mbRenderToTextureCS )
 ##
 ##
 ##set( MBTEST1_HEADERS )

@@ -108,6 +108,8 @@ namespace mb
 		mainCamera->update(dt);
 		updateCamera();
 
+    projectObject();
+
 		if (sort)
 		{
 			std::sort(_batch.begin(), _batch.end(), [](NodePtr& mm1, NodePtr& mm2)
@@ -147,10 +149,18 @@ namespace mb
 		for (const auto& node : _batch)
 		{
 			auto mr = node->getMesh();
-			mr->getMaterial()->uniforms()["projection"]->value(_projection);
-			mr->getMaterial()->uniforms()["view"]->value(_view);
-			if (mr->getMaterial()->hasUniform("viewPos"))
-				mr->getMaterial()->uniform("viewPos")->value(this->mainCamera->GetPos());
+      if (mr->getMaterial()->hasUniform("projection"))
+      {
+        mr->getMaterial()->uniforms()["projection"]->value(_projection);
+      }
+      if (mr->getMaterial()->hasUniform("view"))
+      {
+			  mr->getMaterial()->uniforms()["view"]->value(_view);
+      }
+      if (mr->getMaterial()->hasUniform("viewPos"))
+      {
+        mr->getMaterial()->uniform("viewPos")->value(this->mainCamera->GetPos());
+      }
 			mr->render();
 			++profiler.totalMeshes;
 			profiler.totalIndices += mr->getMesh()->indicesLen();

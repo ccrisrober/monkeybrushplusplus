@@ -24,7 +24,6 @@
 #include <mb/mb.h>
 #include <shaderFiles.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
@@ -36,43 +35,38 @@ mb::Texture * tex;
 
 int main(void)
 {
-	mb::GLContext context(4, 4, 720, 480, "Ray Tracing CS");
+  mb::GLContext context(4, 4, 720, 480, "Ray Tracing CS");
 
-	engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+  auto engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine,
+    new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
-	mb::TexOptions options;
-	options.wrapS = mb::ctes::WrapMode::Clamp2Edge;
-	options.wrapT = mb::ctes::WrapMode::Clamp2Edge;
-	options.minFilter = mb::ctes::TextureFilter::Linear;
-	options.magFilter = mb::ctes::TextureFilter::Linear;
-	options.internalFormat = GL_RGBA8;
-	options.format = GL_RGBA;
-	options.type = GL_FLOAT;
+  mb::TexOptions options;
+  options.wrapS = mb::ctes::WrapMode::Clamp2Edge;
+  options.wrapT = mb::ctes::WrapMode::Clamp2Edge;
+  options.minFilter = mb::ctes::TextureFilter::Linear;
+  options.magFilter = mb::ctes::TextureFilter::Linear;
+  options.internalFormat = GL_RGBA8;
+  options.format = GL_RGBA;
+  options.type = GL_FLOAT;
 
-	tex = new mb::Texture2D(options, 512, 512);
-	((mb::Texture2D*)tex)->bindImageTexture(0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA8);
+  tex = new mb::Texture2D(options, 512, 512);
 
-	{
-		std::ifstream file(MB_SHADER_FILES + std::string("/passthrought.frag"));
-		std::stringstream buffer;
-		buffer << file.rdbuf();
+  std::string passthrought = mb::os::readFile(MB_SHADER_FILES + std::string("/passthrought.frag"));
 
-		ppm = new mb::PostProcessMaterial(buffer.str().c_str());
+	ppm = new mb::PostProcessMaterial(passthrought.c_str());
 
-		ppm->addUniform("tex", new mb::Uniform(mb::TextureSampler, tex));
-	}
-	{
-		computeProg = new mb::Program();
-		std::ifstream file(MB_SHADER_FILES + std::string("/renderToTexture.cs"));
-		std::stringstream buffer;
-		buffer << file.rdbuf();
-		computeProg->loadComputeShaderFromText(buffer.str());
-		computeProg->compileAndLink();
-		computeProg->autocatching();
-	}
+	ppm->addUniform("tex", new mb::Uniform(mb::TextureSampler, tex));
 
-	engine->run(renderFunc);
+  computeProg = new mb::Program();
+  std::string renderToTexture = mb::os::readFile(MB_SHADER_FILES + std::string("/renderToTexture.cs"));
+  computeProg->loadComputeShaderFromText(renderToTexture);
+  computeProg->compileAndLink();
+  computeProg->autocatching();
+
+  ((mb::Texture2D*)tex)->bindImageTexture(0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA8);
+
+  engine->run(renderFunc);
 
 	delete(scene);
 	delete(engine);
@@ -86,9 +80,10 @@ void renderFunc(float dt)
 {
 	globalTime += dt;
 	computeProg->use();
+  computeProg->sendUniformf("time", globalTime);
 	computeProg->launchComputeWork(512/32, 512/32, 1);
 	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
 	ppm->renderPP();
 }

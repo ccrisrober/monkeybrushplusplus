@@ -118,14 +118,14 @@ int main(void)
   mb::ShaderMaterial material("material", shaders, uniforms);
 
 	auto mbNode = new mb::Node(std::string("model"));
-	mbNode->addComponent(new mb::MeshRenderer(model, &material));
-	mbNode->addComponent(new mb::RotateComponent(mb::Axis::y, 0.15f));
-  mbNode->addComponent(new mb::ChangeTransformationComponent());
-  mbNode->addComponent(new ChangeToonLevel(levels));
+	mbNode->addComponent(mb::ComponentPtr(new mb::MeshRenderer(model, &material)));
+	mbNode->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::y, 0.15f)));
+  mbNode->addComponent(mb::ComponentPtr(new mb::ChangeTransformationComponent()));
+  mbNode->addComponent(mb::ComponentPtr(new ChangeToonLevel(levels)));
 
 	mbNode->getComponent<mb::RotateComponent>()->setRotate(true);
 
-	scene->root()->addChild(mbNode);
+	scene->root()->addChild(mb::NodePtr(mbNode));
 
 	engine->run(renderFunc);
 

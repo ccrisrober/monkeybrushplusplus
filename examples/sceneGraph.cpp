@@ -49,7 +49,8 @@ int main(void)
   mb::GLContext context(3, 3, 1024, 768, "SceneGraph");
 
   auto engine = new mb::Engine(&context, false);
-  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 11.44f)));
+  scene = new mb::Scene(engine,
+    new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 11.44f)));
 
 	mb::ResourceDrawable::add("capsule", new mb::Capsule(0.5f, 1.0f));
 
@@ -85,7 +86,7 @@ int main(void)
 			"	outTexCoord = texCoord;"
 			"}"
 		}, {
-			mb::FragmentShader, 
+			mb::FragmentShader,
 			"#version 330\n"
 			"in vec3 outPosition;"
 			"in vec3 outNormal;"
@@ -108,13 +109,14 @@ int main(void)
 		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
 		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
 		std::make_pair("model", new mb::Uniform(mb::Matrix4)),
-		std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3::createFromScalar(1.0f))),
+		std::make_pair("color", new mb::Uniform(mb::Vector3,
+            mb::Vect3::createFromScalar(1.0f))),
 		std::make_pair("viewPos", new mb::Uniform(mb::Vector3))
 	};
 
 	mb::ShaderMaterial shaderMat("shaderMat", shaders, uniforms);
 	shaderMat.Cull = false;
-	
+
 	scene->mainCamera->layer().enable(1);
 	scene->mainCamera->layer().enable(2);
 	scene->mainCamera->layer().enable(3);
@@ -178,7 +180,7 @@ int main(void)
 			"}"
 		}
 	};
-	
+
 	std::vector<std::pair<const char*, mb::Uniform*> > uniforms2 = {
 		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
 		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
@@ -190,39 +192,39 @@ int main(void)
 	mb::ShaderMaterial material2("geomExplosion", shaders2, uniforms2);
 
 	mb::Node* mbCube = new mb::Node(std::string("cube"));
-	mbCube->addComponent(new mb::MeshRenderer(cube, mb::MaterialCache::get("shaderMat")));
-	mbCube->addComponent(new mb::MoveComponent());
-	mbCube->addComponent(new mb::RotateComponent(mb::Axis::x));
+	mbCube->addComponent(mb::ComponentPtr(new mb::MeshRenderer(cube, mb::MaterialCache::get("shaderMat"))));
+	mbCube->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
+	mbCube->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::x)));
 	mbCube->transform().position().set(0.0f, 3.15f, -8.98f);
 	mbCube->transform().scale().set(2.0f, 2.0f, 1.0f);
 	mbCube->layer().set(1);
 
 	mb::Node* mbPrism = new mb::Node(std::string("prism"));
-	mbPrism->addComponent(new mb::MeshRenderer(prism, &normalMat));
+	mbPrism->addComponent(mb::ComponentPtr(new mb::MeshRenderer(prism, &normalMat)));
 	mbPrism->transform().position().set(-0.44f, -2.0f, 2.35f);
 	mbPrism->transform().scale().set(0.5f, 0.5f, 1.0f);
-	mbCube->addChild(mbPrism);
+	mbCube->addChild(mb::NodePtr(mbPrism));
 	mbPrism->layer().set(2);
 
 	mb::Node* mbCapsule = new mb::Node(std::string("capsule"));
-	mbCapsule->addComponent(new mb::MeshRenderer(mb::ResourceDrawable::get("capsule"), &normalMat));
+	mbCapsule->addComponent(mb::ComponentPtr(new mb::MeshRenderer(mb::ResourceDrawable::get("capsule"), &normalMat)));
 	mbCapsule->transform().position().set(-1.44f, -2.5f, 0.87f);
-	mbPrism->addChild(mbCapsule);
+	mbPrism->addChild(mb::NodePtr(mbCapsule));
 	mbCapsule->layer().set(3);
 
 	mb::Node* mbTorus = new mb::Node(std::string("torus"));
-	mbTorus->addComponent(new mb::MeshRenderer("torus", &material2));
-	mbTorus->addComponent(new ExplosionComponent());
+	mbTorus->addComponent(mb::ComponentPtr(new mb::MeshRenderer("torus", &material2)));
+	mbTorus->addComponent(mb::ComponentPtr(new ExplosionComponent()));
 	mbTorus->transform().position().set(1.1f, -1.91f, -1.08f);
 	mbTorus->transform().scale().set(1.0f, 0.5f, 1.0f);
-	mbCube->addChild(mbTorus);
+	mbCube->addChild(mb::NodePtr(mbTorus));
 	mbTorus->layer().set(2);
 
 	mb::Node* mbCylinder = new mb::Node(std::string("cylinder"));
-	mbCylinder->addComponent(new mb::MeshRenderer(cylinder, &material));
+	mbCylinder->addComponent(mb::ComponentPtr(new mb::MeshRenderer(cylinder, &material)));
 	mbCylinder->transform().position().set(1.44f, -2.5f, 0.8f);
 	mbCylinder->transform().scale().set(0.5f, 1.0f, 2.0f);
-	mbTorus->addChild(mbCylinder);
+	mbTorus->addChild(mb::NodePtr(mbCylinder));
 	mbCylinder->layer().set(3);
 
 	std::function<void()> f0([&]() {
@@ -243,7 +245,7 @@ int main(void)
 	scene->registerAfterRender(f1);
 	scene->registerAfterRender(f2, true);
 
-	scene->root()->addChild(mbCube);
+	scene->root()->addChild(mb::NodePtr(mbCube));
 
   scene->root()->traverse([](const mb::Node* n)
   {
@@ -251,7 +253,7 @@ int main(void)
   });
 
 	engine->run(renderFunc);
-    
+
 	delete(scene);
 	delete(engine);
 

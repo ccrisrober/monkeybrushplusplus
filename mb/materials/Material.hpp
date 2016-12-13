@@ -90,7 +90,6 @@ namespace mb
 		mb::UniformType type;
 
 	private:
-		static int CurrentProgram;
 		unsigned int texID;
 		bool setDirty;
 	};

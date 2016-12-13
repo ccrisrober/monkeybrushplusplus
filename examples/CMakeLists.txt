@@ -15,12 +15,54 @@ if( MB_WITH_EXAMPLES )
   	${CMAKE_CURRENT_BINARY_DIR}/assetsFiles.h )
 
 
-  ##set( MBNORMALMAPPING_HEADERS )
-  ##set( MBNORMALMAPPING_SOURCES normalMapping.cpp )
-  ##set( MBNORMALMAPPING_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbNormalMapping )
+
+  set( MBIMAGEPROCESSING_HEADERS )
+  set( MBIMAGEPROCESSING_SOURCES imageProcessing.cpp )
+  set( MBIMAGEPROCESSING_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbImageProcessing )
+
+
+  set( MBRAYTRACINGCS_HEADERS )
+  set( MBRAYTRACINGCS_SOURCES rayTracingCS.cpp )
+  set( MBRAYTRACINGCS_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbRayTracingCS )
+
+
+  set( MBRENDERTOTEXTURECS_HEADERS )
+  set( MBRENDERTOTEXTURECS_SOURCES renderToTextureCS.cpp )
+  set( MBRENDERTOTEXTURECS_LINK_LIBRARIES
+    mb
+  )
+
+  common_application( mbRenderToTextureCS )
+
+
+  set( MBCOLORBLIND_HEADERS )
+  set( MBCOLORBLIND_SOURCES colorBlind.cpp )
+  set( MBCOLORBLIND_LINK_LIBRARIES
+    mb
+  )
+
+  common_application( mbColorBlind )
+
+
+  set( MBKUWAHARAFILTER_HEADERS )
+  set( MBKUWAHARAFILTER_SOURCES kuwaharaFilter.cpp )
+  set( MBKUWAHARAFILTER_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbKuwaharaFilter )
+
+  set( MBNORMALMAPPING_HEADERS )
+  set( MBNORMALMAPPING_SOURCES normalMapping.cpp )
+  set( MBNORMALMAPPING_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbNormalMapping )
 
 
 
@@ -41,20 +83,20 @@ if( MB_WITH_EXAMPLES )
   ##common_application( mbHelloMeshArgs )
 
 
-  ##set( MBHEIGHTMAPTESSELATION_HEADERS )
-  ##set( MBHEIGHTMAPTESSELATION_SOURCES heightmapTesselation.cpp )
-  ##set( MBHEIGHTMAPTESSELATION_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbHeightmapTesselation )
-
-
-  set( MBBUFFERINSTANCING_HEADERS )
-  set( MBBUFFERINSTANCING_SOURCES bufferInstancing.cpp )
-  set( MBBUFFERINSTANCING_LINK_LIBRARIES
+  set( MBHEIGHTMAPTESSELATION_HEADERS )
+  set( MBHEIGHTMAPTESSELATION_SOURCES heightmapTesselation.cpp )
+  set( MBHEIGHTMAPTESSELATION_LINK_LIBRARIES
     mb
   )
-  common_application( mbBufferInstancing )
+  common_application( mbHeightmapTesselation )
+
+
+  ##set( MBBUFFERINSTANCING_HEADERS )
+  ##set( MBBUFFERINSTANCING_SOURCES bufferInstancing.cpp )
+  ##set( MBBUFFERINSTANCING_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbBufferInstancing )
 
 
   ##set( MBHELLOWORLD_HEADERS )
@@ -113,20 +155,20 @@ if( MB_WITH_EXAMPLES )
   ##common_application( mbAlienTexture )
 
 
-  ##set( MBNORMALINTERPOLATION_HEADERS )
-  ##set( MBNORMALINTERPOLATION_SOURCES normalInterpolation.cpp )
-  ##set( MBNORMALINTERPOLATION_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbNormalInterpolation )
+  set( MBNORMALINTERPOLATION_HEADERS )
+  set( MBNORMALINTERPOLATION_SOURCES normalInterpolation.cpp )
+  set( MBNORMALINTERPOLATION_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbNormalInterpolation )
 
 
-  ##set( MBTOONSHADING_HEADERS )
-  ##set( MBTOONSHADING_SOURCES toonShading.cpp )
-  ##set( MBTOONSHADING_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbToonShading )
+  set( MBTOONSHADING_HEADERS )
+  set( MBTOONSHADING_SOURCES toonShading.cpp )
+  set( MBTOONSHADING_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbToonShading )
 
 
   ##set( MBCUBES_HEADERS )
@@ -137,12 +179,12 @@ if( MB_WITH_EXAMPLES )
   ##common_application( mbCubes )
 
 
-  ##set( MBHEIGHTMAP_HEADERS )
-  ##set( MBHEIGHTMAP_SOURCES heightmap.cpp )
-  ##set( MBHEIGHTMAP_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbHeightmap )
+  set( MBHEIGHTMAP_HEADERS )
+  set( MBHEIGHTMAP_SOURCES heightmap.cpp )
+  set( MBHEIGHTMAP_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbHeightmap )
 
 
   ##set( MBORBITPIVOT_HEADERS )
@@ -153,20 +195,20 @@ if( MB_WITH_EXAMPLES )
   ##common_application( mbOrbitPivot )
 
 
-  ##set( MBEXPLOSION_HEADERS )
-  ##set( MBEXPLOSION_SOURCES explosion.cpp )
-  ##set( MBEXPLOSION_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbExplosion )
+  set( MBEXPLOSION_HEADERS )
+  set( MBEXPLOSION_SOURCES explosion.cpp )
+  set( MBEXPLOSION_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbExplosion )
 
 
-  ##set( MBSCENEGRAPH_HEADERS )
-  ##set( MBSCENEGRAPH_SOURCES sceneGraph.cpp )
-  ##set( MBSCENEGRAPH_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbSceneGraph )
+  set( MBSCENEGRAPH_HEADERS )
+  set( MBSCENEGRAPH_SOURCES sceneGraph.cpp )
+  set( MBSCENEGRAPH_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbSceneGraph )
 
 
   ##set( MBALPHATEXTURES_HEADERS )
@@ -177,12 +219,12 @@ if( MB_WITH_EXAMPLES )
   ##common_application( mbAlphaTextures )
 
 
-  ##set( MBTRIANGLETESSELATION_HEADERS )
-  ##set( MBTRIANGLETESSELATION_SOURCES triangleTesselation.cpp )
-  ##set( MBTRIANGLETESSELATION_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbTriangleTesselation )
+  set( MBTRIANGLETESSELATION_HEADERS )
+  set( MBTRIANGLETESSELATION_SOURCES triangleTesselation.cpp )
+  set( MBTRIANGLETESSELATION_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbTriangleTesselation )
 
 
   ## DONT WORK set( MBPHONGTESSELATION_HEADERS )
@@ -271,22 +313,6 @@ endif()
 ##common_application( mbTurbulenceTexture )
 ##
 ##
-##set( MBIMAGEPROCESSING_HEADERS )
-##set( MBIMAGEPROCESSING_SOURCES imageProcessing.cpp )
-##set( MBIMAGEPROCESSING_LINK_LIBRARIES
-##	mb
-##)
-##common_application( mbImageProcessing )
-##
-##
-##set( MBKUWAHARAFILTER_HEADERS )
-##set( MBKUWAHARAFILTER_SOURCES kuwaharaFilter.cpp )
-##set( MBKUWAHARAFILTER_LINK_LIBRARIES
-##	mb
-##)
-##common_application( mbKuwaharaFilter )
-##
-##
 ##set( MBNEWTONFRACTAL_HEADERS )
 ##set( MBNEWTONFRACTAL_SOURCES newtonFractal.cpp )
 ##set( MBNEWTONFRACTAL_LINK_LIBRARIES
@@ -303,15 +329,6 @@ endif()
 ##)
 ##
 ##common_application( mbKaleidoscope )
-##
-##
-##set( MBCOLORBLIND_HEADERS )
-##set( MBCOLORBLIND_SOURCES colorBlind.cpp )
-##set( MBCOLORBLIND_LINK_LIBRARIES
-##	mb
-##)
-##
-##common_application( mbColorBlind )
 ##
 ##
 ##if(${Rapidjson_FOUND})

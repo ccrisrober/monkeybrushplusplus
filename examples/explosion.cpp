@@ -49,7 +49,8 @@ int main(void)
   mb::GLContext context(3, 3, 1024, 768, "Model explosion");
 
   auto engine = new mb::Engine(&context, false);
-  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 18.44f)));
+  scene = new mb::Scene(engine,
+    new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 18.44f)));
 
   std::vector<std::pair<mb::ShaderType, const char*> > shaders;
   const char* vertexShader =
@@ -125,31 +126,31 @@ int main(void)
   mb::Drawable* draw3 = new mb::Cone(0.5f, 0.25f, 1.0f, 25, 25);
 
   auto mbObj = new mb::Node(std::string("torus"));
-  mbObj->addComponent(new mb::MeshRenderer(draw1, material));
-  mbObj->addComponent(new mb::MoveComponent());
-  mbObj->addComponent(new mb::RotateComponent(mb::Axis::x));
-  mbObj->addComponent(new ExplosionComponent());
+  mbObj->addComponent(mb::ComponentPtr(new mb::MeshRenderer(draw1, material)));
+  mbObj->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
+  mbObj->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::x)));
+  mbObj->addComponent(mb::ComponentPtr(new ExplosionComponent()));
   mbObj->transform().position().y(3.5f);
   mbObj->transform().rotation().y(-1.44f);
 
   auto mbObj2 = new mb::Node(std::string("torus"));
-  mbObj2->addComponent(new mb::MeshRenderer(draw2, material));
-  mbObj2->addComponent(new mb::MoveComponent());
-  mbObj2->addComponent(new mb::RotateComponent(mb::Axis::y));
-  mbObj2->addComponent(new ExplosionComponent());
+  mbObj2->addComponent(mb::ComponentPtr(new mb::MeshRenderer(draw2, material)));
+  mbObj2->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
+  mbObj2->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::y)));
+  mbObj2->addComponent(mb::ComponentPtr(new ExplosionComponent()));
   mbObj2->transform().position().y(0.0f);
 
   auto mbObj3 = new mb::Node(std::string("torus"));
-  mbObj3->addComponent(new mb::MeshRenderer(draw3, material));
-  mbObj3->addComponent(new mb::MoveComponent());
-  mbObj3->addComponent(new mb::RotateComponent(mb::Axis::z));
-  mbObj3->addComponent(new ExplosionComponent());
+  mbObj3->addComponent(mb::ComponentPtr(new mb::MeshRenderer(draw3, material)));
+  mbObj3->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
+  mbObj3->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::z)));
+  mbObj3->addComponent(mb::ComponentPtr(new ExplosionComponent()));
   mbObj3->transform().position().y(-3.5f);
   mbObj3->transform().rotation().x(1.44f/2.0f);
 
-  scene->root()->addChild(mbObj);
-  scene->root()->addChild(mbObj2);
-  scene->root()->addChild(mbObj3);
+  scene->root()->addChild(mb::NodePtr(mbObj));
+  scene->root()->addChild(mb::NodePtr(mbObj2));
+  scene->root()->addChild(mb::NodePtr(mbObj3));
 
   engine->run(renderFunc);
 

@@ -33,7 +33,7 @@ class NormalController : public mb::Component
 public:
 	NormalController(const float& normalScale)
 		: mb::Component()
-		, _normScale(normalScale) 
+		, _normScale(normalScale)
 	{
 	}
 	virtual void update(const float) override
@@ -128,8 +128,10 @@ int main(void)
 			"}\n"
 		}
 	};
-	mb::Texture* texDiffuse = new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/chesterfieldDiffuseMap.png"));
-	mb::Texture* texNormal = new mb::Texture2D({}, MB_TEXTURE_ASSETS + std::string("/chesterfieldNormalMap.png"));
+	mb::Texture* texDiffuse = new mb::Texture2D({},
+    MB_TEXTURE_ASSETS + std::string("/chesterfieldDiffuseMap.png"));
+	mb::Texture* texNormal = new mb::Texture2D({},
+    MB_TEXTURE_ASSETS + std::string("/chesterfieldNormalMap.png"));
 
 	float normalScale = 1.0f;
 
@@ -145,15 +147,15 @@ int main(void)
 
 	material = new mb::ShaderMaterial("material", shaders, uniforms);
 	auto mbModel = new mb::Node(std::string("model"));
-	mbModel->addComponent(new mb::MeshRenderer(model, material));
-	mbModel->addComponent(new mb::RotateComponent(mb::Axis::y, 0.15f));
-	mbModel->addComponent(new NormalController(normalScale));
+	mbModel->addComponent(mb::ComponentPtr(new mb::MeshRenderer(model, material)));
+	mbModel->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::y, 0.15f)));
+	mbModel->addComponent(mb::ComponentPtr(new NormalController(normalScale)));
 	mbModel->getComponent<mb::RotateComponent>()->setRotate(true);
 
-	scene->root()->addChild(mbModel);
+	scene->root()->addChild(mb::NodePtr(mbModel));
 
 	engine->run(renderFunc);
-    
+
 	delete(scene);
 	delete(engine);
 

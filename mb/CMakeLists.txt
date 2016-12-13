@@ -129,6 +129,7 @@ set( MB_PUBLIC_HEADERS
     CameraComponent.hpp
     #Transform2.hpp
     models/IDrawable.hpp
+    scene/RenderTarget.hpp
 )
 
 set( MB_HEADERS
@@ -243,6 +244,7 @@ set( MB_SOURCES
 
 
     #main.cpp
+    scene/RenderTarget.cpp
 )
 
 set( MB_LINK_LIBRARIES

@@ -47,6 +47,12 @@
 
 namespace mb
 {
+  /*
+  TODO
+  Check in use method current program (evitar glUseProgram del mismo programa
+
+  static int CurrentProgram;
+	int Material::CurrentProgram = -1;*/
 	class Program
 	{
 		std::string replace(std::string str, std::string& from, std::string& to)
@@ -74,9 +80,9 @@ namespace mb
 				}
         else
         {
-          mb::ResourceShader::loadShader(std::string(includeFile), 
+          mb::ResourceShader::loadShader(std::string(includeFile),
             // TODO
-            "C:/Users/maldicion069/Desktop/projects/monkeybrushplusplus/shaders" + 
+            "C:/Users/maldicion069/Desktop/projects/monkeybrushplusplus/shaders" +
             std::string("/" + includeFile + ".glsl"));
         }
 			}

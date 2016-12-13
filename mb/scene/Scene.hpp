@@ -100,7 +100,46 @@ namespace mb
 
   protected:
     bool _update;
-	float _fixedUpdateTime = 0.0f;
+	  float _fixedUpdateTime = 0.0f;
+
+    std::vector<float> projectedObjects;
+
+    void projectObject()
+    {
+      /*projectedObjects.clear();
+      for (auto batch : _batch)
+      {
+        mb::Node* node = batch.get();
+
+        auto array_ = node->transform().matrixWorld()._values;
+
+        unsigned int index = 3;
+        unsigned int offset = index * 4;
+        float x = array_[offset];
+        float y = array_[offset + 1];
+        float z = array_[offset + 2];
+
+        mb::Vect3 vector3(x, y, z);
+
+        auto e = mainCamera->projectionMatrix(512, 512)._values;
+
+        float aux = e[3] * x;
+        aux += e[7] * y;
+        aux += e[11] * z;
+        aux += e[15];
+        float d = 1.0f / (e[3] * x + e[7] * y + e[11] * z + e[15]); // perspective divide
+
+        float xx = (e[0] * x + e[4] * y + e[8] * z + e[12]) * d;
+        float yy = (e[1] * x + e[5] * y + e[9] * z + e[13]) * d;
+        float zz = (e[2] * x + e[6] * y + e[10] * z + e[14]) * d;
+
+        vector3 = mb::Vect3(xx, yy, zz);
+
+        std::cout << vector3 << std::endl;
+
+        projectedObjects.push_back(zz);
+      }*/
+    }
   };
 }
 

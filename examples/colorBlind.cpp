@@ -25,7 +25,6 @@
 #include <assetsFiles.h>
 #include <shaderFiles.h>
 
-mb::Engine* engine;
 mb::Scene* scene;
 
 void renderFunc(float dt);
@@ -36,14 +35,12 @@ int main(void)
 {
 	mb::GLContext context(3, 3, 1024, 768, "Color Blind demo");
 
-	engine = new mb::Engine(&context, false);
-	scene = new mb::Scene(engine);
+	mb::Engine* engine = new mb::Engine(&context, false);
+  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
-	std::ifstream file(MB_SHADER_FILES + std::string("/colorBlind.frag"));
-	std::stringstream buffer;
-	buffer << file.rdbuf();
+  std::string colorBlind = mb::os::readFile(MB_SHADER_FILES + std::string("/colorBlind.frag"));
 
-	ppm = new mb::PostProcessMaterial(buffer.str().c_str());
+	ppm = new mb::PostProcessMaterial(colorBlind.c_str());
 
 	mb::TexOptions opts;
 	mb::Texture* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));

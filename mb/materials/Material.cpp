@@ -26,7 +26,6 @@
 
 namespace mb
 {
-	int Material::CurrentProgram = -1;
 	GLContext* Material::_context = nullptr;
 	Material::Material()
 		: DepthTest ( true )
@@ -78,11 +77,11 @@ namespace mb
 
 		state->setPolygonMode(this->PolygonMode);
 
-		if (Material::CurrentProgram != (int)this->_program->program())
-		{
-			this->_program->use();
-			Material::CurrentProgram = this->_program->program();
-		}
+		//if (Material::CurrentProgram != (int)this->_program->program())
+		//{
+		this->_program->use();
+		//	Material::CurrentProgram = this->_program->program();
+		//}
 		texID = 0;
 		setDirty = true;
 		for (const auto& uniform : _uniforms)
