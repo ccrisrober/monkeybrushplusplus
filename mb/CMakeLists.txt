@@ -87,6 +87,7 @@ set( MB_PUBLIC_HEADERS
     resources/ResourceDrawable.hpp
     resources/ResourceManager.hpp
     resources/ResourceShader.hpp
+    resources/TextureCache.hpp
 
     scene/Component.hpp
     scene/Engine.hpp
@@ -212,6 +213,7 @@ set( MB_SOURCES
     resources/ObjParser.cpp
     resources/ResourceShader.cpp
     resources/ResourceDrawable.cpp
+    resources/TextureCache.cpp
 
     scene/Component.cpp
     scene/Engine.cpp

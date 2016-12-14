@@ -60,6 +60,7 @@ namespace mb
 
         double currentTime;
   };
+  typedef std::shared_ptr<mb::Engine> EnginePtr;
 }
 
 #endif /* __MB_ENGINE__ */

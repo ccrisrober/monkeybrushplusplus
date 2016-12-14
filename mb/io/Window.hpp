@@ -40,7 +40,7 @@ namespace mb
     bool debugWindowEvents;
     unsigned int minVersion;
     unsigned int maxVersion;
-    //bool resizable;
+    bool resizable;
     MB_API
     WindowParams(int width_, int height_);
   };

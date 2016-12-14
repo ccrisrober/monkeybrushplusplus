@@ -37,6 +37,7 @@ namespace mb
     MB_API
     NormalMaterial();
   };
+  typedef std::shared_ptr<NormalMaterial> NormalMaterialPtr;
 }
 
 #endif /* __MB_NORMAL_MATERIAL__ */

@@ -28,7 +28,7 @@
 
 namespace mb
 {
-  MeshRenderer::MeshRenderer(Drawable* mesh, Material* material,
+  MeshRenderer::MeshRenderer(mb::DrawablePtr mesh, MaterialPtr material,
     unsigned int mode_)
     : Component()
     , _mesh(mesh)
@@ -36,24 +36,24 @@ namespace mb
     , _mode(mode_)
   {
   }
-  MeshRenderer::MeshRenderer(const std::string& name, Material* material,
+  MeshRenderer::MeshRenderer(const std::string& name, MaterialPtr material,
     unsigned int mode_)
     : MeshRenderer(mb::ResourceDrawable::get(name), material, mode_)
   {
   }
-  Material* MeshRenderer::getMaterial() const
+  MaterialPtr MeshRenderer::getMaterial() const
   {
     return this->_material;
   }
-  Drawable* MeshRenderer::getMesh() const
+  mb::DrawablePtr MeshRenderer::getMesh() const
   {
     return this->_mesh;
   }
-  void MeshRenderer::setMaterial(Material* m)
+  void MeshRenderer::setMaterial(MaterialPtr m)
   {
     this->_material = m;
   }
-  void MeshRenderer::setMesh(Drawable* m)
+  void MeshRenderer::setMesh(mb::DrawablePtr m)
   {
     this->_mesh = m;
   }

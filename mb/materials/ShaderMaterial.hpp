@@ -51,6 +51,7 @@ namespace mb
 	protected:
 		std::string _name;
 	};
+  typedef std::shared_ptr<mb::ShaderMaterial> ShaderMaterialPtr;
 }
 
 #endif /* __MB_SHADER_MATERIAL__ */

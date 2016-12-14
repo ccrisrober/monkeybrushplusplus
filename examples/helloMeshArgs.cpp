@@ -25,9 +25,9 @@
 #include <assetsFiles.h>
 #include <sstream>
 
-mb::Scene* scene;
+mb::ScenePtr scene;
 
-void renderFunc(float dt);
+void renderFunc( float dt );
 
 int main(int argc, char** argv)
 {
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  std::string s = "0xfffefffe";
+  std::string s = std::string("0xfffefffe");
   if (opts.is_set("color"))
   {
     s = (std::string)opts.get("color");
@@ -54,34 +54,30 @@ int main(int argc, char** argv)
 
   mb::GLContext context(3, 3, 1024, 768, "Hello Mesh for arguments");
 
-  auto engine = new mb::Engine(&context, false);
-  scene = new mb::Scene(engine,
+  auto engine = std::make_shared<mb::Engine>(&context, false);
+  scene = std::make_shared<mb::Scene>(engine,
     new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
-  mb::Mesh* mesh = new mb::Mesh(filename);
+  mb::DrawablePtr mesh = std::make_shared<mb::Mesh>(filename);
 
-  mb::SimpleShadingMaterial material;
-  material.uniform("color")->value(mb::Vect3(mb::Color3::createFromHex(hex)));
+  mb::SimpleShadingMaterialPtr material = std::make_shared<mb::SimpleShadingMaterial>();
+  material->uniform("color")->value(mb::Vect3(mb::Color3::createFromHex(hex)));
 
-  auto mbNode = new mb::Node(std::string("mesh"));
-  mbNode->addComponent(mb::ComponentPtr(new mb::MeshRenderer(mesh, &material)));
-  mbNode->addComponent(mb::ComponentPtr(new mb::ChangeTransformationComponent()));
-  mbNode->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
-  mbNode->addComponent(mb::ComponentPtr(
-    new mb::RotateComponent(mb::Axis::x, 0.75f, true)));
+  mb::NodePtr mbNode = std::make_shared<mb::Node>(std::string("mesh"));
+  mbNode->addComponent(std::make_shared<mb::MeshRenderer>(mesh, material));
+  mbNode->addComponent(std::make_shared<mb::ChangeTransformationComponent>());
+  mbNode->addComponent(std::make_shared<mb::MoveComponent>());
+  mbNode->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::x, 0.75f, true));
 
-  scene->root()->addChild(mb::NodePtr(mbNode));
+  scene->root( )->addChild(mb::NodePtr(mbNode));
 
   engine->run(renderFunc);
-
-  //delete(scene);
-  delete(engine);
 
   return 0;
 }
 
-void renderFunc(float dt)
+void renderFunc( float dt )
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->render(dt);
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	scene->render( dt );
 }

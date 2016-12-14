@@ -36,7 +36,7 @@ namespace mb
     this->debugWindowEvents = true;
     this->minVersion = 3;
     this->maxVersion = 3;
-    //this->resizable = true;
+    this->resizable = true;
   }
   bool GLFWWindow2::init()
   {
@@ -49,14 +49,13 @@ namespace mb
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, _params.minVersion);
     glfwWindowHint(GLFW_SAMPLES, 4);
     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // TODO: glfwWindowHint(GLFW_RESIZABLE, _params.resizable);
+
+    glfwWindowHint(GLFW_RESIZABLE, _params.resizable);
 
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
-
-    glfwWindowHint(GLFW_RESIZABLE, false);
 
     this->_handle = glfwCreateWindow(_params.width, _params.height, _params.title, nullptr, nullptr);
 
@@ -92,6 +91,12 @@ namespace mb
     {
       static_cast<GLFWMouse*>(Input::Mouse())->onMouseWheelEvent(static_cast<int>(xoffset), static_cast<int>(yoffset));
     });
+
+    glfwSetWindowSizeCallback(_handle, ([](GLFWwindow* window, int width, int height)
+    {
+      glViewport(0, 0, width, height);
+      // TODO: Send event and set width and height from _params
+    }));
 
     glfwSetInputMode(_handle, GLFW_STICKY_KEYS, GL_TRUE);
     glfwMakeContextCurrent(_handle);

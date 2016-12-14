@@ -83,6 +83,7 @@ namespace mb
         void addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
             unsigned int numElems, unsigned int type = GL_STATIC_DRAW);
     };
+    typedef std::shared_ptr<mb::Drawable> DrawablePtr;
 }
 
 #endif /* __MB_DRAWABLE__ */

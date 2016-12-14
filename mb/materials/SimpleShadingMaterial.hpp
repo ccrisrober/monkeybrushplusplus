@@ -37,6 +37,7 @@ namespace mb
 	MB_API
     SimpleShadingMaterial();
   };
+  typedef std::shared_ptr<SimpleShadingMaterial> SimpleShadingMaterialPtr;
 }
 
 #endif /* __MB_SIMPLE_SHADING_MATERIAL__ */

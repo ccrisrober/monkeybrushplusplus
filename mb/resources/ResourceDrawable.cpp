@@ -25,12 +25,12 @@
 
 namespace mb
 {
-  std::unordered_map<std::string, Drawable*> ResourceDrawable::_files;
-  void ResourceDrawable::add(const std::string& key, Drawable* value)
+  std::unordered_map<std::string, mb::DrawablePtr> ResourceDrawable::_files;
+  void ResourceDrawable::add(const std::string& key, mb::DrawablePtr value)
   {
     ResourceDrawable::_files[key] = value;
   }
-  Drawable* ResourceDrawable::get(const std::string& key)
+  mb::DrawablePtr ResourceDrawable::get(const std::string& key)
   {
     return ResourceDrawable::_files[key];
   }

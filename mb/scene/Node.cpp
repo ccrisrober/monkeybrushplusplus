@@ -49,11 +49,11 @@ namespace mb
     , _transform(Transform())
   {
   }
-  Node::~Node()
+  /*Node::~Node()
   {
-    removeChildren();
-    removeComponents();
-  }
+    //removeChildren();
+    //removeComponents();
+  }*/
   bool Node::isVisible() const
   {
     return this->_visible;
@@ -271,20 +271,20 @@ namespace mb
   {
     return _components;
   }
-  void Node::traverse(const std::function<void(const mb::Node* n)>& f)
+  void Node::traverse(const std::function<void(mb::NodePtr n)>& f)
   {
-    f(this);
+    f( NodePtr( this ) );
     for (auto& child : _children)
     {
-      child->traverse(f);
+      child->traverse( f );
     }
   }
-  void Node::traverseAncestors(const std::function<void(const mb::Node* n)>& f)
+  void Node::traverseAncestors(const std::function<void(mb::NodePtr n)>& f)
   {
     if (this->_parent != nullptr)
     {
-      f(this);
-      this->_parent->traverseAncestors(f);
+      f( NodePtr( this ) );
+      this->_parent->traverseAncestors( f );
     }
   }
   mb::ComponentPtr Node::getComponentByIndex(unsigned int index)

@@ -59,11 +59,11 @@ namespace mb
 		bool isDirty() const;
     MB_API
 		void setDirty(const bool d);
-    protected:
-      UniformType _type;
-      any _value;
-      bool _isDirty;
-    };
+  protected:
+    UniformType _type;
+    any _value;
+    bool _isDirty;
+  };
 }
 
 #endif /* __MB_UNIFORM__ */

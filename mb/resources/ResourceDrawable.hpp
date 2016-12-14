@@ -35,9 +35,9 @@ namespace mb
   {
   public:
     MB_API
-    static void add(const std::string& key, Drawable* value);
+    static void add(const std::string& key, mb::DrawablePtr value);
     MB_API
-    static Drawable* get(const std::string& key);
+    static mb::DrawablePtr get(const std::string& key);
     MB_API
     static bool exist(const std::string& key);
     MB_API
@@ -45,7 +45,7 @@ namespace mb
     MB_API
     static void clear();
   protected:
-    static std::unordered_map<std::string, Drawable*> _files;
+    static std::unordered_map<std::string, mb::DrawablePtr> _files;
   };
 }
 

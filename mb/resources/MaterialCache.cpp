@@ -25,12 +25,12 @@
 
 namespace mb
 {
-  std::unordered_map<std::string, Material*> MaterialCache::_files;
-  void MaterialCache::add(const std::string& key, Material* value)
+  std::unordered_map<std::string, mb::MaterialPtr> MaterialCache::_files;
+  void MaterialCache::add(const std::string& key, mb::MaterialPtr value)
   {
     MaterialCache::_files[key] = value;
   }
-  Material* MaterialCache::get(const std::string& key)
+  mb::MaterialPtr MaterialCache::get(const std::string& key)
   {
     return MaterialCache::_files[key];
   }

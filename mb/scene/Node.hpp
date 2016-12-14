@@ -71,8 +71,8 @@ namespace mb
 
 		MB_API
 		Node(const std::string& name = "Node", const std::string& tag = "Untagged");
-		MB_API
-		virtual ~Node();
+		//MB_API
+		//virtual ~Node();
 		MB_API
 		bool isVisible() const;
 		MB_API
@@ -119,10 +119,10 @@ namespace mb
 		std::vector<mb::ComponentPtr> getComponents() const;
 		MB_API
 		MeshRenderer* getMesh(); // const;
-		MB_API
-		void traverse(const std::function<void(const mb::Node* n)>& f);
-		MB_API
-		void traverseAncestors(const std::function<void(const mb::Node* n)>& f);
+    MB_API
+    void traverse( const std::function<void( mb::NodePtr n )>& f );
+    MB_API
+    void traverseAncestors( const std::function<void( mb::NodePtr n )>& f );
 
 		template <typename T>
 		void toggleComponent()

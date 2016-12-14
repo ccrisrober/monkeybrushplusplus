@@ -133,7 +133,7 @@ namespace mb
 			}
 			else if (type == TextureSampler)
 			{
-				mb::Texture* tex = uniform.second->value().cast<mb::Texture*>();
+        mb::TexturePtr tex = uniform.second->value().cast<mb::TexturePtr>();
 				tex->bind(texID);
 				this->_program->sendUniformi(uniform.first, texID);
 				++texID;

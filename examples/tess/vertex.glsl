@@ -1,11 +1,8 @@
 #version 440
-
-in vec3 position;
-out vec3 outPosition;
-
+layout(location = 0) in vec3 position;
+uniform mat4 projection;
+uniform mat4 view;
 uniform mat4 model;
-
-void main()
-{
-    outPosition = vec3(model * vec4(outPosition, 1.0));
+void main() {
+  gl_Position = projection * view * model * vec4(position, 1.0f);
 }

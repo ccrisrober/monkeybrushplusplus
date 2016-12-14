@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -25,27 +25,27 @@
 #include <assetsFiles.h>
 #include <shaderFiles.h>
 
-mb::Scene* scene;
+mb::ScenePtr scene;
 
-void renderFunc(float dt);
+void renderFunc( float dt );
 
 class UpdateBaseFreq : public mb::Component
 {
 public:
-  UpdateBaseFreq(const float& baseFreq)
-    : mb::Component()
-    , _baseFreq(baseFreq) {}
-  virtual void update(const float) override
+  UpdateBaseFreq( const float& baseFreq )
+    : mb::Component( )
+    , _baseFreq( baseFreq ) {}
+  virtual void update( const float ) override
   {
     if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
     {
       _baseFreq -= 0.1f;
-      getNode()->getMesh()->getMaterial()->uniform("base_freq")->value(_baseFreq);
+      getNode( )->getMesh( )->getMaterial( )->uniform( "base_freq" )->value( _baseFreq );
     }
     if (mb::Input::isKeyPressed(mb::Keyboard::Key::Plus))
     {
       _baseFreq += 0.1f;
-      getNode()->getMesh()->getMaterial()->uniform("base_freq")->value(_baseFreq);
+      getNode( )->getMesh( )->getMaterial( )->uniform( "base_freq" )->value( _baseFreq );
     }
   }
 protected:
@@ -54,58 +54,56 @@ protected:
 
 int main(void)
 {
-	mb::GLContext context(3, 3, 1024, 768, "Alien Texture");
+  mb::GLContext context( 3, 3, 1024, 768, "Alien Texture" );
 
-	auto engine = new mb::Engine(&context, false);
-  scene = new mb::Scene(engine, new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
+  auto engine = std::make_shared<mb::Engine>( &context, false );
+  scene = std::make_shared<mb::Scene>( engine,
+    new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 8.44f ) ) );
 
-	mb::Mesh* mesh = new mb::Mesh(MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
+  mb::DrawablePtr mesh = std::make_shared<mb::Mesh>(
+    MB_MODEL_ASSETS + std::string( "/suzanne.obj_" ) );
 
-	//mb::ResourceShader::loadShader(std::string("SimpleNoise3D"), MB_SHADERBACKUP_FILES + std::string("/SimpleNoise3D.glsl"));
-
-  std::string vertexShader = mb::os::readFile(MB_SHADER_FILES + std::string("/alienVertex.glsl"));
-  std::string fragmentShader = mb::os::readFile(MB_SHADER_FILES + std::string("/alienFrag.glsl"));
+  std::string vertexShader = mb::os::readFile( MB_SHADER_FILES + std::string( "/alienVertex.glsl" ) );
+  std::string fragmentShader = mb::os::readFile( MB_SHADER_FILES + std::string( "/alienFrag.glsl" ) );
 
 	std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
 		{
-			mb::VertexShader, vertexShader.c_str()
+			mb::VertexShader, vertexShader.c_str( )
 		},
 		{
-			mb::FragmentShader, fragmentShader.c_str()
+			mb::FragmentShader, fragmentShader.c_str( )
 		}
-	};
+  };
 
   float base_freq = 6.9f;
 
-	std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
-		std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
-		std::make_pair("view", new mb::Uniform(mb::Matrix4)),
-		std::make_pair("model", new mb::Uniform(mb::Matrix4)),
-		std::make_pair("viewPos", new mb::Uniform(mb::Vector3)),
-		std::make_pair("base_freq", new mb::Uniform(mb::Float, base_freq))
-	};
+  std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+    std::make_pair( "projection", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "view", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "model", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "viewPos", new mb::Uniform( mb::Vector3 ) ),
+    std::make_pair( "base_freq", new mb::Uniform( mb::Float, base_freq ) )
+  };
 
-	mb::ShaderMaterial material("alienMaterial", shaders, uniforms);
+  mb::ShaderMaterialPtr material = std::make_shared<mb::ShaderMaterial>(
+    "alienMaterial", shaders, uniforms );
 
-	auto mbNode = new mb::Node(std::string("mesh"));
-	mbNode->addComponent(new mb::MeshRenderer(mesh, &material));
-	mbNode->addComponent(new mb::MoveComponent());
-	mbNode->addComponent(new mb::RotateComponent(mb::Axis::x));
-  mbNode->addComponent(new mb::ChangeTransformationComponent());
-  mbNode->addComponent(new UpdateBaseFreq(base_freq));
+  mb::NodePtr mbNode = std::make_shared<mb::Node>( std::string( "mesh" ) );
+  mbNode->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
+  mbNode->addComponent( std::make_shared<mb::MoveComponent>( ) );
+  mbNode->addComponent( std::make_shared<mb::RotateComponent>( mb::Axis::x ) );
+  mbNode->addComponent( std::make_shared<mb::ChangeTransformationComponent>( ) );
+  mbNode->addComponent( std::make_shared<UpdateBaseFreq>( base_freq ) );
 
-	scene->root()->addChild(mbNode);
+	scene->root( )->addChild( mbNode );
 
-	engine->run(renderFunc);
-
-	delete(scene);
-	delete(engine);
+  engine->run( renderFunc );
 
 	return 0;
 }
 
-void renderFunc(float dt)
+void renderFunc( float dt )
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene->render(dt);
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	scene->render( dt );
 }

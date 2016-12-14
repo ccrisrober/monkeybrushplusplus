@@ -30,6 +30,8 @@
 #include "Node.hpp"
 #include "../lights/Light.hpp"
 
+#include "Engine.hpp"
+
 #include <vector>
 
 namespace mb
@@ -50,9 +52,9 @@ namespace mb
   {
   public:
     MB_API
-    Scene(Engine* engine, SimpleCamera* camera);
-    MB_API
-    ~Scene();
+    Scene(EnginePtr engine, SimpleCamera* camera);
+    //MB_API
+    //~Scene();
     MB_API
     void render(float dt);
     MB_API
@@ -91,7 +93,7 @@ namespace mb
     Profiler profiler;
     bool sort = true;
   protected:
-    Engine* _engine;
+    EnginePtr _engine;
 
     Mat4 _projection;
     Mat4 _view;
@@ -141,6 +143,8 @@ namespace mb
       }*/
     }
   };
+
+  typedef std::shared_ptr<mb::Scene> ScenePtr;
 }
 
 #endif /* __MB_SCENE__ */

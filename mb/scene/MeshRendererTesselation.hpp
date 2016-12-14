@@ -34,7 +34,7 @@ namespace mb
   {
   public:
     MB_API
-    MeshRendererTesselation(Drawable* mesh, Material* material);
+    MeshRendererTesselation(mb::DrawablePtr mesh, MaterialPtr material);
   };
 }
 

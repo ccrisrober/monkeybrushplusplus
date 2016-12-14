@@ -38,17 +38,17 @@
 
 namespace mb
 {
-	Scene::Scene(Engine* engine, SimpleCamera* camera)
+	Scene::Scene(EnginePtr engine, SimpleCamera* camera)
 	: _sceneGraph(new Node())
 	, _engine(engine)
 	, _update(true)
 	{
 		mainCamera = camera;
 	}
-	Scene::~Scene()
+	/*Scene::~Scene()
 	{
 		//delete _sceneGraph;
-	}
+	}*/
   mb::NodePtr Scene::root() const
 	{
 		return this->_sceneGraph;
@@ -114,8 +114,8 @@ namespace mb
 		{
 			std::sort(_batch.begin(), _batch.end(), [](NodePtr& mm1, NodePtr& mm2)
 			{
-				Material *m1 = mm1.get()->getMesh()->getMaterial();
-				Material *m2 = mm2.get()->getMesh()->getMaterial();
+        MaterialPtr m1 = mm1.get()->getMesh()->getMaterial();
+        MaterialPtr m2 = mm2.get()->getMesh()->getMaterial();
 				static auto smType = std::type_index(typeid(mb::ShaderMaterial));
 
 				auto type1 = std::type_index(typeid(*m1));
@@ -129,8 +129,8 @@ namespace mb
 						(type2 == smType)
 						)
 					{
-						mb::ShaderMaterial* sm1 = dynamic_cast<mb::ShaderMaterial*>(m1);
-						mb::ShaderMaterial* sm2 = dynamic_cast<mb::ShaderMaterial*>(m2);
+						mb::ShaderMaterial* sm1 = dynamic_cast<mb::ShaderMaterial*>(m1.get());
+						mb::ShaderMaterial* sm2 = dynamic_cast<mb::ShaderMaterial*>(m2.get());
 
 						if (sm1->name() != sm2->name())
 						{

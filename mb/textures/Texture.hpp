@@ -93,6 +93,7 @@ namespace mb
     unsigned int _packAlignment;
     unsigned int _unpackAlignment;
   };
+  typedef std::shared_ptr<mb::Texture> TexturePtr;
 }
 
 #endif /* __MB_TEXTURE__ */

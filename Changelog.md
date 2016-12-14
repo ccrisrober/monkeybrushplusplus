@@ -25,14 +25,15 @@
 - (29/11) Added layer methods using std::string.
 - (30/11) Added update getter and setter to pause or resume application.
 - (30/11) Added Fog class. Trying Register component ...
-- (02/11) Added computeBoundingSphere in Drawable class.
-- (02/11) Added NodeData.
-- (02/11) Added ParametricGeom and Plane.
-- (03/11) Added TextureSampler to Material and PointMaterial.
-- (04/11) Added TransformFeedback.
-- (06/11) Added MeshRendererTesselation.
-- (07/11) Fixed batching sort.
-- (08/11) MeshRenderer as Component (again)
-- (08/11) Scene required a default camera in constructor. Fixed demos
-- (08/11) Removed unnecesary files (any.cpp and CustomPingPong.cpp).
-- (09/11) Added fixedUpdate to Component. Fixed _subUpdate in Scene.
+- (02/12) Added computeBoundingSphere in Drawable class.
+- (02/12) Added NodeData.
+- (02/12) Added ParametricGeom and Plane.
+- (03/12) Added TextureSampler to Material and PointMaterial.
+- (04/12) Added TransformFeedback.
+- (06/12) Added MeshRendererTesselation.
+- (07/12) Fixed batching sort.
+- (08/12) MeshRenderer as Component (again)
+- (08/12) Scene required a default camera in constructor. Fixed demos
+- (08/12) Removed unnecesary files (any.cpp and CustomPingPong.cpp).
+- (09/12) Added fixedUpdate to Component. Fixed _subUpdate in Scene.
+- (14/12) Added TextureCache to resource. Updated examples (not all).

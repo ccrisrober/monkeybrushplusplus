@@ -25,8 +25,8 @@
 
 namespace mb
 {
-  MeshRendererTesselation::MeshRendererTesselation(Drawable* mesh,
-    Material* material)
+  MeshRendererTesselation::MeshRendererTesselation(mb::DrawablePtr mesh,
+    MaterialPtr material)
     : MeshRenderer(mesh, material, GL_PATCHES)
   {
   }

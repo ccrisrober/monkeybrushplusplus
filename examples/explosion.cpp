@@ -3,7 +3,8 @@
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
- * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
+ * This file is part of MonkeyBrushPlusPlus
+ *      <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -24,33 +25,33 @@
 #include <mb/mb.h>
 #include <vector>
 
-mb::Scene* scene;
+mb::ScenePtr scene;
 
-void renderFunc(float dt);
+void renderFunc( float dt );
 
 class ExplosionComponent : public mb::Component
 {
 public:
-  ExplosionComponent()
-    : mb::Component()
-    , _globalTime(0.0f)
+  ExplosionComponent( )
+    : mb::Component( )
+    , _globalTime( 0.0f )
   {}
-  virtual void update(const float dt) override
+  virtual void update( const float dt ) override
   {
     _globalTime += dt;
-    getNode()->getMesh()->getMaterial()->uniform("time")->value(_globalTime);
+    getNode( )->getMesh( )->getMaterial( )->uniform( "time" )->value( _globalTime );
   }
 protected:
   float _globalTime;
 };
 
-int main(void)
+int main( void )
 {
-  mb::GLContext context(3, 3, 1024, 768, "Model explosion");
+  mb::GLContext context( 3, 3, 1024, 768, "Model explosion" );
 
-  auto engine = new mb::Engine(&context, false);
-  scene = new mb::Scene(engine,
-    new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 18.44f)));
+  auto engine = std::make_shared<mb::Engine>( &context, false );
+  scene = std::make_shared<mb::Scene>( engine,
+    new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 18.44f ) ) );
 
   std::vector<std::pair<mb::ShaderType, const char*> > shaders;
   const char* vertexShader =
@@ -63,7 +64,7 @@ int main(void)
     "uniform mat4 projection;\n"
     "uniform mat4 view;\n"
     "uniform mat4 model;\n"
-    "void main() {\n"
+    "void main( void ) {\n"
     " gl_Position = projection * view * model * vec4(position, 1.0f);\n"
     " vs_out.texCoords = texCoords;\n"
     "}";
@@ -86,7 +87,7 @@ int main(void)
     "    vec3 b = vec3(gl_in[2].gl_Position) - vec3(gl_in[1].gl_Position);\n"
     "    return normalize(cross(a, b));\n"
     "}\n"
-    "void main() {\n"
+    "void main( void ) {\n"
     "    vec3 normal = GetNormal();\n"
     "    gl_Position = explode(gl_in[0].gl_Position, normal);\n"
     "    TexCoords = gs_in[0].texCoords;\n"
@@ -103,64 +104,62 @@ int main(void)
     "#version 330\n"
     "out vec4 fragColor;\n"
     "uniform vec3 color;\n"
-    "void main() {\n"
+    "void main( void ) {\n"
     " fragColor = vec4(color, 1.0);\n"
     "}";
 
-  shaders.push_back(std::make_pair(mb::VertexShader, vertexShader));
-  shaders.push_back(std::make_pair(mb::GeometryShader, geometryShader));
-  shaders.push_back(std::make_pair(mb::FragmentShader, fragmentShader));
+  shaders.push_back( std::make_pair( mb::VertexShader, vertexShader ) );
+  shaders.push_back( std::make_pair( mb::GeometryShader, geometryShader ) );
+  shaders.push_back( std::make_pair( mb::FragmentShader, fragmentShader ) );
 
   std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
-    std::make_pair("projection", new mb::Uniform(mb::Matrix4)),
-    std::make_pair("view", new mb::Uniform(mb::Matrix4)),
-    std::make_pair("model", new mb::Uniform(mb::Matrix4)),
-    std::make_pair("color", new mb::Uniform(mb::Vector3, mb::Vect3(0.0f, 1.0f, 1.0f))),
-    std::make_pair("time", new mb::Uniform(mb::Float, 0.015f))
+    std::make_pair( "projection", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "view", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "model", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "color", new mb::Uniform( mb::Vector3, mb::Vect3( 0.0f, 1.0f, 1.0f ) ) ),
+    std::make_pair( "time", new mb::Uniform( mb::Float, 0.015f ) )
   };
 
-  auto material = new mb::ShaderMaterial("geomExplosion", shaders, uniforms);
+  mb::ShaderMaterialPtr material = std::make_shared<mb::ShaderMaterial>(
+    "geomExplosion", shaders, uniforms );
 
-  mb::Drawable* draw1 = new mb::Torus(0.5f, 0.25f, 25, 40);
-  mb::Drawable* draw2 = new mb::Octahedron(0.5f, 2);
-  mb::Drawable* draw3 = new mb::Cone(0.5f, 0.25f, 1.0f, 25, 25);
+  mb::DrawablePtr draw1 = std::make_shared<mb::Torus>( 0.5f, 0.25f, 25, 40 );
+  mb::DrawablePtr draw2 = std::make_shared<mb::Octahedron>( 0.5f, 2 );
+  mb::DrawablePtr draw3 = std::make_shared<mb::Cone>( 0.5f, 0.25f, 1.0f, 25, 25 );
 
-  auto mbObj = new mb::Node(std::string("torus"));
-  mbObj->addComponent(mb::ComponentPtr(new mb::MeshRenderer(draw1, material)));
-  mbObj->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
-  mbObj->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::x)));
-  mbObj->addComponent(mb::ComponentPtr(new ExplosionComponent()));
-  mbObj->transform().position().y(3.5f);
-  mbObj->transform().rotation().y(-1.44f);
+  mb::NodePtr mbObj = std::make_shared<mb::Node>( std::string( "model" ) );
+  mbObj->addComponent( std::make_shared<mb::MeshRenderer>( draw1, material ) );
+  mbObj->addComponent( std::make_shared<mb::MoveComponent>( ) );
+  mbObj->addComponent( std::make_shared<mb::RotateComponent>( mb::Axis::x ) );
+  mbObj->addComponent( std::make_shared<ExplosionComponent>( ) );
+  mbObj->transform( ).position( ).y( 3.5f );
+  mbObj->transform( ).rotation( ).y( -1.44f );
 
-  auto mbObj2 = new mb::Node(std::string("torus"));
-  mbObj2->addComponent(mb::ComponentPtr(new mb::MeshRenderer(draw2, material)));
-  mbObj2->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
-  mbObj2->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::y)));
-  mbObj2->addComponent(mb::ComponentPtr(new ExplosionComponent()));
-  mbObj2->transform().position().y(0.0f);
+  mb::NodePtr mbObj2 = std::make_shared<mb::Node>( std::string( "model-2" ) );
+  mbObj2->addComponent( std::make_shared<mb::MeshRenderer>( draw2, material ) );
+  mbObj2->addComponent( std::make_shared<mb::MoveComponent>( ) );
+  mbObj2->addComponent( std::make_shared<mb::RotateComponent>( mb::Axis::x ) );
+  mbObj2->addComponent( std::make_shared<ExplosionComponent>( ) );
+  mbObj2->transform( ).position( ).y( 0.0f );
 
-  auto mbObj3 = new mb::Node(std::string("torus"));
-  mbObj3->addComponent(mb::ComponentPtr(new mb::MeshRenderer(draw3, material)));
-  mbObj3->addComponent(mb::ComponentPtr(new mb::MoveComponent()));
-  mbObj3->addComponent(mb::ComponentPtr(new mb::RotateComponent(mb::Axis::z)));
-  mbObj3->addComponent(mb::ComponentPtr(new ExplosionComponent()));
-  mbObj3->transform().position().y(-3.5f);
-  mbObj3->transform().rotation().x(1.44f/2.0f);
+  mb::NodePtr mbObj3 = std::make_shared<mb::Node>( std::string( "model-3" ) );
+  mbObj3->addComponent( std::make_shared<mb::MeshRenderer>( draw3, material ) );
+  mbObj3->addComponent( std::make_shared<mb::MoveComponent>( ) );
+  mbObj3->addComponent( std::make_shared<mb::RotateComponent>( mb::Axis::x ) );
+  mbObj3->addComponent( std::make_shared<ExplosionComponent>( ) );
+  mbObj3->transform( ).position( ).y( -3.5f );
+  mbObj3->transform( ).rotation( ).x( 1.44f / 2.0f );
 
-  scene->root()->addChild(mb::NodePtr(mbObj));
-  scene->root()->addChild(mb::NodePtr(mbObj2));
-  scene->root()->addChild(mb::NodePtr(mbObj3));
+  scene->root( )->addChild( mbObj );
+  scene->root( )->addChild( mbObj2 );
+  scene->root( )->addChild( mbObj3 );
 
-  engine->run(renderFunc);
-
-  delete(scene);
-  delete(engine);
+  engine->run( renderFunc );
 
   return 0;
 }
-void renderFunc(float dt)
+void renderFunc( float dt )
 {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  scene->render(dt);
+  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+  scene->render( dt );
 }

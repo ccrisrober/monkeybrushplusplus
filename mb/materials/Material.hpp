@@ -93,6 +93,8 @@ namespace mb
 		unsigned int texID;
 		bool setDirty;
 	};
+
+  typedef std::shared_ptr<mb::Material> MaterialPtr;
 }
 
 #endif /* __MB_MATERIAL__ */
