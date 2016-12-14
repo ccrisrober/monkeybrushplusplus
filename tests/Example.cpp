@@ -17,8 +17,8 @@ BOOST_AUTO_TEST_CASE ( test_lights_repeated )
 {
 	mb::GLContext context(4, 3, 1024, 768, "Hello MB");
 
-	auto engine = new mb::Engine(&context);
-  auto scene = new mb::Scene(engine,
+	auto engine = std::make_shared<mb::Engine>(&context);
+  auto scene = std::make_shared<mb::Scene>(engine,
     new mb::SimpleCamera(mb::Vect3(0.2f, 0.18f, 8.44f)));
 
 	mb::Light* l1 = new mb::PointLight();

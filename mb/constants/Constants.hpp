@@ -89,6 +89,18 @@ namespace mb
       InvClockwise = GL_CCW
     };
 
+    enum class DataType
+    {
+      UnsignedByte = GL_UNSIGNED_BYTE,
+      Byte = GL_BYTE,
+      Short = GL_SHORT,
+      UnsignedShort = GL_UNSIGNED_SHORT,
+      Int = GL_INT,
+      UnsignedInt = GL_UNSIGNED_INT,
+      Float = GL_FLOAT,
+      //HalfFloat = 0x140B
+    };
+
     enum class TextureTarget
     {
       Texture1D = GL_TEXTURE_1D,

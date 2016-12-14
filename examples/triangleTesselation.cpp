@@ -39,7 +39,7 @@ public:
     if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Plus ) )
     {
       _tessLevel += 0.1f;
-      getNode( )->getMesh( )->getMaterial( )->uniform( "tess_level" )->value( _tessLevel )
+      getNode( )->getMesh( )->getMaterial( )->uniform( "tess_level" )->value( _tessLevel );
     }
     else if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Minus ) )
     {
