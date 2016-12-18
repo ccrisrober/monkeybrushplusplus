@@ -43,10 +43,10 @@ namespace mb
   public:
     MB_API
     virtual void start();
-	MB_API
-	virtual void fixedUpdate(const float dt);
-	MB_API
-	virtual void update(const float dt);
+	  MB_API
+	  virtual void fixedUpdate(const float dt);
+	  MB_API
+	  virtual void update(const float dt);
     MB_API
     Node* getNode() const;
     MB_API
@@ -64,7 +64,9 @@ namespace mb
     MB_API
     void toggle();
     MB_API
-    virtual ~Component() {}
+    virtual ~Component() {
+      std::cout << "REMOVE COMPONENT " << std::endl;
+    }
   protected:
   #ifdef MB_USE_RAPIDJSON
     Component(const Value& /*config*/)

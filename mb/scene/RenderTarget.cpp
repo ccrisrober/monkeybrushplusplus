@@ -25,12 +25,13 @@
 
 namespace mb
 {
-  RenderTarget::RenderTarget(unsigned int width, unsigned int height, std::vector<mb::Texture*> textures)
+  RenderTarget::RenderTarget(unsigned int width, unsigned int height,
+    std::vector<mb::TexturePtr> textures)
   {
     _textures = textures;
     _fbo = new mb::Framebuffer(_textures, mb::Vect2(width, height), true);
   }
-  std::vector<mb::Texture*> RenderTarget::textures() const
+  std::vector<mb::TexturePtr> RenderTarget::textures() const
   {
     return _textures;
   }

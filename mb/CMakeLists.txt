@@ -24,6 +24,7 @@ set( MB_PUBLIC_HEADERS
     core/VertexArray.hpp
     core/VertexBuffer.hpp
     core/VertexUBO.hpp
+    core/Framebuffer2.hpp
 
     extras/CustomPingPong.hpp
     extras/Easing.hpp
@@ -155,6 +156,7 @@ set( MB_SOURCES
     core/VertexArray.cpp
     core/VertexBuffer.cpp
     core/VertexUBO.cpp
+    core/Framebuffer2.cpp
 
     extras/Easing.cpp
     extras/Ray.cpp

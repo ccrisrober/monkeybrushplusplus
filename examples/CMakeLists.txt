@@ -15,6 +15,38 @@ if( MB_WITH_EXAMPLES )
   	${CMAKE_CURRENT_BINARY_DIR}/assetsFiles.h )
 
 
+  set( MBPIXELIZATION_HEADERS )
+  set( MBPIXELIZATION_SOURCES pixelization.cpp )
+  set( MBPIXELIZATION_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbPixelization )
+
+
+  set( MBTEST1_HEADERS )
+  set( MBTEST1_SOURCES test1.cpp )
+  set( MBTEST1_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbTest1 )
+
+
+  set( MBCOLORBLIND_HEADERS )
+  set( MBCOLORBLIND_SOURCES colorBlind.cpp )
+  set( MBCOLORBLIND_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbColorBlind )
+
+
+  set( MBSKETCHRENDERING_HEADERS )
+  set( MBSKETCHRENDERING_SOURCES sketchRendering.cpp )
+  set( MBSKETCHRENDERING_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbSketchRendering )
+
+
   set( MBTRIANGLETESSELATION_HEADERS )
   set( MBTRIANGLETESSELATION_SOURCES triangleTesselation.cpp )
   set( MBTRIANGLETESSELATION_LINK_LIBRARIES
@@ -69,6 +101,22 @@ if( MB_WITH_EXAMPLES )
     mb
   )
   common_application( mbAlienTexture )
+
+
+  set( MBHATCHINGTEXTURE_HEADERS )
+  set( MBHATCHINGTEXTURE_SOURCES hatchingTexture.cpp )
+  set( MBHATCHINGTEXTURE_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbHatchingTexture )
+
+
+  set( MBHATCHING3DTEXTURE_HEADERS )
+  set( MBHATCHING3DTEXTURE_SOURCES hatching3DTexture.cpp )
+  set( MBHATCHING3DTEXTURE_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbHatching3DTexture )
 
 
   set( MBTURBULENCETEXTURE_HEADERS )
@@ -183,7 +231,6 @@ if( MB_WITH_EXAMPLES )
   common_application( mbOrbitPivot )
 
 
-
   ##set( MBHEIGHTMAPTESSELATION_HEADERS )
   ##set( MBHEIGHTMAPTESSELATION_SOURCES heightmapTesselation.cpp )
   ##set( MBHEIGHTMAPTESSELATION_LINK_LIBRARIES
@@ -217,12 +264,42 @@ if( MB_WITH_EXAMPLES )
   ##common_application( mbColorBlind )
 
 
-  ##set( MBKUWAHARAFILTER_HEADERS )
-  ##set( MBKUWAHARAFILTER_SOURCES kuwaharaFilter.cpp )
-  ##set( MBKUWAHARAFILTER_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbKuwaharaFilter )
+  set( MBKUWAHARAFILTER_HEADERS )
+  set( MBKUWAHARAFILTER_SOURCES kuwaharaFilter.cpp )
+  set( MBKUWAHARAFILTER_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbKuwaharaFilter )
+
+
+  set( MBKALEIDOSCOPE_HEADERS )
+  set( MBKALEIDOSCOPE_SOURCES kaleidoscope.cpp )
+  set( MBKALEIDOSCOPE_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbKaleidoscope )
+
+  set( MBCUBES_HEADERS )
+  set( MBCUBES_SOURCES cubes.cpp )
+  set( MBCUBES_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbCubes )
+
+  set( MBQUASICRYSTAL_HEADERS )
+  set( MBQUASICRYSTAL_SOURCES quasicrystal.cpp )
+  set( MBQUASICRYSTAL_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbQuasicrystal )
+
+
+  set( MBSCENEGRAPH_HEADERS )
+  set( MBSCENEGRAPH_SOURCES sceneGraph.cpp )
+  set( MBSCENEGRAPH_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbSceneGraph )
 
 
 
@@ -241,21 +318,6 @@ if( MB_WITH_EXAMPLES )
   ##  mb
   ##)
   ##common_application( mbBufferInstancing )
-
-  ##set( MBCUBES_HEADERS )
-  ##set( MBCUBES_SOURCES cubes.cpp )
-  ##set( MBCUBES_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbCubes )
-
-
-  ##set( MBSCENEGRAPH_HEADERS )
-  ##set( MBSCENEGRAPH_SOURCES sceneGraph.cpp )
-  ##set( MBSCENEGRAPH_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbSceneGraph )
 
 
   ##set( MBSHADERSUBROUTINE_HEADERS )
@@ -280,15 +342,8 @@ endif()
 
 
 
-##
-##
-##
-##set( MBQUASICRYSTAL_HEADERS )
-##set( MBQUASICRYSTAL_SOURCES quasicrystal.cpp )
-##set( MBQUASICRYSTAL_LINK_LIBRARIES
-##	mb
-##)
-##common_application( mbQuasicrystal )
+
+
 ##
 ##
 ##
@@ -328,15 +383,6 @@ endif()
 ##)
 ##
 ##common_application( mbNewtonFractal )
-##
-##
-##set( MBKALEIDOSCOPE_HEADERS )
-##set( MBKALEIDOSCOPE_SOURCES kaleidoscope.cpp )
-##set( MBKALEIDOSCOPE_LINK_LIBRARIES
-##	mb
-##)
-##
-##common_application( mbKaleidoscope )
 ##
 ##
 ##if(${Rapidjson_FOUND})

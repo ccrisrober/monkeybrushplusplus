@@ -61,7 +61,7 @@ namespace mb
 		_program->compileAndLink();
 		_program->autocatching();
 
-    MaterialCache::add( name, MaterialPtr( this ) );
+    //MaterialCache::add( name, shared_from_this() );
 
 		auto unifs = _program->uniforms();
 		for (const auto& uni : unifs)

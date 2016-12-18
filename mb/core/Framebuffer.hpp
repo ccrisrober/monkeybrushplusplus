@@ -38,7 +38,7 @@ namespace mb
   {
   public:
     MB_API
-    Framebuffer(const std::vector<Texture*>& textures,
+    Framebuffer(const std::vector<mb::TexturePtr>& textures,
       const Vect2& size, bool depth = true);
     MB_API
     virtual ~Framebuffer();
@@ -47,7 +47,7 @@ namespace mb
     MB_API
     void unbind();
     MB_API
-    void replaceTexture(Texture* tex, unsigned attach);
+    void replaceTexture(mb::TexturePtr tex, unsigned attach);
     MB_API
     void rebuild(Vect2& size);
     MB_API
@@ -60,7 +60,7 @@ namespace mb
     bool _valid;
     Vect2 _size;
     unsigned int _handler;
-    std::vector<Texture*> _attachments;
+    std::vector<mb::TexturePtr> _attachments;
     RenderBuffer* _renderBuffer;
 
   private:

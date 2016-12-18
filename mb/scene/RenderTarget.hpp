@@ -36,9 +36,10 @@ namespace mb
   {
   public:
     MB_API
-    RenderTarget(unsigned int width, unsigned int height, std::vector<mb::Texture*> textures);
+    RenderTarget(unsigned int width, unsigned int height,
+      std::vector<mb::TexturePtr> textures);
     MB_API
-    std::vector<mb::Texture*> textures() const;
+    std::vector<mb::TexturePtr> textures() const;
     MB_API
     void bindTextures();
     MB_API
@@ -51,7 +52,7 @@ namespace mb
     unsigned int _width;
     unsigned int _height;
     mb::Framebuffer* _fbo;
-    std::vector<mb::Texture*> _textures;
+    std::vector<mb::TexturePtr> _textures;
 
     //mb::GLContext* _context;
   };

@@ -42,6 +42,7 @@ namespace mb
 {
   typedef std::unordered_map<std::string, Uniform*> TUniforms;
 	class Material
+    : public std::enable_shared_from_this<Material>
 	{
 	public:
 		static GLContext* _context;

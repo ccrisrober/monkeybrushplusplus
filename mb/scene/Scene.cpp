@@ -38,17 +38,18 @@
 
 namespace mb
 {
-	Scene::Scene(EnginePtr engine, SimpleCamera* camera)
-	: _sceneGraph(new Node())
-	, _engine(engine)
-	, _update(true)
+  Scene::Scene( EnginePtr engine, SimpleCamera* camera )
+    : _sceneGraph( std::make_shared<Node>( std::string( "root" ) ) )
+    , _engine( engine )
+    , _update( true )
 	{
 		mainCamera = camera;
-	}
-	/*Scene::~Scene()
+  }
+	Scene::~Scene()
 	{
+    std::cout << "REMOVE SCENE" << std::endl;
 		//delete _sceneGraph;
-	}*/
+	}
   mb::NodePtr Scene::root() const
 	{
 		return this->_sceneGraph;

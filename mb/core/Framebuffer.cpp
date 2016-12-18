@@ -25,7 +25,7 @@
 
 namespace mb
 {
-  Framebuffer::Framebuffer(const std::vector<Texture*>& textures,
+  Framebuffer::Framebuffer(const std::vector<mb::TexturePtr>& textures,
     const Vect2& size, bool depth)
   : _valid(false)
   , _size(size)
@@ -108,7 +108,7 @@ namespace mb
   {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
   }
-  void Framebuffer::replaceTexture(Texture* tex, unsigned attach)
+  void Framebuffer::replaceTexture(mb::TexturePtr tex, unsigned attach)
   {
     if (attach > this->_attachments.size())
     {

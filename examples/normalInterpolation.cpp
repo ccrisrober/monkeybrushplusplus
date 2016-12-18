@@ -49,7 +49,12 @@ mb::ShaderMaterialPtr createMaterial(const std::string sourceName)
     std::make_pair( "model", new mb::Uniform( mb::Matrix4 ) ),
     std::make_pair( "color", new mb::Uniform( mb::Vector3, mb::Vect3( mb::Color3::Green ) ) )
   };
-  return std::make_shared<mb::ShaderMaterial>( sourceName, shaders, uniforms );
+
+  auto material = std::make_shared<mb::ShaderMaterial>( sourceName, shaders, uniforms );
+
+  mb::MaterialCache::add( sourceName, material );
+
+  return material;
 }
 
 mb::MaterialPtr flatMaterial, smootMaterial, noperspectiveMaterial;
@@ -89,14 +94,14 @@ int main( void )
   smootMaterial = createMaterial( "smoothNormal" );
   noperspectiveMaterial = createMaterial( "noPerspectiveNormal" );
 
-  auto mbNode = new mb::Node( std::string( "mesh" ) );
+  auto mbNode = std::make_shared<mb::Node>( std::string( "mesh" ) );
   mbNode->addComponent( mb::ComponentPtr( new mb::MeshRenderer( mesh, flatMaterial ) ) );
   mbNode->addComponent( mb::ComponentPtr( new mb::MoveComponent( ) ) );
   mbNode->addComponent( mb::ComponentPtr( new mb::RotateComponent( mb::Axis::x ) ) );
   mbNode->addComponent( mb::ComponentPtr( new NormalInterpolationComponent( ) ) );
   mbNode->addComponent( mb::ComponentPtr( new mb::ChangeTransformationComponent( ) ) );
 
-  scene->root( )->addChild( mb::NodePtr( mbNode ) );
+  scene->root( )->addChild( mbNode );
 
   engine->run( renderFunc );
 

@@ -48,12 +48,14 @@ namespace mb
     , _visible(true)
     , _transform(Transform())
   {
+    std::cout << "Node " << _name << " created" << std::endl;
   }
-  /*Node::~Node()
+  Node::~Node()
   {
-    //removeChildren();
+    std::cout << "REMOVE NODE " << name( ) << std::endl;
+    removeChildren();
     //removeComponents();
-  }*/
+  }
   bool Node::isVisible() const
   {
     return this->_visible;
@@ -147,7 +149,7 @@ namespace mb
     }
     if (std::find(_children.begin(), _children.end(), child) == _children.end())
     {
-      child->setParent(mb::NodePtr(this));
+      child->setParent( shared_from_this( ) );
       this->_children.push_back(child);
     }
   }
@@ -190,6 +192,13 @@ namespace mb
     //std::for_each(_components.begin(), _components.end(),
     //	mb::utils::deleter<mb::ComponentPtr>());
     _components.clear();
+  }
+  void Node::addComponents( std::initializer_list<mb::ComponentPtr> components )
+  {
+    for ( auto& comp : components )
+    {
+      addComponent( comp );
+    }
   }
   void Node::addComponent(const mb::ComponentPtr& c)
   {

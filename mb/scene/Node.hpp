@@ -44,6 +44,7 @@ namespace mb
 {
   typedef std::shared_ptr<Node> NodePtr;
 	class Node
+    : public std::enable_shared_from_this<Node>
 	{
 	public:
 		// Creates GameObject from prefab and adds it to the scene.
@@ -70,9 +71,9 @@ namespace mb
 
 
 		MB_API
-		Node(const std::string& name = "Node", const std::string& tag = "Untagged");
+		Node(const std::string& name/* = "Node"*/, const std::string& tag = "Untagged");
 		//MB_API
-		//virtual ~Node();
+	  virtual ~Node();
 		MB_API
 		bool isVisible() const;
 		MB_API
@@ -97,8 +98,10 @@ namespace mb
 		void removeChildren();
 		MB_API
 		void removeComponents();
-		MB_API
-		void addComponent(const mb::ComponentPtr& c);
+    MB_API
+    void addComponents( std::initializer_list<mb::ComponentPtr> components );
+    MB_API
+    void addComponent( const mb::ComponentPtr& c );
 		MB_API
 		void setVisible(const bool flag, const bool applyToChildren = false);
 		MB_API

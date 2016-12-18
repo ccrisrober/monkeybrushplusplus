@@ -53,8 +53,8 @@ namespace mb
   public:
     MB_API
     Scene(EnginePtr engine, SimpleCamera* camera);
-    //MB_API
-    //~Scene();
+    MB_API
+    ~Scene();
     MB_API
     void render(float dt);
     MB_API
