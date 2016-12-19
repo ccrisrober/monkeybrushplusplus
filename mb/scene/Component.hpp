@@ -4,7 +4,7 @@
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus
- * <https://github.com/maldicion069/monkeybrushplusplus>
+ *    <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -50,7 +50,7 @@ namespace mb
     MB_API
     Node* getNode() const;
     MB_API
-    void setNode(Node* n);
+    void setNode(Node* n);  // TODO: Trying to move to private
     MB_API
     friend std::ostream& operator<<(std::ostream & str, const Component& n);
     MB_API

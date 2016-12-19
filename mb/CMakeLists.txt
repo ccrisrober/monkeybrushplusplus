@@ -62,6 +62,7 @@ set( MB_PUBLIC_HEADERS
     maths/Vect2.hpp
     maths/Vect3.hpp
     maths/Vect4.hpp
+    maths/Spherical.hpp
 
 
     models/Capsule.hpp
@@ -97,6 +98,7 @@ set( MB_PUBLIC_HEADERS
     scene/MeshRenderer.hpp
     scene/MeshRendererTesselation.hpp
     scene/Node.hpp
+    scene/Node.inl
     scene/Scene.hpp
     scene/Transform.hpp
     scene/NodeData.hpp
@@ -191,6 +193,7 @@ set( MB_SOURCES
     maths/Vect2.cpp
     maths/Vect3.cpp
     maths/Vect4.cpp
+    maths/Spherical.cpp
 
     models/Capsule.cpp
     models/Cone.cpp

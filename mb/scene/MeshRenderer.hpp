@@ -56,8 +56,16 @@ namespace mb
     unsigned int mode();
     MB_API
     void setMode(unsigned int m);
+
+    // TODO: UNUSED
+    MB_API
+    void setMaterials( const std::vector<MaterialPtr>& mats )
+    {
+      this->_materials = mats;
+    }
   protected:
     mb::DrawablePtr _mesh;
+    std::vector<MaterialPtr> _materials;
     MaterialPtr _material;
     unsigned int _mode;
   };

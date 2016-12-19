@@ -4,7 +4,7 @@
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
  * This file is part of MonkeyBrushPlusPlus
- * <https://github.com/maldicion069/monkeybrushplusplus>
+ *    <https://github.com/maldicion069/monkeybrushplusplus>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -48,8 +48,8 @@ namespace mb
 	{
 	public:
 		// Creates GameObject from prefab and adds it to the scene.
-		MB_API
-		static Node* createFromPrefab(const Node& /*prefab*/)
+    MB_API
+      static Node* createFromPrefab( const Node& /*prefab*/ )
 		{
 			// TODO
 			/**
@@ -58,136 +58,133 @@ namespace mb
 			*/
 			return nullptr;
 		}
-		Node(const Node&)
+    Node( Node&& other )
+      : _children( std::move( other._children ) )
+      , _components( std::move( other._components ) )
+      , _name( std::move( other._name ) )
+      , _id( std::move( other._id ) )
+      , _parent( std::move( other._parent ) )
+      , _tag( std::move( other._tag ) )
+      , _visible( std::move( other._visible ) )
+      , _transform( std::move( other._transform ) )
+      , _layer(std::move(other._layer ) )
 		{
-			// TODO
 		}
+    Node& operator=( Node&& other )
+    {
+      if ( this != &other )
+      {
+        _children = std::move( other._children );
+        _components = std::move( other._components );
+        _name = std::move( other._name );
+        _id = std::move( other._id );
+        _parent = std::move( other._parent );
+        _tag = std::move( other._tag );
+        _visible = std::move( other._visible );
+        _transform = std::move( other._transform );
+        _layer = std::move( other._layer );
+      }
+      return *this;
+    }
 		MB_API
-    mb::NodePtr findByName(const std::string& name);
+      mb::NodePtr findByName( const std::string& name );
 		MB_API
-    mb::NodePtr findByTag(const std::string& tag);
+      mb::NodePtr findByTag( const std::string& tag );
 		MB_API
-    mb::NodePtr findById(const std::string uuid);
+      mb::NodePtr findById( const std::string uuid );
 
 
 		MB_API
-		Node(const std::string& name/* = "Node"*/, const std::string& tag = "Untagged");
+      Node( const std::string& name/* = "Node"*/, const std::string& tag = "Untagged" );
 		//MB_API
-	  virtual ~Node();
+    virtual ~Node( );
 		MB_API
-		bool isVisible() const;
+      bool isVisible( ) const;
 		MB_API
-		bool hasParent() const;
+      bool hasParent( ) const;
 		MB_API
-    mb::NodePtr parent() const;
+      mb::NodePtr parent( ) const;
 		MB_API
-		void setParent(mb::NodePtr p);
+      void setParent( mb::NodePtr p );
 		MB_API
-		void addChild(mb::NodePtr child);
+      void addChild( mb::NodePtr child );
 		MB_API
-		void removeChild(mb::NodePtr child);
+      void removeChild( mb::NodePtr child );
 		MB_API
-		void removeChild(unsigned int index);
+      void removeChild( unsigned int index );
 		MB_API
-		unsigned int getNumChildren() const;
+      unsigned int getNumChildren( ) const;
 		MB_API
-		unsigned int getNumComponents() const;
+      unsigned int getNumComponents( ) const;
 		MB_API
-		mb::NodePtr getChild(unsigned int index);
+      mb::NodePtr getChild( unsigned int index );
 		MB_API
-		void removeChildren();
+      void removeChildren( );
 		MB_API
-		void removeComponents();
+      void removeComponents( );
     MB_API
-    void addComponents( std::initializer_list<mb::ComponentPtr> components );
+      void addComponents( std::initializer_list<mb::ComponentPtr> components );
     MB_API
-    void addComponent( const mb::ComponentPtr& c );
+      void addComponent( const mb::ComponentPtr& c );
 		MB_API
-		void setVisible(const bool flag, const bool applyToChildren = false);
+      void setVisible( const bool flag, const bool applyToChildren = false );
 		MB_API
-		std::vector<mb::NodePtr> children() const;
+      std::vector<mb::NodePtr> children( ) const;
 		MB_API
-		Transform& transform();
+      Transform& transform( );
 		MB_API
-		void _updateMatrixWorld(bool force = false);
+      void _updateMatrixWorld( bool force = false );
 		MB_API
-		std::string name() const;
+      std::string name( ) const;
 		MB_API
-		std::string tag() const;
+      std::string tag( ) const;
 		MB_API
-		void name(const std::string& n);
+      void name( const std::string& n );
 		MB_API
-		void tag(const std::string& t);
+      void tag( const std::string& t );
 		MB_API
-		std::vector<mb::ComponentPtr> getComponents() const;
+      std::vector<mb::ComponentPtr> getComponents( ) const;
 		MB_API
 		MeshRenderer* getMesh(); // const;
     MB_API
-    void traverse( const std::function<void( mb::NodePtr n )>& f );
+      void traverse( const std::function<void( mb::NodePtr n )>& f );
     MB_API
-    void traverseAncestors( const std::function<void( mb::NodePtr n )>& f );
+      void traverseAncestors( const std::function<void( mb::NodePtr n )>& f );
 
 		template <typename T>
-		void toggleComponent()
-		{
-			for (auto comp : _components)
-			{
-				if (typeid(*comp.get()) == typeid(T))
-				{
-					comp.get()->toggle();
-				}
-			}
-		}
+    void toggleComponent( );
 		template <typename T>
-		void enableComponent()
-		{
-			for (auto comp : _components)
-			{
-				if (typeid(*comp.get()) == typeid(T))
-				{
-					comp.get()->enable();
-				}
-			}
-		}
+    void enableComponent( );
 		template <class T>
-		void disableComponent()
-		{
-			for (auto comp : _components)
-			{
-				if (typeid(*comp.get()) == typeid(T))
-				{
-					comp.get()->disable();
-				}
-			}
-		}
+    void disableComponent( );
 		template <class T>
-		bool hasComponent() const
-		{
-			for (auto comp : _components)
-			{
-				if (typeid(*comp.get()) == typeid(T))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
+    bool hasComponent( ) const;
 		template <class T>
-		T* getComponent();
+    T* getComponent( );
+
+    template <typename T>
+    T* componentInParent( );
+    /*template <typename T>
+    std::vector<T*> componentsInParent( );
+    template <typename T>
+    T* componentInChildren( );
+    template <typename T>
+    std::vector<T*> componentsInChildren( );*/
+
 
 
 
 		MB_API
-		mb::ComponentPtr getComponentByIndex(unsigned int index);
+      mb::ComponentPtr getComponentByIndex( unsigned int index );
 		MB_API
-		friend std::ostream& operator<<(std::ostream & str, const Node& n);
+      friend std::ostream& operator<<( std::ostream & str, const Node& n );
 		MB_API
-		std::string uuid() const;
+      std::string uuid( ) const;
 		MB_API
-		Layer& layer();
+      Layer& layer( );
 	protected:
 		std::vector<mb::NodePtr> _children;
-		std::vector<mb::ComponentPtr> _components;
+    std::vector<mb::ComponentPtr> _components;
 
 		std::string _name;
 		std::string _id;
@@ -198,29 +195,20 @@ namespace mb
 
 		Layer _layer;
 
+    // TODO: HARDCODED
+    //std::vector<std::shared_ptr<Component>> mComponents;
+    // TODO: HARDCODED
+
 	private:
-    mb::NodePtr _searchName(const std::string& name, const mb::NodePtr& elem);
-    mb::NodePtr _searchTag(const std::string& tag, const mb::NodePtr& elem);
-    mb::NodePtr _searchUUID(const std::string& uuid, const mb::NodePtr& elem);
+    mb::NodePtr _searchName( const std::string& name, const mb::NodePtr& elem );
+    mb::NodePtr _searchTag( const std::string& tag, const mb::NodePtr& elem );
+    mb::NodePtr _searchUUID( const std::string& uuid, const mb::NodePtr& elem );
 	};
-  template<class T>
-  T * Node::getComponent()
-  {
-    {
-      for (auto comp : _components)
-      {
-        // std::cout << typeid(*comp).name() << std::endl;
-        // std::cout << typeid(T).name() << std::endl;
-        if (typeid(*comp.get()) == typeid(T))
-        {
-          return static_cast<T*>(comp.get());
-        }
-      }
-      return nullptr;
-    }
-  }
 }
+
+#include "Node.inl"
 
 #endif /* __MB_NODE__ */
 
 //template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
+
