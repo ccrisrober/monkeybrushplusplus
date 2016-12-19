@@ -41,6 +41,8 @@ namespace mb
     unsigned int minVersion;
     unsigned int maxVersion;
     bool resizable;
+    unsigned int depthBufferBit;
+    unsigned int multiSample;
     MB_API
     WindowParams(int width_, int height_);
   };

@@ -57,6 +57,13 @@ namespace mb
     virtual void resize(int w, int h);
     MB_API
     virtual void resize(int w, int h, void* data);
+
+    MB_API
+    static std::shared_ptr<Texture2D> createColorTexture( unsigned int w,
+      unsigned int h, int numChannels, bool floatTex );
+    MB_API
+    static std::shared_ptr<Texture2D> createDepthTexture( unsigned int w,
+      unsigned int h, int bits, bool floatTex );
   protected:
     std::string _src;
     unsigned int _width;

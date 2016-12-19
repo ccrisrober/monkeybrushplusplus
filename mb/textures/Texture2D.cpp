@@ -1,55 +1,55 @@
 /*
- * Copyright (c) 2016 maldicion069
- *
- * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
- *
- * This file is part of MonkeyBrushPlusPlus
- * <https://github.com/maldicion069/monkeybrushplusplus>
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License version 3.0 as published
- * by the Free Software Foundation.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
- * details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- */
+* Copyright (c) 2016 maldicion069
+*
+* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+*
+* This file is part of MonkeyBrushPlusPlus
+* <https://github.com/maldicion069/monkeybrushplusplus>
+*
+* This library is free software; you can redistribute it and/or modify it under
+* the terms of the GNU Lesser General Public License version 3.0 as published
+* by the Free Software Foundation.
+*
+* This library is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+* details.
+*
+* You should have received a copy of the GNU Lesser General Public License
+* along with this library; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+*/
 
 #include "Texture2D.hpp"
 #include <FreeImage.h>
 
 namespace mb
 {
-  Texture2D::Texture2D(const TexOptions& options,
-    unsigned int width, unsigned int height)
-    : Texture2D(options, nullptr, width, height)
+  Texture2D::Texture2D( const TexOptions& options,
+    unsigned int width, unsigned int height )
+    : Texture2D( options, nullptr, width, height )
   {
   }
-  Texture2D::Texture2D(const TexOptions& options, void* data,
-    unsigned int width, unsigned int height)
-    : Texture(options, GL_TEXTURE_2D)
-    , _width(width)
-    , _height(height)
+  Texture2D::Texture2D( const TexOptions& options, void* data,
+    unsigned int width, unsigned int height )
+    : Texture( options, GL_TEXTURE_2D )
+    , _width( width )
+    , _height( height )
   {
-    glGenTextures(1, &this->_handler);
+    glGenTextures( 1, &this->_handler );
 
     glBindTexture( this->_target, this->_handler );
 
     this->configTexture( data );
     this->_loaded = true;
   }
-  Texture2D::Texture2D(const TexOptions& options, const std::string src)
-    : Texture(options, GL_TEXTURE_2D)
-    , _src(src)
+  Texture2D::Texture2D( const TexOptions& options, const std::string src )
+    : Texture( options, GL_TEXTURE_2D )
+    , _src( src )
   {
   }
-  Texture2D::~Texture2D(void)
+  Texture2D::~Texture2D( void )
   {
   }
   void Texture2D::configTexture( void* data )
@@ -67,13 +67,13 @@ namespace mb
     );
 
     glTexParameteri( this->_target, GL_TEXTURE_MIN_FILTER,
-      static_cast<int>(this->_minFilter ));
+      static_cast<int>( this->_minFilter ) );
     glTexParameteri( this->_target, GL_TEXTURE_MAG_FILTER,
-      static_cast<int>(this->_magFilter ));
-    glTexParameteri(this->_target, GL_TEXTURE_WRAP_S,
-      static_cast<int>(this->_wrapS));
-    glTexParameteri(this->_target, GL_TEXTURE_WRAP_T,
-      static_cast<int>(this->_wrapT));
+      static_cast<int>( this->_magFilter ) );
+    glTexParameteri( this->_target, GL_TEXTURE_WRAP_S,
+      static_cast<int>( this->_wrapS ) );
+    glTexParameteri( this->_target, GL_TEXTURE_WRAP_T,
+      static_cast<int>( this->_wrapT ) );
 
     this->unbind( );
   }
@@ -121,15 +121,15 @@ namespace mb
     height_ = FreeImage_GetHeight( img );
 
     //BGRA a RGBA
-    unsigned char * map = new unsigned char[ 4 * width_*height_ ];
-    char *buff = ( char* )FreeImage_GetBits( img );
+    unsigned char * map = new unsigned char[4 * width_*height_];
+    char *buff = ( char* ) FreeImage_GetBits( img );
 
     for ( unsigned int j = 0; j < width_*height_; ++j )
     {
-      map[ j * 4 + 0 ] = buff[ j * 4 + 2 ];
-      map[ j * 4 + 1 ] = buff[ j * 4 + 1 ];
-      map[ j * 4 + 2 ] = buff[ j * 4 + 0 ];
-      map[ j * 4 + 3 ] = buff[ j * 4 + 3 ];
+      map[j * 4 + 0] = buff[j * 4 + 2];
+      map[j * 4 + 1] = buff[j * 4 + 1];
+      map[j * 4 + 2] = buff[j * 4 + 0];
+      map[j * 4 + 3] = buff[j * 4 + 3];
     }
 
     FreeImage_Unload( img );
@@ -137,32 +137,98 @@ namespace mb
 
     return map;
   }
-  void Texture2D::resize(int w, int h)
+  void Texture2D::resize( int w, int h )
   {
-    resize(w, h, nullptr);
+    resize( w, h, nullptr );
   }
-  void Texture2D::resize(int w, int h, void* data)
+  void Texture2D::resize( int w, int h, void* data )
   {
     _width = w;
     _height = h;
-    this->bind();
-    configTexture(data);
+    this->bind( );
+    configTexture( data );
   }
-  void Texture2D::bindImageTexture(unsigned int unit, unsigned int level,
-    unsigned int layered, unsigned int layer, unsigned int access,
-    unsigned int format)
+  std::shared_ptr<Texture2D> Texture2D::createColorTexture( unsigned int w,
+    unsigned int h, int numChannels, bool floatTex )
   {
-    glBindImageTexture(unit, _handler, level, layered, layer, access, format);
+    mb::TexOptions opts;
+    if ( floatTex )
+    {
+      if ( numChannels == 4 )
+      {
+        opts.internalFormat = GL_RGBA32F;
+      }
+      else if ( numChannels == 3 )
+      {
+        opts.internalFormat = GL_RGB32F;
+      }
+      else if ( numChannels == 2 )
+      {
+        opts.internalFormat = GL_RG32F;
+      }
+      else if ( numChannels == 1 )
+      {
+        opts.internalFormat = GL_R32F;
+      }
+    }
+    else
+    {
+      if ( numChannels == 4 )
+      {
+        opts.internalFormat = GL_RGBA8;
+      }
+      else if ( numChannels == 3 )
+      {
+        opts.internalFormat = GL_RGB8;
+      }
+      else if ( numChannels == 2 )
+      {
+        opts.internalFormat = GL_RG8;
+      }
+      else if ( numChannels == 1 )
+      {
+        opts.internalFormat = GL_R8;
+      }
+    }
+    return std::make_shared<Texture2D>( opts, w, h );
   }
-  unsigned int Texture2D::getWidth() const
+  std::shared_ptr<Texture2D> Texture2D::createDepthTexture( unsigned int w,
+    unsigned int h, int bits, bool floatTex )
+  {
+    mb::TexOptions opts;
+    switch ( bits )
+    {
+    case 16:
+      opts.internalFormat = GL_DEPTH_COMPONENT16;
+      break;
+    case 24:
+      opts.internalFormat = GL_DEPTH_COMPONENT24;
+      break;
+    case 32:
+      opts.internalFormat = floatTex ? GL_DEPTH_COMPONENT32F : GL_DEPTH_COMPONENT32;
+      break;
+    default:
+      std::cerr << "Bits changed to default" << std::endl;
+      opts.internalFormat = GL_DEPTH_COMPONENT;
+      break;
+    }
+    return std::make_shared<Texture2D>( opts, w, h );
+  }
+  void Texture2D::bindImageTexture( unsigned int unit, unsigned int level,
+    unsigned int layered, unsigned int layer, unsigned int access,
+    unsigned int format )
+  {
+    glBindImageTexture( unit, _handler, level, layered, layer, access, format );
+  }
+  unsigned int Texture2D::getWidth( ) const
   {
     return _width;
   }
-  unsigned int Texture2D::getHeight() const
+  unsigned int Texture2D::getHeight( ) const
   {
     return _height;
   }
-  std::string Texture2D::src() const
+  std::string Texture2D::src( ) const
   {
     return _src;
   }

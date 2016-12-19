@@ -50,7 +50,7 @@ namespace mb
     MB_API
     Node* getNode() const;
     MB_API
-    void setNode(Node* n);
+    void setNode(Node* n);  // TODO: Trying to move to private
     MB_API
     friend std::ostream& operator<<(std::ostream & str, const Component& n);
     MB_API
