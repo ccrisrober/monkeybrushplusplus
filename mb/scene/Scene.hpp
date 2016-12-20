@@ -52,29 +52,43 @@ namespace mb
   {
   public:
     MB_API
-      Scene( EnginePtr engine, SimpleCamera* camera );
+    Scene( EnginePtr engine, SimpleCamera* camera );
     MB_API
-      ~Scene( );
+    virtual ~Scene( );
     MB_API
-      void render( float dt );
+    void render( float dt );
     MB_API
-      mb::NodePtr root( ) const;
+    mb::NodePtr root( ) const;
     MB_API
-      void registerBeforeRender( const std::function<void( )>& cb,
-        bool recyclable = false );
+    void registerBeforeRender( const std::function<void( )>& cb,
+      bool recyclable = false );
     MB_API
-      void registerAfterRender( const std::function<void( )>& cb,
-        bool recyclable = false );
+    void registerAfterRender( const std::function<void( )>& cb,
+      bool recyclable = false );
     MB_API
-      void addLight( mb::Light* light );
+    void addLight( mb::LightPtr light );
     MB_API
-      std::vector<mb::Light*> lights( ) const;
+    std::vector<mb::LightPtr> lights( ) const;
     MB_API
-      bool update( ) const;
+    bool update( ) const;
     MB_API
-      void update( const bool upd );
+    void update( const bool upd );
 
     SimpleCamera* mainCamera;
+
+    template<typename T>
+    std::vector<T*> findComponents( )
+    {
+      // TODO
+      return{ };
+    }
+    template<typename T>
+    T* findComponent( )
+    {
+      // TODO
+      return nullptr;
+    }
+
   private:
     void applyQueue( std::vector<std::pair<std::function<void( )>,
       bool> >& queue );
@@ -87,7 +101,7 @@ namespace mb
     void updateCamera( );
     mb::NodePtr _sceneGraph;
 
-    std::vector<mb::Light*> _lights;
+    std::vector<mb::LightPtr> _lights;
 
   public:
     Profiler profiler;

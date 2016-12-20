@@ -224,7 +224,7 @@ namespace mb
       this->_engine->context( )->getHeight( ) );
     _view = this->mainCamera->viewMatrix( );
   }
-  void Scene::addLight( mb::Light* light )
+  void Scene::addLight( mb::LightPtr light )
   {
     for ( const auto& l : _lights )
     {
@@ -235,7 +235,7 @@ namespace mb
     }
     _lights.push_back( light );
   }
-  std::vector<mb::Light*> Scene::lights( ) const
+  std::vector<mb::LightPtr> Scene::lights( ) const
   {
     return this->_lights;
   }

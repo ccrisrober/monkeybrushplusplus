@@ -68,8 +68,8 @@ namespace mb
       , _visible( std::move( other._visible ) )
       , _transform( std::move( other._transform ) )
       , _layer(std::move(other._layer ) )
-		{
-		}
+      {
+      }
     Node& operator=( Node&& other )
     {
       if ( this != &other )
@@ -173,7 +173,6 @@ namespace mb
 
 
 
-
 		MB_API
       mb::ComponentPtr getComponentByIndex( unsigned int index );
 		MB_API
@@ -211,4 +210,3 @@ namespace mb
 #endif /* __MB_NODE__ */
 
 //template <typename T, bool = std::is_base_of<BaseComponent, T>::value>
-
