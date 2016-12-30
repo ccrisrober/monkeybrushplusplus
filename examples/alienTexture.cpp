@@ -35,7 +35,7 @@ public:
   UpdateBaseFreq( const float& baseFreq )
     : mb::Component( )
     , _baseFreq( baseFreq ) {}
-  virtual void update( const float ) override
+  virtual void update( const float& ) override
   {
     if (mb::Input::isKeyPressed(mb::Keyboard::Key::Minus))
     {
@@ -77,7 +77,8 @@ int main(void)
 
   float base_freq = 6.9f;
 
-  std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+  std::vector<std::pair<const char*, mb::Uniform*> > uniforms =
+  {
     std::make_pair( "projection", new mb::Uniform( mb::Matrix4 ) ),
     std::make_pair( "view", new mb::Uniform( mb::Matrix4 ) ),
     std::make_pair( "model", new mb::Uniform( mb::Matrix4 ) ),

@@ -28,120 +28,120 @@ namespace mb
     Cube::Cube(float side)
     : Drawable()
     {
-        float side2 = side / 2.0f;
-        // Vertices
-		std::vector<float> vertices = {
-            // Front
-            -side2, -side2, side2,
-            side2, -side2, side2,
-            side2,  side2, side2,
-            -side2,  side2, side2,
-            // Right
-            side2, -side2, side2,
-            side2, -side2, -side2,
-            side2,  side2, -side2,
-            side2,  side2, side2,
-            // Back
-            -side2, -side2, -side2,
-            -side2,  side2, -side2,
-            side2,  side2, -side2,
-            side2, -side2, -side2,
-            // Left
-            -side2, -side2, side2,
-            -side2,  side2, side2,
-            -side2,  side2, -side2,
-            -side2, -side2, -side2,
-            // Bottom
-            -side2, -side2, side2,
-            -side2, -side2, -side2,
-            side2, -side2, -side2,
-            side2, -side2, side2,
-            // Top
-            -side2,  side2, side2,
-            side2,  side2, side2,
-            side2,  side2, -side2,
-            -side2,  side2, -side2
-        };
-        // Normals
-        std::vector<float> normals = {
-            // Front
-            0.0, 0.0, 1.0,
-            0.0, 0.0, 1.0,
-            0.0, 0.0, 1.0,
-            0.0, 0.0, 1.0,
-            // Right
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,
-            // Back
-            0.0, 0.0, -1.0,
-            0.0, 0.0, -1.0,
-            0.0, 0.0, -1.0,
-            0.0, 0.0, -1.0,
-            // Left
-            -1.0, 0.0, 0.0,
-            -1.0, 0.0, 0.0,
-            -1.0, 0.0, 0.0,
-            -1.0, 0.0, 0.0,
-            // Bottom
-            0.0, -1.0, 0.0,
-            0.0, -1.0, 0.0,
-            0.0, -1.0, 0.0,
-            0.0, -1.0, 0.0,
-            // Top
-            0.0, 1.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 1.0, 0.0
-        };
-        // TexCoords
-        std::vector<float> texCoords = {
-            // Front
-            0.0, 0.0,
-            1.0, 0.0,
-            1.0, 1.0,
-            0.0, 1.0,
-            // Right
-            0.0, 0.0,
-            1.0, 0.0,
-            1.0, 1.0,
-            0.0, 1.0,
-            // Back
-            0.0, 0.0,
-            1.0, 0.0,
-            1.0, 1.0,
-            0.0, 1.0,
-            // Left
-            0.0, 0.0,
-            1.0, 0.0,
-            1.0, 1.0,
-            0.0, 1.0,
-            // Bottom
-            0.0, 0.0,
-            1.0, 0.0,
-            1.0, 1.0,
-            0.0, 1.0,
-            // Top
-            0.0, 0.0,
-            1.0, 0.0,
-            1.0, 1.0,
-            0.0, 1.0
-        };
-        // Indices
-        std::vector<unsigned int> indices = {
-            0, 1, 2, 0, 2, 3,
-            4, 5, 6, 4, 6, 7,
-            8, 9, 10, 8, 10, 11,
-            12, 13, 14, 12, 14, 15,
-            16, 17, 18, 16, 18, 19,
-            20, 21, 22, 20, 22, 23
-        };
+      float side2 = side / 2.0f;
+      // Vertices
+	    std::vector<float> vertices = {
+        // Front
+        -side2, -side2, side2,
+        side2, -side2, side2,
+        side2,  side2, side2,
+        -side2,  side2, side2,
+        // Right
+        side2, -side2, side2,
+        side2, -side2, -side2,
+        side2,  side2, -side2,
+        side2,  side2, side2,
+        // Back
+        -side2, -side2, -side2,
+        -side2,  side2, -side2,
+        side2,  side2, -side2,
+        side2, -side2, -side2,
+        // Left
+        -side2, -side2, side2,
+        -side2,  side2, side2,
+        -side2,  side2, -side2,
+        -side2, -side2, -side2,
+        // Bottom
+        -side2, -side2, side2,
+        -side2, -side2, -side2,
+        side2, -side2, -side2,
+        side2, -side2, side2,
+        // Top
+        -side2,  side2, side2,
+        side2,  side2, side2,
+        side2,  side2, -side2,
+        -side2,  side2, -side2
+      };
+      // Normals
+      std::vector<float> normals = {
+        // Front
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        // Right
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        // Back
+        0.0, 0.0, -1.0,
+        0.0, 0.0, -1.0,
+        0.0, 0.0, -1.0,
+        0.0, 0.0, -1.0,
+        // Left
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0,
+        // Bottom
+        0.0, -1.0, 0.0,
+        0.0, -1.0, 0.0,
+        0.0, -1.0, 0.0,
+        0.0, -1.0, 0.0,
+        // Top
+        0.0, 1.0, 0.0,
+        0.0, 1.0, 0.0,
+        0.0, 1.0, 0.0,
+        0.0, 1.0, 0.0
+      };
+      // TexCoords
+      std::vector<float> texCoords = {
+        // Front
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 1.0,
+        // Right
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 1.0,
+        // Back
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 1.0,
+        // Left
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 1.0,
+        // Bottom
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 1.0,
+        // Top
+        0.0, 0.0,
+        1.0, 0.0,
+        1.0, 1.0,
+        0.0, 1.0
+      };
+      // Indices
+      std::vector<unsigned int> indices = {
+        0, 1, 2, 0, 2, 3,
+        4, 5, 6, 4, 6, 7,
+        8, 9, 10, 8, 10, 11,
+        12, 13, 14, 12, 14, 15,
+        16, 17, 18, 16, 18, 19,
+        20, 21, 22, 20, 22, 23
+      };
 
-		_numVertices = vertices.size() / 3;
+		  _numVertices = vertices.size() / 3;
 
-        _vao = new VertexArray();
-		_vao->bind();
+      _vao = new VertexArray();
+		  _vao->bind();
 
 			addBufferArray(0, vertices, 3, GL_STATIC_DRAW);
 			addBufferArray(1, normals, 3, GL_STATIC_DRAW);
@@ -155,6 +155,6 @@ namespace mb
 			_indicesLen = data.size();
 			this->_handle.push_back(vbIndices);
 
-        _vao->unbind();
+      _vao->unbind();
     }
 }

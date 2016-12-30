@@ -36,7 +36,7 @@ public:
     , _globalTime( 0.0f )
   {
   }
-  virtual void update( const float dt ) override
+  virtual void fixedUpdate( const float& dt ) override
   {
     _globalTime += dt;
     this->_node->getMesh( )->getMaterial( )->uniform( "time" )->value( _globalTime );
@@ -69,46 +69,42 @@ int main( void )
   std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
     {
       mb::VertexShader,
-      R"(
-        #version 330
-        layout(location = 0) in vec3 position;
-        layout(location = 1) in vec3 normal;
-        layout(location = 2) in vec2 texCoord;
-        out vec3 outPosition;
-        out vec3 outNormal;
-        out vec2 outTexCoord;
-        uniform mat4 projection;
-        uniform mat4 view;
-        uniform mat4 model;
-        void main( void )
-        {
-          outPosition = vec3(model * vec4(position, 1.0));
-          gl_Position = projection * view * vec4(outPosition, 1.0);
-          mat3 normalMatrix = mat3(inverse(transpose(model)));
-          outNormal = normalize(normalMatrix * normal);
-          outTexCoord = texCoord;
-        }
-      )"
+      R"(#version 330
+      layout(location = 0) in vec3 position;
+      layout(location = 1) in vec3 normal;
+      layout(location = 2) in vec2 texCoord;
+      out vec3 outPosition;
+      out vec3 outNormal;
+      out vec2 outTexCoord;
+      uniform mat4 projection;
+      uniform mat4 view;
+      uniform mat4 model;
+      void main( void )
+      {
+        outPosition = vec3(model * vec4(position, 1.0));
+        gl_Position = projection * view * vec4(outPosition, 1.0);
+        mat3 normalMatrix = mat3(inverse(transpose(model)));
+        outNormal = normalize(normalMatrix * normal);
+        outTexCoord = texCoord;
+      })"
     }, {
       mb::FragmentShader,
-      R"(
-        #version 330
-        in vec3 outPosition;
-        in vec3 outNormal;
-        in vec2 outTexCoord;
-        out vec4 fragColor;
-        uniform vec3 viewPos;
-        uniform vec3 color;
-        void main( void )
-        {
-          vec3 N = normalize(outNormal);
-          vec3 L = normalize(viewPos - outPosition);
-          float dif = dot(N, L);
-          dif = clamp(dif, 0.0, 1.0);
-          fragColor = vec4(color * dif, 1.0) + vec4(color * 0.1, 1.0);
-          fragColor.rgb += vec3(outTexCoord, 0.0);
-        }
-      )"
+      R"(#version 330
+      in vec3 outPosition;
+      in vec3 outNormal;
+      in vec2 outTexCoord;
+      out vec4 fragColor;
+      uniform vec3 viewPos;
+      uniform vec3 color;
+      void main( void )
+      {
+        vec3 N = normalize(outNormal);
+        vec3 L = normalize(viewPos - outPosition);
+        float dif = dot(N, L);
+        dif = clamp(dif, 0.0, 1.0);
+        fragColor = vec4(color * dif, 1.0) + vec4(color * 0.1, 1.0);
+        fragColor.rgb += vec3(outTexCoord, 0.0);
+      })"
     }
   };
 
@@ -131,27 +127,24 @@ int main( void )
   std::vector<std::pair<mb::ShaderType, const char*> > shaders2 = {
     {
       mb::VertexShader,
-      R"(
-          #version 330 core
-          layout(location = 0) in vec3 position;
-          layout(location = 2) in vec2 texCoords;
-          out VS_OUT
-          {
-            vec2 texCoords;
-          } vs_out;
-          uniform mat4 projection;
-          uniform mat4 view;
-          uniform mat4 model;
-          void main( void )
-          {
-            gl_Position = projection * view * model * vec4(position, 1.0f);
-            vs_out.texCoords = texCoords;
-          }
-      )"
+      R"(#version 330 core
+      layout(location = 0) in vec3 position;
+      layout(location = 2) in vec2 texCoords;
+      out VS_OUT
+      {
+        vec2 texCoords;
+      } vs_out;
+      uniform mat4 projection;
+      uniform mat4 view;
+      uniform mat4 model;
+      void main( void )
+      {
+        gl_Position = projection * view * model * vec4(position, 1.0f);
+        vs_out.texCoords = texCoords;
+      })"
     }, {
       mb::GeometryShader,
-      R"(
-        #version 330 core
+      R"(#version 330 core
         layout (triangles) in;
         layout (triangle_strip, max_vertices = 3) out;
         in VS_OUT
@@ -189,8 +182,7 @@ int main( void )
       )"
     }, {
       mb::FragmentShader,
-      R"(
-        #version 330
+      R"(#version 330
         out vec4 fragColor;
         uniform vec3 color;
         void main( void )
@@ -211,7 +203,7 @@ int main( void )
 
   mb::ShaderMaterialPtr material2 = std::make_shared<mb::ShaderMaterial>( "geomExplosion", shaders2, uniforms2 );
 
-  mb::NodePtr mbCube = new mb::Node( std::string( "cube" ) );
+  mb::NodePtr mbCube = std::make_shared<mb::Node>( std::string( "cube" ) );
   mbCube->addComponent( mb::ComponentPtr( std::make_shared<mb::MeshRenderer>( cube, mb::MaterialCache::get( "shaderMat" ) ) ) );
   mbCube->addComponent( mb::ComponentPtr( std::make_shared<mb::MoveComponent>( ) ) );
   mbCube->addComponent( mb::ComponentPtr( std::make_shared<mb::RotateComponent>( mb::Axis::x ) ) );

@@ -100,7 +100,7 @@ namespace mb
     _fixedUpdateTime += dt;
     if ( _fixedUpdateTime > 0.02f )
     {
-      _subFixedUpdate( root( ), dt );
+      _subFixedUpdate( root( ), _fixedUpdateTime );
       _fixedUpdateTime = 0.0f;
     }
 

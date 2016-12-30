@@ -35,7 +35,7 @@ public:
     : mb::Component( )
     , _level( level )
   {}
-  virtual void update( const float ) override
+  virtual void fixedUpdate( const float& ) override
   {
     if ( mb::Input::isKeyClicked( mb::Keyboard::Key::Plus ) )
     {

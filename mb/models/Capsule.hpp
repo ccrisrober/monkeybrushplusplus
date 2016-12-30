@@ -33,13 +33,13 @@
 
 namespace mb
 {
-    class Capsule: public Drawable
-    {
-    public:
-		MB_API
-        Capsule(float radius = 0.5f, float height = 1.0f,
-            unsigned int subHeight = 12, unsigned int numSegm = 12);
-    };
+  class Capsule: public Drawable
+  {
+  public:
+	MB_API
+    Capsule(float radius = 0.5f, float height = 1.0f,
+        unsigned int subHeight = 12, unsigned int numSegm = 12);
+  };
 }
 
 #endif /* __MB_CAPSULE__ */

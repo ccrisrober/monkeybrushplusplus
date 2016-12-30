@@ -35,7 +35,8 @@ mb::ShaderMaterialPtr createMaterial(const std::string sourceName)
   std::string vertexShader = mb::os::readFile( MB_SHADER_FILES + std::string( "/" + sourceName + ".vert" ) );
   std::string fragmentShader = mb::os::readFile( MB_SHADER_FILES + std::string( "/" + sourceName + ".frag" ) );
 
-  std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
+  std::vector<std::pair<mb::ShaderType, const char*> > shaders =
+  {
     {
       mb::VertexShader, vertexShader.c_str( )
     }, {
@@ -62,7 +63,7 @@ mb::MaterialPtr flatMaterial, smootMaterial, noperspectiveMaterial;
 class NormalInterpolationComponent : public mb::Component
 {
 public:
-  virtual void update( const float ) override
+  virtual void fixedUpdate( const float& ) override
   {
     if ( mb::Input::isKeyClicked( mb::Keyboard::Key::Num1 ) )
     {

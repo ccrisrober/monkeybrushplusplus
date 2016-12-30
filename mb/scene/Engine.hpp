@@ -53,12 +53,12 @@ namespace mb
     private:
     double calcFPS(double theTimeInterval = 1.0f);
   protected:
-        GLContext* _context;
-        float deltaTime;
-        float lastFrame;
+    GLContext* _context;
+    float deltaTime;
+    float lastFrame;
     bool _debugLayer;
 
-        double currentTime;
+    double currentTime;
   };
   typedef std::shared_ptr<mb::Engine> EnginePtr;
 }

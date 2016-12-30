@@ -31,11 +31,11 @@ namespace mb
         mb::ObjParser obj;
         mb::Model model = obj.loadObj(fileRoute);
 
-        BufferAttribute verts(std::vector<float>(model.vertices.size()), 3);
+        BufferAttribute<float> verts(std::vector<float>(model.vertices.size()), 3);
         verts.array(model.vertices);
-        BufferAttribute norms(std::vector<float>(model.normals.size()), 3);
+        BufferAttribute<float> norms(std::vector<float>(model.normals.size()), 3);
         norms.array(model.normals);
-        BufferAttribute texCoords(std::vector<float>(model.texCoords.size()), 2);
+        BufferAttribute<float> texCoords(std::vector<float>(model.texCoords.size()), 2);
         texCoords.array(model.texCoords);
 
         _vao = new VertexArray();

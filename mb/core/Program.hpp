@@ -33,23 +33,13 @@
 #include <functional>
 #include <regex>
 
-
-// TODO: Move to CmakeLists
-#define MB_GEOMETRY_SHADERS
-#define MB_TESSELATION_SHADERS
-#define MB_COMPUTE_SHADERS
-#define MB_SUBPROGRAMS
-#define MB_OCC_QUERY
-
-// TODO: Use const char* instead of std::string&
-
 #include "../resources/ResourceShader.hpp"
 
 namespace mb
 {
   /*
   TODO
-  Check in use method current program (evitar glUseProgram del mismo programa
+  Check in use method current program (evitar glUseProgram del mismo programa)
 
   static int CurrentProgram;
 	int Material::CurrentProgram = -1;*/
@@ -422,22 +412,71 @@ namespace mb
 		*/
 		MB_API
 		void sendUniform4v(const std::string& uniform, const float* data);
-	    /**
-	     * Method to send a mat2
-	     * @param uniform: Uniform name
-	     * @param data: Data
-	     */
-	    MB_API
-	    void sendUniform2m( const std::string& uniform,
-	                        const std::vector< float > & data );
-	    /**
-	     * Method to send a mat2
-	     * @param uniform: Uniform name
-	     * @param data: Data
-	     */
-	    MB_API
-	    void sendUniform2m( const std::string& uniform,
-                        const float* data );
+
+    /**
+     * Method to send a ivec2
+     * @param uniform: Uniform name
+     * @param data: Data
+     */
+    MB_API
+    void sendUniform2iv( const std::string& uniformName,
+      const unsigned int* data );
+    /**
+     * Method to send a ivec2
+     * @param uniform: Uniform name
+     * @param data: Data
+     */
+    MB_API
+    void sendUniform2iv( const std::string& uniformName,
+      const std::vector< unsigned int > & data );
+    /**
+     * Method to send a ivec3
+     * @param uniform: Uniform name
+     * @param data: Data
+     */
+    MB_API
+    void sendUniform3iv( const std::string& uniformName,
+      const unsigned int* data );
+    /**
+     * Method to send a ivec3
+     * @param uniform: Uniform name
+     * @param data: Data
+     */
+    MB_API
+    void sendUniform3iv( const std::string& uniformName,
+      const std::vector< unsigned int > & data );
+    /**
+     * Method to send a ivec4
+     * @param uniform: Uniform name
+     * @param data: Data
+     */
+    MB_API
+    void sendUniform4iv( const std::string& uniformName,
+      const unsigned int* data );
+    /**
+     * Method to send a ivec4
+     * @param uniform: Uniform name
+     * @param data: Data
+     */
+    MB_API
+    void sendUniform4iv( const std::string& uniformName,
+      const std::vector< unsigned int > & data );
+    /**
+     * Method to send a mat2
+     * @param uniform: Uniform name
+     * @param data: Data
+     */
+    MB_API
+    void sendUniform2m( const std::string& uniform,
+                        const std::vector< float > & data );
+    /**
+     * Method to send a mat2
+     * @param uniform: Uniform name
+     * @param data: Data
+     */
+    MB_API
+    void sendUniform2m( const std::string& uniform,
+                      const float* data );
 		/**
 		* Method to send a mat3
 		* @param uniform: Uniform name

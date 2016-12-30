@@ -57,11 +57,9 @@ namespace mb
     unsigned int _maxVersion;
     unsigned int _width;
     unsigned int _height;
-    //GLFWwindow* _window;
+
     std::string _title;
-
     GlobalState* _state;
-
     Window* _window;
   };
 }

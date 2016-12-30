@@ -36,7 +36,7 @@ namespace mb
   }
   RenderBuffer::~RenderBuffer()
   {
-    // TODO
+    glDeleteRenderbuffers(1, &_handler);
   }
   void RenderBuffer::bind()
   {

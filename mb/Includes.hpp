@@ -42,4 +42,6 @@
 
 #include <memory>
 
+#include "others/Exception.hpp"
+
 #endif /* __MB_INCLUDES__ */

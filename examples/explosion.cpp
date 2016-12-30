@@ -36,7 +36,7 @@ public:
     : mb::Component( )
     , _globalTime( 0.0f )
   {}
-  virtual void update( const float dt ) override
+  virtual void update( const float& dt ) override
   {
     _globalTime += dt;
     getNode( )->getMesh( )->getMaterial( )->uniform( "time" )->value( _globalTime );
@@ -55,58 +55,65 @@ int main( void )
 
   std::vector<std::pair<mb::ShaderType, const char*> > shaders;
   const char* vertexShader =
-    "#version 330 core\n"
-    "layout(location = 0) in vec3 position;\n"
-    "layout(location = 2) in vec2 texCoords;\n"
-    "out VS_OUT {\n"
-    " vec2 texCoords;\n"
-    "} vs_out;\n"
-    "uniform mat4 projection;\n"
-    "uniform mat4 view;\n"
-    "uniform mat4 model;\n"
-    "void main( void ) {\n"
-    " gl_Position = projection * view * model * vec4(position, 1.0f);\n"
-    " vs_out.texCoords = texCoords;\n"
-    "}";
+    R"(#version 330 core
+    layout(location = 0) in vec3 position;
+    layout(location = 2) in vec2 texCoords;
+    out VS_OUT
+    {
+      vec2 texCoords;
+    } vs_out;
+    uniform mat4 projection;
+    uniform mat4 view;
+    uniform mat4 model;
+    void main( void )
+    {
+      gl_Position = projection * view * model * vec4(position, 1.0f);
+      vs_out.texCoords = texCoords;
+    })";
   const char* geometryShader =
-    "#version 330 core\n"
-    "layout (triangles) in;\n"
-    "layout (triangle_strip, max_vertices = 3) out;\n"
-    "in VS_OUT {\n"
-    "    vec2 texCoords;\n"
-    "} gs_in[];\n"
-    "out vec2 TexCoords; \n"
-    "uniform float time;\n"
-    "vec4 explode(vec4 position, vec3 normal) {\n"
-    "    float magnitude = 2.0f;\n"
-    "    vec3 direction = normal * ((sin(time) + 1.0f) / 2.0f) * magnitude; \n"
-    "    return position + vec4(direction, 0.0f);\n"
-    "}\n"
-    "vec3 GetNormal() {\n"
-    "    vec3 a = vec3(gl_in[0].gl_Position) - vec3(gl_in[1].gl_Position);\n"
-    "    vec3 b = vec3(gl_in[2].gl_Position) - vec3(gl_in[1].gl_Position);\n"
-    "    return normalize(cross(a, b));\n"
-    "}\n"
-    "void main( void ) {\n"
-    "    vec3 normal = GetNormal();\n"
-    "    gl_Position = explode(gl_in[0].gl_Position, normal);\n"
-    "    TexCoords = gs_in[0].texCoords;\n"
-    "    EmitVertex();\n"
-    "    gl_Position = explode(gl_in[1].gl_Position, normal);\n"
-    "    TexCoords = gs_in[1].texCoords;\n"
-    "    EmitVertex();\n"
-    "    gl_Position = explode(gl_in[2].gl_Position, normal);\n"
-    "    TexCoords = gs_in[2].texCoords;\n"
-    "    EmitVertex();\n"
-    "    EndPrimitive();\n"
-    "}";
+    R"(#version 330 core
+    layout (triangles) in;
+    layout (triangle_strip, max_vertices = 3) out;
+    in VS_OUT
+    {
+      vec2 texCoords;
+    } gs_in[];
+    out vec2 TexCoords;
+    uniform float time;
+    vec4 explode(vec4 position, vec3 normal)
+    {
+      float magnitude = 2.0f;
+      vec3 direction = normal * ((sin(time) + 1.0f) / 2.0f) * magnitude;
+      return position + vec4(direction, 0.0f);
+    }
+    vec3 GetNormal()
+    {
+      vec3 a = vec3(gl_in[0].gl_Position) - vec3(gl_in[1].gl_Position);
+      vec3 b = vec3(gl_in[2].gl_Position) - vec3(gl_in[1].gl_Position);
+      return normalize(cross(a, b));
+    }
+    void main( void )
+    {
+      vec3 normal = GetNormal();
+      gl_Position = explode(gl_in[0].gl_Position, normal);
+      TexCoords = gs_in[0].texCoords;
+      EmitVertex();
+      gl_Position = explode(gl_in[1].gl_Position, normal);
+      TexCoords = gs_in[1].texCoords;
+      EmitVertex();
+      gl_Position = explode(gl_in[2].gl_Position, normal);
+      TexCoords = gs_in[2].texCoords;
+      EmitVertex();
+      EndPrimitive();
+    })";
   const char* fragmentShader =
-    "#version 330\n"
-    "out vec4 fragColor;\n"
-    "uniform vec3 color;\n"
-    "void main( void ) {\n"
-    " fragColor = vec4(color, 1.0);\n"
-    "}";
+    R"(#version 330
+    out vec4 fragColor;
+    uniform vec3 color;
+    void main( void )
+    {
+      fragColor = vec4(color, 1.0);
+    })";
 
   shaders.push_back( std::make_pair( mb::VertexShader, vertexShader ) );
   shaders.push_back( std::make_pair( mb::GeometryShader, geometryShader ) );

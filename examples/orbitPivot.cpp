@@ -31,7 +31,7 @@ public:
     AllRotationComponent( )
     : mb::Component( )
     { }
-    virtual void update( const float dt ) override
+    virtual void update( const float& dt ) override
     {
       auto transform = this->_node->transform( );
       float rotX = transform.rotation( ).x( ) + ( speed * dt );

@@ -21,64 +21,51 @@
  *
  */
 
-#include "Component.hpp"
+#include "Query.hpp"
 
 namespace mb
 {
-  Component::Component( void )
+  Query::Query( void )
   {
-
+    glCreateQueries(1, 1, &_handler);
   }
-#ifdef MB_USE_RAPIDJSON
-  Component::Component(const Value& /*config*/)
+  Query::~Query( void )
   {
-
+    glDeleteQueries(1, &_handler);
   }
-#endif
-  Component::~Component( void )
+  void Query::begin(unsigned int target)
   {
-    std::cout << "REMOVE COMPONENT " << std::endl;
+    glBeginQuery(target, _handler);
   }
-  void Component::start( void )
+  void Query::end(unsigned int target)
   {
+    glEndQuery(target);
   }
-  void Component::fixedUpdate( const float& )
+  void Query::useAnySamples(const std::function<void()>& cb)
   {
+    oneUse(GL_ANY_SAMPLES_PASSED, cb);
   }
-  void Component::update( const float& )
+  void Query::useAnySamplesConservative(const std::function<void()>& cb)
   {
+    oneUse(GL_ANY_SAMPLES_PASSED_CONSERVATIVE, cb);
   }
-  Node* Component::getNode( void ) const
+  void Query::oneUse(unsigned int target, const std::function<void()>& cb)
   {
-    return this->_node;
+    begin(target);
+    cb();
+    end(target);
   }
-  void Component::setNode(Node* n)
+  bool Query::isResultAvailable( void )
   {
-    this->_node = n;
+    int value = 0;
+    glGetQueryObjectiv(_handler, GL_QUERY_RESULT_AVAILABLE, &value);
+    return value > 0;
   }
-  std::ostream& operator<<(std::ostream & str, const Component& n)
+  unsigned int Query::getResult( void )
   {
-    str << typeid(n).name();
-    return str;
-  }
-  bool Component::isEnabled() const
-  {
-    return _enabled;
-  }
-  void Component::enable( void )
-  {
-    setEnabled(true);
-  }
-  void Component::disable( void )
-  {
-    setEnabled(false);
-  }
-  void Component::setEnabled(const bool v)
-  {
-    _enabled = v;
-  }
-  void Component::toggle()
-  {
-    setEnabled(!isEnabled());
+    GLuint64 value = 0;
+    glGetQueryObjectui64v(_handler, GL_QUERY_RESULT, &value);
+    return value;
   }
 }
+

@@ -1,0 +1,167 @@
+
+
+##
+##
+  ##set( MBTEST1_HEADERS )
+  ##set( MBTEST1_SOURCES test1.cpp )
+  ##set( MBTEST1_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbTest1 )
+##
+##
+##
+##
+  ##set( MBSKETCHRENDERING_HEADERS )
+  ##set( MBSKETCHRENDERING_SOURCES sketchRendering.cpp )
+  ##set( MBSKETCHRENDERING_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbSketchRendering )
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+
+
+
+
+
+  ##set( MBIMAGEPROCESSING_HEADERS )
+  ##set( MBIMAGEPROCESSING_SOURCES imageProcessing.cpp )
+  ##set( MBIMAGEPROCESSING_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbImageProcessing )
+
+
+  ##set( MBRENDERTOTEXTURECS_HEADERS )
+  ##set( MBRENDERTOTEXTURECS_SOURCES renderToTextureCS.cpp )
+  ##set( MBRENDERTOTEXTURECS_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbRenderToTextureCS )
+
+
+##
+##
+##
+##
+##
+
+
+
+
+  ##set( MBCUBEHIERARCHY_HEADERS )
+  ##set( MBCUBEHIERARCHY_SOURCES cubeHierarchy.cpp )
+  ##set( MBCUBEHIERARCHY_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbCubeHierarchy )
+
+
+  ##set( MBBUFFERINSTANCING_HEADERS )
+  ##set( MBBUFFERINSTANCING_SOURCES bufferInstancing.cpp )
+  ##set( MBBUFFERINSTANCING_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbBufferInstancing )
+
+
+  ##set( MBSHADERSUBROUTINE_HEADERS )
+  ##set( MBSHADERSUBROUTINE_SOURCES shaderSubroutine.cpp )
+  ##set( MBSHADERSUBROUTINE_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbShaderSubroutine )
+endif()
+
+
+
+
+
+
+
+
+##
+##
+##
+##
+##set( MBXOR_HEADERS )
+##set( MBXOR_SOURCES xor.cpp )
+##set( MBXOR_LINK_LIBRARIES
+##	mb
+##)
+##common_application( mbXor )
+##
+##
+##set( MBMANGA_HEADERS )
+##set( MBMANGA_SOURCES manga.cpp )
+##set( MBMANGA_LINK_LIBRARIES
+##	mb
+##)
+##common_application( mbManga )
+##
+##
+##set( MBFRACTALWORLD_HEADERS )
+##set( MBFRACTALWORLD_SOURCES fractalWorld.cpp )
+##set( MBFRACTALWORLD_LINK_LIBRARIES
+##	mb
+##)
+##common_application( mbFractalWorld )
+##
+##
+##
+##
+##
+##
+##set( MBNEWTONFRACTAL_HEADERS )
+##set( MBNEWTONFRACTAL_SOURCES newtonFractal.cpp )
+##set( MBNEWTONFRACTAL_LINK_LIBRARIES
+##	mb
+##)
+##
+##common_application( mbNewtonFractal )
+##
+##
+##if(${Rapidjson_FOUND})
+##	set( MBJSONSCENE_HEADERS )
+##	set( MBJSONSCENE_SOURCES jsonScene.cpp )
+##	set( MBJSONSCENE_LINK_LIBRARIES
+##		mb
+##	    ${RAPIDJSON_LIBRARIES}
+##	)
+##
+##	common_application( mbJsonScene )
+##endif()
+##
+##
+##set( MBHDR_HEADERS )
+##set( MBHDR_SOURCES hdr.cpp )
+##set( MBHDR_LINK_LIBRARIES
+##	mb
+##)
+##common_application( mbHDR )
+##
+##
+##set( MBFBOEXAMPLE_HEADERS )
+##set( MBFBOEXAMPLE_SOURCES fboExample.cpp )
+##set( MBFBOEXAMPLE_LINK_LIBRARIES
+##	mb
+##)
+##common_application( mbFBOExample )

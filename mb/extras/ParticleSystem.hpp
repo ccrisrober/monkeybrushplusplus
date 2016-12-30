@@ -33,36 +33,36 @@
 namespace mb
 {
   class ParticleSystem
+  {
+  public:
+    ParticleSystem(mb::Drawable* mesh, mb::Material* material)
+    : _mesh(mesh)
+    , _material(material)
     {
-    public:
-        ParticleSystem(mb::Drawable* mesh, mb::Material* material)
-      : _mesh(mesh)
-      , _material(material)
-        {
 
-        }
-        void sort(mb::Camera& /*camera*/)
-        {
-            if (_sortParticles)
-            {
-                /*std::sort(positions.begin(), position.end(), [&](Vect3& a, Vect3& b)
-                {
-          Vect3& aa = Vect3::sub(camera.transform().position(), a);
-          Vect3& bb = Vect3::sub(camera.transform().position(), b);
-                    return aa.length() > bb.length();
-                });*/
-            }
-        }
-        void sort(bool _sort)
-        {
-            this->_sortParticles = _sort;
-        }
+    }
+    void sort(mb::Camera& /*camera*/)
+    {
+      if (_sortParticles)
+      {
+          /*std::sort(positions.begin(), position.end(), [&](Vect3& a, Vect3& b)
+          {
+    Vect3& aa = Vect3::sub(camera.transform().position(), a);
+    Vect3& bb = Vect3::sub(camera.transform().position(), b);
+              return aa.length() > bb.length();
+          });*/
+      }
+    }
+    void sort(bool _sort)
+    {
+      this->_sortParticles = _sort;
+    }
 
-    protected:
-        bool _sortParticles;
+  protected:
+    bool _sortParticles;
     mb::Drawable* _mesh;
     mb::Material* _material;
-    };
+  };
 }
 
 #endif /* __MB_PARTICLE_SYSTEM__ */

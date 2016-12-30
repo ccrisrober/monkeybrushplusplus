@@ -43,17 +43,17 @@ namespace mb
     MeshRenderer(const std::string& name, MaterialPtr material,
       unsigned int mode_ = GL_TRIANGLES);
     MB_API
-    MaterialPtr getMaterial() const;
+    MaterialPtr getMaterial( void ) const;
     MB_API
-    mb::DrawablePtr getMesh() const;
+    mb::DrawablePtr getMesh( void ) const;
     MB_API
     void setMaterial(MaterialPtr m);
     MB_API
     void setMesh(mb::DrawablePtr m);
     //MB_API
-    void render();
+    void render( void );
     MB_API
-    unsigned int mode();
+    unsigned int mode( void );
     MB_API
     void setMode(unsigned int m);
 

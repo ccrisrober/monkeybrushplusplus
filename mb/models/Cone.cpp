@@ -43,9 +43,9 @@ namespace mb
 
 		  unsigned int nv = (radialSubDiv + 1) * (heightSubDiv + 1 + extra);
 
-		  BufferAttribute verts(std::vector<float>(3 * nv), 3);
-		  BufferAttribute norms(std::vector<float>(3 * nv), 3);
-		  BufferAttribute texCoords(std::vector<float>(2 * nv), 2);
+		  BufferAttribute<float> verts(std::vector<float>(3 * nv), 3);
+		  BufferAttribute<float> norms(std::vector<float>(3 * nv), 3);
+		  BufferAttribute<float> texCoords(std::vector<float>(2 * nv), 2);
 
 		  std::vector<unsigned int> cells(3 * radialSubDiv * (heightSubDiv + extra) * 2);
 

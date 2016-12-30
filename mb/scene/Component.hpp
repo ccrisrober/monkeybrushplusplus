@@ -42,39 +42,34 @@ namespace mb
   {
   public:
     MB_API
-    virtual void start();
+    virtual void start( void );
 	  MB_API
-	  virtual void fixedUpdate(const float dt);
+	  virtual void fixedUpdate( const float& dt );
 	  MB_API
-	  virtual void update(const float dt);
+	  virtual void update(const float& dt);
     MB_API
-    Node* getNode() const;
+    Node* getNode( void ) const;
     MB_API
     void setNode(Node* n);  // TODO: Trying to move to private
     MB_API
-    friend std::ostream& operator<<(std::ostream & str, const Component& n);
+    friend std::ostream& operator<<( std::ostream & str, const Component& n );
     MB_API
-    bool isEnabled() const;
+    bool isEnabled( void ) const;
     MB_API
-    void enable();
+    void enable( void );
     MB_API
-    void disable();
+    void disable( void );
     MB_API
-    void setEnabled(const bool v);
+    void setEnabled( const bool v );
     MB_API
-    void toggle();
+    void toggle( void );
     MB_API
-    virtual ~Component() {
-      std::cout << "REMOVE COMPONENT " << std::endl;
-    }
+    virtual ~Component( void );
   protected:
   #ifdef MB_USE_RAPIDJSON
-    Component(const Value& /*config*/)
-    {
-
-    }
+    Component( const Value& /*config*/ );
   #endif
-    Component() { }
+    Component( void );
     Node* _node;
     bool _enabled = true;
   };

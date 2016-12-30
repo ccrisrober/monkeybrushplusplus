@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -35,12 +35,12 @@ namespace mb
 	class PointMaterial : public mb::Material
 	{
 		MB_API
-		PointMaterial();
+		PointMaterial( void );
 	};
 
   void setInterval(std::function<void(void)> function, int interval)
   {
-    std::thread([=]()
+    std::thread([=]( void )
     {
       while (true) {
         function();
@@ -54,9 +54,9 @@ namespace mb
 	{
 	public:
 		MB_API
-		MoveComponent();
+		MoveComponent( void );
 		MB_API
-    virtual void update(const float dt) override;
+    virtual void update(const float& dt) override;
 	protected:
 		float _delta;
 		int _sign;
@@ -71,37 +71,17 @@ namespace mb
 	public:
 	#ifdef MB_USE_RAPIDJSON
 		MB_API
-        RotateComponent(const rapidjson::Value& config)
-        : RotateComponent(_axisFromString(config["axis"].GetString( )))
-        {
-        	if (config.HasMember("rotate"))
-        	{
-        		bool rotate = config["rotate"].GetBool();
-        		setRotate(rotate);
-        	}
-		}
-		Axis _axisFromString(const std::string& _axis_)
-		{
-			if (_axis_ == "X")
-			{
-				return mb::Axis::x;
-			} else if (_axis_ == "Y")
-			{
-				return mb::Axis::y;
-			} else if (_axis_ == "Z")
-			{
-				return mb::Axis::z;
-			}
-			throw;
-		}
+    RotateComponent(const rapidjson::Value& config);
 	#endif
-
 		MB_API
 		RotateComponent(Axis axis, float velocity = 1.0f, bool rotate = false);
 		MB_API
-    virtual void update(const float dt) override;
+    virtual void update(const float& dt) override;
 		MB_SYNTHESIZE_WRITEONLY(bool, _rotate, Rotate);
 		MB_SYNTHESIZE_WRITEONLY(Axis, _axis, Axis);
+
+  protected:
+    Axis _axisFromString( const std::string& axis );
 	protected:
 		float _delta;
 		float _velocity;
@@ -110,9 +90,9 @@ namespace mb
 	{
 	public:
 		MB_API
-		ScaleComponent();
+		ScaleComponent( void );
 		MB_API
-		virtual void update(const float dt) override;
+		virtual void update(const float& dt) override;
 	protected:
 		float _inc;
 	};
@@ -120,20 +100,20 @@ namespace mb
 	{
 	public:
 		MB_API
-		PrintPosition();
+		PrintPosition( void );
 		MB_API
-		virtual void update(const float dt) override;
+		virtual void fixedUpdate(const float& dt) override;
 	};
 
 	class ChangeTransformationComponent : public mb::Component
 	{
 	public:
 		MB_API
-		ChangeTransformationComponent();
+		ChangeTransformationComponent( void );
 		MB_API
-		virtual void start() override;
+		virtual void start( void ) override;
 		MB_API
-		virtual void update(const float) override;
+		virtual void fixedUpdate(const float& dt) override;
 	protected:
 		mb::MoveComponent* _moveComp;
 		mb::RotateComponent* _rotateComp;

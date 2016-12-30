@@ -37,27 +37,13 @@ namespace mb
 	{
 	public:
 		MB_API
-		NodeData(const std::string& name = "Node", const std::string& tag = "Untagged")
-			: Node(name, tag) {}
+		NodeData( const std::string& name, const std::string& tag = "Untagged" );
 		MB_API
-		void insertData(const std::string& name, const mb::any& data)
-		{
-			_userData[name] = data;
-		}
-		mb::any getData(const std::string& name)
-		{
-			return _userData[name];
-		}
-		bool removeData(const std::string& name)
-		{
-			auto it = _userData.find( name );
-			if ( it != _userData.end( ) )
-			{
-				_userData.erase( name );
-				return true;
-			}
-			return false;
-		}
+		void insertData( const std::string& name, const mb::any& data );
+    MB_API
+		mb::any getData( const std::string& name );
+    MB_API
+		bool removeData( const std::string& name );
 	protected:
 		std::unordered_map<std::string, mb::any> _userData;
 	};

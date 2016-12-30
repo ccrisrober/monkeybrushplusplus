@@ -26,12 +26,40 @@
 
 namespace mb
 {
+  Node::Node( Node&& other )
+  : _children( std::move( other._children ) )
+  , _components( std::move( other._components ) )
+  , _name( std::move( other._name ) )
+  , _id( std::move( other._id ) )
+  , _parent( std::move( other._parent ) )
+  , _tag( std::move( other._tag ) )
+  , _visible( std::move( other._visible ) )
+  , _transform( std::move( other._transform ) )
+  , _layer(std::move(other._layer ) )
+  {
+  }
+  Node& Node::operator=( Node&& other )
+  {
+    if ( this != &other )
+    {
+      _children = std::move( other._children );
+      _components = std::move( other._components );
+      _name = std::move( other._name );
+      _id = std::move( other._id );
+      _parent = std::move( other._parent );
+      _tag = std::move( other._tag );
+      _visible = std::move( other._visible );
+      _transform = std::move( other._transform );
+      _layer = std::move( other._layer );
+    }
+    return *this;
+  }
   /*void Node::setMesh(MeshRenderer* mesh)
   {
   mesh->setNode(this);
   this->_mesh = mesh;
   }*/
-  MeshRenderer* Node::getMesh( ) /*const*/
+  MeshRenderer* Node::getMesh( void ) /*const*/
   {
     auto comp = getComponent<MeshRenderer>( );
     if ( comp == nullptr )
@@ -50,21 +78,21 @@ namespace mb
   {
     std::cout << "Node " << _name << " created" << std::endl;
   }
-  Node::~Node( )
+  Node::~Node( void )
   {
     std::cout << "REMOVE NODE " << name( ) << std::endl;
     removeChildren( );
     //removeComponents();
   }
-  bool Node::isVisible( ) const
+  bool Node::isVisible( void ) const
   {
     return this->_visible;
   }
-  bool Node::hasParent( ) const
+  bool Node::hasParent( void ) const
   {
     return this->_parent != nullptr;
   }
-  mb::NodePtr Node::parent( ) const
+  mb::NodePtr Node::parent( void ) const
   {
     return this->_parent;
   }
@@ -166,11 +194,11 @@ namespace mb
   {
     _children.erase( _children.begin( ) + index );
   }
-  unsigned int Node::getNumChildren( ) const
+  unsigned int Node::getNumChildren( void ) const
   {
     return _children.size( );
   }
-  unsigned int Node::getNumComponents( ) const
+  unsigned int Node::getNumComponents( void ) const
   {
     return _components.size( );
   }
@@ -182,12 +210,12 @@ namespace mb
     }
     return _children.at( index );
   }
-  void Node::removeChildren( )
+  void Node::removeChildren( void )
   {
     //std::for_each(_children.begin(), _children.end(), mb::utils::deleter<NodePtr>());
     _children.clear( );
   }
-  void Node::removeComponents( )
+  void Node::removeComponents( void )
   {
     //std::for_each(_components.begin(), _components.end(),
     //	mb::utils::deleter<mb::ComponentPtr>());
@@ -225,11 +253,11 @@ namespace mb
       }
     }
   }
-  std::vector<mb::NodePtr> Node::children( ) const
+  std::vector<mb::NodePtr> Node::children( void ) const
   {
     return this->_children;
   }
-  Transform& Node::transform( )
+  Transform& Node::transform( void )
   {
     return this->_transform;
   }
@@ -260,7 +288,7 @@ namespace mb
       child->_updateMatrixWorld( force );
     }
   }
-  std::string Node::name( ) const
+  std::string Node::name( void ) const
   {
     return this->_name;
   }
@@ -268,7 +296,7 @@ namespace mb
   {
     _name = n;
   }
-  std::string Node::tag( ) const
+  std::string Node::tag( void ) const
   {
     return this->_tag;
   }
@@ -276,7 +304,7 @@ namespace mb
   {
     this->_tag = t;
   }
-  std::vector<mb::ComponentPtr> Node::getComponents( ) const
+  std::vector<mb::ComponentPtr> Node::getComponents( void ) const
   {
     return _components;
   }
@@ -309,11 +337,11 @@ namespace mb
     str << n._name << " => " << n._id;
     return str;
   }
-  std::string Node::uuid( ) const
+  std::string Node::uuid( void ) const
   {
     return _id;
   }
-  Layer& Node::layer( )
+  Layer& Node::layer( void )
   {
     return _layer;
   }

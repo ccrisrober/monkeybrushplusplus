@@ -34,7 +34,7 @@ namespace mb
   {
   public:
     MB_API
-    virtual ~LODNode() {}
+    virtual ~LODNode( void ) {}
   };
 }
 

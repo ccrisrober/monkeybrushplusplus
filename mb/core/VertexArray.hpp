@@ -34,17 +34,17 @@ namespace mb
   {
   public:
     MB_API
-    VertexArray(unsigned int handler_);
+    VertexArray( unsigned int handler_ );
     MB_API
-    VertexArray();
+    virtual ~VertexArray( void );
     MB_API
-    virtual ~VertexArray();
+    VertexArray( void );
     MB_API
-    void bind();
+    void bind( void );
     MB_API
-    void unbind();
+    void unbind( void );
     MB_API
-    unsigned int handler() const;
+    unsigned int handler( void ) const;
   protected:
     unsigned int _handler;
   };

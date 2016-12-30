@@ -41,29 +41,31 @@ int main(void)
   std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
     {
       mb::VertexShader,
-      "#version 330\n"
-      "layout(location = 0) in vec3 position;\n"
-      "layout(location = 2) in vec2 uv;\n"
-      "out vec2 outUV;\n"
-      "uniform mat4 projection;\n"
-      "uniform mat4 view;\n"
-      "uniform mat4 model;\n"
-      "void main( void ) {\n"
-      " gl_Position = projection * view * model * vec4(position, 1.0);\n"
-      " outUV = uv;\n"
-      "}"
+      R"(#version 330
+      layout(location = 0) in vec3 position;
+      layout(location = 2) in vec2 uv;
+      out vec2 outUV;
+      uniform mat4 projection;
+      uniform mat4 view;
+      uniform mat4 model;
+      void main( void )
+      {
+        gl_Position = projection * view * model * vec4(position, 1.0);
+        outUV = uv;
+      })"
     },{
       mb::FragmentShader,
-      "#version 330\n"
-      "out vec4 fragColor;\n"
-      "in vec2 outUV;\n"
-      "uniform sampler2D alphaTex;\n"
-      "uniform sampler2D diffTex;\n"
-      "void main( void ) {\n"
-      " vec4 T0 = texture(alphaTex, outUV);\n"
-      " vec4 T1 = texture(diffTex, outUV);\n"
-      " fragColor = mix(T1, T0, T0.a);\n"
-      "}\n"
+      R"(#version 330
+      out vec4 fragColor;
+      in vec2 outUV;
+      uniform sampler2D alphaTex;
+      uniform sampler2D diffTex;
+      void main( void )
+      {
+        vec4 T0 = texture(alphaTex, outUV);
+        vec4 T1 = texture(diffTex, outUV);
+        fragColor = mix(T1, T0, T0.a);
+      })"
     }
   };
 

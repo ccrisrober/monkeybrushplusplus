@@ -21,33 +21,31 @@
  *
  */
 
-#ifndef __MB_VERTEXARRAY__
-#define __MB_VERTEXARRAY__
-
-#include <mb/api.h>
-
-#include "../Includes.hpp"
-#include "Program.hpp"
+#include "NodeData.hpp"
 
 namespace mb
 {
-  class VertexUBO
+  NodeData::NodeData( const std::string& name, const std::string& tag )
+    : Node(name, tag)
   {
-  public:
-    MB_API
-    VertexUBO(const Program& prog, const char* name, unsigned int blockBindIdx);
-    MB_API
-    virtual ~VertexUBO( void );
-    void bind( void );
-    MB_API
-    void update(const std::vector<float>& data);
-    MB_API
-    void unbind( void );
-  protected:
-    unsigned int _handler;
-    unsigned int _index;
-    const char* _name;
-  };
-}
 
-#endif /* __MB_VERTEX_UBO_ */
+  }
+  void NodeData::insertData( const std::string& name, const mb::any& data )
+  {
+    _userData[name] = data;
+  }
+  mb::any NodeData::getData( const std::string& name )
+  {
+    return _userData[name];
+  }
+  bool NodeData::removeData( const std::string& name )
+  {
+    auto it = _userData.find( name );
+    if ( it != _userData.end( ) )
+    {
+      _userData.erase( name );
+      return true;
+    }
+    return false;
+  }
+}

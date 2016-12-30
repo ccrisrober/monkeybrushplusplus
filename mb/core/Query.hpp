@@ -33,57 +33,23 @@ namespace mb
 	{
 	public:
     MB_API
-    Query()
-    {
-      glCreateQueries(1, 1, &_handler);
-    }
+    Query( void );
     MB_API
-    virtual ~Query()
-    {
-      glDeleteQueries(1, &_handler);
-    }
+    virtual ~Query( void );
     MB_API
-    void begin(unsigned int target)
-    {
-      glBeginQuery(target, _handler);
-    }
+    void begin(unsigned int target);
     MB_API
-    void end(unsigned int target)
-    {
-      glEndQuery(target);
-    }
+    void end(unsigned int target);
     MB_API
-    void useAnySamples(const std::function<void()>& cb)
-    {
-      oneUse(GL_ANY_SAMPLES_PASSED, cb);
-    }
+    void useAnySamples(const std::function<void()>& cb);
     MB_API
-    void useAnySamplesConservative(const std::function<void()>& cb)
-    {
-      oneUse(GL_ANY_SAMPLES_PASSED_CONSERVATIVE, cb);
-    }
+    void useAnySamplesConservative(const std::function<void()>& cb);
     MB_API
-    void oneUse(unsigned int target, const std::function<void()>& cb)
-    {
-      begin(target);
-      cb();
-      end(target);
-    }
-    // TODO: Need to be a boolean
+    void oneUse(unsigned int target, const std::function<void()>& cb);
     MB_API
-    unsigned int isResultAvailable()
-    {
-      unsigned int value = 0;
-      //glGetQueryObject(_handler, GL_QUERY_RESULT_AVAILABLE, value);
-      return value;
-    }
+    bool isResultAvailable( void );
     MB_API
-    unsigned int getResult()
-    {
-      unsigned int value = 0;
-      //glGetQueryObject(_handler, GL_QUERY_RESULT, value);
-      return value;
-    }
+    unsigned int getResult( void );
     protected:
       unsigned int _handler;
 	};

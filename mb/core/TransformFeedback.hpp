@@ -34,19 +34,19 @@ namespace mb
   {
   public:
     MB_API
-    TransformFeedback();
+    TransformFeedback( void );
     MB_API
-    virtual ~TransformFeedback();
+    virtual ~TransformFeedback( void );
     /**
     * Bind this TransformFeedback object to current GL state.
     */
     MB_API
-    void bind();
+    void bind( void );
     /**
     * Unbind this TransformFeedback object to current GL state.
     */
     MB_API
-    void unbind();
+    void unbind( void );
     /**
     * Init TransformFeedback operation using given mode.
     * @param {MB.ctes.TFPrimitive} mode TransformFeedback mode.
@@ -57,32 +57,32 @@ namespace mb
     * Init TransformFeedback operation using point mode.
     */
     MB_API
-    void beginPoints();
+    void beginPoints( void );
     /**
     * Init TransformFeedback operation using line mode.
     */
     MB_API
-    void beginLines();
+    void beginLines( void );
     /**
     * Init TransformFeedback operation using triangle mode.
     */
     MB_API
-    void beginTriangles();
+    void beginTriangles( void );
     /**
     * Finish TransformFeedback operation.
     */
     MB_API
-    void end();
+    void end( void );
     /**
     * Pause TransformFeedback operation.
     */
     MB_API
-    void pause();
+    void pause( void );
     /**
     * Resume TransformFeedback operation.
     */
     MB_API
-    void resume();
+    void resume( void );
     MB_API
     static void varyings(const mb::Program* prog,
       const std::vector<const char*>& varyings, unsigned int bufferMode);

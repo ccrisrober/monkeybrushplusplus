@@ -38,9 +38,9 @@ namespace mb
     MB_API
     VertexBuffer(unsigned int type = GL_ARRAY_BUFFER);
     MB_API
-    virtual ~VertexBuffer();
+    virtual ~VertexBuffer( void );
     MB_API
-    void bind();
+    void bind( void );
     MB_API
     void bufferSubData(int offset, std::vector<float> _data);
     MB_API
@@ -58,9 +58,9 @@ namespace mb
     MB_API
     void render(unsigned int mode, unsigned int size);
     MB_API
-    unsigned int getBufferType() const;
+    unsigned int getBufferType( void ) const;
     MB_API
-    unsigned int getBuffer() const;
+    unsigned int getBuffer( void ) const;
     void unbind();
   protected:
     unsigned int _handler;

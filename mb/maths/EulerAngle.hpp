@@ -34,59 +34,60 @@
 
 namespace mb
 {
-    MB_API
+  MB_API
 	typedef enum
 	{
    xyx, zyx, zyz, zxy, zxz, yxz, yxy, yzx, yzy, xyz, xzy, xzx
 	} RotSeq;
-	class EulerAngle {
-	public:
-        MB_API
-		EulerAngle(float x = 0.0f, float y = 0.0f, float z = 0.0f, RotSeq order = RotSeq::xyz);
-        MB_API
-		EulerAngle(const Vect3& v, RotSeq order = RotSeq::xyz);
-        MB_API
-		void setCallback(std::function<void()> f);
+	class EulerAngle
+  {
+    public:
+    MB_API
+    EulerAngle(float x = 0.0f, float y = 0.0f, float z = 0.0f, RotSeq order = RotSeq::xyz);
+    MB_API
+    EulerAngle(const Vect3& v, RotSeq order = RotSeq::xyz);
+    MB_API
+    void setCallback(std::function<void()> f);
 
-        MB_API
-        float x() const;
-        MB_API
-        float y() const;
-        MB_API
-        float z() const;
+    MB_API
+    float x() const;
+    MB_API
+    float y() const;
+    MB_API
+    float z() const;
 
-        MB_API
-        void x(const float& v);
-        MB_API
-        void y(const float& v);
-        MB_API
-        void z(const float& v);
+    MB_API
+    void x(const float& v);
+    MB_API
+    void y(const float& v);
+    MB_API
+    void z(const float& v);
 
-        MB_API
-        void set(const float& vx, const float& vy, const float& vz);
-        MB_API
-		void reset();
-        MB_API
-        static EulerAngle createFromVec3(const Vect3& v, RotSeq order = RotSeq::xyz);
-        MB_API
+    MB_API
+    void set(const float& vx, const float& vy, const float& vz);
+    MB_API
+    void reset();
+    MB_API
+    static EulerAngle createFromVec3(const Vect3& v, RotSeq order = RotSeq::xyz);
+    MB_API
 		EulerAngle& setFromRotationMatrix(const Mat4& mat);
-        MB_API
+    MB_API
 		EulerAngle& setFromRotationMatrix(const Mat4& mat, RotSeq order, bool update = false);
-        MB_API
+    MB_API
 		EulerAngle& setFromQuaternion(const Quat& q, RotSeq order, bool update = false);
-        MB_API
-        RotSeq order() const;
-        friend std::ostream& operator<<(std::ostream& str, const EulerAngle& v)
-        {
-            str << "EulerAngle(";
-            str << v._values[0] << ", " << v._values[1] << ", " << v._values[2] << ", " << v.orderToString();
-            str << ")";
-            return str;
-        }
+    MB_API
+    RotSeq order() const;
+    friend std::ostream& operator<<(std::ostream& str, const EulerAngle& v)
+    {
+      str << "EulerAngle(";
+      str << v._values[0] << ", " << v._values[1] << ", " << v._values[2] << ", " << v.orderToString();
+      str << ")";
+      return str;
+    }
 	protected:
-        const char* orderToString() const;
-        std::vector<float> _values;
-        RotSeq _order;
+    const char* orderToString() const;
+    std::vector<float> _values;
+    RotSeq _order;
 		std::function<void()> _onChange;
 	};
 }

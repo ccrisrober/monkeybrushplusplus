@@ -24,6 +24,7 @@
 #include "GLContext.hpp"
 
 #include "../Includes.hpp"
+#include "../io/GLFWWindow2.hpp"
 
 #include <functional>
 #include "../resources/ResourceShader.hpp"

@@ -36,7 +36,7 @@ public:
     , _rotate( false )
     {
     }
-  virtual void update( const float dt ) override
+  virtual void fixedUpdate( const float& dt ) override
   {
     if ( mb::Input::isKeyClicked( mb::Keyboard::Key::Space ) )
     {

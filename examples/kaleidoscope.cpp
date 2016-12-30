@@ -25,8 +25,7 @@
 #include <assetsFiles.h>
 #include <shaderFiles.h>
 
-mb::Engine* engine;
-mb::Scene* scene;
+mb::ScenePtr scene;
 
 void renderFunc( float dt );
 
@@ -36,37 +35,32 @@ float sides, angle;
 
 int main(void)
 {
-    mb::GLContext context(3, 3, 1024, 768, "Kaleidoscope demo");
+  mb::GLContext context(3, 3, 1024, 768, "Kaleidoscope demo");
 
-    engine = new mb::Engine(&context, false);
-    scene = new mb::Scene(engine);
+  auto engine = std::make_shared<mb::Engine>( &context, false );
+  scene = std::make_shared<mb::Scene>(engine,
+    new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 8.44f ) ) );
 
-    std::ifstream file(MB_SHADER_FILES + std::string("/kaleidoscope.frag"));
-    std::stringstream buffer;
-    buffer << file.rdbuf();
+  std::string kaleidoscope = mb::os::readFile( MB_SHADER_FILES + std::string( "/kaleidoscope.frag" ) );
 
-    ppm = new mb::PostProcessMaterial(buffer.str().c_str( ));
+  ppm = new mb::PostProcessMaterial( kaleidoscope.c_str( ) );
 
-    sides = 5.0f;
-    angle = 121.0f;
+  sides = 5.0f;
+  angle = 121.0f;
 
-    mb::TexOptions opts;
-    opts.wrapS = mb::ctes::WrapMode::MirroredRepeat;
-    opts.wrapT = mb::ctes::WrapMode::MirroredRepeat;
-    mb::Texture2D* tex = new mb::Texture2D(opts, MB_TEXTURE_ASSETS + std::string("/Dundus_Square.jpg"));
-    tex->bind(0);
+  mb::TexOptions opts;
+  opts.wrapS = mb::ctes::WrapMode::MirroredRepeat;
+  opts.wrapT = mb::ctes::WrapMode::MirroredRepeat;
+  mb::TexturePtr tex = std::make_shared<mb::Texture2D>( opts, MB_TEXTURE_ASSETS + std::string( "/Dundus_Square.jpg" ) );
 
-    ppm->addUniform("iGlobalTime", new mb::Uniform(mb::Float, 0.0f));
-    ppm->addUniform("sides", new mb::Uniform(mb::Float, sides));
-    ppm->addUniform("angle", new mb::Uniform(mb::Float, angle));
-    ppm->addUniform("tex", new mb::Uniform(mb::Integer, 0));
+  ppm->addUniform("iGlobalTime", new mb::Uniform(mb::Float, 0.0f));
+  ppm->addUniform("sides", new mb::Uniform(mb::Float, sides));
+  ppm->addUniform("angle", new mb::Uniform(mb::Float, angle));
+  ppm->addUniform( "tex", new mb::Uniform( mb::TextureSampler, tex ) );
 
-    engine->run(renderFunc);
+  engine->run(renderFunc);
 
-    delete(scene);
-    delete(engine);
-
-    return 0;
+  return 0;
 }
 
 bool play = true;
@@ -74,35 +68,35 @@ bool play = true;
 float globalTime = 0.0f;
 void renderFunc( float dt )
 {
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    if (mb::Input::isKeyClicked(mb::Keyboard::Key::Space))
-    {
-        play = !play;
-    }
-    if (play)
-    {
-        globalTime += dt * 0.33f;
-    }
-    ppm->uniform("iGlobalTime")->value(globalTime);
-    if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
-    {
-        sides -= 1.0f;
-        ppm->uniform("sides")->value(sides);
-    }
-    else if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
-    {
-        sides += 1.0f;
-        ppm->uniform("sides")->value(sides);
-    }
-    if (mb::Input::isKeyClicked(mb::Keyboard::Key::A))
-    {
-        angle -= 1.0f;
-        ppm->uniform("angle")->value(angle);
-    }
-    else if (mb::Input::isKeyClicked(mb::Keyboard::Key::S))
-    {
-        angle += 1.0f;
-        ppm->uniform("angle")->value(angle);
-    }
-    ppm->renderPP();
+  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+  if (mb::Input::isKeyClicked(mb::Keyboard::Key::Space))
+  {
+    play = !play;
+  }
+  if (play)
+  {
+    globalTime += dt * 0.33f;
+  }
+  ppm->uniform("iGlobalTime")->value(globalTime);
+  if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
+  {
+    sides -= 1.0f;
+    ppm->uniform("sides")->value(sides);
+  }
+  else if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
+  {
+    sides += 1.0f;
+    ppm->uniform("sides")->value(sides);
+  }
+  if (mb::Input::isKeyClicked(mb::Keyboard::Key::A))
+  {
+    angle -= 1.0f;
+    ppm->uniform("angle")->value(angle);
+  }
+  else if (mb::Input::isKeyClicked(mb::Keyboard::Key::S))
+  {
+    angle += 1.0f;
+    ppm->uniform("angle")->value(angle);
+  }
+  ppm->renderPP();
 }

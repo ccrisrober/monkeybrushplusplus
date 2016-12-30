@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -22,11 +22,10 @@
 
 #include "Exception.hpp"
 
-/*namespace mb
+namespace mb
 {
 	MBException::MBException(const std::string& message)
-		: std::exception(message)
+		: std::runtime_error(message)
 	{
 	}
 }
-*/

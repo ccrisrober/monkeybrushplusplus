@@ -32,14 +32,47 @@ include(Common)
 # Allow warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 
-option( MB_WITH_EXAMPLES "Reto examples" ON)
+option( MB_WITH_EXAMPLES "MB examples" ON)
+
+option( MB_WITH_COMPUTE_SHADERS "enabling/disabling compute shaders" ON )
+option( MB_WITH_GEOMETRY_SHADERS "enabling/disabling geometry shaders" ON )
+option( MB_WITH_TESSELATION_SHADERS
+  "enabling/disabling tesselation shaders" ON )
+option( MB_WITH_SUBPROGRAMS "enabling/disabling subprograms" ON )
+option( MB_WITH_OCC_QUERY "enabling/disabling occlusion query" ON )
+option( MB_WITH_TRANSFORM_FEEDBACK "enabling/disabling transform feedback" ON )
+
+if ( MB_WITH_COMPUTE_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_COMPUTE_SHADERS)
+endif( )
+
+if ( MB_WITH_GEOMETRY_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_GEOMETRY_SHADERS)
+endif( )
+
+if ( MB_WITH_TESSELATION_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_TESSELATION_SHADERS)
+endif( )
+
+if ( MB_WITH_SUBPROGRAMS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_SUBPROGRAMS)
+endif( )
+
+if ( MB_WITH_OCC_QUERY )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_OCC_QUERY)
+endif( )
+
+if ( MB_WITH_TRANSFORM_FEEDBACK )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_TRANSFORM_FEEDBACK)
+endif( )
+
 
 common_find_package( Eigen3 REQUIRED SYSTEM )
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
 common_find_package( Boost COMPONENTS unit_test_framework )
 common_find_package( rapidjson )
-common_find_package( GLFW )
+common_find_package( glfw )
 common_find_package( FreeImage REQUIRED SYSTEM )
 
 
@@ -48,7 +81,7 @@ set(GLFW_BUILD_DOCS OFF)
 set(GLFW_BUILD_TESTS OFF)
 set(GLFW_BUILD_EXAMPLES OFF)
 
-list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW FreeImage Eigen3)
+list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW glfw FreeImage Eigen3)
 
 if(${Rapidjson_FOUND})
 	list (APPEND MB_DEPENDENT_LIBRARIES rapidjson)
@@ -56,7 +89,6 @@ endif()
 
 common_find_package_post()
 
-# add_subdirectory(tr)
 add_subdirectory(mb)
 add_subdirectory(examples)
 

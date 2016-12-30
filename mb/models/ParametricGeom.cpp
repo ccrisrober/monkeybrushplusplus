@@ -40,9 +40,9 @@ namespace mb
 
 		unsigned int nv = (slices + 1) * (stacks + 1);
 
-		BufferAttribute verts(std::vector<float>(3 * nv), 3);
-		BufferAttribute norms(std::vector<float>(3 * nv, 0.0f), 3);
-		BufferAttribute texCoords(std::vector<float>(2 * 3 * (slices * stacks) * 2), 2);
+		BufferAttribute<float> verts(std::vector<float>(3 * nv), 3);
+		BufferAttribute<float> norms(std::vector<float>(3 * nv, 0.0f), 3);
+		BufferAttribute<float> texCoords(std::vector<float>(2 * 3 * (slices * stacks) * 2), 2);
 		std::vector<unsigned int> indices(3 * (slices * stacks) * 2);
 
 		unsigned int count = slices + 1;

@@ -34,7 +34,7 @@ namespace mb
 	{
 	public:
 		MB_API
-		virtual ~Group() {}
+		virtual ~Group( void ) {}
 	};
 }
 

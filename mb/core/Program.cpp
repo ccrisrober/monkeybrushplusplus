@@ -598,7 +598,47 @@ namespace mb
 		int loc = uniform(uniformName);
 		glUniform4fv(loc, 1, data);
 	}
+  void Program::sendUniform2iv( const std::string& uniformName,
+                                      const unsigned int* data )
+  {
+    int loc = uniform( uniformName );
+    if (loc >= 0) glUniform2i( loc, data[0], data[1]);
+  }
 
+  void Program::sendUniform2iv( const std::string& uniformName,
+                                      const std::vector< unsigned int > & data )
+  {
+    int loc = uniform( uniformName );
+    if (loc >= 0) glUniform2i( loc, data[0], data[1]);
+  }
+
+  void Program::sendUniform3iv( const std::string& uniformName,
+                                      const unsigned int* data )
+  {
+    int loc = uniform( uniformName );
+    if (loc >= 0) glUniform3i( loc, data[0], data[1], data[2]);
+  }
+
+  void Program::sendUniform3iv( const std::string& uniformName,
+                                      const std::vector< unsigned int > & data )
+  {
+    int loc = uniform( uniformName );
+    if (loc >= 0) glUniform3i( loc, data[0], data[1], data[2]);
+  }
+
+  void Program::sendUniform4iv( const std::string& uniformName,
+                                      const unsigned int* data )
+  {
+    int loc = uniform( uniformName );
+    if (loc >= 0) glUniform4i( loc, data[0], data[1], data[2], data[3]);
+  }
+
+  void Program::sendUniform4iv( const std::string& uniformName,
+                                      const std::vector< unsigned int > & data )
+  {
+    int loc = uniform( uniformName );
+    if (loc >= 0) glUniform4i( loc, data[0], data[1], data[2], data[3]);
+  }
 	void Program::sendUniform4m(const std::string& uniformName,
 		const std::vector< float > & data, bool inverse)
 	{

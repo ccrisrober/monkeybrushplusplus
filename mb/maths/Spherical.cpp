@@ -22,6 +22,7 @@
 
 #include "Spherical.hpp"
 #include "Mathf.hpp"
+#include "float.h"
 
 namespace mb
 {

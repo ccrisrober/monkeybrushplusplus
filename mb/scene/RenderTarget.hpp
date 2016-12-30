@@ -39,15 +39,15 @@ namespace mb
     RenderTarget(unsigned int width, unsigned int height,
       std::vector<mb::TexturePtr> textures);
     MB_API
-    std::vector<mb::TexturePtr> textures() const;
+    std::vector<mb::TexturePtr> textures( void ) const;
     MB_API
-    void bindTextures();
+    void bindTextures( void );
     MB_API
-    void bind();
+    void bind( void );
     MB_API
-    void unbind();
+    void unbind( void );
     MB_API
-    void setSize(const unsigned int& w, const unsigned int& h);
+    void setSize( const unsigned int& w, const unsigned int& h );
   protected:
     unsigned int _width;
     unsigned int _height;

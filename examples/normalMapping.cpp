@@ -36,7 +36,7 @@ public:
     , _normScale( normalScale )
   {
   }
-  virtual void update( const float ) override
+  virtual void fixedUpdate( const float& ) override
   {
     if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Plus ) )
     {

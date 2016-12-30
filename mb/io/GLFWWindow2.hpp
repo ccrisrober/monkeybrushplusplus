@@ -21,33 +21,39 @@
  *
  */
 
-#ifndef __MB_VERTEXARRAY__
-#define __MB_VERTEXARRAY__
+#ifndef __MB_GLFWWINDOW2__
+#define __MB_GLFWWINDOW2__
 
 #include <mb/api.h>
 
-#include "../Includes.hpp"
-#include "Program.hpp"
+#include "Window.hpp"
 
 namespace mb
 {
-  class VertexUBO
+  class GLFWWindow2 : public Window
   {
   public:
     MB_API
-    VertexUBO(const Program& prog, const char* name, unsigned int blockBindIdx);
+    virtual void* getWindow();
     MB_API
-    virtual ~VertexUBO( void );
-    void bind( void );
+    GLFWWindow2(const WindowParams& params);
     MB_API
-    void update(const std::vector<float>& data);
+    virtual ~GLFWWindow2();
     MB_API
-    void unbind( void );
+    virtual void setTitle(const char* title);
+    MB_API
+    virtual bool init();
+    MB_API
+    virtual bool isRunning();
+    MB_API
+    virtual void pollEvents();
+    MB_API
+    virtual void close();
+    MB_API
+    virtual void swapBuffers();
   protected:
-    unsigned int _handler;
-    unsigned int _index;
-    const char* _name;
+    GLFWwindow* _handle;
   };
 }
 
-#endif /* __MB_VERTEX_UBO_ */
+#endif /* __MB_GLFWWINDOW2__ */

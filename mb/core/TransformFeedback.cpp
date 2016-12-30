@@ -26,19 +26,19 @@
 
 namespace mb
 {
-  TransformFeedback::TransformFeedback()
+  TransformFeedback::TransformFeedback( void )
   {
     glCreateTransformFeedbacks(1, &_handler);
   }
-  TransformFeedback::~TransformFeedback()
+  TransformFeedback::~TransformFeedback( void )
   {
     glDeleteTransformFeedbacks(1, &_handler);
   }
-  void TransformFeedback::bind()
+  void TransformFeedback::bind( void )
   {
     glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, _handler);
   }
-  void TransformFeedback::unbind()
+  void TransformFeedback::unbind( void )
   {
     glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0);
   }
@@ -46,27 +46,27 @@ namespace mb
   {
     glBeginTransformFeedback(mode);
   }
-  void TransformFeedback::beginPoints()
+  void TransformFeedback::beginPoints( void )
   {
     begin(GL_POINTS);
   }
-  void TransformFeedback::beginLines()
+  void TransformFeedback::beginLines( void )
   {
     begin(GL_LINES);
   }
-  void TransformFeedback::beginTriangles()
+  void TransformFeedback::beginTriangles( void )
   {
     begin(GL_TRIANGLES);
   }
-  void TransformFeedback::end()
+  void TransformFeedback::end( void )
   {
     glEndTransformFeedback();
   }
-  void TransformFeedback::pause()
+  void TransformFeedback::pause( void )
   {
     glPauseTransformFeedback();
   }
-  void TransformFeedback::resume()
+  void TransformFeedback::resume( void )
   {
     glResumeTransformFeedback();
   }

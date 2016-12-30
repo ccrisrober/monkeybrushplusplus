@@ -24,65 +24,65 @@
 #include <mb/mb.h>
 #include <assetsFiles.h>
 
-mb::Engine* engine;
-mb::Scene* scene;
+mb::ScenePtr scene;
 
 class HeightmapMaterial : public mb::Material
 {
 public:
-    HeightmapMaterial(const float& amount = 5.0f)
-        : mb::Material( )
-    {
-        _uniforms["projection"] = new mb::Uniform(mb::Matrix4);
-        _uniforms["view"] = new mb::Uniform(mb::Matrix4);
-        _uniforms["model"] = new mb::Uniform(mb::Matrix4);
-        _uniforms["amount"] = new mb::Uniform(mb::Float, amount);
-        _uniforms["texHeightmap"] = new mb::Uniform(mb::TextureSampler, nullptr);
-        _uniforms["texDiffuse"] = new mb::Uniform(mb::TextureSampler, nullptr);
+  HeightmapMaterial(const float& amount = 5.0f)
+    : mb::Material( )
+  {
+    _uniforms["projection"] = new mb::Uniform(mb::Matrix4);
+    _uniforms["view"] = new mb::Uniform(mb::Matrix4);
+    _uniforms["model"] = new mb::Uniform(mb::Matrix4);
+    _uniforms["amount"] = new mb::Uniform(mb::Float, amount);
+    _uniforms["texHeightmap"] = new mb::Uniform(mb::TextureSampler, nullptr);
+    _uniforms["texDiffuse"] = new mb::Uniform(mb::TextureSampler, nullptr);
 
-        const char* vsShader = "#version 330\n"
-            "layout(location = 0) in vec3 position;\n"
-            "layout(location = 1) in vec3 normal;\n"
-            "layout(location = 2) in vec2 uv;\n"
-            ""
-            "out vec2 outUV; \n"
-            ""
-            "uniform mat4 projection; \n"
-            "uniform mat4 view; \n"
-            "uniform mat4 model; \n"
-            "uniform float amount; \n"
-            "uniform sampler2D texHeightmap; \n"
-            "void main( void ) {\n"
-            "   mat3 normalMatrix = mat3(inverse(transpose(model))); \n"
-            "   vec3 pos = position; \n"
-            "   outUV = uv; \n"
-            "   const vec2 size = vec2(0.5, 0.0); \n"
-            "   const ivec3 off = ivec3(-1, 0, 1); \n"
-            "   vec4 wave = texture(texHeightmap, outUV); \n"
-            "   float s11 = wave.x; \n"
-            "   float s01 = textureOffset(texHeightmap, outUV, off.xy).x; \n"
-            "   float s21 = textureOffset(texHeightmap, outUV, off.zy).x; \n"
-            "   float s10 = textureOffset(texHeightmap, outUV, off.yx).x; \n"
-            "   float s12 = textureOffset(texHeightmap, outUV, off.yz).x; \n"
-            "   vec3 va = normalize(vec3(size.xy, s21 - s01)); \n"
-            "   vec3 vb = normalize(vec3(size.yx, s12 - s10)); \n"
-            "   vec4 bump = vec4(cross(va, vb), s11); \n"
-            "   pos.y += amount * bump.w; \n"
-            "   vec4 pp = model * vec4(pos, 1.0); \n"
-            "   pp = view * pp; \n"
-            "   gl_Position = projection * pp; \n"
-            "}\n";
-        const char* fsShader = "#version 330\n"
-            "in vec2 outUV;\n"
-            "uniform sampler2D texDiffuse;\n"
-            "out vec4 fragColor;\n"
-            "void main( void ) {\n"
-            "   fragColor = texture(texDiffuse, outUV);\n"
-            "};\n";
-        _program.loadFromText(vsShader, fsShader);
-        _program.compileAndLink( );
-        _program.autocatching( );
-    }
+    const char* vsShader = R"(#version 330
+    layout(location = 0) in vec3 position;
+    layout(location = 1) in vec3 normal;
+    layout(location = 2) in vec2 uv;
+    "
+    out vec2 outUV;
+    "
+    uniform mat4 projection;
+    "uniform mat4 view;
+    "uniform mat4 model;
+    "uniform float amount;
+    "uniform sampler2D texHeightmap;
+    "void main( void ) {
+    "   mat3 normalMatrix = mat3(inverse(transpose(model)));
+    "   vec3 pos = position;
+    "   outUV = uv;
+    "   const vec2 size = vec2(0.5, 0.0);
+    "   const ivec3 off = ivec3(-1, 0, 1);
+    "   vec4 wave = texture(texHeightmap, outUV);
+    "   float s11 = wave.x;
+    "   float s01 = textureOffset(texHeightmap, outUV, off.xy).x;
+    "   float s21 = textureOffset(texHeightmap, outUV, off.zy).x;
+    "   float s10 = textureOffset(texHeightmap, outUV, off.yx).x;
+    "   float s12 = textureOffset(texHeightmap, outUV, off.yz).x;
+    "   vec3 va = normalize(vec3(size.xy, s21 - s01));
+    "   vec3 vb = normalize(vec3(size.yx, s12 - s10));
+    "   vec4 bump = vec4(cross(va, vb), s11);
+    "   pos.y += amount * bump.w;
+    "   vec4 pp = model * vec4(pos, 1.0);
+    "   pp = view * pp;
+    "   gl_Position = projection * pp;
+    "})";
+    const char* fsShader = R"(#version 330
+      in vec2 outUV;
+      uniform sampler2D texDiffuse;
+      out vec4 fragColor;
+      void main( void )
+      {
+        fragColor = texture(texDiffuse, outUV);
+      };)";
+    _program.loadFromText(vsShader, fsShader);
+    _program.compileAndLink( );
+    _program.autocatching( );
+  }
 };
 
 void renderFunc( float dt );

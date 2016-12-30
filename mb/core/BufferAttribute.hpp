@@ -30,17 +30,18 @@
 // TODO: Using templates!!
 namespace mb
 {
+  template <typename T>
   class BufferAttribute
-    {
+  {
   public:
     MB_API
-    BufferAttribute(std::vector<float> arr, unsigned int size);
+    BufferAttribute(std::vector<T> arr, unsigned int size);
     MB_API
-    void array(const std::vector<float> arr);
+    void array(const std::vector<T> arr);
     MB_API
     unsigned int size() const;
     MB_API
-    std::vector<float> array() const;
+    std::vector<T> array() const;
     MB_API
     unsigned int count();
     MB_API
@@ -52,30 +53,32 @@ namespace mb
     MB_API
     unsigned int getW(unsigned int index);
     MB_API
-    std::vector<float> getXY(unsigned int index);
+    std::vector<T> getXY(unsigned int index);
     MB_API
-    std::vector<float> getXYZ(unsigned int index);
+    std::vector<T> getXYZ(unsigned int index);
     MB_API
-    std::vector<float> getXYZW(unsigned int index);
+    std::vector<T> getXYZW(unsigned int index);
     MB_API
-    void setX(unsigned int index, float value);
+    void setX(unsigned int index, T value);
     MB_API
-    void setY(unsigned int index, float value);
+    void setY(unsigned int index, T value);
     MB_API
-    void setZ(unsigned int index, float value);
+    void setZ(unsigned int index, T value);
     MB_API
-    void setW(unsigned int index, float value);
+    void setW(unsigned int index, T value);
     MB_API
-    void setXY(unsigned int index, float xValue, float yValue);
+    void setXY(unsigned int index, T xValue, T yValue);
     MB_API
-    void setXYZ(unsigned int index, float xValue, float yValue, float zValue);
+    void setXYZ(unsigned int index, T xValue, T yValue, T zValue);
     MB_API
-    void setXYZW(unsigned int index, float xValue, float yValue,
-      float zValue, float wValue);
+    void setXYZW(unsigned int index, T xValue, T yValue,
+      T zValue, T wValue);
   protected:
-    std::vector<float> _arr;
-    float _size;
+    std::vector<T> _arr;
+    unsigned int _size;
   };
 }
+
+#include "BufferAttribute.inl"
 
 #endif /* __MB_BUFFER_ATTRIBUTE__ */

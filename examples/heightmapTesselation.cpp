@@ -34,7 +34,8 @@ class ChangeTessLevelComponent : public mb::Component
 public:
   ChangeTessLevelComponent( const float& tessLevel )
     : mb::Component( )
-    , _tessLevel( tessLevel ) {}
+    , _tessLevel( tessLevel )
+  { }
   virtual void fixedUpdate( const float& ) override
   {
     if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Plus ) )
@@ -123,29 +124,29 @@ int main( void )
       in vec2 uv[];
       out vec2 outUV;
       uniform sampler2D texHeightmap;
-      void main(void)
-      {
-        vec4 pos = (gl_TessCoord.x * gl_in[0].gl_Position) +
-                      (gl_TessCoord.y * gl_in[1].gl_Position) +
-                      (gl_TessCoord.z * gl_in[2].gl_Position);
-        outUV = (gl_TessCoord.x * uv[0]) +
-                      (gl_TessCoord.y * uv[1]) +
-                      (gl_TessCoord.z * uv[2]);
+      void main(void) {
 
-        const vec2 size = vec2(0.25, 0.0);
-        const ivec3 off = ivec3(-0.15, 0.15, 0.15);
-        vec4 wave = texture(texHeightmap, outUV);
-        float s11 = wave.x;
-        float s01 = textureOffset(texHeightmap, outUV, off.xy).x;
-        float s21 = textureOffset(texHeightmap, outUV, off.zy).x;
-        float s10 = textureOffset(texHeightmap, outUV, off.yx).x;
-        float s12 = textureOffset(texHeightmap, outUV, off.yz).x;
-        vec3 va = normalize(vec3(size.xy, s21 - s01));
-        vec3 vb = normalize(vec3(size.yx, s12 - s10));
-        vec4 bump = vec4(cross(va, vb), s11);
-        pos.y += amount * bump.w;
+          vec4 pos = (gl_TessCoord.x * gl_in[0].gl_Position) +
+                        (gl_TessCoord.y * gl_in[1].gl_Position) +
+                        (gl_TessCoord.z * gl_in[2].gl_Position);
+          outUV = (gl_TessCoord.x * uv[0]) +
+                        (gl_TessCoord.y * uv[1]) +
+                        (gl_TessCoord.z * uv[2]);
 
-        gl_Position = projection * view * model * pos;
+          const vec2 size = vec2(0.25, 0.0);
+          const ivec3 off = ivec3(-0.15, 0.15, 0.15);
+          vec4 wave = texture(texHeightmap, outUV);
+          float s11 = wave.x;
+          float s01 = textureOffset(texHeightmap, outUV, off.xy).x;
+          float s21 = textureOffset(texHeightmap, outUV, off.zy).x;
+          float s10 = textureOffset(texHeightmap, outUV, off.yx).x;
+          float s12 = textureOffset(texHeightmap, outUV, off.yz).x;
+          vec3 va = normalize(vec3(size.xy, s21 - s01));
+          vec3 vb = normalize(vec3(size.yx, s12 - s10));
+          vec4 bump = vec4(cross(va, vb), s11);
+          pos.y += amount * bump.w;
+
+          gl_Position = projection * view * model * pos;
       })"
     }, {
       mb::FragmentShader,

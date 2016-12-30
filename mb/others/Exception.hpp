@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2016 maldicion069
 *
-* Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
+* Authors: Cristian RodrÃ­guez Bernal <ccrisrober@gmail.com>
 *
 * This file is part of MonkeyBrushPlusPlus <https://github.com/maldicion069/monkeybrushplusplus>
 *
@@ -23,17 +23,19 @@
 #ifndef __MB_EXCEPTION__
 #define __MB_EXCEPTION__
 
-#include <exception>
+#include <mb/api.h>
+
+#include <stdexcept>
 #include <string>
 
-/*namespace mb
+namespace mb
 {
-	class MBException: public std::exception
+	class MBException: public std::runtime_error
 	{
 	public:
-		
+    MB_API
 		MBException(const std::string& message);
 	};
-}*/
+}
 
 #endif /* __MB_EXCEPTION__ */

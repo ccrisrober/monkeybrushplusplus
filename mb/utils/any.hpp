@@ -32,7 +32,8 @@
 
 namespace mb
 {
-	namespace detail {
+	namespace detail
+  {
 
 		struct bad_any_cast { };
 
@@ -52,14 +53,16 @@ namespace mb
 		};
 
 		template<typename T>
-		struct typed_base_any_policy : base_any_policy {
+		struct typed_base_any_policy : base_any_policy
+    {
 			virtual ~typed_base_any_policy() {}
 			virtual size_t get_size() { return sizeof(T); }
 			virtual const std::type_info& type() { return typeid(T); }
 		};
 
 		template<typename T>
-		struct small_any_policy : typed_base_any_policy<T> {
+		struct small_any_policy : typed_base_any_policy<T>
+    {
 			virtual ~small_any_policy() {}
 			virtual void static_delete(void**) { }
 			virtual void copy_from_value(void const* src, void** dest)
@@ -74,11 +77,13 @@ namespace mb
 		};
 
 		template<typename T>
-		struct big_any_policy : typed_base_any_policy<T> {
+		struct big_any_policy : typed_base_any_policy<T>
+    {
 			virtual ~big_any_policy() {}
-			virtual void static_delete(void** x) {
+			virtual void static_delete(void** x)
+      {
 				if (*x)
-					delete(*reinterpret_cast<T**>(x)); *x = NULL;
+					delete(*reinterpret_cast<T**>(x)); *x = nullptr;
 			}
 			virtual void copy_from_value(void const* src, void** dest) {
 				*dest = new T(*reinterpret_cast<T const*>(src));
@@ -157,30 +162,35 @@ namespace mb
 	public:
 		/// Initializing constructor.
 		template <typename T>
-		any(const T& x) : policy(detail::get_policy<detail::empty_any>()), object(NULL) {
+		any(const T& x) : policy(detail::get_policy<detail::empty_any>()), object(nullptr)
+    {
 			assign(x);
 		}
 
 		/// Empty constructor.
-		explicit any() : policy(detail::get_policy<detail::empty_any>()), object(NULL) { }
+		explicit any() : policy(detail::get_policy<detail::empty_any>()), object(nullptr) { }
 
 		/// Special initializing constructor for string literals.
-		explicit any(const char* x) : policy(detail::get_policy<detail::empty_any>()), object(NULL) {
+		explicit any(const char* x) : policy(detail::get_policy<detail::empty_any>()), object(nullptr)
+    {
 			assign(x);
 		}
 
 		/// RValue constructor
-		explicit any(any && x) : policy(detail::get_policy<detail::empty_any>()), object(NULL) {
+		explicit any(any && x) : policy(detail::get_policy<detail::empty_any>()), object(nullptr)
+    {
 			swap(x);
 		}
 
 		/// Copy constructor.
-		explicit any(const any& x) : policy(detail::get_policy<detail::empty_any>()), object(NULL) {
+		explicit any(const any& x) : policy(detail::get_policy<detail::empty_any>()), object(nullptr)
+    {
 			assign(x);
 		}
 
 		/// Destructor.
-		~any() {
+		~any()
+    {
 			policy->static_delete(&object);
 		}
 
@@ -247,7 +257,7 @@ namespace mb
 			return policy->type() == typeid(detail::empty_any);
 		}
 
-		/// Frees any allocated memory, and sets the value to NULL.
+		/// Frees any allocated memory, and sets the value to nullptr.
 		void reset() {
 			policy->static_delete(&object);
 			policy = detail::get_policy<detail::empty_any>();

@@ -42,7 +42,7 @@ public:
     _xPos = _node->transform( ).position( ).x( );
     _yPos = _node->transform( ).position( ).y( );
 	}
-	virtual void update( const float dt ) override
+	virtual void fixedUpdate( const float& dt ) override
 	{
     float i = _xPos + ( _distribution( _generator ) * 5.0f * dt );
     float j = _yPos + ( _distribution( _generator ) * 5.0f * dt );

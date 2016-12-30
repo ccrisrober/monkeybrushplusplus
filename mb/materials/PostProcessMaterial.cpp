@@ -29,13 +29,14 @@ namespace mb
 		: Material()
 	{
 		const char* vsShader =
-			"#version 330\n"
-			"layout(location = 0) in vec3 vertPosition\n;"
-			"out vec2 uv;\n"
-			"void main(void) {\n"
-			"  uv = vec2(vertPosition.xy * 0.5) + vec2(0.5);\n"
-			"  gl_Position = vec4(vertPosition, 1.0)\n;"
-			"}\n";
+      R"(#version 330
+			layout(location = 0) in vec3 vertPosition;
+			out vec2 uv;
+			void main(void)
+      {
+			  uv = vec2(vertPosition.xy * 0.5) + vec2(0.5);
+			  gl_Position = vec4(vertPosition, 1.0);
+			})";
 		const char* fsShader;
 		if (fsShader_)
 		{
@@ -44,15 +45,14 @@ namespace mb
 		else
 		{
 			fsShader =
-				"#version 330\n"
-				"uniform vec3 color;\n"
-				"out vec4 fragColor;\n"
-				"in vec2 uv;\n"
-				""
-				"void main()\n"
-				"{\n"
-				"    fragColor = vec4(uv, 0.0, 1.0);\n"
-				"}\n";
+				R"(#version 330
+				uniform vec3 color;
+				out vec4 fragColor;
+				in vec2 uv;
+				void main()
+				{
+			    fragColor = vec4(uv, 0.0, 1.0);
+				})";
 		}
 
 		_program->loadFromText(vsShader, fsShader);

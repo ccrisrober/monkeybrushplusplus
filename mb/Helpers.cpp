@@ -27,16 +27,16 @@
 
 namespace mb
 {
-  ChangeTransformationComponent::ChangeTransformationComponent() 
+  ChangeTransformationComponent::ChangeTransformationComponent( void )
      : mb::Component()
   {
   }
-  void ChangeTransformationComponent::start()
+  void ChangeTransformationComponent::start( void )
   {
 	  _moveComp = getNode()->getComponent<mb::MoveComponent>();
 	  _rotateComp = getNode()->getComponent<mb::RotateComponent>();
   }
-  void ChangeTransformationComponent::update(const float)
+  void ChangeTransformationComponent::fixedUpdate(const float&)
   {
     if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
     {
@@ -55,7 +55,7 @@ namespace mb
 		_moveComp->toggle();
     }
   }
-  PointMaterial::PointMaterial()
+  PointMaterial::PointMaterial( void )
     : Material()
   {
     _uniforms["projection"] = new Uniform(Matrix4);
@@ -66,28 +66,34 @@ namespace mb
     _uniforms["sizeAttenuation"] = new Uniform(Boolean, false);
     _uniforms["opacity"] = new Uniform(Float, 1.0f);
 
-    const char* vsShader = "#version 330\n"
-      "layout(location = 0) in vec3 position;"
-      "uniform mat4 projection;"
-      "uniform mat4 view;"
-      "uniform mat4 model;"
-      "uniform float size;"
-      "uniform bool sizeAttenuation;"
-      "void main() {"
-      " vec4 pointPosition = view * model * vec4(position, 1.0);\n"
-      " if (sizeAttenuation) \n"
-      "   gl_PointSize = size * (scale / length(pointPosition.xyz));\n"
-      " else\n"
-      "   gl_PointSize = size;\n"
-      "    gl_Position = projection * pointPosition;\n"
-      "}";
-    const char* fsShader = "#version 330\n"
-      "out vec4 fragColor;\n"
-      "uniform float opacity;\n"
-      "uniform vec3 color;\n"
-      "void main() {\n"
-      " fragColor = vec4(color, opacity);\n"
-      "}\n";
+    const char* vsShader = R"(#version 330
+      layout(location = 0) in vec3 position;
+      uniform mat4 projection;
+      uniform mat4 view;
+      uniform mat4 model;
+      uniform float size;
+      uniform bool sizeAttenuation;
+      void main( )
+      {
+        vec4 pointPosition = view * model * vec4(position, 1.0);
+        if (sizeAttenuation)
+        {
+          gl_PointSize = size * (scale / length(pointPosition.xyz));
+        }
+        else
+        {
+          gl_PointSize = size;
+        }
+        gl_Position = projection * pointPosition;
+      })";
+    const char* fsShader = R"(#version 330
+      out vec4 fragColor;
+      uniform float opacity;
+      uniform vec3 color;
+      void main( )
+      {
+        fragColor = vec4(color, opacity);
+      })";
     _program->loadFromText(vsShader, fsShader);
     _program->compileAndLink();
     _program->autocatching();
@@ -101,14 +107,14 @@ namespace mb
     // TODO: Enable blending
     // blend_src_rgb = SRC_ALPHA
   }
-  MoveComponent::MoveComponent()
+  MoveComponent::MoveComponent( void )
     : mb::Component()
     , _delta(0.01f)
     , _sign(1)
     , _velocity(1.0f)
   {
   }
-  void MoveComponent::update(const float dt)
+  void MoveComponent::update(const float& dt)
   {
     if (mb::Input::isKeyPressed(mb::Keyboard::Key::V))
     {
@@ -137,7 +143,32 @@ namespace mb
     , _velocity(velocity)
   {
   }
-  void RotateComponent::update(const float dt)
+#ifdef MB_USE_RAPIDJSON
+  RotateComponent::RotateComponent(const rapidjson::Value& config)
+  : RotateComponent(_axisFromString(config["axis"].GetString( )))
+  {
+    if (config.HasMember("rotate"))
+    {
+      bool rotate = config["rotate"].GetBool();
+      setRotate(rotate);
+    }
+  }
+#endif
+  Axis RotateComponent::_axisFromString(const std::string& _axis_)
+  {
+    if (_axis_ == "X")
+    {
+      return mb::Axis::x;
+    } else if (_axis_ == "Y")
+    {
+      return mb::Axis::y;
+    } else if (_axis_ == "Z")
+    {
+      return mb::Axis::z;
+    }
+    throw;
+  }
+  void RotateComponent::update(const float& dt)
   {
     if (mb::Input::isKeyClicked(mb::Keyboard::Key::Space))
     {
@@ -160,12 +191,12 @@ namespace mb
       }
     }
   }
-  ScaleComponent::ScaleComponent()
+  ScaleComponent::ScaleComponent( void )
     : mb::Component()
     , _inc(0.0f)
   {
   }
-  void ScaleComponent::update(float /*dt*/)
+  void ScaleComponent::update(const float& /*dt*/)
   {
     this->_node->transform().scale().set(
       this->_inc * 0.01,
@@ -174,11 +205,11 @@ namespace mb
     );
     this->_inc += 1.0f;
   }
-  PrintPosition::PrintPosition()
+  PrintPosition::PrintPosition( void )
     : mb::Component()
   {
   }
-  void PrintPosition::update(const float)
+  void PrintPosition::fixedUpdate(const float&)
   {
     mb::Vect3 pos = this->_node->transform().position();
     std::cout << "POSITION: " << pos.x() << ", " << pos.y() << ", "

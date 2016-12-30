@@ -31,7 +31,7 @@
 namespace mb
 {
   class Ray
-    {
+  {
   public:
     MB_API
     Ray(const Vect3& origin = Vect3::createFromScalar(0.0f),
@@ -46,10 +46,10 @@ namespace mb
     void direction(const Vect3& dir);
     MB_API
     Vect3 at(const float t);
-    protected:
-      Vect3 _origin;
-      Vect3 _direction;
-    };
+  protected:
+    Vect3 _origin;
+    Vect3 _direction;
+  };
 }
 
 #endif /* __MB_RAY__ */

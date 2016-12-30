@@ -30,13 +30,13 @@ namespace mb
     }
     void Drawable::render(unsigned int mode)
     {
-        this->configure();
+      this->configure();
 
-        this->_vao->bind();
-        // glPatchParameteri(GL_PATCH_VERTICES, 3);
-        // glDrawElements( GL_PATCHES, _indicesLen, GL_UNSIGNED_INT, 0 );
-        glDrawElements(mode, _indicesLen, GL_UNSIGNED_INT, 0);
-        //this->_vao->unbind();
+      this->_vao->bind();
+      // glPatchParameteri(GL_PATCH_VERTICES, 3);
+      // glDrawElements( GL_PATCHES, _indicesLen, GL_UNSIGNED_INT, 0 );
+      glDrawElements(mode, _indicesLen, GL_UNSIGNED_INT, 0);
+      //this->_vao->unbind();
     }
 	unsigned int Drawable::indicesLen() const
 	{
@@ -46,12 +46,13 @@ namespace mb
 	{
 		return this->_numVertices;
 	}
-    void Drawable::addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
-        unsigned int numElems, unsigned int type)
-    {
-        VertexBuffer vb(GL_ARRAY_BUFFER);
-		vb.data(data, type);
-		vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
-        this->_handle.push_back(vb);
-    }
+  void Drawable::addBufferArray(unsigned int attribLocation,
+    const std::vector<float>& data,
+    unsigned int numElems, unsigned int type)
+  {
+      VertexBuffer vb(GL_ARRAY_BUFFER);
+	vb.data(data, type);
+	vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
+      this->_handle.push_back(vb);
+  }
 }

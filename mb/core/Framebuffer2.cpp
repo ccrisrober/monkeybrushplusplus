@@ -35,11 +35,15 @@ void mb::Framebuffer2::attachColor( mb::TexturePtr t, int i )
 {
   glBindFramebuffer( GL_FRAMEBUFFER, handle );
   glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, t->handler( ), 0 );
+
+  /*
   if ( find( color_attachments.begin( ), color_attachments.end( ),
     GL_COLOR_ATTACHMENT0 + i ) == color_attachments.end( ) )
   {
     color_attachments.push_back( GL_COLOR_ATTACHMENT0 + i );
   }
+  */
+  
   glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 }
 
