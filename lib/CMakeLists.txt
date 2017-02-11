@@ -50,6 +50,7 @@ set( MB_PUBLIC_HEADERS
 
   maths/Box2D.hpp
   maths/Box3D.hpp
+  maths/Clock.hpp
   maths/Curves.hpp
   maths/EulerAngle.hpp
   maths/Interpolation.hpp
@@ -183,6 +184,7 @@ set( MB_SOURCES
 
   maths/Box2D.cpp
   maths/Box3D.cpp
+  maths/Clock.cpp
   maths/Curves.cpp
   maths/EulerAngle.cpp
   maths/Interpolation.cpp

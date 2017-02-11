@@ -37,4 +37,5 @@
 - (08/12) Removed unnecesary files (any.cpp and CustomPingPong.cpp).
 - (09/12) Added fixedUpdate to Component. Fixed _subUpdate in Scene.
 - (14/12) Added TextureCache to resource. Updated examples (not all).
-- (14/12) Added TmpCache to templated resoruce.
+- (14/12) Added TmpCache to templated resource.
+- (11/02) Renamed mb directory to lib. Removed GLFW from gitsubproject. GLFW compiled library necessary. Added onAttach and onDetach in Component.

@@ -46,13 +46,13 @@ namespace mb
 	{
 		return this->_numVertices;
 	}
-  void Drawable::addBufferArray(unsigned int attribLocation,
-    const std::vector<float>& data,
-    unsigned int numElems, unsigned int type)
-  {
-      VertexBuffer vb(GL_ARRAY_BUFFER);
-	vb.data(data, type);
-	vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
-      this->_handle.push_back(vb);
-  }
+	void Drawable::addBufferArray(unsigned int attribLocation,
+		const std::vector<float>& data,
+		unsigned int numElems, unsigned int type)
+	{
+		VertexBuffer vb(GL_ARRAY_BUFFER);
+		vb.data(data, type);
+		vb.vertexAttribPointer(attribLocation, numElems, GL_FLOAT, false);
+		this->_handle.push_back(vb);
+	}
 }

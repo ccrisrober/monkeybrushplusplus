@@ -83,6 +83,21 @@ namespace mb
       return nullptr;
     }
   }
+  template<class T>
+  void removeComponent(void)
+  {
+	  for (auto comp : _components)
+	  {
+		  // std::cout << typeid(*comp).name() << std::endl;
+		  // std::cout << typeid(T).name() << std::endl;
+		  if (typeid(*comp.get()) == typeid(T))
+		  {
+			  ComponentPtr c = static_cast<T*>(comp.get());
+			  c->onDetach();
+		  }
+	  }
+  }
+
   /*template<typename C, typename .. T>
   inline std::shared_ptr<C> Node::addComp( T ..t )
   {

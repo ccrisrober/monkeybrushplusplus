@@ -77,8 +77,14 @@ namespace mb
   {
     _enabled = v;
   }
-  void Component::toggle()
+  void Component::toggle( void )
   {
-    setEnabled(!isEnabled());
+    setEnabled(!isEnabled( ));
+  }
+  void Component::onAttach( void )
+  {
+  }
+  void Component::onDetach( void )
+  {
   }
 }

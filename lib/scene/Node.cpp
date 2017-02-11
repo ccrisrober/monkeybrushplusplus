@@ -219,7 +219,11 @@ namespace mb
   {
     //std::for_each(_components.begin(), _components.end(),
     //	mb::utils::deleter<mb::ComponentPtr>());
-    _components.clear( );
+	for (auto comp : _components)
+	{
+		comp->onDetach();
+	}
+	_components.clear( );
   }
   void Node::addComponents( std::initializer_list<mb::ComponentPtr> components )
   {
@@ -235,6 +239,7 @@ namespace mb
     if ( std::find( _components.begin( ), _components.end( ), c ) == _components.end( ) )
     {
       c->setNode( this );
+	  c->onAttach();
       if ( this->hasParent( ) )
       {
         c->start( );
