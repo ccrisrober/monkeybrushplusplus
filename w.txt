@@ -1,3 +1,3 @@
-cmake .. -DGLEW_INCLUDE_DIR=c:\libs\glew-2.0.0\include -DGLEW_LIBRARY=c:\libs\glew-2.0.0\lib\Release/Win32/glew32.lib -DGLFW_BUILD_TESTS=OFF -DFREEIMAGE_INCLUDE_DIRS=C:\libs\FreeImage\Dist\x32 -DFREEIMAGE_ROOT=C:\libs\FreeImage\Dist\x32 -DGLFW_INCLUDE_DIR=C:\libs\glfw-3.2.1\include -DGLFW_LIBRARY=C:\libs\glfw-3.2.1\lib-vc2013\glfw3.lib
+cmake .. -DGLEW_INCLUDE_DIR=c:\libs\glew-2.0.0\include -DGLEW_LIBRARY=c:\libs\glew-2.0.0\lib\Release/Win32/glew32.lib -DFREEIMAGE_INCLUDE_DIRS=C:\libs\FreeImage\Dist\x32 -DFREEIMAGE_ROOT=C:\libs\FreeImage\Dist\x32 -DGLFW3_LIBRARIES=C:\libs\glfw-3.2.1\lib-vc2013\glfw3.lib -DGLFW_INCLUDE_DIR=C:\libs\glfw-3.2.1\include
 
-cmake .. -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_DOCS=OFF
+cmake ..

@@ -71,14 +71,14 @@ common_find_package( Eigen3 REQUIRED SYSTEM )
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
 common_find_package( Boost COMPONENTS unit_test_framework )
-common_find_package( glfw )
+common_find_package( GLFW3 REQUIRED SYSTEM )
 common_find_package( FreeImage REQUIRED SYSTEM )
 
-list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW glfw FreeImage Eigen3)
+list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 FreeImage Eigen3)
 
 common_find_package_post( )
 
-add_subdirectory( lib )
+add_subdirectory( mb )
 add_subdirectory( examples )
 
 if(${Boost_FOUND})

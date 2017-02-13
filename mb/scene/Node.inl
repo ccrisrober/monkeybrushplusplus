@@ -84,17 +84,18 @@ namespace mb
     }
   }
   template<class T>
-  void removeComponent(void)
+  void Node::removeComponent(void)
   {
-	  for (auto comp : _components)
+	  auto comp = std::begin(_components);
+	  while (comp != std::end(_components))
 	  {
-		  // std::cout << typeid(*comp).name() << std::endl;
-		  // std::cout << typeid(T).name() << std::endl;
-		  if (typeid(*comp.get()) == typeid(T))
+		  if (typeid(*comp->get()) == typeid(T))
 		  {
-			  ComponentPtr c = static_cast<T*>(comp.get());
-			  c->onDetach();
+			  (*comp)->onDetach();
+			  _components.erase(comp);
+			  break;
 		  }
+		  ++comp;
 	  }
   }
 

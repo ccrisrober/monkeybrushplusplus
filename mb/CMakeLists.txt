@@ -121,6 +121,7 @@ set( MB_PUBLIC_HEADERS
   utils/macros.hpp
   utils/utils.hpp
   utils/iniReader.hpp
+  utils/RTTI.hpp
 
   Includes.hpp
   Helpers.hpp
@@ -267,7 +268,7 @@ set( MB_LINK_LIBRARIES
   ${GLEW_LIBRARIES}
   ${FREEIMAGE_LIBRARIES}
   ${RAPIDJSON_LIBRARIES}
-  glfw
+  ${GLFW3_LIBRARIES}
 )
 
 common_library( mb )

@@ -50,14 +50,14 @@ namespace mb
 		MB_API
 		// Creates GameObject from prefab and adds it to the scene.
 		static Node* createFromPrefab( const Node& /*prefab*/ )
-			{
-				// TODO
-				/**
-				* Clone all components
-				* Initialize all components
-				*/
-				return nullptr;
-			}
+		{
+			// TODO
+			/**
+			* Clone all components
+			* Initialize all components
+			*/
+			return nullptr;
+		}
 		MB_API
 		Node( Node&& other );
 		MB_API
@@ -138,7 +138,22 @@ namespace mb
 		template <class T>
 		T* getComponent(void);
 		template <class T>
-		void removeComponent( void );
+		void removeComponent(void);
+		MB_API
+		void removeComponent(mb::Component* c)
+		{
+			auto comp = std::begin(_components);
+			while (comp != std::end(_components))
+			{
+				if (typeid(*comp->get()) == typeid(*c))
+				{
+					(*comp)->onDetach();
+					_components.erase(comp);
+					break;
+				}
+				++comp;
+			}
+		}
 
 		template <typename T>
 		T* componentInParent( void );

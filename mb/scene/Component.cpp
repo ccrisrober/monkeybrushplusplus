@@ -83,8 +83,10 @@ namespace mb
   }
   void Component::onAttach( void )
   {
+	  std::cout << "Attach component" << std::endl;
   }
   void Component::onDetach( void )
   {
+	  std::cout << "Dettach component" << std::endl;
   }
 }

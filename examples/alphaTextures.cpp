@@ -36,8 +36,6 @@ int main(void)
   scene = std::make_shared<mb::Scene>( engine,
     new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 8.44f ) ) );
 
-  mb::DrawablePtr mesh = std::make_shared<mb::Cube>( 2.0f );
-
   std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
     {
       mb::VertexShader,
@@ -82,11 +80,18 @@ int main(void)
     std::make_pair( "diffTex", new mb::Uniform( mb::TextureSampler, tex2 ) ),
   };
 
-  auto material = std::make_shared<mb::ShaderMaterial>( "material", shaders, uniforms );
+  auto material = std::make_shared<mb::ShaderMaterial>("material", shaders, uniforms);
+
+  mb::DrawablePtr mesh = std::make_shared<mb::Cube>(2.0f);
 
   auto mbModel = std::make_shared<mb::Node>( std::string( "model" ) );
   mbModel->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
-  mbModel->addComponent( std::make_shared<mb::RotateComponent>( mb::Axis::y, 0.35f ) );
+  mbModel->addComponent( std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.35f) );
+
+  mbModel->removeComponent(mbModel->getComponent<mb::RotateComponent>());
+  mbModel->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.35f));
+  mbModel->removeComponent<mb::RotateComponent>();
+  mbModel->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.35f));
 
   mbModel->getComponent<mb::RotateComponent>( )->setRotate( true );
 

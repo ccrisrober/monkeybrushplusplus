@@ -39,4 +39,12 @@ if( MB_WITH_EXAMPLES )
   )
   common_application( mbMoreCubes )
 
+
+  set( MBPBR_HEADERS )
+  set( MBPBR_SOURCES pbr.cpp )
+  set( MBPBR_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbPBR )
+
 endif( )

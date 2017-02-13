@@ -34,28 +34,33 @@ int main(void)
 
   auto engine = std::make_shared<mb::Engine>( &context, false );
   scene = std::make_shared<mb::Scene>( engine,
-    new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 8.44f ) ) );
+    new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 25.0f ) ) );
 
   mb::DrawablePtr mesh = std::make_shared<mb::Cube>( 5.0f );
 
   mb::SimpleShadingMaterialPtr material = std::make_shared<mb::SimpleShadingMaterial>( );
   material->uniform( "color" )->value( mb::Vect3( mb::Color3::Blue ) );
   material->Cull = false;
-  material->PolygonMode = GL_LINE;
+  //material->PolygonMode = GL_LINE;
 
   mb::NodePtr mbNode = std::make_shared<mb::Node>( std::string( "mesh" ) );
   mbNode->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
-  mbNode->addComponent( std::make_shared<mb::MoveComponent>( ) );
+  //mbNode->addComponent( std::make_shared<mb::MoveComponent>( ) );
+  mbNode->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::x, 0.5f, true));
+  mbNode->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.1f, true));
 
-  mb::DrawablePtr geom2 = std::make_shared<mb::Cube>( 0.5f );
-  const unsigned int max = 100;
-  for ( unsigned int i = -max; i < max; ++i)
+  mb::DrawablePtr geom2 = std::make_shared<mb::Cube>(0.5f);
+  mb::SimpleShadingMaterialPtr material2 = std::make_shared<mb::SimpleShadingMaterial>( );
+  material2->uniform("color")->value(mb::Vect3(mb::Color3::Red));
+  const int max = 10;
+  for ( int i = -max; i < max; ++i)
   {
-    for ( unsigned int j = -max; j < max; ++j)
+    for ( int j = -max; j < max; ++j)
     {
-      mb::NodePtr mbNode_ = std::make_shared<mb::Node>( std::string("mesh"));
-      mbNode_->transform( ).position( ).x( mbNode_->transform( ).position( ).x( ) - 10.0f * i );
-      mbNode_->transform( ).position( ).y( mbNode_->transform( ).position( ).y( ) - 10.0f * j );
+	  mb::NodePtr mbNode_ = std::make_shared<mb::Node>(std::string("mesh"));
+	  mbNode_->transform( ).position( ).x( i );
+	  mbNode_->transform( ).position( ).y( j );
+	  mbNode_->addComponent(std::make_shared<mb::MeshRenderer>(geom2, material2));
       mbNode->addChild( mbNode_ );
     }
   }
@@ -69,6 +74,8 @@ int main(void)
 
 void renderFunc( float dt )
 {
-  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  //mesh.rotation.x += 0.005;
+  //mesh.rotation.y += 0.001;
   scene->render( dt );
 }
