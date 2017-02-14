@@ -27,7 +27,6 @@
 #include <mb/api.h>
 
 #include "Drawable.hpp"
-#include "../core/BufferAttribute.hpp"
 
 namespace mb
 {

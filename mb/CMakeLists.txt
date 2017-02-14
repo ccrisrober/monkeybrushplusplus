@@ -84,6 +84,7 @@ set( MB_PUBLIC_HEADERS
   models/Torus.hpp
   models/Plane.hpp
   models/ParametricGeom.hpp
+  models/Sphere.hpp
 
   others/Exception.hpp
 
@@ -218,6 +219,7 @@ set( MB_SOURCES
   models/Torus.cpp
   models/Plane.cpp
   models/ParametricGeom.cpp
+  models/Sphere.cpp
 
   others/Exception.cpp
 

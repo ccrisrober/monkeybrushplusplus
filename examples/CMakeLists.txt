@@ -54,4 +54,11 @@ if( MB_WITH_EXAMPLES )
   )
   common_application( mbHelloWorld )
 
+  set( MBSPHERE_HEADERS )
+  set( MBSPHERE_SOURCES helloSphere.cpp )
+  set( MBSPHERE_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbSphere )
+
 endif( )

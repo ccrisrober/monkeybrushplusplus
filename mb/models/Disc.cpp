@@ -23,6 +23,7 @@
 
 #include "Disc.hpp"
 #include "../maths/Mathf.hpp"
+#include "../core/BufferAttribute.hpp"
 
 namespace mb
 {
