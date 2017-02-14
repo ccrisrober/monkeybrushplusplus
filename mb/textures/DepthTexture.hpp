@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -21,29 +21,23 @@
  *
  */
 
-#ifndef __MB_NORMAL_MATERIAL__
-#define __MB_NORMAL_MATERIAL__
+#ifndef __MB_DEPTHTEXTURE__
+#define __MB_DEPTHTEXTURE__
 
 #include <mb/api.h>
 
-#include "Material.hpp"
-#include "Uniform.hpp"
+#include "Texture2D.hpp"
 
 namespace mb
 {
-	enum class NormalMaterialInterpolation
+	class DepthTexture : public Texture2D
 	{
-		Normal,
-		Flat
+	MB_API
+		DepthTexture(const TexOptions& options,
+			unsigned int width, unsigned int height, unsigned int format );
 	};
-	class NormalMaterial: public Material
-	{
-	public:
-		MB_API
-		NormalMaterial( const NormalMaterialInterpolation interpolation 
-			= NormalMaterialInterpolation::Normal );
-	};
-	typedef std::shared_ptr<NormalMaterial> NormalMaterialPtr;
 }
 
-#endif /* __MB_NORMAL_MATERIAL__ */
+#endif /* __MB_DEPTHTEXTURE__ */
+
+// TODO

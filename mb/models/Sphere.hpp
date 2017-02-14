@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -21,29 +21,23 @@
  *
  */
 
-#ifndef __MB_NORMAL_MATERIAL__
-#define __MB_NORMAL_MATERIAL__
+#ifndef __MB_SPHERE__
+#define __MB_SPHERE__
 
 #include <mb/api.h>
 
-#include "Material.hpp"
-#include "Uniform.hpp"
+#include "Drawable.hpp"
 
 namespace mb
 {
-	enum class NormalMaterialInterpolation
-	{
-		Normal,
-		Flat
-	};
-	class NormalMaterial: public Material
+	class Sphere : public Drawable
 	{
 	public:
 		MB_API
-		NormalMaterial( const NormalMaterialInterpolation interpolation 
-			= NormalMaterialInterpolation::Normal );
+		Sphere(const float& radius = 1.0f,
+			const unsigned int& widthSubDiv = 1, 
+			const unsigned int& heightSubDiv = 1);
 	};
-	typedef std::shared_ptr<NormalMaterial> NormalMaterialPtr;
 }
 
-#endif /* __MB_NORMAL_MATERIAL__ */
+#endif /* __MB_SPHERE__ */

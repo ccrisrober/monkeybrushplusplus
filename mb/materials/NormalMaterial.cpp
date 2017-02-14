@@ -25,30 +25,43 @@
 
 namespace mb
 {
-  NormalMaterial::NormalMaterial()
+  NormalMaterial::NormalMaterial( const NormalMaterialInterpolation interpolation )
   : Material()
   {
     _uniforms["projection"] = new Uniform(Matrix4);
     _uniforms["view"] = new Uniform(Matrix4);
     _uniforms["model"] = new Uniform(Matrix4);
 
-    const char* vsShader =
+    /*smooth out vec3 outNormal;
+flat */
+
+    std::string interp;
+    if ( interpolation == NormalMaterialInterpolation::Flat )
+    {
+      interp = std::string( "flat ");
+    }
+    else
+    {
+      interp = std::string( "smooth ");
+    }
+
+    std::string vsShader =
     R"(#version 330
       layout(location = 0) in vec3 position;
       layout(location = 1) in vec3 normal;
-      out vec3 outNormal;
+      )" + interp + R"(out vec3 outNormal;
       uniform mat4 projection;
       uniform mat4 view;
       uniform mat4 model;
       void main()
       {
-        mat3 normalMatrix = mat3(inverse(transpose(view * model)));
+        mat3 normalMatrix = mat3(inverse(transpose(model)));
         outNormal = normalize(normalMatrix * normal);
         gl_Position = projection * view * model * vec4(position, 1.0);
       })";
-		const char* fsShader =
+		std::string fsShader =
     R"(#version 330
-			in vec3 outNormal;
+			)" + interp + R"(in vec3 outNormal;
 			out vec4 fragColor;
 			void main()
       {

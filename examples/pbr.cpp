@@ -37,8 +37,10 @@ int main(void)
   scene = std::make_shared<mb::Scene>( engine,
     new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 8.44f ) ) );
 
-  mb::DrawablePtr mesh = std::make_shared<mb::Mesh>(
-	  MB_MODEL_ASSETS + std::string("/suzanne.obj_"));
+
+  mb::DrawablePtr mesh = std::make_shared<mb::Sphere>(1.0f, 25, 25); 
+  /*mb::DrawablePtr mesh = std::make_shared<mb::Mesh>(
+	  MB_MODEL_ASSETS + std::string("/suzanne.obj_"));*/
 
   std::vector<std::pair<mb::ShaderType, const char*> > shaders = {
 	  {

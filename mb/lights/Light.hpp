@@ -54,29 +54,29 @@ namespace mb
   {
   public:
     MB_API
-      float intensity( ) const;
+    float intensity( ) const;
     MB_API
-      Vect3 attenuation( ) const;
+    Vect3 attenuation( ) const;
     MB_API
-      bool isEnable( ) const;
+    bool isEnable( ) const;
     MB_API
-      Color3 color( ) const;
+    Color3 color( ) const;
     MB_API
-      Color3 specColor( ) const;
+    Color3 specColor( ) const;
     MB_API
-      void intensity( const float i );
+    void intensity( const float i );
     MB_API
-      void attenuation( const Vect3 att );
+    void attenuation( const Vect3 att );
     MB_API
-      void enabled( const bool e );
+    void enabled( const bool e );
     MB_API
-      void color( const Color3& c );
+    void color( const Color3& c );
     MB_API
-      void specColor( const Color3& sc );
+    void specColor( const Color3& sc );
     MB_API
-      ShadowType getShadowType( ) const;
+    ShadowType getShadowType( ) const;
     MB_API
-      void setShadowType( ShadowType shadow );
+    void setShadowType( ShadowType shadow );
   protected:
     Light( );
     float _intensity;
