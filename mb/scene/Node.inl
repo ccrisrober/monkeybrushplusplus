@@ -73,8 +73,6 @@ namespace mb
     {
       for ( auto comp : _components )
       {
-        // std::cout << typeid(*comp).name() << std::endl;
-        // std::cout << typeid(T).name() << std::endl;
         if ( typeid( *comp.get( ) ) == typeid( T ) )
         {
           return static_cast<T*>( comp.get( ) );

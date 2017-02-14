@@ -47,6 +47,12 @@ namespace mb
     : public std::enable_shared_from_this<Node>
 	{
 	public:
+    MB_API
+    static std::shared_ptr<mb::Node> create( const std::string& name,
+      const std::string& tag = "Untagged" )
+    {
+      return std::make_shared<mb::Node>( name, tag );
+    }
 		MB_API
 		// Creates GameObject from prefab and adds it to the scene.
 		static Node* createFromPrefab( const Node& /*prefab*/ )

@@ -52,6 +52,11 @@ namespace mb
   {
   public:
     MB_API
+    static std::shared_ptr<mb::Scene> create(EnginePtr engine, SimpleCamera* camera)
+    {
+      return std::make_shared<mb::Scene>( engine, camera );
+    }
+    MB_API
     Scene( EnginePtr engine, SimpleCamera* camera );
     MB_API
     virtual ~Scene( );

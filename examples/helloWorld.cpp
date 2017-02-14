@@ -32,18 +32,18 @@ int main(void)
 {
   mb::GLContext context( 3, 3, 1024, 768, "Hello MonkeyBrush" );
 
-  auto engine = std::make_shared<mb::Engine>( &context, false );
-  scene = std::make_shared<mb::Scene>( engine,
+  auto engine = mb::Engine::create( &context, false );
+  scene =  mb::Scene::create( engine,
     new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 8.44f ) ) );
 
   mb::DrawablePtr mesh = std::make_shared<mb::Tetrahedron>( 1.0f, 2 );
 
-  mb::SimpleShadingMaterialPtr material = std::make_shared<mb::SimpleShadingMaterial>( );
+  mb::SimpleShadingMaterialPtr material = mb::SimpleShadingMaterial::create( );
   material->uniform( "color" )->value( mb::Vect3( mb::Color3::Blue ) );
   material->Cull = false;
   material->PolygonMode = GL_LINE;
 
-  mb::NodePtr mbNode = std::make_shared<mb::Node>( std::string( "mesh" ) );
+  mb::NodePtr mbNode = mb::Node::create( std::string( "mesh" ) );
   mbNode->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
   mbNode->addComponent( std::make_shared<mb::MoveComponent>( ) );
 

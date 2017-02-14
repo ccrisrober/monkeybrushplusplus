@@ -34,7 +34,12 @@ namespace mb
   class SimpleShadingMaterial: public Material
   {
   public:
-	MB_API
+    MB_API
+    static std::shared_ptr<mb::SimpleShadingMaterial> create( )
+    {
+      return std::make_shared<mb::SimpleShadingMaterial>( );
+    }
+	 MB_API
     SimpleShadingMaterial();
   };
   typedef std::shared_ptr<SimpleShadingMaterial> SimpleShadingMaterialPtr;

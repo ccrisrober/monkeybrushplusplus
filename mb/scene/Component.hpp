@@ -35,22 +35,22 @@
   using namespace rapidjson;
 #endif
 
-//#include "../utils/RTTI.hpp"
+#include "../utils/RTTI.hpp"
 
 namespace mb
 {
   class Node;
-  class Component//: public RTTI
+  class Component: public RTTI
   {
-  //MB_IMPLEMENT_RTTI(mb::Component)
+  MB_IMPLEMENT_RTTI(mb::Component)
   public:
-	//virtual const char *getComponentName(void) const { return getClassName(); }
+    virtual const char *getComponentName(void) const { return getClassName(); }
     MB_API
     virtual void start( void );
-	MB_API
-	virtual void fixedUpdate( const float& dt );
-	MB_API
-	virtual void update(const float& dt);
+  	MB_API
+  	virtual void fixedUpdate( const float& dt );
+  	MB_API
+  	virtual void update(const float& dt);
     MB_API
     Node* getNode( void ) const;
     MB_API
@@ -69,13 +69,12 @@ namespace mb
     void toggle( void );
     MB_API
     virtual ~Component( void );
-
-	MB_API
-	// Invoked once when component is attached to a node
-	virtual void onAttach( void );
-	MB_API
-	// Invoked once when component is detached from a node
-	virtual void onDetach( void );
+  	MB_API
+  	// Invoked once when component is attached to a node
+  	virtual void onAttach( void );
+  	MB_API
+  	// Invoked once when component is detached from a node
+  	virtual void onDetach( void );
   protected:
   #ifdef MB_USE_RAPIDJSON
     Component( const Value& /*config*/ );

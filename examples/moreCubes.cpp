@@ -45,25 +45,28 @@ int main(void)
 
   mb::NodePtr mbNode = std::make_shared<mb::Node>( std::string( "mesh" ) );
   mbNode->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
+
+  std::cout << mbNode->getComponent<mb::MeshRenderer>()->getComponentName( ) << std::endl;
+
   //mbNode->addComponent( std::make_shared<mb::MoveComponent>( ) );
-  mbNode->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::x, 0.5f, true));
-  mbNode->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.1f, true));
+  //mbNode->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::x, 0.5f, true));
+  //mbNode->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.1f, true));
 
   mb::DrawablePtr geom2 = std::make_shared<mb::Cube>(0.5f);
   mb::SimpleShadingMaterialPtr material2 = std::make_shared<mb::SimpleShadingMaterial>( );
   material2->uniform("color")->value(mb::Vect3(mb::Color3::Red));
-  const int max = 10;
+  /*const int max = 10;
   for ( int i = -max; i < max; ++i)
   {
     for ( int j = -max; j < max; ++j)
     {
-	  mb::NodePtr mbNode_ = std::make_shared<mb::Node>(std::string("mesh"));
-	  mbNode_->transform( ).position( ).x( i );
-	  mbNode_->transform( ).position( ).y( j );
-	  mbNode_->addComponent(std::make_shared<mb::MeshRenderer>(geom2, material2));
+  	  mb::NodePtr mbNode_ = std::make_shared<mb::Node>(std::string("mesh"));
+  	  mbNode_->transform( ).position( ).x( i );
+  	  mbNode_->transform( ).position( ).y( j );
+  	  mbNode_->addComponent(std::make_shared<mb::MeshRenderer>(geom2, material2));
       mbNode->addChild( mbNode_ );
     }
-  }
+  }*/
 
   scene->root( )->addChild( mbNode );
 

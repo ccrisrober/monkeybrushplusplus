@@ -35,6 +35,7 @@ namespace mb
 {
   class MeshRenderer: public Component
   {
+  MB_IMPLEMENT_RTTI(mb::MeshRenderer)
   public:
     MB_API
     MeshRenderer(mb::DrawablePtr mesh, MaterialPtr material,

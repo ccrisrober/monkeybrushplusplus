@@ -8,7 +8,7 @@ It also allows you to create scene graphs.
 
 ## Dependencies
  - GLFW
- - GLEW
+ - GLEW3
 
 ## Building
 MB ++ is based on Cmake.

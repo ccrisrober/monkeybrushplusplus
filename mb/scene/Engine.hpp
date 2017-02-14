@@ -39,6 +39,11 @@ namespace mb
   {
   public:
     MB_API
+    static std::shared_ptr<mb::Engine> create(GLContext* context, bool debugLayer = true)
+    {
+      return std::make_shared<mb::Engine>( context, false );
+    }
+    MB_API
     Engine(GLContext* context, bool debugLayer = true);
     MB_API
     void run(std::function<void(float)> loop);

@@ -24,27 +24,34 @@ if( MB_WITH_EXAMPLES )
   #common_application( mbAlienTexture )
 
 
-  set( MBALPHATEXTURES_HEADERS )
-  set( MBALPHATEXTURES_SOURCES alphaTextures.cpp )
-  set( MBALPHATEXTURES_LINK_LIBRARIES
+  ##set( MBALPHATEXTURES_HEADERS )
+  ##set( MBALPHATEXTURES_SOURCES alphaTextures.cpp )
+  ##set( MBALPHATEXTURES_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbAlphaTextures )
+
+
+  ##set( MBMORECUBES_HEADERS )
+  ##set( MBMORECUBES_SOURCES moreCubes.cpp )
+  ##set( MBMORECUBES_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbMoreCubes )
+
+
+  ##set( MBPBR_HEADERS )
+  ##set( MBPBR_SOURCES pbr.cpp )
+  ##set( MBPBR_LINK_LIBRARIES
+  ##  mb
+  ##)
+  ##common_application( mbPBR )
+
+  set( MBHELLOWORLD_HEADERS )
+  set( MBHELLOWORLD_SOURCES helloWorld.cpp )
+  set( MBHELLOWORLD_LINK_LIBRARIES
     mb
   )
-  common_application( mbAlphaTextures )
-
-
-  set( MBMORECUBES_HEADERS )
-  set( MBMORECUBES_SOURCES moreCubes.cpp )
-  set( MBMORECUBES_LINK_LIBRARIES
-    mb
-  )
-  common_application( mbMoreCubes )
-
-
-  set( MBPBR_HEADERS )
-  set( MBPBR_SOURCES pbr.cpp )
-  set( MBPBR_LINK_LIBRARIES
-    mb
-  )
-  common_application( mbPBR )
+  common_application( mbHelloWorld )
 
 endif( )

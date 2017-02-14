@@ -76,6 +76,10 @@ common_find_package( FreeImage REQUIRED SYSTEM )
 
 list (APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 FreeImage Eigen3)
 
+IF (NOT WIN32)
+  link_libraries( -lX11 -lXi -lXrandr -lXxf86vm -lXinerama -lXcursor -lrt -lm -pthread )
+endif()
+
 common_find_package_post( )
 
 add_subdirectory( mb )

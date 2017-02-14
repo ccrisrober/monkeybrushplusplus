@@ -19,7 +19,7 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
 */
-
+// http://stackoverflow.com/questions/1666802/is-there-a-class-macro-in-c
 #ifndef __MB_RTTI__
 #define __MB_RTTI__
 
@@ -38,7 +38,7 @@ namespace mb
 
 /**
     \brief Helper macro to implement RTTI in classes
-    \todo This macro does not work well with templates :(
+    \todo This macro does not work well with templates
 */
 #define MB_IMPLEMENT_RTTI( X ) \
     public: \
