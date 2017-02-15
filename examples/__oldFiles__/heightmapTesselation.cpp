@@ -186,7 +186,7 @@ int main( void )
   mbModel->addComponent( mb::ComponentPtr( new mb::MeshRendererTesselation( plane, material ) ) );
   mbModel->addComponent( mb::ComponentPtr( new ChangeTessLevelComponent( tess_level ) ) );
 
-  scene->root( )->addChild( mb::NodePtr( mbModel ) );
+  scene->root( )->addChild( mbModel );
 
   engine->run( renderFunc );
 

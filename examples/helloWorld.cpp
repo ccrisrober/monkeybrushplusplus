@@ -36,18 +36,18 @@ int main(void)
   scene =  mb::Scene::create( engine,
     new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 8.44f ) ) );
 
-  mb::DrawablePtr mesh = std::make_shared<mb::Tetrahedron>( 1.0f, 2 );
+  auto mesh = mb::Tetrahedron::create( 1.0f, 2 );
 
-  mb::SimpleShadingMaterialPtr material = mb::SimpleShadingMaterial::create( );
+  auto material = mb::SimpleShadingMaterial::create( );
   material->uniform( "color" )->value( mb::Vect3( mb::Color3::Blue ) );
   material->Cull = false;
   material->PolygonMode = GL_LINE;
 
-  mb::NodePtr mbNode = mb::Node::create( std::string( "mesh" ) );
-  mbNode->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
-  mbNode->addComponent( std::make_shared<mb::MoveComponent>( ) );
+  auto mbNode = mb::Node::create( std::string( "mesh" ) );
+  mbNode->addComponent( mb::MeshRenderer::create( mesh, material ) );
+  mbNode->addComponent( mb::MoveComponent::create( ) );
 
-  scene->root( )->addChild( mb::NodePtr( mbNode ) );
+  scene->root( )->addChild( mbNode );
 
   engine->run( renderFunc );
 

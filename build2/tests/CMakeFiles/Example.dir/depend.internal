@@ -83,6 +83,7 @@ tests/CMakeFiles/Example.dir/Example.cpp.o
  ..//mb/models/Plane.hpp
  ..//mb/models/Polyhedron.hpp
  ..//mb/models/Prism.hpp
+ ..//mb/models/Sphere.hpp
  ..//mb/models/Tetrahedron.hpp
  ..//mb/models/Torus.hpp
  ..//mb/others/Exception.hpp

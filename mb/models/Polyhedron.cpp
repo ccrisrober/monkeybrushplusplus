@@ -31,7 +31,7 @@ namespace mb
 	Polyhedron::Polyhedron()
 	: Drawable() {}
 
-  void Polyhedron::create(std::vector<float>& verts, std::vector<unsigned int>& el,
+  void Polyhedron::_createPolyhedron(std::vector<float>& verts, std::vector<unsigned int>& el,
 	const float& radius, const unsigned int& subdivisions)
   {
 		std::vector<float> norms;

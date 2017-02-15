@@ -44,6 +44,7 @@ namespace mb
   {
   MB_IMPLEMENT_RTTI(mb::Component)
   public:
+    MB_API
     virtual const char *getComponentName(void) const { return getClassName(); }
     MB_API
     virtual void start( void );

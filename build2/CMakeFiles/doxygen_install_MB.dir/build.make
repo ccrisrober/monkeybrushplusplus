@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/crodriguez/Desktop/monkeybrushplusplus/build2
 include CMakeFiles/doxygen_install_MB.dir/progress.make
 
 CMakeFiles/doxygen_install_MB: lib/libmb.so
-CMakeFiles/doxygen_install_MB: bin/mbHelloWorld
+CMakeFiles/doxygen_install_MB: bin/mbSphere
 CMakeFiles/doxygen_install_MB: tests/Example
 	/usr/bin/cmake -P /home/crodriguez/Desktop/monkeybrushplusplus/build2/cmake_install.cmake
 

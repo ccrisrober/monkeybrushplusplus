@@ -28,7 +28,7 @@
 namespace mb
 {
 	Sphere::Sphere(const float& radius,
-		const unsigned int& widthSubDiv, 
+		const unsigned int& widthSubDiv,
 		const unsigned int& heightSubDiv)
 	{
 		unsigned int faces = (1 + heightSubDiv) * (1 + widthSubDiv);
@@ -59,7 +59,7 @@ namespace mb
 			for( unsigned int j = 0; j <= widthSubDiv; ++j )
 			{
 				u = (float)j/(float)widthSubDiv;
-				
+
 				vertex.x(-radius * cos(u * Mathf::TWO_PI) * sin(v * Mathf::TWO_PI));
 				vertex.y(radius * cos(v * Mathf::TWO_PI));
 				vertex.z(radius * sin(u * Mathf::TWO_PI) * sin(v * Mathf::TWO_PI));
@@ -107,14 +107,14 @@ namespace mb
 
 		_vao = new VertexArray();
 		_vao->bind();
+    VertexBuffer vbIndices(GL_ELEMENT_ARRAY_BUFFER);
+    vbIndices.data(indices, GL_STATIC_DRAW);
+    _indicesLen = indices.size();
 
 		addBufferArray(0, verts.array(), 3, GL_STATIC_DRAW);
 		addBufferArray(1, norms.array(), 3, GL_STATIC_DRAW);
 		addBufferArray(2, texCoords.array(), 2, GL_STATIC_DRAW);
 
-		VertexBuffer vbIndices(GL_ELEMENT_ARRAY_BUFFER);
-		vbIndices.data(indices, GL_STATIC_DRAW);
-		_indicesLen = indices.size();
 		this->_handle.push_back(vbIndices);
 
 		_vao->unbind();

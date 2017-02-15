@@ -45,7 +45,7 @@ int main(void)
   mbNode->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
   mbNode->addComponent( std::make_shared<mb::MoveComponent>( ) );
 
-  scene->root( )->addChild( mb::NodePtr( mbNode ) );
+  scene->root( )->addChild( mbNode );
 
   engine->run( renderFunc );
 

@@ -2122,6 +2122,33 @@ models/Prism.cpp.s:
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f mb/CMakeFiles/mb.dir/build.make mb/CMakeFiles/mb.dir/models/Prism.cpp.s
 .PHONY : models/Prism.cpp.s
 
+models/Sphere.o: models/Sphere.cpp.o
+
+.PHONY : models/Sphere.o
+
+# target to build an object file
+models/Sphere.cpp.o:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f mb/CMakeFiles/mb.dir/build.make mb/CMakeFiles/mb.dir/models/Sphere.cpp.o
+.PHONY : models/Sphere.cpp.o
+
+models/Sphere.i: models/Sphere.cpp.i
+
+.PHONY : models/Sphere.i
+
+# target to preprocess a source file
+models/Sphere.cpp.i:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f mb/CMakeFiles/mb.dir/build.make mb/CMakeFiles/mb.dir/models/Sphere.cpp.i
+.PHONY : models/Sphere.cpp.i
+
+models/Sphere.s: models/Sphere.cpp.s
+
+.PHONY : models/Sphere.s
+
+# target to generate assembly for a file
+models/Sphere.cpp.s:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f mb/CMakeFiles/mb.dir/build.make mb/CMakeFiles/mb.dir/models/Sphere.cpp.s
+.PHONY : models/Sphere.cpp.s
+
 models/Tetrahedron.o: models/Tetrahedron.cpp.o
 
 .PHONY : models/Tetrahedron.o
@@ -3133,6 +3160,9 @@ help:
 	@echo "... models/Prism.o"
 	@echo "... models/Prism.i"
 	@echo "... models/Prism.s"
+	@echo "... models/Sphere.o"
+	@echo "... models/Sphere.i"
+	@echo "... models/Sphere.s"
 	@echo "... models/Tetrahedron.o"
 	@echo "... models/Tetrahedron.i"
 	@echo "... models/Tetrahedron.s"

@@ -4,7 +4,7 @@ version: "1.9"
 major: 1
 minor: 9
 description: MonkeyBrush++
-updated: 13/02/17
+updated: 14/02/17
 homepage: git@github.com:maldicion069/monkeybrushplusplus.git
 repository: git@github.com:maldicion069/monkeybrushplusplus.git
 issuesurl: git@github.com:maldicion069/monkeybrushplusplus/issues

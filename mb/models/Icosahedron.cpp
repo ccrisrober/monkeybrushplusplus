@@ -69,6 +69,6 @@ namespace mb
 			 8,  6,   7,
 			 9,  8,   1
 		};
-		this->create(verts, el, radius, subdivisions);
+		this->_createPolyhedron(verts, el, radius, subdivisions);
 	}
 }

@@ -38,6 +38,13 @@ namespace mb
   MB_IMPLEMENT_RTTI(mb::MeshRenderer)
   public:
     MB_API
+    static std::shared_ptr<mb::MeshRenderer> create(
+      mb::DrawablePtr mesh, MaterialPtr material,
+      unsigned int mode = GL_TRIANGLES )
+    {
+      return std::make_shared<mb::MeshRenderer>( mesh, material, mode );
+    }
+    MB_API
     MeshRenderer(mb::DrawablePtr mesh, MaterialPtr material,
       unsigned int mode_ = GL_TRIANGLES);
     MB_API

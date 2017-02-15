@@ -926,6 +926,25 @@ mb/CMakeFiles/mb.dir/models/Prism.cpp.o
  include/mb/api.h
  include/mb/defines.h
  include/mb/definesLinux.h
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/Includes.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/core/BufferAttribute.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/core/BufferAttribute.inl
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/core/Log.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/core/VertexArray.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/core/VertexBuffer.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/maths/Box3D.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/maths/Mathf.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/maths/Sphere3D.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/maths/Vect2.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/maths/Vect3.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Drawable.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.cpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.hpp
+ /home/crodriguez/Desktop/monkeybrushplusplus/mb/others/Exception.hpp
+ include/mb/api.h
+ include/mb/defines.h
+ include/mb/definesLinux.h
 mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o
  /home/crodriguez/Desktop/monkeybrushplusplus/mb/Includes.hpp
  /home/crodriguez/Desktop/monkeybrushplusplus/mb/core/Log.hpp

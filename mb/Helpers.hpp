@@ -53,6 +53,11 @@ namespace mb
 	class MoveComponent : public mb::Component
 	{
 	public:
+    MB_API
+    static std::shared_ptr<mb::MoveComponent> create( )
+    {
+      return std::make_shared<mb::MoveComponent>( );
+    }
 		MB_API
 		MoveComponent( void );
 		MB_API

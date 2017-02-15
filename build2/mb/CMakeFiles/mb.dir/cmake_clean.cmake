@@ -70,6 +70,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/mb.dir/models/Plane.cpp.o"
   "CMakeFiles/mb.dir/models/Polyhedron.cpp.o"
   "CMakeFiles/mb.dir/models/Prism.cpp.o"
+  "CMakeFiles/mb.dir/models/Sphere.cpp.o"
   "CMakeFiles/mb.dir/models/Tetrahedron.cpp.o"
   "CMakeFiles/mb.dir/models/Torus.cpp.o"
   "CMakeFiles/mb.dir/others/Exception.cpp.o"

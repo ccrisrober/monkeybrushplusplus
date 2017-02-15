@@ -1761,9 +1761,33 @@ mb/CMakeFiles/mb.dir/models/Prism.cpp.o.provides: mb/CMakeFiles/mb.dir/models/Pr
 mb/CMakeFiles/mb.dir/models/Prism.cpp.o.provides.build: mb/CMakeFiles/mb.dir/models/Prism.cpp.o
 
 
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: mb/CMakeFiles/mb.dir/flags.make
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/models/Sphere.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building CXX object mb/CMakeFiles/mb.dir/models/Sphere.cpp.o"
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/models/Sphere.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.cpp
+
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mb.dir/models/Sphere.cpp.i"
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.cpp > CMakeFiles/mb.dir/models/Sphere.cpp.i
+
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mb.dir/models/Sphere.cpp.s"
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.cpp -o CMakeFiles/mb.dir/models/Sphere.cpp.s
+
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o.requires:
+
+.PHONY : mb/CMakeFiles/mb.dir/models/Sphere.cpp.o.requires
+
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o.provides: mb/CMakeFiles/mb.dir/models/Sphere.cpp.o.requires
+	$(MAKE) -f mb/CMakeFiles/mb.dir/build.make mb/CMakeFiles/mb.dir/models/Sphere.cpp.o.provides.build
+.PHONY : mb/CMakeFiles/mb.dir/models/Sphere.cpp.o.provides
+
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o.provides.build: mb/CMakeFiles/mb.dir/models/Sphere.cpp.o
+
+
 mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o: ../mb/models/Tetrahedron.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building CXX object mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Building CXX object mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/models/Tetrahedron.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Tetrahedron.cpp
 
 mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.i: cmake_force
@@ -1787,7 +1811,7 @@ mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o.provides.build: mb/CMakeFiles/mb.d
 
 mb/CMakeFiles/mb.dir/models/Torus.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/models/Torus.cpp.o: ../mb/models/Torus.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Building CXX object mb/CMakeFiles/mb.dir/models/Torus.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_74) "Building CXX object mb/CMakeFiles/mb.dir/models/Torus.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/models/Torus.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Torus.cpp
 
 mb/CMakeFiles/mb.dir/models/Torus.cpp.i: cmake_force
@@ -1811,7 +1835,7 @@ mb/CMakeFiles/mb.dir/models/Torus.cpp.o.provides.build: mb/CMakeFiles/mb.dir/mod
 
 mb/CMakeFiles/mb.dir/others/Exception.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/others/Exception.cpp.o: ../mb/others/Exception.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_74) "Building CXX object mb/CMakeFiles/mb.dir/others/Exception.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_75) "Building CXX object mb/CMakeFiles/mb.dir/others/Exception.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/others/Exception.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/others/Exception.cpp
 
 mb/CMakeFiles/mb.dir/others/Exception.cpp.i: cmake_force
@@ -1835,7 +1859,7 @@ mb/CMakeFiles/mb.dir/others/Exception.cpp.o.provides.build: mb/CMakeFiles/mb.dir
 
 mb/CMakeFiles/mb.dir/resources/MaterialCache.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/resources/MaterialCache.cpp.o: ../mb/resources/MaterialCache.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_75) "Building CXX object mb/CMakeFiles/mb.dir/resources/MaterialCache.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_76) "Building CXX object mb/CMakeFiles/mb.dir/resources/MaterialCache.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/resources/MaterialCache.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/resources/MaterialCache.cpp
 
 mb/CMakeFiles/mb.dir/resources/MaterialCache.cpp.i: cmake_force
@@ -1859,7 +1883,7 @@ mb/CMakeFiles/mb.dir/resources/MaterialCache.cpp.o.provides.build: mb/CMakeFiles
 
 mb/CMakeFiles/mb.dir/resources/ObjParser.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/resources/ObjParser.cpp.o: ../mb/resources/ObjParser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_76) "Building CXX object mb/CMakeFiles/mb.dir/resources/ObjParser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Building CXX object mb/CMakeFiles/mb.dir/resources/ObjParser.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/resources/ObjParser.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/resources/ObjParser.cpp
 
 mb/CMakeFiles/mb.dir/resources/ObjParser.cpp.i: cmake_force
@@ -1883,7 +1907,7 @@ mb/CMakeFiles/mb.dir/resources/ObjParser.cpp.o.provides.build: mb/CMakeFiles/mb.
 
 mb/CMakeFiles/mb.dir/resources/ResourceDrawable.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/resources/ResourceDrawable.cpp.o: ../mb/resources/ResourceDrawable.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Building CXX object mb/CMakeFiles/mb.dir/resources/ResourceDrawable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_78) "Building CXX object mb/CMakeFiles/mb.dir/resources/ResourceDrawable.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/resources/ResourceDrawable.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/resources/ResourceDrawable.cpp
 
 mb/CMakeFiles/mb.dir/resources/ResourceDrawable.cpp.i: cmake_force
@@ -1907,7 +1931,7 @@ mb/CMakeFiles/mb.dir/resources/ResourceDrawable.cpp.o.provides.build: mb/CMakeFi
 
 mb/CMakeFiles/mb.dir/resources/ResourceShader.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/resources/ResourceShader.cpp.o: ../mb/resources/ResourceShader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_78) "Building CXX object mb/CMakeFiles/mb.dir/resources/ResourceShader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_79) "Building CXX object mb/CMakeFiles/mb.dir/resources/ResourceShader.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/resources/ResourceShader.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/resources/ResourceShader.cpp
 
 mb/CMakeFiles/mb.dir/resources/ResourceShader.cpp.i: cmake_force
@@ -1931,7 +1955,7 @@ mb/CMakeFiles/mb.dir/resources/ResourceShader.cpp.o.provides.build: mb/CMakeFile
 
 mb/CMakeFiles/mb.dir/resources/TextureCache.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/resources/TextureCache.cpp.o: ../mb/resources/TextureCache.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_79) "Building CXX object mb/CMakeFiles/mb.dir/resources/TextureCache.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_80) "Building CXX object mb/CMakeFiles/mb.dir/resources/TextureCache.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/resources/TextureCache.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/resources/TextureCache.cpp
 
 mb/CMakeFiles/mb.dir/resources/TextureCache.cpp.i: cmake_force
@@ -1955,7 +1979,7 @@ mb/CMakeFiles/mb.dir/resources/TextureCache.cpp.o.provides.build: mb/CMakeFiles/
 
 mb/CMakeFiles/mb.dir/scene/Component.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/Component.cpp.o: ../mb/scene/Component.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_80) "Building CXX object mb/CMakeFiles/mb.dir/scene/Component.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_81) "Building CXX object mb/CMakeFiles/mb.dir/scene/Component.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/Component.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/Component.cpp
 
 mb/CMakeFiles/mb.dir/scene/Component.cpp.i: cmake_force
@@ -1979,7 +2003,7 @@ mb/CMakeFiles/mb.dir/scene/Component.cpp.o.provides.build: mb/CMakeFiles/mb.dir/
 
 mb/CMakeFiles/mb.dir/scene/Engine.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/Engine.cpp.o: ../mb/scene/Engine.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_81) "Building CXX object mb/CMakeFiles/mb.dir/scene/Engine.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_82) "Building CXX object mb/CMakeFiles/mb.dir/scene/Engine.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/Engine.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/Engine.cpp
 
 mb/CMakeFiles/mb.dir/scene/Engine.cpp.i: cmake_force
@@ -2003,7 +2027,7 @@ mb/CMakeFiles/mb.dir/scene/Engine.cpp.o.provides.build: mb/CMakeFiles/mb.dir/sce
 
 mb/CMakeFiles/mb.dir/scene/MeshRenderer.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/MeshRenderer.cpp.o: ../mb/scene/MeshRenderer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_82) "Building CXX object mb/CMakeFiles/mb.dir/scene/MeshRenderer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_83) "Building CXX object mb/CMakeFiles/mb.dir/scene/MeshRenderer.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/MeshRenderer.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/MeshRenderer.cpp
 
 mb/CMakeFiles/mb.dir/scene/MeshRenderer.cpp.i: cmake_force
@@ -2027,7 +2051,7 @@ mb/CMakeFiles/mb.dir/scene/MeshRenderer.cpp.o.provides.build: mb/CMakeFiles/mb.d
 
 mb/CMakeFiles/mb.dir/scene/MeshRendererTesselation.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/MeshRendererTesselation.cpp.o: ../mb/scene/MeshRendererTesselation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_83) "Building CXX object mb/CMakeFiles/mb.dir/scene/MeshRendererTesselation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_84) "Building CXX object mb/CMakeFiles/mb.dir/scene/MeshRendererTesselation.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/MeshRendererTesselation.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/MeshRendererTesselation.cpp
 
 mb/CMakeFiles/mb.dir/scene/MeshRendererTesselation.cpp.i: cmake_force
@@ -2051,7 +2075,7 @@ mb/CMakeFiles/mb.dir/scene/MeshRendererTesselation.cpp.o.provides.build: mb/CMak
 
 mb/CMakeFiles/mb.dir/scene/Node.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/Node.cpp.o: ../mb/scene/Node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_84) "Building CXX object mb/CMakeFiles/mb.dir/scene/Node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_85) "Building CXX object mb/CMakeFiles/mb.dir/scene/Node.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/Node.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/Node.cpp
 
 mb/CMakeFiles/mb.dir/scene/Node.cpp.i: cmake_force
@@ -2075,7 +2099,7 @@ mb/CMakeFiles/mb.dir/scene/Node.cpp.o.provides.build: mb/CMakeFiles/mb.dir/scene
 
 mb/CMakeFiles/mb.dir/scene/NodeData.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/NodeData.cpp.o: ../mb/scene/NodeData.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_85) "Building CXX object mb/CMakeFiles/mb.dir/scene/NodeData.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_86) "Building CXX object mb/CMakeFiles/mb.dir/scene/NodeData.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/NodeData.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/NodeData.cpp
 
 mb/CMakeFiles/mb.dir/scene/NodeData.cpp.i: cmake_force
@@ -2099,7 +2123,7 @@ mb/CMakeFiles/mb.dir/scene/NodeData.cpp.o.provides.build: mb/CMakeFiles/mb.dir/s
 
 mb/CMakeFiles/mb.dir/scene/RenderTarget.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/RenderTarget.cpp.o: ../mb/scene/RenderTarget.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_86) "Building CXX object mb/CMakeFiles/mb.dir/scene/RenderTarget.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Building CXX object mb/CMakeFiles/mb.dir/scene/RenderTarget.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/RenderTarget.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/RenderTarget.cpp
 
 mb/CMakeFiles/mb.dir/scene/RenderTarget.cpp.i: cmake_force
@@ -2123,7 +2147,7 @@ mb/CMakeFiles/mb.dir/scene/RenderTarget.cpp.o.provides.build: mb/CMakeFiles/mb.d
 
 mb/CMakeFiles/mb.dir/scene/Scene.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/Scene.cpp.o: ../mb/scene/Scene.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Building CXX object mb/CMakeFiles/mb.dir/scene/Scene.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_88) "Building CXX object mb/CMakeFiles/mb.dir/scene/Scene.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/Scene.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/Scene.cpp
 
 mb/CMakeFiles/mb.dir/scene/Scene.cpp.i: cmake_force
@@ -2147,7 +2171,7 @@ mb/CMakeFiles/mb.dir/scene/Scene.cpp.o.provides.build: mb/CMakeFiles/mb.dir/scen
 
 mb/CMakeFiles/mb.dir/scene/Transform.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/scene/Transform.cpp.o: ../mb/scene/Transform.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_88) "Building CXX object mb/CMakeFiles/mb.dir/scene/Transform.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_89) "Building CXX object mb/CMakeFiles/mb.dir/scene/Transform.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/scene/Transform.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/scene/Transform.cpp
 
 mb/CMakeFiles/mb.dir/scene/Transform.cpp.i: cmake_force
@@ -2171,7 +2195,7 @@ mb/CMakeFiles/mb.dir/scene/Transform.cpp.o.provides.build: mb/CMakeFiles/mb.dir/
 
 mb/CMakeFiles/mb.dir/textures/RenderBuffer.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/textures/RenderBuffer.cpp.o: ../mb/textures/RenderBuffer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_89) "Building CXX object mb/CMakeFiles/mb.dir/textures/RenderBuffer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_90) "Building CXX object mb/CMakeFiles/mb.dir/textures/RenderBuffer.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/textures/RenderBuffer.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/textures/RenderBuffer.cpp
 
 mb/CMakeFiles/mb.dir/textures/RenderBuffer.cpp.i: cmake_force
@@ -2195,7 +2219,7 @@ mb/CMakeFiles/mb.dir/textures/RenderBuffer.cpp.o.provides.build: mb/CMakeFiles/m
 
 mb/CMakeFiles/mb.dir/textures/RenderBufferMultisampleTexture.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/textures/RenderBufferMultisampleTexture.cpp.o: ../mb/textures/RenderBufferMultisampleTexture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_90) "Building CXX object mb/CMakeFiles/mb.dir/textures/RenderBufferMultisampleTexture.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_91) "Building CXX object mb/CMakeFiles/mb.dir/textures/RenderBufferMultisampleTexture.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/textures/RenderBufferMultisampleTexture.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/textures/RenderBufferMultisampleTexture.cpp
 
 mb/CMakeFiles/mb.dir/textures/RenderBufferMultisampleTexture.cpp.i: cmake_force
@@ -2219,7 +2243,7 @@ mb/CMakeFiles/mb.dir/textures/RenderBufferMultisampleTexture.cpp.o.provides.buil
 
 mb/CMakeFiles/mb.dir/textures/RenderBufferTexture.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/textures/RenderBufferTexture.cpp.o: ../mb/textures/RenderBufferTexture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_91) "Building CXX object mb/CMakeFiles/mb.dir/textures/RenderBufferTexture.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_92) "Building CXX object mb/CMakeFiles/mb.dir/textures/RenderBufferTexture.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/textures/RenderBufferTexture.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/textures/RenderBufferTexture.cpp
 
 mb/CMakeFiles/mb.dir/textures/RenderBufferTexture.cpp.i: cmake_force
@@ -2243,7 +2267,7 @@ mb/CMakeFiles/mb.dir/textures/RenderBufferTexture.cpp.o.provides.build: mb/CMake
 
 mb/CMakeFiles/mb.dir/textures/Texture.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/textures/Texture.cpp.o: ../mb/textures/Texture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_92) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_93) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/textures/Texture.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/textures/Texture.cpp
 
 mb/CMakeFiles/mb.dir/textures/Texture.cpp.i: cmake_force
@@ -2267,7 +2291,7 @@ mb/CMakeFiles/mb.dir/textures/Texture.cpp.o.provides.build: mb/CMakeFiles/mb.dir
 
 mb/CMakeFiles/mb.dir/textures/Texture1D.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/textures/Texture1D.cpp.o: ../mb/textures/Texture1D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_93) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture1D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_94) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture1D.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/textures/Texture1D.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/textures/Texture1D.cpp
 
 mb/CMakeFiles/mb.dir/textures/Texture1D.cpp.i: cmake_force
@@ -2291,7 +2315,7 @@ mb/CMakeFiles/mb.dir/textures/Texture1D.cpp.o.provides.build: mb/CMakeFiles/mb.d
 
 mb/CMakeFiles/mb.dir/textures/Texture2D.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/textures/Texture2D.cpp.o: ../mb/textures/Texture2D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_94) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture2D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_95) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture2D.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/textures/Texture2D.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/textures/Texture2D.cpp
 
 mb/CMakeFiles/mb.dir/textures/Texture2D.cpp.i: cmake_force
@@ -2315,7 +2339,7 @@ mb/CMakeFiles/mb.dir/textures/Texture2D.cpp.o.provides.build: mb/CMakeFiles/mb.d
 
 mb/CMakeFiles/mb.dir/textures/Texture2DArray.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/textures/Texture2DArray.cpp.o: ../mb/textures/Texture2DArray.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_95) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture2DArray.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_96) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture2DArray.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/textures/Texture2DArray.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/textures/Texture2DArray.cpp
 
 mb/CMakeFiles/mb.dir/textures/Texture2DArray.cpp.i: cmake_force
@@ -2339,7 +2363,7 @@ mb/CMakeFiles/mb.dir/textures/Texture2DArray.cpp.o.provides.build: mb/CMakeFiles
 
 mb/CMakeFiles/mb.dir/textures/Texture3D.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/textures/Texture3D.cpp.o: ../mb/textures/Texture3D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_96) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture3D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_97) "Building CXX object mb/CMakeFiles/mb.dir/textures/Texture3D.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/textures/Texture3D.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/textures/Texture3D.cpp
 
 mb/CMakeFiles/mb.dir/textures/Texture3D.cpp.i: cmake_force
@@ -2363,7 +2387,7 @@ mb/CMakeFiles/mb.dir/textures/Texture3D.cpp.o.provides.build: mb/CMakeFiles/mb.d
 
 mb/CMakeFiles/mb.dir/utils/ArgumentParser.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/utils/ArgumentParser.cpp.o: ../mb/utils/ArgumentParser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_97) "Building CXX object mb/CMakeFiles/mb.dir/utils/ArgumentParser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_98) "Building CXX object mb/CMakeFiles/mb.dir/utils/ArgumentParser.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/utils/ArgumentParser.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/utils/ArgumentParser.cpp
 
 mb/CMakeFiles/mb.dir/utils/ArgumentParser.cpp.i: cmake_force
@@ -2387,7 +2411,7 @@ mb/CMakeFiles/mb.dir/utils/ArgumentParser.cpp.o.provides.build: mb/CMakeFiles/mb
 
 mb/CMakeFiles/mb.dir/utils/iniReader.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/utils/iniReader.cpp.o: ../mb/utils/iniReader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_98) "Building CXX object mb/CMakeFiles/mb.dir/utils/iniReader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_99) "Building CXX object mb/CMakeFiles/mb.dir/utils/iniReader.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/utils/iniReader.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/utils/iniReader.cpp
 
 mb/CMakeFiles/mb.dir/utils/iniReader.cpp.i: cmake_force
@@ -2411,7 +2435,7 @@ mb/CMakeFiles/mb.dir/utils/iniReader.cpp.o.provides.build: mb/CMakeFiles/mb.dir/
 
 mb/CMakeFiles/mb.dir/utils/utils.cpp.o: mb/CMakeFiles/mb.dir/flags.make
 mb/CMakeFiles/mb.dir/utils/utils.cpp.o: ../mb/utils/utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_99) "Building CXX object mb/CMakeFiles/mb.dir/utils/utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_100) "Building CXX object mb/CMakeFiles/mb.dir/utils/utils.cpp.o"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb.dir/utils/utils.cpp.o -c /home/crodriguez/Desktop/monkeybrushplusplus/mb/utils/utils.cpp
 
 mb/CMakeFiles/mb.dir/utils/utils.cpp.i: cmake_force
@@ -2506,6 +2530,7 @@ mb_OBJECTS = \
 "CMakeFiles/mb.dir/models/Plane.cpp.o" \
 "CMakeFiles/mb.dir/models/Polyhedron.cpp.o" \
 "CMakeFiles/mb.dir/models/Prism.cpp.o" \
+"CMakeFiles/mb.dir/models/Sphere.cpp.o" \
 "CMakeFiles/mb.dir/models/Tetrahedron.cpp.o" \
 "CMakeFiles/mb.dir/models/Torus.cpp.o" \
 "CMakeFiles/mb.dir/others/Exception.cpp.o" \
@@ -2609,6 +2634,7 @@ lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/models/ParametricGeom.cpp.o
 lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/models/Plane.cpp.o
 lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/models/Polyhedron.cpp.o
 lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/models/Prism.cpp.o
+lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/models/Sphere.cpp.o
 lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o
 lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/models/Torus.cpp.o
 lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/others/Exception.cpp.o
@@ -2644,7 +2670,7 @@ lib/libmb.so.1.9.2: /usr/lib/x86_64-linux-gnu/libGLEW.so
 lib/libmb.so.1.9.2: /usr/lib/x86_64-linux-gnu/libfreeimage.so
 lib/libmb.so.1.9.2: /usr/lib/libglfw3.a
 lib/libmb.so.1.9.2: mb/CMakeFiles/mb.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_100) "Linking CXX shared library ../lib/libmb.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_101) "Linking CXX shared library ../lib/libmb.so"
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mb.dir/link.txt --verbose=$(VERBOSE)
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2/mb && $(CMAKE_COMMAND) -E cmake_symlink_library ../lib/libmb.so.1.9.2 ../lib/libmb.so.1 ../lib/libmb.so
 
@@ -2730,6 +2756,7 @@ mb/CMakeFiles/mb.dir/requires: mb/CMakeFiles/mb.dir/models/ParametricGeom.cpp.o.
 mb/CMakeFiles/mb.dir/requires: mb/CMakeFiles/mb.dir/models/Plane.cpp.o.requires
 mb/CMakeFiles/mb.dir/requires: mb/CMakeFiles/mb.dir/models/Polyhedron.cpp.o.requires
 mb/CMakeFiles/mb.dir/requires: mb/CMakeFiles/mb.dir/models/Prism.cpp.o.requires
+mb/CMakeFiles/mb.dir/requires: mb/CMakeFiles/mb.dir/models/Sphere.cpp.o.requires
 mb/CMakeFiles/mb.dir/requires: mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o.requires
 mb/CMakeFiles/mb.dir/requires: mb/CMakeFiles/mb.dir/models/Torus.cpp.o.requires
 mb/CMakeFiles/mb.dir/requires: mb/CMakeFiles/mb.dir/others/Exception.cpp.o.requires

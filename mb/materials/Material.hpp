@@ -47,8 +47,6 @@ namespace mb
 	public:
 		static GLContext* _context;
 		MB_API
-		Material();
-		MB_API
     virtual ~Material();
 		MB_API
     TUniforms& uniforms();
@@ -85,6 +83,7 @@ namespace mb
 
 		unsigned int PolygonMode;
 	protected:
+    Material();
 		std::string id;
 		TUniforms _uniforms;
     Program* _program;

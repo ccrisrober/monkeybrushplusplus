@@ -78,17 +78,6 @@ install/local/fast: install/local
 
 .PHONY : install/local/fast
 
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && /usr/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -155,6 +144,17 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && /usr/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(CMAKE_COMMAND) -E cmake_progress_start /home/crodriguez/Desktop/monkeybrushplusplus/build2/CMakeFiles /home/crodriguez/Desktop/monkeybrushplusplus/build2/examples/CMakeFiles/progress.marks
@@ -188,61 +188,61 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-examples/CMakeFiles/cpplint_run_mbHelloWorld.dir/rule:
-	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/cpplint_run_mbHelloWorld.dir/rule
-.PHONY : examples/CMakeFiles/cpplint_run_mbHelloWorld.dir/rule
+examples/CMakeFiles/cpplint_run_mbSphere.dir/rule:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/cpplint_run_mbSphere.dir/rule
+.PHONY : examples/CMakeFiles/cpplint_run_mbSphere.dir/rule
 
 # Convenience name for target.
-cpplint_run_mbHelloWorld: examples/CMakeFiles/cpplint_run_mbHelloWorld.dir/rule
+cpplint_run_mbSphere: examples/CMakeFiles/cpplint_run_mbSphere.dir/rule
 
-.PHONY : cpplint_run_mbHelloWorld
+.PHONY : cpplint_run_mbSphere
 
 # fast build rule for target.
-cpplint_run_mbHelloWorld/fast:
-	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/cpplint_run_mbHelloWorld.dir/build.make examples/CMakeFiles/cpplint_run_mbHelloWorld.dir/build
-.PHONY : cpplint_run_mbHelloWorld/fast
+cpplint_run_mbSphere/fast:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/cpplint_run_mbSphere.dir/build.make examples/CMakeFiles/cpplint_run_mbSphere.dir/build
+.PHONY : cpplint_run_mbSphere/fast
 
 # Convenience name for target.
-examples/CMakeFiles/mbHelloWorld.dir/rule:
-	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/mbHelloWorld.dir/rule
-.PHONY : examples/CMakeFiles/mbHelloWorld.dir/rule
+examples/CMakeFiles/mbSphere.dir/rule:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/mbSphere.dir/rule
+.PHONY : examples/CMakeFiles/mbSphere.dir/rule
 
 # Convenience name for target.
-mbHelloWorld: examples/CMakeFiles/mbHelloWorld.dir/rule
+mbSphere: examples/CMakeFiles/mbSphere.dir/rule
 
-.PHONY : mbHelloWorld
+.PHONY : mbSphere
 
 # fast build rule for target.
-mbHelloWorld/fast:
-	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/mbHelloWorld.dir/build.make examples/CMakeFiles/mbHelloWorld.dir/build
-.PHONY : mbHelloWorld/fast
+mbSphere/fast:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/mbSphere.dir/build.make examples/CMakeFiles/mbSphere.dir/build
+.PHONY : mbSphere/fast
 
-helloWorld.o: helloWorld.cpp.o
+helloSphere.o: helloSphere.cpp.o
 
-.PHONY : helloWorld.o
+.PHONY : helloSphere.o
 
 # target to build an object file
-helloWorld.cpp.o:
-	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/mbHelloWorld.dir/build.make examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o
-.PHONY : helloWorld.cpp.o
+helloSphere.cpp.o:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/mbSphere.dir/build.make examples/CMakeFiles/mbSphere.dir/helloSphere.cpp.o
+.PHONY : helloSphere.cpp.o
 
-helloWorld.i: helloWorld.cpp.i
+helloSphere.i: helloSphere.cpp.i
 
-.PHONY : helloWorld.i
+.PHONY : helloSphere.i
 
 # target to preprocess a source file
-helloWorld.cpp.i:
-	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/mbHelloWorld.dir/build.make examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.i
-.PHONY : helloWorld.cpp.i
+helloSphere.cpp.i:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/mbSphere.dir/build.make examples/CMakeFiles/mbSphere.dir/helloSphere.cpp.i
+.PHONY : helloSphere.cpp.i
 
-helloWorld.s: helloWorld.cpp.s
+helloSphere.s: helloSphere.cpp.s
 
-.PHONY : helloWorld.s
+.PHONY : helloSphere.s
 
 # target to generate assembly for a file
-helloWorld.cpp.s:
-	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/mbHelloWorld.dir/build.make examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.s
-.PHONY : helloWorld.cpp.s
+helloSphere.cpp.s:
+	cd /home/crodriguez/Desktop/monkeybrushplusplus/build2 && $(MAKE) -f examples/CMakeFiles/mbSphere.dir/build.make examples/CMakeFiles/mbSphere.dir/helloSphere.cpp.s
+.PHONY : helloSphere.cpp.s
 
 # Help Target
 help:
@@ -252,18 +252,18 @@ help:
 	@echo "... depend"
 	@echo "... test"
 	@echo "... install/local"
-	@echo "... cpplint_run_mbHelloWorld"
-	@echo "... package"
-	@echo "... mbHelloWorld"
 	@echo "... install"
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... cpplint_run_mbSphere"
 	@echo "... package_source"
 	@echo "... edit_cache"
-	@echo "... helloWorld.o"
-	@echo "... helloWorld.i"
-	@echo "... helloWorld.s"
+	@echo "... mbSphere"
+	@echo "... package"
+	@echo "... helloSphere.o"
+	@echo "... helloSphere.i"
+	@echo "... helloSphere.s"
 .PHONY : help
 
 

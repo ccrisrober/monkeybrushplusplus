@@ -35,8 +35,8 @@ namespace mb
     class Mesh: public Drawable
     {
     public:
-        MB_API
-        Mesh(const std::string& fileRoute);
+      MB_API
+      Mesh(const std::string& fileRoute);
 	};
 }
 

@@ -926,6 +926,25 @@ mb/CMakeFiles/mb.dir/models/Prism.cpp.o: include/mb/api.h
 mb/CMakeFiles/mb.dir/models/Prism.cpp.o: include/mb/defines.h
 mb/CMakeFiles/mb.dir/models/Prism.cpp.o: include/mb/definesLinux.h
 
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/Includes.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/core/BufferAttribute.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/core/BufferAttribute.inl
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/core/Log.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/core/VertexArray.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/core/VertexBuffer.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/maths/Box3D.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/maths/Mathf.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/maths/Sphere3D.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/maths/Vect2.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/maths/Vect3.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/models/Drawable.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/models/Sphere.cpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/models/Sphere.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: ../mb/others/Exception.hpp
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: include/mb/api.h
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: include/mb/defines.h
+mb/CMakeFiles/mb.dir/models/Sphere.cpp.o: include/mb/definesLinux.h
+
 mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o: ../mb/Includes.hpp
 mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o: ../mb/core/Log.hpp
 mb/CMakeFiles/mb.dir/models/Tetrahedron.cpp.o: ../mb/core/VertexArray.hpp

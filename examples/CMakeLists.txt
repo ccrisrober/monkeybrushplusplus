@@ -47,12 +47,12 @@ if( MB_WITH_EXAMPLES )
   ##)
   ##common_application( mbPBR )
 
-  set( MBHELLOWORLD_HEADERS )
-  set( MBHELLOWORLD_SOURCES helloWorld.cpp )
-  set( MBHELLOWORLD_LINK_LIBRARIES
-    mb
-  )
-  common_application( mbHelloWorld )
+  #set( MBHELLOWORLD_HEADERS )
+  #set( MBHELLOWORLD_SOURCES helloWorld.cpp )
+  #set( MBHELLOWORLD_LINK_LIBRARIES
+  #  mb
+  #)
+  #common_application( mbHelloWorld )
 
   set( MBSPHERE_HEADERS )
   set( MBSPHERE_SOURCES helloSphere.cpp )

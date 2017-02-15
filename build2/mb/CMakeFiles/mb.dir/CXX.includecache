@@ -871,14 +871,14 @@ Disc.hpp
 /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Disc.hpp
 ../maths/Mathf.hpp
 /home/crodriguez/Desktop/monkeybrushplusplus/mb/maths/Mathf.hpp
+../core/BufferAttribute.hpp
+/home/crodriguez/Desktop/monkeybrushplusplus/mb/core/BufferAttribute.hpp
 
 /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Disc.hpp
 mb/api.h
 -
 Drawable.hpp
 /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Drawable.hpp
-../core/BufferAttribute.hpp
-/home/crodriguez/Desktop/monkeybrushplusplus/mb/core/BufferAttribute.hpp
 
 /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Drawable.cpp
 Drawable.hpp
@@ -1019,6 +1019,20 @@ mb/api.h
 -
 Cone.hpp
 /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Cone.hpp
+
+/home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.cpp
+Sphere.hpp
+/home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.hpp
+../maths/Mathf.hpp
+/home/crodriguez/Desktop/monkeybrushplusplus/mb/maths/Mathf.hpp
+../core/BufferAttribute.hpp
+/home/crodriguez/Desktop/monkeybrushplusplus/mb/core/BufferAttribute.hpp
+
+/home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.hpp
+mb/api.h
+-
+Drawable.hpp
+/home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Drawable.hpp
 
 /home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Tetrahedron.cpp
 Tetrahedron.hpp

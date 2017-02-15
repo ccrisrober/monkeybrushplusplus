@@ -656,30 +656,30 @@ mb/fast:
 .PHONY : mb/fast
 
 #=============================================================================
-# Target rules for targets named cpplint_run_mbHelloWorld
+# Target rules for targets named cpplint_run_mbSphere
 
 # Build rule for target.
-cpplint_run_mbHelloWorld: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 cpplint_run_mbHelloWorld
-.PHONY : cpplint_run_mbHelloWorld
+cpplint_run_mbSphere: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cpplint_run_mbSphere
+.PHONY : cpplint_run_mbSphere
 
 # fast build rule for target.
-cpplint_run_mbHelloWorld/fast:
-	$(MAKE) -f examples/CMakeFiles/cpplint_run_mbHelloWorld.dir/build.make examples/CMakeFiles/cpplint_run_mbHelloWorld.dir/build
-.PHONY : cpplint_run_mbHelloWorld/fast
+cpplint_run_mbSphere/fast:
+	$(MAKE) -f examples/CMakeFiles/cpplint_run_mbSphere.dir/build.make examples/CMakeFiles/cpplint_run_mbSphere.dir/build
+.PHONY : cpplint_run_mbSphere/fast
 
 #=============================================================================
-# Target rules for targets named mbHelloWorld
+# Target rules for targets named mbSphere
 
 # Build rule for target.
-mbHelloWorld: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 mbHelloWorld
-.PHONY : mbHelloWorld
+mbSphere: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mbSphere
+.PHONY : mbSphere
 
 # fast build rule for target.
-mbHelloWorld/fast:
-	$(MAKE) -f examples/CMakeFiles/mbHelloWorld.dir/build.make examples/CMakeFiles/mbHelloWorld.dir/build
-.PHONY : mbHelloWorld/fast
+mbSphere/fast:
+	$(MAKE) -f examples/CMakeFiles/mbSphere.dir/build.make examples/CMakeFiles/mbSphere.dir/build
+.PHONY : mbSphere/fast
 
 #=============================================================================
 # Target rules for targets named cpptests
@@ -862,8 +862,8 @@ help:
 	@echo "... MB-cpplint"
 	@echo "... cpplint_run_mb"
 	@echo "... mb"
-	@echo "... cpplint_run_mbHelloWorld"
-	@echo "... mbHelloWorld"
+	@echo "... cpplint_run_mbSphere"
+	@echo "... mbSphere"
 	@echo "... cpptests"
 	@echo "... tests"
 	@echo "... perftests"

@@ -73,6 +73,7 @@
 #include <mb/models/Torus.hpp>
 #include <mb/models/Plane.hpp>
 #include <mb/models/ParametricGeom.hpp>
+#include <mb/models/Sphere.hpp>
 #include <mb/others/Exception.hpp>
 #include <mb/resources/MaterialCache.hpp>
 #include <mb/resources/ObjParser.hpp>

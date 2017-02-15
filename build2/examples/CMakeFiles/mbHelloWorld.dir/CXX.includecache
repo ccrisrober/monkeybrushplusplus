@@ -621,8 +621,6 @@ mb/api.h
 -
 Drawable.hpp
 ../mb/models/Drawable.hpp
-../core/BufferAttribute.hpp
-../mb/core/BufferAttribute.hpp
 
 ..//mb/models/Drawable.hpp
 mb/api.h
@@ -711,6 +709,12 @@ mb/api.h
 -
 Cone.hpp
 ../mb/models/Cone.hpp
+
+..//mb/models/Sphere.hpp
+mb/api.h
+-
+Drawable.hpp
+../mb/models/Drawable.hpp
 
 ..//mb/models/Tetrahedron.hpp
 mb/api.h
@@ -1772,6 +1776,8 @@ mb/models/Torus.hpp
 mb/models/Plane.hpp
 -
 mb/models/ParametricGeom.hpp
+-
+mb/models/Sphere.hpp
 -
 mb/others/Exception.hpp
 -

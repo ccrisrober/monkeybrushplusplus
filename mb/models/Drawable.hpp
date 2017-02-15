@@ -75,13 +75,13 @@ namespace mb
 		}
 		Sphere3D boundingSphere;
     protected:
-        Drawable();
-		unsigned int _numVertices;
-		unsigned int _indicesLen;
-		std::vector<VertexBuffer> _handle;
-		VertexArray* _vao;
-        void addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
-            unsigned int numElems, unsigned int type = GL_STATIC_DRAW);
+      Drawable();
+  		unsigned int _numVertices;
+  		unsigned int _indicesLen;
+  		std::vector<VertexBuffer> _handle;
+  		VertexArray* _vao;
+      void addBufferArray(unsigned int attribLocation, const std::vector<float>& data,
+          unsigned int numElems, unsigned int type = GL_STATIC_DRAW);
     };
     typedef std::shared_ptr<mb::Drawable> DrawablePtr;
 }

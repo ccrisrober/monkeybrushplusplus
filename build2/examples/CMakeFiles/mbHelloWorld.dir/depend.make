@@ -82,6 +82,7 @@ examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o: ../mb/models/ParametricGe
 examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o: ../mb/models/Plane.hpp
 examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o: ../mb/models/Polyhedron.hpp
 examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o: ../mb/models/Prism.hpp
+examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o: ../mb/models/Sphere.hpp
 examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o: ../mb/models/Tetrahedron.hpp
 examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o: ../mb/models/Torus.hpp
 examples/CMakeFiles/mbHelloWorld.dir/helloWorld.cpp.o: ../mb/others/Exception.hpp

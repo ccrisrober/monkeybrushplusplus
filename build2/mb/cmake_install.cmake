@@ -409,6 +409,10 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "dev")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "dev")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mb/models" TYPE FILE MESSAGE_LAZY FILES "/home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Sphere.hpp")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "dev")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mb/models" TYPE FILE MESSAGE_LAZY FILES "/home/crodriguez/Desktop/monkeybrushplusplus/mb/models/Tetrahedron.hpp")
 endif()
 

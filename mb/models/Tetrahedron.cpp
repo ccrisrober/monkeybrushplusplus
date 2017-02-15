@@ -40,6 +40,6 @@ namespace mb
       1,  3,  0,
       2,  3,  1
 		};
-		this->create(verts, el, radius, subdivisions);
+		this->_createPolyhedron(verts, el, radius, subdivisions);
 	}
 }

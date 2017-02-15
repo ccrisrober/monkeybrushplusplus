@@ -82,6 +82,7 @@ tests/CMakeFiles/Example.dir/Example.cpp.o: ../mb/models/ParametricGeom.hpp
 tests/CMakeFiles/Example.dir/Example.cpp.o: ../mb/models/Plane.hpp
 tests/CMakeFiles/Example.dir/Example.cpp.o: ../mb/models/Polyhedron.hpp
 tests/CMakeFiles/Example.dir/Example.cpp.o: ../mb/models/Prism.hpp
+tests/CMakeFiles/Example.dir/Example.cpp.o: ../mb/models/Sphere.hpp
 tests/CMakeFiles/Example.dir/Example.cpp.o: ../mb/models/Tetrahedron.hpp
 tests/CMakeFiles/Example.dir/Example.cpp.o: ../mb/models/Torus.hpp
 tests/CMakeFiles/Example.dir/Example.cpp.o: ../mb/others/Exception.hpp

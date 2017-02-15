@@ -23,7 +23,7 @@ namespace mb
 #   define MB_VERSION_PATCH 2
 
     /** The current SCM revision. */
-#   define MB_VERSION_REVISION 0x99c4a10
+#   define MB_VERSION_REVISION 0x897a7f9
 
     /** The current binary interface. */
 #   define MB_VERSION_ABI 1

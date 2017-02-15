@@ -33,8 +33,8 @@ namespace mb
     class Polyhedron: public Drawable
     {
     protected:
-		Polyhedron();
-        void create(std::vector<float>& verts, std::vector<unsigned int>& el,
+		  Polyhedron();
+      void _createPolyhedron(std::vector<float>& verts, std::vector<unsigned int>& el,
 			const float& radius, const unsigned int& subdivisions);
     };
 }

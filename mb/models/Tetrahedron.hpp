@@ -33,6 +33,12 @@ namespace mb
 	class Tetrahedron : public Polyhedron
 	{
 	public:
+    MB_API
+    static std::shared_ptr<mb::Tetrahedron> create(const float& radius = 1.0f,
+      const unsigned int& subdivisions = 1)
+    {
+      return std::make_shared<mb::Tetrahedron>( radius, subdivisions );
+    }
 		MB_API
 		Tetrahedron(const float& radius = 1.0f,
 			const unsigned int& subdivisions = 1);
