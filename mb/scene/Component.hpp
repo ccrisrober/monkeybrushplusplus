@@ -35,17 +35,18 @@
   using namespace rapidjson;
 #endif
 
-#include "../utils/RTTI.hpp"
+// TODO RTTI
+//#include "../utils/RTTI.hpp"
 
 namespace mb
 {
   class Node;
-  class Component: public RTTI
+  class Component//: public RTTI
   {
-  MB_IMPLEMENT_RTTI(mb::Component)
+  //MB_IMPLEMENT_RTTI(mb::Component)
   public:
-    MB_API
-    virtual const char *getComponentName(void) const { return getClassName(); }
+    //MB_API
+    //virtual const char *getComponentName(void) const { return getClassName(); }
     MB_API
     virtual void start( void );
   	MB_API

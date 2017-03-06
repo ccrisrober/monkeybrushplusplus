@@ -33,8 +33,11 @@ namespace mb
   class LODNode: public Node
   {
   public:
-    MB_API
-    virtual ~LODNode( void ) {}
+		MB_API
+		LODNode( const std::string& name, const std::string& tag = "Untagged" )
+			: Node( name, tag ) {}
+		MB_API
+		virtual ~LODNode( void ) {}
   };
 }
 

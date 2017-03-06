@@ -24,12 +24,12 @@ if( MB_WITH_EXAMPLES )
   #common_application( mbAlienTexture )
 
 
-  ##set( MBALPHATEXTURES_HEADERS )
-  ##set( MBALPHATEXTURES_SOURCES alphaTextures.cpp )
-  ##set( MBALPHATEXTURES_LINK_LIBRARIES
-  ##  mb
-  ##)
-  ##common_application( mbAlphaTextures )
+  set( MBALPHATEXTURES_HEADERS )
+  set( MBALPHATEXTURES_SOURCES alphaTextures.cpp )
+  set( MBALPHATEXTURES_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbAlphaTextures )
 
 
   ##set( MBMORECUBES_HEADERS )

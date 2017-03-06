@@ -35,7 +35,7 @@ namespace mb
 {
   class MeshRenderer: public Component
   {
-  MB_IMPLEMENT_RTTI(mb::MeshRenderer)
+  //MB_IMPLEMENT_RTTI(mb::MeshRenderer)
   public:
     MB_API
     static std::shared_ptr<mb::MeshRenderer> create(

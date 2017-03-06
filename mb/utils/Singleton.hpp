@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -21,25 +21,27 @@
  *
  */
 
-#ifndef __MB_GROUP__
-#define __MB_GROUP__
+#ifndef __MB_SINGLETON_TEMPLATE__
+#define __MB_SINGLETON_TEMPLATE__
 
 #include <mb/api.h>
 
-#include "Node.hpp"
-
 namespace mb
 {
-	class Group: public Node
-	{
+	// thread safe
+	template< class E >
+	class Singleton {
+	private:
+		// forces singleton to be initialized before main
+		static E _dummyInstance;
+
 	public:
-		MB_API
-		Group( const std::string& name, const std::string& tag = "Untagged" );
-		MB_API
-		virtual ~Group( void );
-		MB_API
-		bool hasNodes( void ) const;
+		static E *getInstance( void )
+		{
+  			static E instance;	// actual instance
+  			return &instance;
+		}
 	};
 }
 
-#endif /* __MB_GROUP__ */
+#endif /* __MB_SINGLETON_TEMPLATE__ */

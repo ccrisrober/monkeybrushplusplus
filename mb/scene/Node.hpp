@@ -170,7 +170,12 @@ namespace mb
 		template <typename T>
 		std::vector<T*> componentsInChildren( void );*/
 
-
+		MB_API
+		mb::ComponentPtr getComponentByName( const std::string& name )
+		{
+			// TODO
+			return nullptr;
+		}
 
 		MB_API
 		mb::ComponentPtr getComponentByIndex( unsigned int index );

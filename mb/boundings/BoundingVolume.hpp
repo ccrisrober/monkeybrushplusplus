@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -21,25 +21,37 @@
  *
  */
 
-#ifndef __MB_GROUP__
-#define __MB_GROUP__
+#ifndef __MB_BOUNDING_VOLUME__
+#define __MB_BOUNDING_VOLUME__
 
 #include <mb/api.h>
-
-#include "Node.hpp"
+#include <cmath>
 
 namespace mb
 {
-	class Group: public Node
+	class BoundingVolume
 	{
+	protected:
+		BoundingVolume( void );
+
 	public:
 		MB_API
-		Group( const std::string& name, const std::string& tag = "Untagged" );
+		virtual ~BoundingVolume( void );
 		MB_API
-		virtual ~Group( void );
+		const mb::Vect3 &getMin( void ) const { return _min; }
 		MB_API
-		bool hasNodes( void ) const;
-	};
-}
+		const mb::Vect3 &getMax( void ) const { return _max; }
+	protected:
+		void setMax( const mb::Vect3& min ) { _min = min; }
+		void setMin( const mb::Vect3& max ) { _max = max; }
 
-#endif /* __MB_GROUP__ */
+	private:
+		mb::Vect3 _min;
+		mb::Vect3 _max;
+
+	public:
+		virtual bool testIntersection( const mb::Ray& ray ) const = 0;
+	}
+};
+
+#endif /* __MB_BOUNDING_VOLUME__ */

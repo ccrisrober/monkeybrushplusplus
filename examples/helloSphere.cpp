@@ -38,7 +38,7 @@ int main(void)
 
   mb::DrawablePtr mesh = std::make_shared<mb::Sphere>( 1.0f, 25, 25 );
 
-  mb::NormalMaterialPtr material = std::make_shared<mb::NormalMaterial>(mb::NormalMaterialInterpolation::Flat);
+  mb::NormalMaterialPtr material = std::make_shared<mb::NormalMaterial>(mb::NormalMaterialInterpolation::Normal);
   material->Cull = false;
 
   mb::NodePtr mbNode = std::make_shared<mb::Node>( std::string( "mesh" ) );

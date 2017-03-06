@@ -21,25 +21,18 @@
  *
  */
 
-#ifndef __MB_GROUP__
-#define __MB_GROUP__
-
-#include <mb/api.h>
-
-#include "Node.hpp"
+#include "Group.hpp"
 
 namespace mb
 {
-	class Group: public Node
+	Group::Group( const std::string& name, const std::string& tag )
+	: Node( name, tag )
 	{
-	public:
-		MB_API
-		Group( const std::string& name, const std::string& tag = "Untagged" );
-		MB_API
-		virtual ~Group( void );
-		MB_API
-		bool hasNodes( void ) const;
-	};
+	}
+	Group::~Group( void ) {
+	}
+	bool Group::hasNodes( void ) const
+	{
+		return !_children.empty( );
+	}
 }
-
-#endif /* __MB_GROUP__ */

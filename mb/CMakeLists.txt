@@ -1,9 +1,9 @@
 source_group(\\ FILES CMakeLists.txt)
 
 set( MB_PUBLIC_HEADERS
-  cameras/Camera.hpp
-  cameras/PerspectiveCamera.hpp
-  cameras/OrthographicCamera.hpp
+  #cameras/Camera.hpp
+  #cameras/PerspectiveCamera.hpp
+  #cameras/OrthographicCamera.hpp
 
   constants/Constants.hpp
 
@@ -26,6 +26,11 @@ set( MB_PUBLIC_HEADERS
   core/VertexBuffer.hpp
   core/VertexUBO.hpp
   core/Framebuffer2.hpp
+
+  exceptions/Exception.hpp
+  exceptions/FileNotFoundException.hpp
+  exceptions/HasParentException.hpp
+  exceptions/RuntimeException.hpp
 
   extras/CustomPingPong.hpp
   extras/CustomPingPong.inl
@@ -66,6 +71,7 @@ set( MB_PUBLIC_HEADERS
   maths/Vect3.hpp
   maths/Vect4.hpp
   maths/Spherical.hpp
+  maths/Frustum.hpp
 
 
   models/Capsule.hpp
@@ -85,8 +91,8 @@ set( MB_PUBLIC_HEADERS
   models/Plane.hpp
   models/ParametricGeom.hpp
   models/Sphere.hpp
-
-  others/Exception.hpp
+  models/KleinBottle.hpp
+  models/MobiusStrip.hpp
 
   resources/MaterialCache.hpp
   resources/ObjParser.hpp
@@ -106,6 +112,10 @@ set( MB_PUBLIC_HEADERS
   scene/Scene.hpp
   scene/Transform.hpp
   scene/NodeData.hpp
+  scene/Group.hpp
+  scene/Switch.hpp
+  scene/LODNode.hpp
+  scene/CameraComponent.hpp
 
   textures/RenderBuffer.hpp
   textures/RenderBufferMultisampleTexture.hpp
@@ -123,6 +133,8 @@ set( MB_PUBLIC_HEADERS
   utils/utils.hpp
   utils/iniReader.hpp
   utils/RTTI.hpp
+  utils/StringUtils.hpp
+  utils/Singleton.hpp
 
   Includes.hpp
   Helpers.hpp
@@ -136,7 +148,7 @@ set( MB_PUBLIC_HEADERS
   io/Window.hpp
   io/GLFWWindow2.hpp
 
-  CameraComponent.hpp
+  #CameraComponent.hpp
   #Transform2.hpp
   models/IDrawable.hpp
   scene/RenderTarget.hpp
@@ -146,9 +158,9 @@ set( MB_HEADERS
 )
 
 set( MB_SOURCES
-  cameras/Camera.cpp
-  cameras/PerspectiveCamera.cpp
-  cameras/OrthographicCamera.cpp
+  #cameras/Camera.cpp
+  #cameras/PerspectiveCamera.cpp
+  #cameras/OrthographicCamera.cpp
 
   core/Color3.cpp
   core/Color4.cpp
@@ -202,6 +214,7 @@ set( MB_SOURCES
   maths/Vect3.cpp
   maths/Vect4.cpp
   maths/Spherical.cpp
+  maths/Frustum.cpp
 
   models/Capsule.cpp
   models/Cone.cpp
@@ -221,8 +234,6 @@ set( MB_SOURCES
   models/ParametricGeom.cpp
   models/Sphere.cpp
 
-  others/Exception.cpp
-
   resources/MaterialCache.cpp
   resources/ObjParser.cpp
   resources/ResourceShader.cpp
@@ -237,6 +248,9 @@ set( MB_SOURCES
   scene/NodeData.cpp
   scene/Scene.cpp
   scene/Transform.cpp
+  scene/Group.cpp
+  scene/Switch.cpp
+  scene/CameraComponent.cpp
 
   textures/RenderBuffer.cpp
   textures/RenderBufferMultisampleTexture.cpp

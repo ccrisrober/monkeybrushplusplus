@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -21,25 +21,34 @@
  *
  */
 
-#ifndef __MB_GROUP__
-#define __MB_GROUP__
-
-#include <mb/api.h>
-
-#include "Node.hpp"
+#include "CameraComponent.hpp"
 
 namespace mb
 {
-	class Group: public Node
-	{
-	public:
-		MB_API
-		Group( const std::string& name, const std::string& tag = "Untagged" );
-		MB_API
-		virtual ~Group( void );
-		MB_API
-		bool hasNodes( void ) const;
-	};
-}
+	CameraComponent *CameraComponent::_mainCamera = nullptr;
 
-#endif /* __MB_GROUP__ */
+	CameraComponent::CameraComponent( void )
+		: CameraComponent( 60.0f, 1.0f / 1.0f, 0.1f, 1000.0f)
+	{
+	}
+	CameraComponent::CameraComponent( float fov, float aspect, float near, float far )
+		: Component( )
+		, _frustum( fov, aspect, near, far )
+	{
+		_projectionMatrix = _frustum.computeProjectionMatrix();
+		_orthographicMatrix = _frustum.computeOrthographicMatrix();
+	}
+	CameraComponent::~CameraComponent(void)
+	{
+		if ( getMainCamera( ) == this )
+		{
+			setMainCamera( nullptr );
+		}
+	}
+	void CameraComponent::setFrustum( const Frustum& f )
+	{
+		_frustum = f;
+		_projectionMatrix = _frustum.computeProjectionMatrix( );
+		_orthographicMatrix = _frustum.computeOrthographicMatrix( );
+	}
+}

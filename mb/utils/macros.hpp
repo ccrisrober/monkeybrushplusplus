@@ -73,4 +73,6 @@ protected: varType varName;\
 public: virtual const varType& get##funName(void) const;\
 public: virtual void set##funName(const varType& var);
 
+#define MB_TO_STR(A) #A
+
 #endif /* __MB__MACROS__ */

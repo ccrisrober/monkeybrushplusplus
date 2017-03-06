@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -21,25 +21,35 @@
  *
  */
 
-#ifndef __MB_GROUP__
-#define __MB_GROUP__
+#ifndef __MB_SWITCH__
+#define __MB_SWITCH__
 
 #include <mb/api.h>
 
-#include "Node.hpp"
+#include "Group.hpp"
 
 namespace mb
 {
-	class Group: public Node
+	class Switch: public Group
 	{
 	public:
+        MB_API
+        Switch( const std::string& name, const std::string& tag = "Untagged" );
 		MB_API
-		Group( const std::string& name, const std::string& tag = "Untagged" );
+		virtual ~Switch( void );
 		MB_API
-		virtual ~Group( void );
+		NodePtr getCurrentNode( void );
 		MB_API
-		bool hasNodes( void ) const;
+        int getCurrentNodeIndex( void ) const;
+		MB_API
+        void setCurrentNodeIndex( int index );
+		MB_API
+        void selectNextNode( void );
+		MB_API
+        void selectPrevNode( void );
+    private:
+        int _currentIdx = 0;
 	};
 }
 
-#endif /* __MB_GROUP__ */
+#endif /* __MB_SWITCH__ */

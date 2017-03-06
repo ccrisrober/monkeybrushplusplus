@@ -30,11 +30,14 @@
 
 namespace mb
 {
-	class MBException: public std::runtime_error
+	class Exception: public std::runtime_error
 	{
 	public:
-    MB_API
-		MBException(const std::string& message);
+    	MB_API
+		Exception( std::string message )
+		: std::runtime_error( message.c_str( ) )
+		{
+		}
 	};
 }
 
