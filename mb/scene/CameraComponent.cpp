@@ -28,7 +28,7 @@ namespace mb
 	CameraComponent *CameraComponent::_mainCamera = nullptr;
 
 	CameraComponent::CameraComponent( void )
-		: CameraComponent( 60.0f, 1.0f / 1.0f, 0.1f, 1000.0f)
+	: CameraComponent( 60.0f, 1.0f / 1.0f, 0.1f, 1000.0f)
 	{
 	}
 	CameraComponent::CameraComponent( float fov, float aspect, float near, float far )
@@ -37,6 +37,10 @@ namespace mb
 	{
 		_projectionMatrix = _frustum.computeProjectionMatrix();
 		_orthographicMatrix = _frustum.computeOrthographicMatrix();
+		if ( getMainCamera( ) == nullptr )
+		{
+			setMainCamera( this );
+		}
 	}
 	CameraComponent::~CameraComponent(void)
 	{

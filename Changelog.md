@@ -40,3 +40,4 @@
 - (14/12) Added TmpCache to templated resource.
 - (11/02)  Removed GLFW from gitsubproject. GLFW compiled library necessary. Added onAttach and onDetach in Component.
 - (06/03) Added tests for node and group. Added custom exceptions (RuntimeException, HasParentException, FileNotFoundException). Added Frustum, CameraComponent and Switch.
+- (07/03) Updated Log, more easy to use :)

@@ -29,7 +29,7 @@ namespace mb
 {
   bool GLFWWindow2::init( )
   {
-    mb::LOG( mb::LOG::INFO ) << "Initializing GLFW";
+	mb::Log::info("Initializing GLFW");
     if ( !glfwInit( ) )
     {
       throw "Failed to initialise GLFW";
@@ -91,10 +91,10 @@ namespace mb
     glfwSetInputMode( _handle, GLFW_STICKY_KEYS, GL_TRUE );
     glfwMakeContextCurrent( _handle );
 
-    mb::LOG( mb::LOG::INFO ) << "GLFW initialized";
+	mb::Log::info("GLFW initialized");
 
 
-    mb::LOG( mb::LOG::INFO ) << "Initializing GLEW";
+	mb::Log::info("Initializing GLEW");
     // Initialize GLEW to setup the OpenGL Function pointers
     glewExperimental = ( GLboolean ) true;
     if ( glewInit( ) != GLEW_OK )
@@ -103,12 +103,13 @@ namespace mb
       throw "Failed to initialise GLEW";
     }
 
-    mb::LOG( mb::LOG::INFO ) << "OpenGL functions succesfully loaded.";
-    mb::LOG( mb::LOG::INFO ) << "Version - Major: " << std::to_string( _params.maxVersion )
-      << " Minor: " << std::to_string( _params.minVersion );
-    mb::LOG( mb::LOG::INFO ) << "Driver: " << ( char* ) glGetString( GL_VENDOR ) << " Renderer: " << ( char* ) glGetString( GL_RENDERER );
+	mb::Log::info("OpenGL functions succesfully loaded.");
+	mb::Log::info("Version - Major: ", std::to_string(_params.maxVersion), 
+		" Minor: ", std::to_string( _params.minVersion ));
+	mb::Log::info("Driver: ", (char*)glGetString(GL_VENDOR),
+		" Renderer: ", (char*)glGetString(GL_RENDERER));
 
-    mb::LOG( mb::LOG::INFO ) << "GLEW initialized";
+	mb::Log::info("GLEW initialized");
 
     return true;
   }

@@ -36,10 +36,9 @@ namespace mb
 		MB_API
 		explicit Clock( double deltaTime );
 		MB_API
-		Clock( const Clock &other );
+		Clock( const Clock &c );
 		MB_API
 		~Clock( void );
-
 		MB_API
 		Clock &operator=( const Clock &other );
 
@@ -49,7 +48,8 @@ namespace mb
 		void tick( void );
 
 		MB_API
-		double getCurrentTime( void ) const {
+		double getCurrentTime( void ) const
+		{
 			return _currentTime;
 		}
 		MB_API
@@ -106,7 +106,7 @@ namespace mb
 
 	public:
 		/**
-		   \brief Ticks the clock by a fixed delta time
+		   Ticks the clock by a fixed delta time
 		   As a side effect, _accumTime gets incremented by the new
 		   _deltaTime. Callbacks get executed if timeout is over
 		 */
@@ -114,7 +114,7 @@ namespace mb
 		Clock &operator+=( double delta );
 
 		/**
-		   \brief Ticks the clock by another clock's delta time
+		   Ticks the clock by another clock's delta time
 		   As a side effect, _accumTime gets incremented by the new
 		   _deltaTime. Callbacks get executed if timeout is over
 		 */

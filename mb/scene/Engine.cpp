@@ -68,7 +68,7 @@ namespace mb
   , lastFrame(0.0f)
   , _debugLayer(debugLayer)
   {
-    mb::LOG(mb::LOG::INFO) << "Initializing Engine";
+	mb::Log::info("Initializing Engine");
     Input::initialize();
 
     Material::_context = context;
@@ -81,7 +81,7 @@ namespace mb
     this->state()->depth.setStatus(true);
     this->state()->culling.setStatus(true);
 
-    mb::LOG(mb::LOG::INFO) << "Engine initialized";
+	mb::Log::info("Engine initialized");
   }
   void Engine::run(std::function<void(float)> loop)
   {

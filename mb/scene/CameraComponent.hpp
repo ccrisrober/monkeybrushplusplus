@@ -80,7 +80,10 @@ namespace mb
 		mb::Mat4 _viewMatrix;
 	public:
 		static CameraComponent* getMainCamera( void ) { return _mainCamera; }
-		static void setMainCamera( CameraComponent* camera ) { _mainCamera = camera; }
+		static void setMainCamera( CameraComponent* camera ) { 
+			_mainCamera = camera;
+			camera->setIsMainCamera( true );
+		}
 	private:
 		static CameraComponent* _mainCamera;
 	};

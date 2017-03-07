@@ -32,18 +32,18 @@ int main(void)
 {
   mb::GLContext context( 3, 3, 1024, 768, "Hello Sphere" );
 
-  auto engine = std::make_shared<mb::Engine>( &context, false );
-  scene = std::make_shared<mb::Scene>( engine,
+  auto engine = std::make_shared< mb::Engine >( &context, false );
+  scene = std::make_shared< mb::Scene >( engine,
     new mb::SimpleCamera( mb::Vect3( 0.2f, 0.18f, 8.44f ) ) );
 
-  mb::DrawablePtr mesh = std::make_shared<mb::Sphere>( 1.0f, 25, 25 );
+  mb::DrawablePtr mesh = std::make_shared <mb::Sphere >( 1.0f, 25, 25 );
 
-  mb::NormalMaterialPtr material = std::make_shared<mb::NormalMaterial>(mb::NormalMaterialInterpolation::Normal);
+  mb::NormalMaterialPtr material = std::make_shared< mb::NormalMaterial >( mb::NormalMaterialInterpolation::Normal );
   material->Cull = false;
 
-  mb::NodePtr mbNode = std::make_shared<mb::Node>( std::string( "mesh" ) );
-  mbNode->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
-  mbNode->addComponent( std::make_shared<mb::MoveComponent>( ) );
+  mb::NodePtr mbNode = std::make_shared< mb::Node >( std::string( "mesh" ) );
+  mbNode->addComponent( std::make_shared< mb::MeshRenderer >( mesh, material ) );
+  mbNode->addComponent( std::make_shared< mb::MoveComponent >( ) );
 
   scene->root( )->addChild( mbNode );
 
