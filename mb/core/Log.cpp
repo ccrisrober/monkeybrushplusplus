@@ -23,9 +23,11 @@
 
 #include "Log.hpp"
 
+#include "../Includes.hpp"
+
 namespace mb
 {
 	std::unique_ptr< Log::OutputHandler > Log::_outputHandler =
-		std::make_unique< Log::ConsoleOutputHandler>();
+		make_unique< Log::ConsoleOutputHandler>();
 	int Log::_level = Log::LogLevel::LOG_LEVEL_INFO;
 }

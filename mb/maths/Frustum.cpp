@@ -29,9 +29,9 @@ namespace mb
 	Frustum::Frustum( void )
 	{
 	}
-	Frustum::Frustum( 
-		float rMin, float rMax, 
-		float uMin, float uMax, 
+	Frustum::Frustum(
+		float rMin, float rMax,
+		float uMin, float uMax,
 		float dMin, float dMax )
 	{
 		_data[ FRUSTUM_R_MIN ] = rMin;
@@ -54,7 +54,7 @@ namespace mb
 	}
 	Frustum::Frustum( const Frustum &frustum )
 	{
-		memcpy( _data, frustum._data, 6 * sizeof( float ) );
+		memcmp( _data, frustum._data, 6 * sizeof( float ) );
 	}
 	Frustum::~Frustum( void )
 	{

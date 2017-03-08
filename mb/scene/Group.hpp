@@ -33,6 +33,12 @@ namespace mb
 	class Group: public Node
 	{
 	public:
+    MB_API
+    static std::shared_ptr<mb::Group> create( const std::string& name,
+      const std::string& tag = "Untagged" )
+    {
+      return std::make_shared<mb::Group>( name, tag );
+    }
 		MB_API
 		Group( const std::string& name, const std::string& tag = "Untagged" );
 		MB_API

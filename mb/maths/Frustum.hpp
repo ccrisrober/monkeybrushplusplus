@@ -27,6 +27,8 @@
 #include <mb/api.h>
 #include "Mat4.hpp"
 
+#include <string.h>
+
 namespace mb
 {
 	class Frustum
@@ -44,9 +46,9 @@ namespace mb
 		MB_API
 		Frustum( void );
 		MB_API
-		Frustum( 
-			float rMin, float rMax, 
-			float uMin, float uMax, 
+		Frustum(
+			float rMin, float rMax,
+			float uMin, float uMax,
 			float dMin, float dMax );
 		MB_API
 		Frustum( float fov, float aspect, float near, float far );
@@ -62,7 +64,7 @@ namespace mb
 		MB_API
 		bool operator!=( const Frustum &frustum ) const
 		{
-			return memcmp( _data, frustum._data, 6 * sizeof( float ) ) != 0;
+			return memcmp( _data, frustum._data, 6 * sizeof( float ) );
 		}
 		MB_API
 		float getRMin( void ) const { return _data[ FRUSTUM_R_MIN ]; }
@@ -76,91 +78,91 @@ namespace mb
 		float getDMin( void ) const { return _data[ FRUSTUM_D_MIN ]; }
 		MB_API
 		float getDMax( void ) const { return _data[ FRUSTUM_D_MAX ]; }
-        
+
 		MB_API
-        float computeFOV( void ) const
-        {
-            return getUMax() / getDMin();
-        }
+    float computeFOV( void ) const
+    {
+      return getUMax() / getDMin();
+    }
 
 		MB_API
 		float computeAspect( void ) const
 		{
-			return getRMax() / getUMax();	
+			return getRMax() / getUMax();
 		}
-        
+
 		MB_API
-        float computeLinearDepth( void ) const
-        {
-            return getDMax() - getDMin();
-        }
+    float computeLinearDepth( void ) const
+    {
+      return getDMax() - getDMin();
+    }
 
 		MB_API
 		mb::Mat4 computeProjectionMatrix( void ) const
 		{
-            float n = getDMin();
-            float f = getDMax();
-            float r = getRMax();
-            float l = getRMin();
-            float t = getUMax();
-            float b = getUMin();
+      float n = getDMin();
+      float f = getDMax();
+      float r = getRMax();
+      float l = getRMin();
+      float t = getUMax();
+      float b = getUMin();
 
-            std::vector<float> projMatrix(16);
-            projMatrix[ 0 ] = 2.0f * n / ( r - l );
-            projMatrix[ 1 ] = 0.0f;
-            projMatrix[ 2 ] = 0.0f;
-            projMatrix[ 3 ] = 0.0f;
+      std::vector<float> projMatrix(16);
+      projMatrix[ 0 ] = 2.0f * n / ( r - l );
+      projMatrix[ 1 ] = 0.0f;
+      projMatrix[ 2 ] = 0.0f;
+      projMatrix[ 3 ] = 0.0f;
 
-            projMatrix[ 4 ] = 0.0f;
-            projMatrix[ 5 ] = 2.0f * n / ( t - b );
-            projMatrix[ 6 ] = 0.0f;
-            projMatrix[ 7 ] = 0.0f;
+      projMatrix[ 4 ] = 0.0f;
+      projMatrix[ 5 ] = 2.0f * n / ( t - b );
+      projMatrix[ 6 ] = 0.0f;
+      projMatrix[ 7 ] = 0.0f;
 
-            projMatrix[ 8 ] = ( r + l ) / ( r - l );
-            projMatrix[ 9 ] = ( t + b ) / ( t - b );
-            projMatrix[ 10 ] = -( f + n ) / ( f - n );
-            projMatrix[ 11 ] = -1.0f;
+      projMatrix[ 8 ] = ( r + l ) / ( r - l );
+      projMatrix[ 9 ] = ( t + b ) / ( t - b );
+      projMatrix[ 10 ] = -( f + n ) / ( f - n );
+      projMatrix[ 11 ] = -1.0f;
 
-            projMatrix[ 12 ] = 0.0f;
-            projMatrix[ 13 ] = 0.0f;
-            projMatrix[ 14 ] = -( 2.0f * f * n ) / ( f - n );
-            projMatrix[ 15 ] = 0.0f;
-            
+      projMatrix[ 12 ] = 0.0f;
+      projMatrix[ 13 ] = 0.0f;
+      projMatrix[ 14 ] = -( 2.0f * f * n ) / ( f - n );
+      projMatrix[ 15 ] = 0.0f;
+
 			return mb::Mat4(projMatrix);
 		}
 
 		MB_API
 		mb::Mat4 computeOrthographicMatrix(void) const
-		{
-            float near = getDMin();
-            float far = getDMax();
-            float fov = getRMax() / getUMax();
+    {
+      float near = getDMin();
+      float far = getDMax();
+      float fov = getRMax() / getUMax();
 			float right = fov;
 			float left = -fov;
 			float top = 1.0f;
 			float bottom = -1.0f;
 
 			std::vector<float> ortoMatrix(16);
-            ortoMatrix[ 0 ] = ( 2.0f / ( right - left ) );
-            ortoMatrix[ 1 ] = 0.0f;
-            ortoMatrix[ 2 ] = 0.0f;
-            ortoMatrix[ 3 ] = -( right + left ) / ( right - left );
+      ortoMatrix[ 0 ] = ( 2.0f / ( right - left ) );
+      ortoMatrix[ 1 ] = 0.0f;
+      ortoMatrix[ 2 ] = 0.0f;
+      ortoMatrix[ 3 ] = -( right + left ) / ( right - left );
 
-            ortoMatrix[ 4 ] = 0.0f;
-            ortoMatrix[ 5 ] = ( 2.0f / ( top - bottom ) );
-            ortoMatrix[ 6 ] = - ( top + bottom ) / ( top - bottom );
-            ortoMatrix[ 7 ] = 0.0f;
+      ortoMatrix[ 4 ] = 0.0f;
+      ortoMatrix[ 5 ] = ( 2.0f / ( top - bottom ) );
+      ortoMatrix[ 6 ] = - ( top + bottom ) / ( top - bottom );
+      ortoMatrix[ 7 ] = 0.0f;
 
-            ortoMatrix[ 8 ] = 0.0f;
-            ortoMatrix[ 9 ] = 0.0f;
-            ortoMatrix[ 10 ] = ( -2.0f / ( far - near ) );
-            ortoMatrix[ 11 ] = ( far + near ) / ( far - near );
+      ortoMatrix[ 8 ] = 0.0f;
+      ortoMatrix[ 9 ] = 0.0f;
+      ortoMatrix[ 10 ] = ( -2.0f / ( far - near ) );
+      ortoMatrix[ 11 ] = ( far + near ) / ( far - near );
 
-            ortoMatrix[ 12 ] = 0.0f;
-            ortoMatrix[ 13 ] = 0.0f;
-            ortoMatrix[ 14 ] = 0.0f;
-            ortoMatrix[ 15 ] = 1.0f;
-            
+      ortoMatrix[ 12 ] = 0.0f;
+      ortoMatrix[ 13 ] = 0.0f;
+      ortoMatrix[ 14 ] = 0.0f;
+      ortoMatrix[ 15 ] = 1.0f;
+
 			return mb::Mat4( ortoMatrix );
 		}
 	private:

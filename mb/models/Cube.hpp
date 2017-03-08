@@ -30,12 +30,12 @@
 
 namespace mb
 {
-    class Cube: public Drawable
-    {
-    public:
-        MB_API
-        Cube(float side = 1.0f);
-    };
+  class Cube: public Drawable
+  {
+  public:
+    MB_API
+    Cube(float side = 1.0f);
+  };
 }
 
 #endif /* __MB_CUBE__ */
