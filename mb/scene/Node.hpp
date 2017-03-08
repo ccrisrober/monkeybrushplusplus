@@ -40,6 +40,11 @@
 #include "../utils/utils.hpp"
 #include "../maths/Sphere3D.hpp"
 
+
+#include <typeindex>
+#include <typeinfo>
+#include "../materials/ShaderMaterial.hpp"
+
 namespace mb
 {
   typedef std::shared_ptr<Node> NodePtr;
@@ -47,6 +52,40 @@ namespace mb
     : public std::enable_shared_from_this<Node>
 	{
 	public:
+		MB_API
+		static bool node_comparison(NodePtr& node1, NodePtr& node2)
+		{
+			MaterialPtr m1 = node1->getMesh()->getMaterial();
+			MaterialPtr m2 = node2->getMesh()->getMaterial();
+			static auto smType = std::type_index(typeid(mb::ShaderMaterial));
+
+			auto type1 = std::type_index(typeid(*m1));
+			auto type2 = std::type_index(typeid(*m2));
+
+			if (type1 == type2)
+			{
+				if (
+					(type1 == smType)
+					&&
+					(type2 == smType)
+					)
+				{
+					mb::ShaderMaterial* sm1 = dynamic_cast<mb::ShaderMaterial*>(m1.get());
+					mb::ShaderMaterial* sm2 = dynamic_cast<mb::ShaderMaterial*>(m2.get());
+
+					if (sm1->name() != sm2->name())
+					{
+						return sm1->name() < sm2->name();
+					}
+				}
+
+				VertexArray* v1 = node1->getMesh()->getMesh()->vertexArray();
+				VertexArray* v2 = node2->getMesh()->getMesh()->vertexArray();
+
+				return v1->handler() < v2->handler();
+			}
+			return type1 < type2;
+		}
     MB_API
     static std::shared_ptr<mb::Node> create( const std::string& name,
       const std::string& tag = "Untagged" )

@@ -16,6 +16,14 @@ if( MB_WITH_EXAMPLES )
     ${CMAKE_CURRENT_BINARY_DIR}/assetsFiles.h )
 
 
+  set( MBFOO_HEADERS )
+  set( MBFOO_SOURCES foo.cpp )
+  set( MBFOO_LINK_LIBRARIES
+    mb
+  )
+  common_application( mbFOO )
+
+
   #set( MBALIENTEXTURE_HEADERS )
   #set( MBALIENTEXTURE_SOURCES alienTexture.cpp )
   #set( MBALIENTEXTURE_LINK_LIBRARIES

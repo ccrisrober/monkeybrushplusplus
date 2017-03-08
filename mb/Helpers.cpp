@@ -38,7 +38,7 @@ namespace mb
   }
   void ChangeTransformationComponent::fixedUpdate(const float&)
   {
-    if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
+    /*if (mb::Input::isKeyClicked(mb::Keyboard::Key::X))
     {
 		_rotateComp->setAxis(mb::Axis::x);
     }
@@ -49,7 +49,7 @@ namespace mb
     else if (mb::Input::isKeyClicked(mb::Keyboard::Key::Z))
     {
 		_rotateComp->setAxis(mb::Axis::z);
-    }
+    }*/
     if (mb::Input::isKeyClicked(mb::Keyboard::Key::P))
     {
 		_moveComp->toggle();
@@ -135,12 +135,18 @@ namespace mb
     this->_delta += this->_velocity * this->_sign * dt;
     this->_node->transform().position().x(this->_delta);
   }
-  RotateComponent::RotateComponent(Axis axis, float velocity, bool rotate)
+  RotateComponent::RotateComponent(mb::Vect3 axis, float velocity, bool rotate)
     : mb::Component()
     , _rotate(rotate)
     , _axis(axis)
     , _delta(0.01f)
     , _velocity(velocity)
+  {
+  }
+
+  RotateComponent::RotateComponent(const std::string& axisName,
+	  float velocity, bool rotate)
+	  : RotateComponent(_axisFromString( axisName), velocity, rotate)
   {
   }
 #ifdef MB_USE_RAPIDJSON
@@ -154,18 +160,35 @@ namespace mb
     }
   }
 #endif
-  Axis RotateComponent::_axisFromString(const std::string& _axis_)
+  mb::Vect3 RotateComponent::_axisFromString(std::string _axis_)
   {
+	_axis_ = StringUtils::toUpper(_axis_);
     if (_axis_ == "X")
     {
-      return mb::Axis::x;
+      return mb::Vect3::xAxis;
     } else if (_axis_ == "Y")
-    {
-      return mb::Axis::y;
+	{
+		return mb::Vect3::yAxis;
     } else if (_axis_ == "Z")
-    {
-      return mb::Axis::z;
-    }
+	{
+		return mb::Vect3::zAxis;
+	}
+	else if (_axis_ == "XY")
+	{
+		return mb::Vect3(1.0f, 1.0f, 0.0f);
+	}
+	else if (_axis_ == "XZ")
+	{
+		return mb::Vect3(1.0f, 0.0f, 1.0f);
+	}
+	else if (_axis_ == "YZ")
+	{
+		return mb::Vect3(0.0f, 1.0f, 1.0f);
+	}
+	else if (_axis_ == "XYZ")
+	{
+		return mb::Vect3(1.0f, 1.0f, 1.0f);
+	}
     throw;
   }
   void RotateComponent::update(const float& dt)
@@ -177,6 +200,10 @@ namespace mb
     if (this->_rotate)
     {
       this->_delta += this->_velocity * dt;
+	  this->_node->transform().rotation().x(_axis.x() * this->_delta);
+	  this->_node->transform().rotation().y(_axis.y() * this->_delta);
+	  this->_node->transform().rotation().z(_axis.z() * this->_delta);
+	  /**
       switch (_axis)
       {
       case Axis::x:
@@ -188,7 +215,7 @@ namespace mb
       case Axis::z:
         this->_node->transform().rotation().z(this->_delta);
         break;
-      }
+      }*/
     }
   }
   ScaleComponent::ScaleComponent( void )

@@ -21,11 +21,21 @@
  *
  */
 
-#include "Log.hpp"
+#include "LambdaComponent.hpp"
 
 namespace mb
 {
-	std::unique_ptr< Log::OutputHandler > Log::_outputHandler =
-		std::make_unique< Log::ConsoleOutputHandler>();
-	int Log::_level = Log::LogLevel::LOG_LEVEL_INFO;
+  LambdaComponent::LambdaComponent( LambdaComponent::Callback cb )
+    : Component( )
+    , _callback( cb )
+  {
+  }
+
+  LambdaComponent::~LambdaComponent( void )
+  {
+  }
+  void LambdaComponent::update( const float& dt )
+  {
+    _callback( getNode(), dt );
+  }
 }

@@ -94,7 +94,8 @@ namespace mb
         double _accumTime;
 
 	public:
-		using TimeoutCallback = std::function< void( void ) >;
+		typedef std::function< void( void ) > TimeoutCallback;
+		//using TimeoutCallback = std::function< void( void ) >;
 		MB_API
 		void setTimeout( TimeoutCallback const &callback, 
 			double timeout, bool repeat = false );

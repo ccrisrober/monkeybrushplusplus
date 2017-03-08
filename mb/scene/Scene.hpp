@@ -31,6 +31,7 @@
 #include "../lights/Light.hpp"
 
 #include "Engine.hpp"
+#include "../maths/Clock.hpp"
 
 #include <vector>
 
@@ -121,6 +122,9 @@ namespace mb
   protected:
     bool _update;
     float _fixedUpdateTime = 0.0f;
+
+	Clock _clockTime;
+	Clock _fixedTime;
 
     std::vector<float> projectedObjects;
 

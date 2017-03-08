@@ -86,12 +86,12 @@ int main(void)
 
   auto mbModel = std::make_shared<mb::Node>( std::string( "model" ) );
   mbModel->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
-  mbModel->addComponent( std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.35f) );
+  mbModel->addComponent( std::make_shared<mb::RotateComponent>(mb::Vect3::yAxis, 0.35f) );
 
   mbModel->removeComponent(mbModel->getComponent<mb::RotateComponent>());
-  mbModel->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.35f));
+  mbModel->addComponent(std::make_shared<mb::RotateComponent>(mb::Vect3::yAxis, 0.35f));
   mbModel->removeComponent<mb::RotateComponent>();
-  mbModel->addComponent(std::make_shared<mb::RotateComponent>(mb::Axis::y, 0.35f));
+  mbModel->addComponent(std::make_shared<mb::RotateComponent>(mb::Vect3(1.0f, 0.0f, 1.0f), 0.35f));
 
   mbModel->getComponent<mb::RotateComponent>( )->setRotate( true );
 

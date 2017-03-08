@@ -28,6 +28,11 @@ mb::ScenePtr scene;
 
 void renderFunc( float dt );
 
+void lambdaFun(mb::Node*, const float&)
+{
+	std::cout << "HOLA" << std::endl;
+}
+
 int main(void)
 {
   mb::GLContext context( 3, 3, 1024, 768, "Hello Sphere" );
@@ -41,11 +46,26 @@ int main(void)
   mb::NormalMaterialPtr material = std::make_shared< mb::NormalMaterial >( mb::NormalMaterialInterpolation::Normal );
   material->Cull = false;
 
-  mb::NodePtr mbNode = std::make_shared< mb::Node >( std::string( "mesh" ) );
-  mbNode->addComponent( std::make_shared< mb::MeshRenderer >( mesh, material ) );
-  mbNode->addComponent( std::make_shared< mb::MoveComponent >( ) );
+  mb::NodePtr mbNode = std::make_shared< mb::Node >(std::string("mesh"));
+  mbNode->addComponent(std::make_shared< mb::MeshRenderer >(mesh, material));
+  mbNode->addComponent(std::make_shared< mb::MoveComponent >());
+  
+  mb::LambdaComponent::Callback cb = lambdaFun;
+  mbNode->addComponent(std::make_shared< mb::LambdaComponent >(cb));
 
-  scene->root( )->addChild( mbNode );
+  scene->root()->addChild(mbNode);
+
+  /*mb::NodePtr mbNode2 = std::make_shared< mb::Node >(std::string("mesh"));
+  mbNode2->addComponent(std::make_shared< mb::MeshRenderer >(mesh, material));
+  mbNode2->addComponent(std::make_shared< mb::MoveComponent >());
+
+  scene->root()->addChild(mbNode2);
+
+  mb::NodePtr mbNode3 = std::make_shared< mb::Node >(std::string("mesh"));
+  mbNode3->addComponent(std::make_shared< mb::MeshRenderer >(mesh, material));
+  mbNode3->addComponent(std::make_shared< mb::MoveComponent >());
+
+  scene->root()->addChild(mbNode3);*/
 
   engine->run( renderFunc );
 

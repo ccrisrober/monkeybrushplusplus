@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -62,15 +62,21 @@ namespace mb
 		template<typename ... Args>
 		static void warning(std::string const &msg, Args && ...args)
 		{
-			print(LogLevel::LOG_LEVEL_WARNING, "E", msg, std::forward< Args >(args)...);
+			print(LogLevel::LOG_LEVEL_WARNING, "W", msg, std::forward< Args >(args)...);
 		}
 		template<typename ... Args>
 		static void info(std::string const &msg, Args && ...args)
 		{
-			print(LogLevel::LOG_LEVEL_INFO, "E", msg, std::forward< Args >(args)...);
+			print(LogLevel::LOG_LEVEL_INFO, "I", msg, std::forward< Args >(args)...);
+		}
+		template<typename ... Args>
+		static void debug(std::string const &msg, Args && ...args)
+		{
+			print(LogLevel::LOG_LEVEL_DEBUG, "D", msg, std::forward< Args >(args)...);
 		}
 		template< typename ... Args >
-		static void print(int level, std::string const &levelStr, std::string const &TAG, Args &&... args)
+		static void print(int level, std::string const &levelStr, 
+			std::string const &TAG, Args &&... args)
 		{
 			if (getLevel() >= level && _outputHandler != nullptr)
 			{
@@ -130,7 +136,8 @@ namespace mb
 			template< class T, typename ... Args >
 			static void setOutputHandler(Args &&... args)
 			{
-				_outputHandler = std::move(std::unique_ptr< T >(new T(std::forward< Args >(args)...)));
+				_outputHandler = std::move(
+					std::unique_ptr< T >(new T(std::forward< Args >(args)...)));
 			}
 	private:
 		static std::unique_ptr< OutputHandler > _outputHandler;

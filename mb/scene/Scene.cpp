@@ -28,10 +28,7 @@
 #include "MeshRenderer.hpp"
 #include "Engine.hpp"
 
-
 #include "../materials/ShaderMaterial.hpp"
-#include <typeindex>
-#include <typeinfo>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -43,7 +40,9 @@ namespace mb
     , _engine( engine )
     , _update( true )
   {
-    mainCamera = camera;
+	  mainCamera = camera;
+	  _clockTime.reset();
+	  _fixedTime.reset();
   }
   Scene::~Scene( )
   {
@@ -83,6 +82,7 @@ namespace mb
   }
   void Scene::render( float dt )
   {
+	  _clockTime.tick();
     profiler.reset( );
 
     if ( !_update )
@@ -97,9 +97,11 @@ namespace mb
 
 
     // http://www.mel-georgiou.co.uk/category/unity3d-tutorials/unity3d-optimization-techniques/
+	float dt2 = _clockTime.getDeltaTime();
     _fixedUpdateTime += dt;
     if ( _fixedUpdateTime > 0.02f )
-    {
+	//if (_fixedTime.getAccumTime() > 0.02f)
+	{
       _subFixedUpdate( root( ), _fixedUpdateTime );
       _fixedUpdateTime = 0.0f;
     }
@@ -113,39 +115,7 @@ namespace mb
 
     if ( sort )
     {
-      std::sort( _batch.begin( ), _batch.end( ), []( NodePtr& mm1, NodePtr& mm2 )
-      {
-        MaterialPtr m1 = mm1.get( )->getMesh( )->getMaterial( );
-        MaterialPtr m2 = mm2.get( )->getMesh( )->getMaterial( );
-        static auto smType = std::type_index( typeid( mb::ShaderMaterial ) );
-
-        auto type1 = std::type_index( typeid( *m1 ) );
-        auto type2 = std::type_index( typeid( *m2 ) );
-
-        if ( type1 == type2 )
-        {
-          if (
-            ( type1 == smType )
-            &&
-            ( type2 == smType )
-            )
-          {
-            mb::ShaderMaterial* sm1 = dynamic_cast<mb::ShaderMaterial*>( m1.get( ) );
-            mb::ShaderMaterial* sm2 = dynamic_cast<mb::ShaderMaterial*>( m2.get( ) );
-
-            if ( sm1->name( ) != sm2->name( ) )
-            {
-              return sm1->name( ) < sm2->name( );
-            }
-          }
-
-          VertexArray* v1 = mm1->getMesh( )->getMesh( )->vertexArray( );
-          VertexArray* v2 = mm2->getMesh( )->getMesh( )->vertexArray( );
-
-          return v1->handler( ) < v2->handler( );
-        }
-        return type1 < type2;
-      } );
+      std::sort( _batch.begin( ), _batch.end( ), Node::node_comparison);
     }
     for ( const auto& node : _batch )
     {

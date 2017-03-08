@@ -29,6 +29,7 @@
 #include "scene/Component.hpp"
 #include "materials/Material.hpp"
 #include <thread>
+#include "maths/Vect3.hpp"
 
 namespace mb
 {
@@ -67,26 +68,26 @@ namespace mb
 		int _sign;
 		float _velocity;
 	};
-	enum class Axis
-	{
-		x, y, z
-	};
 	class RotateComponent : public mb::Component
 	{
 	public:
 	#ifdef MB_USE_RAPIDJSON
 		MB_API
     RotateComponent(const rapidjson::Value& config);
-	#endif
+#endif
 		MB_API
-		RotateComponent(Axis axis, float velocity = 1.0f, bool rotate = false);
+		RotateComponent(mb::Vect3 axis, 
+			float velocity = 1.0f, bool rotate = false);
 		MB_API
-    virtual void update(const float& dt) override;
+		RotateComponent(const std::string& axisName, 
+			float velocity = 1.0f, bool rotate = false);
+		MB_API
+		virtual void update(const float& dt) override;
 		MB_SYNTHESIZE_WRITEONLY(bool, _rotate, Rotate);
-		MB_SYNTHESIZE_WRITEONLY(Axis, _axis, Axis);
+		MB_SYNTHESIZE_WRITEONLY(mb::Vect3, _axis, Axis);
 
   protected:
-    Axis _axisFromString( const std::string& axis );
+	  mb::Vect3 _axisFromString(std::string axis);
 	protected:
 		float _delta;
 		float _velocity;

@@ -116,6 +116,7 @@ set( MB_PUBLIC_HEADERS
   scene/Switch.hpp
   scene/LODNode.hpp
   scene/CameraComponent.hpp
+  scene/LambdaComponent.hpp
 
   textures/RenderBuffer.hpp
   textures/RenderBufferMultisampleTexture.hpp
@@ -251,6 +252,7 @@ set( MB_SOURCES
   scene/Group.cpp
   scene/Switch.cpp
   scene/CameraComponent.cpp
+  scene/LambdaComponent.cpp
 
   textures/RenderBuffer.cpp
   textures/RenderBufferMultisampleTexture.cpp
