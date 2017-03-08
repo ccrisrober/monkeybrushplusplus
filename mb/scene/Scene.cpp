@@ -25,7 +25,7 @@
 
 #include "Scene.hpp"
 #include <iostream>
-#include "MeshRenderer.hpp"
+#include "components/MeshRenderer.hpp"
 #include "Engine.hpp"
 
 #include "../materials/ShaderMaterial.hpp"

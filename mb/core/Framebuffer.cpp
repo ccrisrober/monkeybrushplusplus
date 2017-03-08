@@ -22,6 +22,7 @@
  */
 
 #include "Framebuffer.hpp"
+#include "../textures/renderbuffers/RenderBufferTexture.hpp"
 
 namespace mb
 {

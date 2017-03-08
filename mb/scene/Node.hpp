@@ -35,8 +35,8 @@
 
 #include "../core/Layer.hpp"
 
-#include "Component.hpp"
-#include "MeshRenderer.hpp"
+#include "components/Component.hpp"
+#include "components/MeshRenderer.hpp"
 #include "../utils/utils.hpp"
 #include "../maths/Sphere3D.hpp"
 

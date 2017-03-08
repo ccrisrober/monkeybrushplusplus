@@ -27,8 +27,8 @@
 #include <mb/api.h>
 
 #include "Component.hpp"
-#include "../maths/Mat4.hpp"
-#include "../maths/Frustum.hpp"
+#include "../../maths/Mat4.hpp"
+#include "../../maths/Frustum.hpp"
 
 namespace mb
 {
@@ -64,11 +64,11 @@ namespace mb
 		{
 			auto &f = getFrustum();
 			setFrustum(mb::Frustum(
-				-aspect * f.getUMax(), 
-				aspect * f.getUMax(), 
-				f.getUMin(), 
-				f.getUMax(), 
-				f.getDMin(), 
+				-aspect * f.getUMax(),
+				aspect * f.getUMax(),
+				f.getUMin(),
+				f.getUMax(),
+				f.getDMin(),
 				f.getDMax())
 			);
 		}
@@ -80,7 +80,7 @@ namespace mb
 		mb::Mat4 _viewMatrix;
 	public:
 		static CameraComponent* getMainCamera( void ) { return _mainCamera; }
-		static void setMainCamera( CameraComponent* camera ) { 
+		static void setMainCamera( CameraComponent* camera ) {
 			_mainCamera = camera;
 			camera->setIsMainCamera( true );
 		}

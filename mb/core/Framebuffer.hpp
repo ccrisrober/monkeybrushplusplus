@@ -28,8 +28,7 @@
 
 #include <vector>
 #include "../textures/Texture.hpp"
-#include "../textures/RenderBuffer.hpp"
-#include "../textures/RenderBufferTexture.hpp"
+#include "../textures/renderbuffers/RenderBuffer.hpp"
 #include "../maths/Vect2.hpp"
 
 namespace mb

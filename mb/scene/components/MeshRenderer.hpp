@@ -26,9 +26,9 @@
 
 #include <mb/api.h>
 
-#include "../models/Drawable.hpp"
-#include "../models/IDrawable.hpp"
-#include "../materials/Material.hpp"
+#include "../../models/Drawable.hpp"
+#include "../../models/IDrawable.hpp"
+#include "../../materials/Material.hpp"
 #include "Component.hpp"
 
 namespace mb

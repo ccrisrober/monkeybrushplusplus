@@ -22,9 +22,9 @@
  */
 
 #include "MeshRenderer.hpp"
-#include "../materials/Uniform.hpp"
-#include "../resources/ResourceDrawable.hpp"
-#include "Node.hpp"
+#include "../../materials/Uniform.hpp"
+#include "../../resources/ResourceDrawable.hpp"
+#include "../Node.hpp"
 
 namespace mb
 {

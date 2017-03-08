@@ -41,3 +41,4 @@
 - (11/02)  Removed GLFW from gitsubproject. GLFW compiled library necessary. Added onAttach and onDetach in Component.
 - (06/03) Added tests for node and group. Added custom exceptions (RuntimeException, HasParentException, FileNotFoundException). Added Frustum, CameraComponent and Switch.
 - (07/03) Updated Log, more easy to use :)
+- (08/03) Moved components to scene/components. Removed Helpers.h and moved his classes to scene/components. Moved Ray to maths. Fixed tests and examples for Ubuntu 16.04.

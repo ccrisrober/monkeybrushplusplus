@@ -22,7 +22,7 @@
 */
 
 #include "Node.hpp"
-#include "MeshRendererTesselation.hpp"
+#include "components/MeshRendererTesselation.hpp"
 
 namespace mb
 {
@@ -59,6 +59,7 @@ namespace mb
   mesh->setNode(this);
   this->_mesh = mesh;
   }*/
+  // TODO: IMPROVE ...
   MeshRenderer* Node::getMesh( void ) /*const*/
   {
     auto comp = getComponent<MeshRenderer>( );

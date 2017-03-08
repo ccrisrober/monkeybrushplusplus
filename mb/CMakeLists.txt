@@ -1,10 +1,6 @@
 source_group(\\ FILES CMakeLists.txt)
 
 set( MB_PUBLIC_HEADERS
-  #cameras/Camera.hpp
-  #cameras/PerspectiveCamera.hpp
-  #cameras/OrthographicCamera.hpp
-
   constants/Constants.hpp
 
   core/BufferAttribute.hpp
@@ -36,8 +32,6 @@ set( MB_PUBLIC_HEADERS
   extras/CustomPingPong.inl
   extras/Easing.hpp
   extras/EventDispatcher.hpp
-  extras/ParticleSystem.hpp
-  extras/Ray.hpp
 
   lights/AmbientLight.hpp
   lights/DirectionalLight.hpp
@@ -72,6 +66,7 @@ set( MB_PUBLIC_HEADERS
   maths/Vect4.hpp
   maths/Spherical.hpp
   maths/Frustum.hpp
+  maths/Ray.hpp
 
 
   models/Capsule.hpp
@@ -101,12 +96,9 @@ set( MB_PUBLIC_HEADERS
   resources/ResourceShader.hpp
   resources/TextureCache.hpp
 
-  scene/Component.hpp
   scene/Engine.hpp
   scene/Fog.hpp
   scene/Group.hpp
-  scene/MeshRenderer.hpp
-  scene/MeshRendererTesselation.hpp
   scene/Node.hpp
   scene/Node.inl
   scene/Scene.hpp
@@ -115,17 +107,28 @@ set( MB_PUBLIC_HEADERS
   scene/Group.hpp
   scene/Switch.hpp
   scene/LODNode.hpp
-  scene/CameraComponent.hpp
-  scene/LambdaComponent.hpp
 
-  textures/RenderBuffer.hpp
-  textures/RenderBufferMultisampleTexture.hpp
-  textures/RenderBufferTexture.hpp
+  scene/components/Component.hpp
+  scene/components/MeshRenderer.hpp
+  scene/components/MeshRendererTesselation.hpp
+  scene/components/CameraComponent.hpp
+  scene/components/MoveComponent.hpp
+  scene/components/RotateComponent.hpp
+  scene/components/LambdaComponent.hpp
+  scene/components/PrintPositionComponent.hpp
+  scene/components/ScaleComponent.hpp
+
+
   textures/Texture.hpp
   textures/Texture1D.hpp
   textures/Texture2D.hpp
   textures/Texture2DArray.hpp
   textures/Texture3D.hpp
+
+  textures/renderbuffers/RenderBuffer.hpp
+  textures/renderbuffers/RenderBufferMultisampleTexture.hpp
+  textures/renderbuffers/RenderBufferTexture.hpp
+
 
   utils/ArgumentParser.hpp
   utils/NonCopyable.hpp
@@ -138,7 +141,6 @@ set( MB_PUBLIC_HEADERS
   utils/Singleton.hpp
 
   Includes.hpp
-  Helpers.hpp
   SimpleCamera.hpp
 
 
@@ -159,10 +161,6 @@ set( MB_HEADERS
 )
 
 set( MB_SOURCES
-  #cameras/Camera.cpp
-  #cameras/PerspectiveCamera.cpp
-  #cameras/OrthographicCamera.cpp
-
   core/Color3.cpp
   core/Color4.cpp
   core/Framebuffer.cpp
@@ -181,7 +179,6 @@ set( MB_SOURCES
   core/Framebuffer2.cpp
 
   extras/Easing.cpp
-  extras/Ray.cpp
 
   lights/AmbientLight.cpp
   lights/DirectionalLight.cpp
@@ -216,6 +213,7 @@ set( MB_SOURCES
   maths/Vect4.cpp
   maths/Spherical.cpp
   maths/Frustum.cpp
+  maths/Ray.cpp
 
   models/Capsule.cpp
   models/Cone.cpp
@@ -241,29 +239,35 @@ set( MB_SOURCES
   resources/ResourceDrawable.cpp
   resources/TextureCache.cpp
 
-  scene/Component.cpp
   scene/Engine.cpp
-  scene/MeshRenderer.cpp
-  scene/MeshRendererTesselation.cpp
   scene/Node.cpp
   scene/NodeData.cpp
   scene/Scene.cpp
   scene/Transform.cpp
   scene/Group.cpp
   scene/Switch.cpp
-  scene/CameraComponent.cpp
-  scene/LambdaComponent.cpp
 
-  textures/RenderBuffer.cpp
-  textures/RenderBufferMultisampleTexture.cpp
-  textures/RenderBufferTexture.cpp
+  scene/components/Component.cpp
+  scene/components/CameraComponent.cpp
+  scene/components/MeshRenderer.cpp
+  scene/components/MeshRendererTesselation.cpp
+  scene/components/MoveComponent.cpp
+  scene/components/RotateComponent.cpp
+  scene/components/LambdaComponent.cpp
+  scene/components/PrintPositionComponent.cpp
+  scene/components/ScaleComponent.cpp
+
+
   textures/Texture.cpp
   textures/Texture1D.cpp
   textures/Texture2D.cpp
   textures/Texture2DArray.cpp
   textures/Texture3D.cpp
 
-  Helpers.cpp
+  textures/renderbuffers/RenderBuffer.cpp
+  textures/renderbuffers/RenderBufferMultisampleTexture.cpp
+  textures/renderbuffers/RenderBufferTexture.cpp
+
 
   io/Mouse.cpp
   io/Input.cpp

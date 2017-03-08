@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -20,38 +20,34 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
-
-#ifndef __MB_ORTHOGRAPHIC_CAMERA__
-#define __MB_ORTHOGRAPHIC_CAMERA__
+#ifndef __MB__LAMBDA_COMPONENT__
+#define __MB__LAMBDA_COMPONENT__
 
 #include <mb/api.h>
 
-#include "Camera.hpp"
-#include "../core/GLContext.hpp"
-#include <iostream>
+#include "Component.hpp"
+
+#include <functional>
+#include "../Node.hpp"
 
 namespace mb
 {
-  class OrthographicCamera : public Camera
+  class LambdaComponent: public Component
   {
+	// TODO: CHANGE NODE* to NodePtr
+    //using Callback = std::function< void (Node*, const float& ) >;
+  public:
+	typedef std::function< void(Node*, const float&) > Callback;
   public:
     MB_API
-    OrthographicCamera(const GLContext& ctx, float near_ = 0.1f,
-      float far_ = 1000.0f);
+    LambdaComponent( Callback cb );
     MB_API
-    OrthographicCamera(float left_, float right_,
-      float top_, float bottom_, float near_ = 0.1f,
-      float far_ = 1000.0f);
+    virtual ~LambdaComponent( void );
     MB_API
-    friend std::ostream& operator <<(std::ostream& os,
-      const OrthographicCamera& o);
-    float left;
-    float right;
-    float top;
-    float bottom;
-  protected:
-    virtual void updateProjectionMatrix();
+    virtual void update( const float& dt ) override;
+  private:
+    Callback _callback;
   };
 }
 
-#endif /* __MB_ORTHOGRAPHIC_CAMERA__ */
+#endif /* __MB__LAMBDA_COMPONENT__ */

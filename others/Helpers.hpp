@@ -26,7 +26,9 @@
 #include <mb/api.h>
 #include "utils/macros.hpp"
 
-#include "scene/Component.hpp"
+#include "scene/components/Component.hpp"
+#include "scene/components/MoveComponent.hpp"
+#include "scene/components/RotateComponent.hpp"
 #include "materials/Material.hpp"
 #include <thread>
 #include "maths/Vect3.hpp"
@@ -51,65 +53,8 @@ namespace mb
     }).detach();
   }
 
-	class MoveComponent : public mb::Component
-	{
-	public:
-    MB_API
-    static std::shared_ptr<mb::MoveComponent> create( )
-    {
-      return std::make_shared<mb::MoveComponent>( );
-    }
-		MB_API
-		MoveComponent( void );
-		MB_API
-    virtual void update(const float& dt) override;
-	protected:
-		float _delta;
-		int _sign;
-		float _velocity;
-	};
-	class RotateComponent : public mb::Component
-	{
-	public:
-	#ifdef MB_USE_RAPIDJSON
-		MB_API
-    RotateComponent(const rapidjson::Value& config);
-#endif
-		MB_API
-		RotateComponent(mb::Vect3 axis, 
-			float velocity = 1.0f, bool rotate = false);
-		MB_API
-		RotateComponent(const std::string& axisName, 
-			float velocity = 1.0f, bool rotate = false);
-		MB_API
-		virtual void update(const float& dt) override;
-		MB_SYNTHESIZE_WRITEONLY(bool, _rotate, Rotate);
-		MB_SYNTHESIZE_WRITEONLY(mb::Vect3, _axis, Axis);
 
-  protected:
-	  mb::Vect3 _axisFromString(std::string axis);
-	protected:
-		float _delta;
-		float _velocity;
-	};
-	class ScaleComponent : public mb::Component
-	{
-	public:
-		MB_API
-		ScaleComponent( void );
-		MB_API
-		virtual void update(const float& dt) override;
-	protected:
-		float _inc;
-	};
-	class PrintPosition : public mb::Component
-	{
-	public:
-		MB_API
-		PrintPosition( void );
-		MB_API
-		virtual void fixedUpdate(const float& dt) override;
-	};
+
 
 	class ChangeTransformationComponent : public mb::Component
 	{

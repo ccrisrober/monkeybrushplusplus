@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 maldicion069
+ * Copyright (c) 2017 maldicion069
  *
  * Authors: Cristian Rodríguez Bernal <ccrisrober@gmail.com>
  *
@@ -26,8 +26,8 @@
 
 #include <mb/api.h>
 
-#include "../Includes.hpp"
-#include "../maths/Vect2.hpp"
+#include "../../Includes.hpp"
+#include "../../maths/Vect2.hpp"
 
 namespace mb
 {
