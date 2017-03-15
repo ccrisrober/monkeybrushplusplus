@@ -28,6 +28,8 @@
 
 #include "../utils/any.hpp"
 
+#include <vector>
+
 namespace mb
 {
   MB_API
@@ -38,7 +40,7 @@ namespace mb
 		Vector2, Vector3, Vector4,
 		Matrix2, Matrix3, Matrix4,
 		TextureSampler
-    } UniformType;
+  } UniformType;
 
   class Uniform
 	{
@@ -63,6 +65,22 @@ namespace mb
     UniformType _type;
     any _value;
     bool _isDirty;
+  };
+
+  class UniformsList
+  {
+  public:
+    MB_API
+    UniformsList()
+    {
+    }
+    MB_API
+    UniformsList& operator<<( const std::pair<const char*, mb::Uniform*>& u )
+    {
+      uniforms.push_back( u );
+      return *this;
+    }
+    std::vector<std::pair<const char*, mb::Uniform*> > uniforms;
   };
 }
 

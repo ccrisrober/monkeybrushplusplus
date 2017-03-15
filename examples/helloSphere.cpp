@@ -28,7 +28,7 @@ mb::ScenePtr scene;
 
 void renderFunc( float dt );
 
-void lambdaFun(mb::Node*, const float&)
+void lambdaFun(mb::Node*, const mb::Clock&)
 {
 	std::cout << "HOLA" << std::endl;
 }

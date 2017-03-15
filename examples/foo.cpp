@@ -22,26 +22,41 @@ namespace mb
 
 using namespace mb;
 
+#include <vector>
+
+class Uniforms
+{
+public:
+  void operator <<( std::string name )
+  {
+    us.push_back( name );
+  }
+public:
+  std::vector<std::string> us;
+};
+
+
 int main( )
 {
-	std::vector<int> v;
-	v.empty();
-
-  const char* name = "GeomNode";
-  mb::DrawablePtr mesh = std::make_shared<mb::Cube>( 5.0f );
-  mb::SimpleShadingMaterialPtr material = mb::SimpleShadingMaterial::create( );
-  mb::NodePtr node = mb::Node::create( std::string( name ) );
-  auto meshRenderer = mb::MeshRenderer::create( mesh, material );
-
-  /*BOOST_CHECK_IS_NULL( node->getComponent<MeshRenderer>( ) );
-  BOOST_CHECK_EQUAL( node->getName( ), name );
-  BOOST_CHECK_FALSE( node->hasComponent<MeshRenderer>( ) );*/
-  node->addComponent( meshRenderer );
-  /*BOOST_CHECK_TRUE( node->hasComponent<MeshRenderer>( ) );
-  BOOST_CHECK_EQUAL( node->getComponent<MeshRenderer>( ), meshRenderer );*/
 
 	std::cout << "FOO" << std::endl;
 	Foo foo;
 	std::cout << foo.getClassName( ) << std::endl;
+
+  std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
+    std::make_pair( "projection", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "view", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "model", new mb::Uniform( mb::Matrix4 ) ),
+    std::make_pair( "viewPos", new mb::Uniform( mb::Vector3 ) )
+  };
+
+  //INTEGRAR SOPORTE PARA UNIFORM LIST Y CONCATENAR <<
+
+  mb::UniformsList ulist;
+  ulist << std::make_pair( "projection", new mb::Uniform( mb::Matrix4 ) )
+    << std::make_pair( "view", new mb::Uniform( mb::Matrix4 ) );
+  ulist << std::make_pair( "model", new mb::Uniform( mb::Matrix4 ) );
+  ulist << std::make_pair( "viewPos", new mb::Uniform( mb::Vector3 ) );
+
 	return 0;
 }

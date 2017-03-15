@@ -26,21 +26,22 @@
 
 namespace mb
 {
+  unsigned int Node::nodesCounter = 0;
   Node::Node( Node&& other )
-  : _children( std::move( other._children ) )
-  , _components( std::move( other._components ) )
-  , _name( std::move( other._name ) )
-  , _id( std::move( other._id ) )
-  , _parent( std::move( other._parent ) )
-  , _tag( std::move( other._tag ) )
-  , _visible( std::move( other._visible ) )
-  , _transform( std::move( other._transform ) )
-  , _layer(std::move(other._layer ) )
+    : _children( std::move( other._children ) )
+    , _components( std::move( other._components ) )
+    , _name( std::move( other._name ) )
+    , _id( std::move( other._id ) )
+    , _parent( std::move( other._parent ) )
+    , _tag( std::move( other._tag ) )
+    , _visible( std::move( other._visible ) )
+    , _transform( std::move( other._transform ) )
+    , _layer( std::move( other._layer ) )
   {
   }
   Node& Node::operator=( Node&& other )
   {
-    if ( this != &other )
+    if( this != &other )
     {
       _children = std::move( other._children );
       _components = std::move( other._components );
@@ -63,7 +64,7 @@ namespace mb
   MeshRenderer* Node::getMesh( void ) /*const*/
   {
     auto comp = getComponent<MeshRenderer>( );
-    if ( comp == nullptr )
+    if( comp == nullptr )
     {
       comp = getComponent<MeshRendererTesselation>( );
     }
@@ -77,6 +78,11 @@ namespace mb
     , _visible( true )
     , _transform( Transform( ) )
   {
+    if( name.empty( ) )
+    {
+      _name = std::string( "Node" ) + std::to_string( Node::nodesCounter );
+      ++Node::nodesCounter;
+    }
     std::cout << "Node " << _name << " created" << std::endl;
   }
   Node::~Node( void )
@@ -119,14 +125,14 @@ namespace mb
   }
   mb::NodePtr Node::_searchName( const std::string& name, const mb::NodePtr& elem )
   {
-    if ( elem->hasParent( ) && elem->name( ) == name ) {
+    if( elem->hasParent( ) && elem->name( ) == name ) {
       return elem;
     }
     // Search in childrens
-    for ( auto& c : elem->children( ) )
+    for( auto& c : elem->children( ) )
     {
       auto child = this->_searchName( name, c );
-      if ( child )
+      if( child )
       {
         return child;
       }
@@ -135,15 +141,15 @@ namespace mb
   }
   mb::NodePtr Node::_searchTag( const std::string& tag, const mb::NodePtr& elem )
   {
-    if ( elem->hasParent( ) && elem->tag( ) == tag )
+    if( elem->hasParent( ) && elem->tag( ) == tag )
     {
       return elem;
     }
     // Search in childrens
-    for ( auto& c : elem->children( ) )
+    for( auto& c : elem->children( ) )
     {
       auto child = this->_searchTag( tag, c );
-      if ( child )
+      if( child )
       {
         return child;
       }
@@ -152,14 +158,14 @@ namespace mb
   }
   mb::NodePtr Node::_searchUUID( const std::string& uuid, const mb::NodePtr& elem )
   {
-    if ( elem->hasParent( ) && elem->uuid( ) == uuid ) {
+    if( elem->hasParent( ) && elem->uuid( ) == uuid ) {
       return elem;
     }
     // Search in childrens
-    for ( auto& c : elem->children( ) )
+    for( auto& c : elem->children( ) )
     {
       auto child = this->_searchUUID( uuid, c );
-      if ( child )
+      if( child )
       {
         return child;
       }
@@ -168,15 +174,15 @@ namespace mb
   }
   void Node::addChild( mb::NodePtr child )
   {
-    if ( child.get( ) == this )
+    if( child.get( ) == this )
     {
       throw "TODO: ERROR";
     }
-    for ( ComponentPtr comp : child->_components )
+    for( ComponentPtr comp : child->_components )
     {
       comp->start( );
     }
-    if ( std::find( _children.begin( ), _children.end( ), child ) == _children.end( ) )
+    if( std::find( _children.begin( ), _children.end( ), child ) == _children.end( ) )
     {
       child->setParent( shared_from_this( ) );
       this->_children.push_back( child );
@@ -185,7 +191,7 @@ namespace mb
   void Node::removeChild( mb::NodePtr child )
   {
     auto it = std::find( _children.begin( ), _children.end( ), child );
-    if ( it != _children.end( ) )
+    if( it != _children.end( ) )
     {
       _children.erase( it );
     }
@@ -205,7 +211,7 @@ namespace mb
   }
   mb::NodePtr Node::getChild( unsigned int index )
   {
-    if ( index >= _children.size( ) )
+    if( index >= _children.size( ) )
     {
       throw "Children dont found";
     }
@@ -220,15 +226,15 @@ namespace mb
   {
     //std::for_each(_components.begin(), _components.end(),
     //	mb::utils::deleter<mb::ComponentPtr>());
-	for (auto comp : _components)
-	{
-		comp->onDetach();
-	}
-	_components.clear( );
+    for( auto comp : _components )
+    {
+      comp->onDetach( );
+    }
+    _components.clear( );
   }
   void Node::addComponents( std::initializer_list<mb::ComponentPtr> components )
   {
-    for ( auto& comp : components )
+    for( auto& comp : components )
     {
       addComponent( comp );
     }
@@ -237,11 +243,11 @@ namespace mb
   {
     // TODO: http://gamedev.stackexchange.com/questions/55950/entity-component-systems-with-c-accessing-components
     //this->_components[&typeid(*c)] = c;
-    if ( std::find( _components.begin( ), _components.end( ), c ) == _components.end( ) )
+    if( std::find( _components.begin( ), _components.end( ), c ) == _components.end( ) )
     {
       c->setNode( this );
-	  c->onAttach();
-      if ( this->hasParent( ) )
+      c->onAttach( );
+      if( this->hasParent( ) )
       {
         c->start( );
       }
@@ -251,9 +257,9 @@ namespace mb
   void Node::setVisible( const bool flag, const bool applyToChildren )
   {
     this->_visible = flag;
-    if ( applyToChildren )
+    if( applyToChildren )
     {
-      for ( auto& c : this->_children )
+      for( auto& c : this->_children )
       {
         c->setVisible( flag, applyToChildren );
       }
@@ -269,13 +275,13 @@ namespace mb
   }
   void Node::_updateMatrixWorld( bool force )
   {
-    if ( this->_transform._autoUpdate )
+    if( this->_transform._autoUpdate )
     {
       this->_transform.updateMatrix( );
     }
-    if ( this->_transform._matrixWorldNeedUpdate || force )
+    if( this->_transform._matrixWorldNeedUpdate || force )
     {
-      if ( !hasParent( ) )
+      if( !hasParent( ) )
       {
         this->transform( )._matrixWorld = this->transform( ).matrix( );
       }
@@ -289,7 +295,7 @@ namespace mb
       force = true;
     }
 
-    for ( auto& child : _children )
+    for( auto& child : _children )
     {
       child->_updateMatrixWorld( force );
     }
@@ -317,14 +323,14 @@ namespace mb
   void Node::traverse( const std::function<void( mb::NodePtr n )>& f )
   {
     f( shared_from_this( ) );
-    for ( auto& child : _children )
+    for( auto& child : _children )
     {
       child->traverse( f );
     }
   }
   void Node::traverseAncestors( const std::function<void( mb::NodePtr n )>& f )
   {
-    if ( this->_parent != nullptr )
+    if( this->_parent != nullptr )
     {
       f( shared_from_this( ) );
       this->_parent->traverseAncestors( f );
@@ -332,7 +338,7 @@ namespace mb
   }
   mb::ComponentPtr Node::getComponentByIndex( unsigned int index )
   {
-    if ( index >= _components.size( ) )
+    if( index >= _components.size( ) )
     {
       throw "Component dont found";
     }

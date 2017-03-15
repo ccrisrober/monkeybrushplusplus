@@ -116,7 +116,7 @@ namespace mb
 		mb::NodePtr findById( const std::string uuid );
 
 		MB_API
-		Node( const std::string& name, const std::string& tag = "Untagged" );
+		Node( const std::string& name = "", const std::string& tag = "Untagged" );
 		MB_API
 		virtual ~Node( void );
 		MB_API
@@ -260,6 +260,9 @@ namespace mb
 		// TODO: HARDCODED
 		//std::vector<std::shared_ptr<Component>> mComponents;
 		// TODO: HARDCODED
+
+  protected:
+    static unsigned int nodesCounter;
 
 	private:
 		mb::NodePtr _searchName( const std::string& name, const mb::NodePtr& elem );

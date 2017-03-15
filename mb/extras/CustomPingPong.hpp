@@ -30,13 +30,13 @@
 
 namespace mb
 {
-  template <class T>
+  template <typename T>
   class CustomPingPong
   {
   public:
     CustomPingPong( const T & elem1, const T & elem2 );
     void swap( void );
-    void swap( std::function<void()> cb );
+    void swap( std::function<void( )> cb );
     T first( void ) const;
     T last( void ) const;
   protected:
@@ -46,5 +46,15 @@ namespace mb
 }
 
 #include "CustomPingPong.inl"
+
+#include "../textures/Texture.hpp"
+
+#include "../textures/Texture.hpp"
+#include "../textures/Texture2D.hpp"
+namespace mb
+{
+  typedef mb::CustomPingPong< mb::Texture* > TexturePingPong;
+  typedef mb::CustomPingPong< mb::Texture2D* > Texture2DPingPong;
+}
 
 #endif /* __MB_CUSTOM_PING_PONG__ */

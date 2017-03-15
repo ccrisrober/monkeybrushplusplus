@@ -67,31 +67,27 @@ int main(void)
     }
   };
 
+
   mb::TexOptions opts;
   mb::TexturePtr tex1 = std::make_shared<mb::Texture2D>( opts, MB_TEXTURE_ASSETS + std::string( "/fragile.png" ) );
   mb::TexturePtr tex2 = std::make_shared<mb::Texture2D>( opts, MB_TEXTURE_ASSETS + std::string( "/woodenBox.png" ) );
 
-  std::vector<std::pair<const char*, mb::Uniform*> > uniforms = {
-    std::make_pair( "projection", new mb::Uniform( mb::Matrix4 ) ),
-    std::make_pair( "view", new mb::Uniform( mb::Matrix4 ) ),
-    std::make_pair( "model", new mb::Uniform( mb::Matrix4 ) ),
-    std::make_pair( "viewPos", new mb::Uniform( mb::Vector3 ) ),
-    std::make_pair( "alphaTex", new mb::Uniform( mb::TextureSampler, tex1 ) ),
-    std::make_pair( "diffTex", new mb::Uniform( mb::TextureSampler, tex2 ) ),
-  };
+  mb::UniformsList uniforms;
+  uniforms 
+    << std::make_pair( "projection", new mb::Uniform( mb::Matrix4 ) )
+    << std::make_pair( "view", new mb::Uniform( mb::Matrix4 ) )
+    << std::make_pair( "model", new mb::Uniform( mb::Matrix4 ) )
+    << std::make_pair( "viewPos", new mb::Uniform( mb::Vector3 ) )
+    << std::make_pair( "alphaTex", new mb::Uniform( mb::TextureSampler, tex1 ) )
+    << std::make_pair( "diffTex", new mb::Uniform( mb::TextureSampler, tex2 ) );
 
   auto material = std::make_shared<mb::ShaderMaterial>("material", shaders, uniforms);
 
   mb::DrawablePtr mesh = std::make_shared<mb::Cube>(2.0f);
 
-  auto mbModel = std::make_shared<mb::Node>( std::string( "model" ) );
+  auto mbModel = std::make_shared<mb::Node>( );
   mbModel->addComponent( std::make_shared<mb::MeshRenderer>( mesh, material ) );
-  mbModel->addComponent( std::make_shared<mb::RotateComponent>(mb::Vect3::yAxis, 0.35f) );
-
-  mbModel->removeComponent(mbModel->getComponent<mb::RotateComponent>());
-  mbModel->addComponent(std::make_shared<mb::RotateComponent>(mb::Vect3::yAxis, 0.35f));
-  mbModel->removeComponent<mb::RotateComponent>();
-  mbModel->addComponent(std::make_shared<mb::RotateComponent>(mb::Vect3(1.0f, 0.0f, 1.0f), 0.35f));
+  mbModel->addComponent( std::make_shared<mb::RotateComponent>( mb::Vect3( 1.0f, 0.0f, 1.0f ), 0.35f ) );
 
   mbModel->getComponent<mb::RotateComponent>( )->setRotate( true );
 

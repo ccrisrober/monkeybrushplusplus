@@ -26,6 +26,13 @@
 
 namespace mb
 {
+  ShaderMaterial::ShaderMaterial(
+    const std::string& name,
+    const std::vector<std::pair<ShaderType, const char*> >& shaders,
+    const mb::UniformsList& uniforms )
+    : ShaderMaterial(name, shaders, uniforms.uniforms )
+  {
+  }
 	ShaderMaterial::ShaderMaterial(
 		const std::string& name,
 		const std::vector<std::pair<ShaderType, const char*> >& shaders,
