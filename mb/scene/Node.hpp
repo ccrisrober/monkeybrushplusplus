@@ -182,6 +182,16 @@ namespace mb
       }
     }
 
+    MB_API
+    void updateFixedComponents( const float& dt )
+    {
+      for( auto comp : _components )
+      {
+        if( comp->isEnabled( ) )
+          comp->fixedUpdate( dt );
+      }
+    }
+
 		template <typename T>
 		void toggleComponent( void );
 		template <typename T>

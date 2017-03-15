@@ -143,19 +143,13 @@ namespace mb
     this->_engine->state( )->depth.setStatus( true );
     this->_engine->state( )->depth.setMask( true );
   }
-  void Scene::_subFixedUpdate( mb::NodePtr n, float dt )
+  void Scene::_subFixedUpdate( mb::NodePtr n, const float& dt )
   {
     if ( !n.get( )->isVisible( ) )
     {
       return;
     }
-    for ( const auto& comp : n.get( )->getComponents( ) )
-    {
-      if ( comp.get( )->isEnabled( ) )
-      {
-        comp.get( )->fixedUpdate( dt );
-      }
-    }
+    n->updateFixedComponents( dt );
     for ( auto& child : n.get( )->children( ) )
     {
       this->_subFixedUpdate( child, dt );
