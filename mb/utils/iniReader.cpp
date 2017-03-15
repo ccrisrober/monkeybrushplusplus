@@ -30,7 +30,8 @@ using namespace std;
 
 namespace mb
 {
-	struct ConfigItems {
+	struct ConfigItems
+	{
 		std::string key;
 		std::string value;
 	};
@@ -50,7 +51,7 @@ namespace mb
 			return;
 		}
 
-	    std::string key;
+		std::string key;
 
 		while (!infile.eof()) // To get you all the lines.
 		{
@@ -186,16 +187,16 @@ namespace mb
 	// trim from start
 	std::string ini::ltrim(std::string s)
   {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
-      std::not1(std::ptr_fun<int, int>(std::isspace))));
-    return s;
+		s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+		  std::not1(std::ptr_fun<int, int>(std::isspace))));
+		return s;
 	}
 
 	// trim from end
 	std::string ini::rtrim(std::string s)
   {
-    s.erase(std::find_if(s.rbegin(), s.rend(),
-      std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
-    return s;
+		s.erase(std::find_if(s.rbegin(), s.rend(),
+		  std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+		return s;
 	}
 }

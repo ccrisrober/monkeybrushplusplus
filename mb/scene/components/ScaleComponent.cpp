@@ -31,7 +31,7 @@ namespace mb
     , _inc(0.0f)
   {
   }
-  void ScaleComponent::update(const float& /*dt*/)
+  void ScaleComponent::update( const mb::Clock& )
   {
     this->_node->transform().scale().set(
       this->_inc * 0.01,

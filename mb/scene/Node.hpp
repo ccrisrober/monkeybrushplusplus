@@ -172,6 +172,16 @@ namespace mb
 		MB_API
 		void traverseAncestors( const std::function<void( mb::NodePtr n )>& f );
 
+    MB_API
+    void updateComponents( const mb::Clock& clock )
+    {
+      for( auto comp : _components )
+      {
+        if( comp->isEnabled( ) )
+          comp->update( clock );
+      }
+    }
+
 		template <typename T>
 		void toggleComponent( void );
 		template <typename T>

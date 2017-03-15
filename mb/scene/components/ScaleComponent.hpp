@@ -35,7 +35,7 @@ namespace mb
     MB_API
     ScaleComponent( void );
     MB_API
-    virtual void update(const float& dt) override;
+    virtual void update( const mb::Clock& clock ) override;
   protected:
     float _inc;
   };

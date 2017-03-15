@@ -40,7 +40,7 @@ namespace mb
     MB_API
     MoveComponent( void );
     MB_API
-    virtual void update(const float& dt) override;
+    virtual void update( const mb::Clock& clock ) override;
   protected:
     float _delta;
     int _sign;

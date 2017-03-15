@@ -34,7 +34,7 @@ namespace mb
     , _velocity(1.0f)
   {
   }
-  void MoveComponent::update(const float& dt)
+  void MoveComponent::update( const mb::Clock& clock )
   {
     if (mb::Input::isKeyPressed(mb::Keyboard::Key::V))
     {
@@ -52,7 +52,7 @@ namespace mb
     }
     this->_delta = (this->_delta > 2.5f) ? 2.5f : this->_delta;
     this->_delta = (this->_delta < -2.5f) ? -2.5f : this->_delta;
-    this->_delta += this->_velocity * this->_sign * dt;
+    this->_delta += this->_velocity * this->_sign * clock.getDeltaTime( );
     this->_node->transform().position().x(this->_delta);
   }
 }

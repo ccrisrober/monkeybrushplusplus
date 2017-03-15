@@ -37,9 +37,9 @@ namespace mb
 }
 
 /**
-    \brief Helper macro to implement RTTI in classes
-    \todo This macro does not work well with templates
-*/
+ * Helper macro to implement RTTI in classes
+ * TODO: This macro does not work well with templates
+**/
 #define MB_IMPLEMENT_RTTI( X ) \
     public: \
         static constexpr const char *__CLASS_NAME = #X; \

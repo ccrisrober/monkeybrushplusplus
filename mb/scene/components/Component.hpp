@@ -29,6 +29,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <memory>
+#include "../../maths/Clock.hpp"
 
 #ifdef MB_USE_RAPIDJSON
   #include <rapidjson/document.h>
@@ -51,8 +52,8 @@ namespace mb
     virtual void start( void );
   	MB_API
   	virtual void fixedUpdate( const float& dt );
-  	MB_API
-  	virtual void update(const float& dt);
+    MB_API
+    virtual void update( const mb::Clock& clock );
     MB_API
     Node* getNode( void ) const;
     MB_API

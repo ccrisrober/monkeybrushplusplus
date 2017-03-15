@@ -37,14 +37,14 @@ namespace mb
 	// TODO: CHANGE NODE* to NodePtr
     //using Callback = std::function< void (Node*, const float& ) >;
   public:
-	typedef std::function< void(Node*, const float&) > Callback;
+	typedef std::function< void(Node*, const mb::Clock&) > Callback;
   public:
     MB_API
     LambdaComponent( Callback cb );
     MB_API
     virtual ~LambdaComponent( void );
     MB_API
-    virtual void update( const float& dt ) override;
+    virtual void update( const mb::Clock& clock ) override;
   private:
     Callback _callback;
   };

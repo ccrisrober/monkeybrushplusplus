@@ -1,0 +1,48 @@
+class ParticleEffect: public Component
+{
+public:
+	ParticleEffect( void )
+		: Component( )
+	{
+	}
+	bool initialize( void );
+	void update( void )
+	{
+		_colors.clear( );
+		_positions.clear( );
+		_sizes.clear( );
+		std::vector< mb::Particle >::iterator it = _particles.begin( );
+		bool alive = false;
+		while( it != _particles.end( ) )
+		{
+			if ( it->alive )
+			{
+				updateParticle( *it );
+				if ( it->alive )
+				{
+					alive = true;
+					_colors.push_back( it->diffuse );
+					_positions.push_back( it->position );
+					_sizes.push_back( it->size );
+				}
+			}
+			++it;
+		}
+	}
+	void draw( void )
+	{
+		if ( !_positions.empty( ) )
+		{
+
+		}
+	}
+
+	virtual void initParticle( Particle& particle ) = 0;
+	virtual void updateParticle( Particle& particle ) = 0;
+
+	std::vector< mb::Particle > _particles;
+	std::vector< mb::Vect3 > _positions;
+	std::vector< mb::Vect3 > _colors;
+	std::vector< float > sizes;
+	mb::Texture2D* _texture;
+}
