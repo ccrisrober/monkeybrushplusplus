@@ -82,7 +82,6 @@ namespace mb
   }
   void Scene::render( float dt )
   {
-	  _clockTime.tick();
     profiler.reset( );
 
     if ( !_update )
@@ -95,18 +94,17 @@ namespace mb
     // Before render functions
     applyQueue( _beforeRender );
 
-
     // http://www.mel-georgiou.co.uk/category/unity3d-tutorials/unity3d-optimization-techniques/
-	float dt2 = _clockTime.getDeltaTime();
+	  float dt2 = _clockTime.getDeltaTime();
     _fixedUpdateTime += dt;
     if ( _fixedUpdateTime > 0.02f )
-	//if (_fixedTime.getAccumTime() > 0.02f)
-	{
+	  //if (_fixedTime.getAccumTime() > 0.02f)
+	  {
       _subFixedUpdate( root( ), _fixedUpdateTime );
       _fixedUpdateTime = 0.0f;
     }
-
-    _subUpdate( root( ), dt );
+    _clockTime.tick( ); // TODO: HERE OR ON INIT POSITION??
+    _subUpdate( root( ), _clockTime );
 
     mainCamera->update( dt );
     updateCamera( );
@@ -145,37 +143,25 @@ namespace mb
     this->_engine->state( )->depth.setStatus( true );
     this->_engine->state( )->depth.setMask( true );
   }
-  void Scene::_subFixedUpdate( mb::NodePtr n, float dt )
+  void Scene::_subFixedUpdate( mb::NodePtr n, const float& dt )
   {
     if ( !n.get( )->isVisible( ) )
     {
       return;
     }
-    for ( const auto& comp : n.get( )->getComponents( ) )
-    {
-      if ( comp.get( )->isEnabled( ) )
-      {
-        comp.get( )->fixedUpdate( dt );
-      }
-    }
+    n->updateFixedComponents( dt );
     for ( auto& child : n.get( )->children( ) )
     {
       this->_subFixedUpdate( child, dt );
     }
   }
-  void Scene::_subUpdate( mb::NodePtr n, float dt )
+  void Scene::_subUpdate( mb::NodePtr n, const mb::Clock& clock )
   {
     if ( !n->isVisible( ) )
     {
       return;
     }
-    for ( const auto& comp : n->getComponents( ) )
-    {
-      if ( comp.get( )->isEnabled( ) )
-      {
-        comp.get( )->update( dt );
-      }
-    }
+    n->updateComponents( clock );
     n->_updateMatrixWorld( );
 
     if ( ( mainCamera->layer( ).check( n->layer( ) ) ) && ( n->getMesh( ) != nullptr ) )
@@ -184,7 +170,7 @@ namespace mb
     }
     for ( auto& child : n->children( ) )
     {
-      this->_subUpdate( child, dt );
+      this->_subUpdate( child, clock );
     }
   }
   void Scene::updateCamera( )

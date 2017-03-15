@@ -28,7 +28,7 @@
 
 namespace mb
 {
-	ParametricGeom::ParametricGeom(const std::function<mb::Vect3(float, float)>& func,
+  ParametricGeom::ParametricGeom( const ParametricGeomCB& func,
 		const unsigned int& slices, const unsigned int& stacks)
 		: Drawable()
 	{

@@ -34,8 +34,8 @@ namespace mb
   LambdaComponent::~LambdaComponent( void )
   {
   }
-  void LambdaComponent::update( const float& dt )
+  void LambdaComponent::update( const mb::Clock& clock )
   {
-    _callback( getNode(), dt );
+    _callback( getNode(), clock );
   }
 }

@@ -101,8 +101,8 @@ namespace mb
   protected:
     std::vector<std::pair<std::function<void( )>, bool>> _beforeRender;
     std::vector<std::pair<std::function<void( )>, bool>> _afterRender;
-    void _subFixedUpdate( mb::NodePtr n, float dt );
-    void _subUpdate( mb::NodePtr n, float dt );
+    void _subFixedUpdate( mb::NodePtr n, const float& dt );
+    void _subUpdate( mb::NodePtr n, const mb::Clock& clock );
     void updateCamera( );
     mb::NodePtr _sceneGraph;
 

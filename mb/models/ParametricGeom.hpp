@@ -33,9 +33,10 @@ namespace mb
 {
     class ParametricGeom: public Drawable
     {
+      using ParametricGeomCB = std::function< mb::Vect3 (const float&, const float& ) >;
     public:
 		MB_API
-		ParametricGeom(const std::function<mb::Vect3(float, float)>& func,
+    ParametricGeom( const ParametricGeomCB& func,
 			const unsigned int& slices, const unsigned int& stacks);
     };
 }

@@ -116,7 +116,7 @@ namespace mb
 		mb::NodePtr findById( const std::string uuid );
 
 		MB_API
-		Node( const std::string& name, const std::string& tag = "Untagged" );
+		Node( const std::string& name = "", const std::string& tag = "Untagged" );
 		MB_API
 		virtual ~Node( void );
 		MB_API
@@ -171,6 +171,26 @@ namespace mb
 		void traverse( const std::function<void( mb::NodePtr n )>& f );
 		MB_API
 		void traverseAncestors( const std::function<void( mb::NodePtr n )>& f );
+
+    MB_API
+    void updateComponents( const mb::Clock& clock )
+    {
+      for( auto comp : _components )
+      {
+        if( comp->isEnabled( ) )
+          comp->update( clock );
+      }
+    }
+
+    MB_API
+    void updateFixedComponents( const float& dt )
+    {
+      for( auto comp : _components )
+      {
+        if( comp->isEnabled( ) )
+          comp->fixedUpdate( dt );
+      }
+    }
 
 		template <typename T>
 		void toggleComponent( void );
@@ -240,6 +260,9 @@ namespace mb
 		// TODO: HARDCODED
 		//std::vector<std::shared_ptr<Component>> mComponents;
 		// TODO: HARDCODED
+
+  protected:
+    static unsigned int nodesCounter;
 
 	private:
 		mb::NodePtr _searchName( const std::string& name, const mb::NodePtr& elem );

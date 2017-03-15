@@ -41,7 +41,7 @@ namespace mb
     RotateComponent(const std::string& axisName,
       float velocity = 1.0f, bool rotate = false);
     MB_API
-    virtual void update(const float& dt) override;
+    virtual void update( const mb::Clock& clock ) override;
     MB_SYNTHESIZE_WRITEONLY(bool, _rotate, Rotate);
     MB_SYNTHESIZE_WRITEONLY(mb::Vect3, _axis, Axis);
 

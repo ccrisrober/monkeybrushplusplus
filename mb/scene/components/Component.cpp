@@ -45,7 +45,7 @@ namespace mb
   void Component::fixedUpdate( const float& )
   {
   }
-  void Component::update( const float& )
+  void Component::update( const mb::Clock& )
   {
   }
   Node* Component::getNode( void ) const

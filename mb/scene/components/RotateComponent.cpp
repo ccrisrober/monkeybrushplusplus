@@ -71,31 +71,31 @@ namespace mb
   }
     throw;
   }
-  void RotateComponent::update(const float& dt)
+  void RotateComponent::update( const mb::Clock& clock )
   {
     if (mb::Input::isKeyClicked(mb::Keyboard::Key::Space))
     {
       this->_rotate = !this->_rotate;
     }
-    if (this->_rotate)
+    if( this->_rotate )
     {
-      this->_delta += this->_velocity * dt;
-    this->_node->transform().rotation().x(_axis.x() * this->_delta);
-    this->_node->transform().rotation().y(_axis.y() * this->_delta);
-    this->_node->transform().rotation().z(_axis.z() * this->_delta);
-    /**
-      switch (_axis)
-      {
-      case Axis::x:
+      this->_delta += this->_velocity * clock.getDeltaTime( );
+      this->_node->transform( ).rotation( ).x( _axis.x( ) * this->_delta );
+      this->_node->transform( ).rotation( ).y( _axis.y( ) * this->_delta );
+      this->_node->transform( ).rotation( ).z( _axis.z( ) * this->_delta );
+      /**
+        switch (_axis)
+        {
+        case Axis::x:
         this->_node->transform().rotation().x(this->_delta);
         break;
-      case Axis::y:
+        case Axis::y:
         this->_node->transform().rotation().y(this->_delta);
         break;
-      case Axis::z:
+        case Axis::z:
         this->_node->transform().rotation().z(this->_delta);
         break;
-      }*/
+        }*/
     }
   }
 }
